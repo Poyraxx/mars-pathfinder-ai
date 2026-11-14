@@ -109,7 +109,11 @@ function FirstPerson(){
 
 function NavcamFrame(){
  const {replay,replayStep,replayImageReady,set,catalog}=useMission();
+ const image=useRef<HTMLImageElement>(null);
  const st=replay!.steps[Math.min(replayStep,replay!.steps.length-1)];
+ // A cached image can finish before a fresh replay response clears readiness.
+ // The same frame's DOM image then stays mounted and will not fire load again.
+ useEffect(()=>{if(image.current?.complete&&image.current.naturalWidth>0)set({replayImageReady:st.frame_id});},[replay,st.frame_id,set]);
  const cr=st.camera_route,verified=cr?.placement==='image-verified';
  const segs=useMemo(()=>cr?.segments??[],[cr]);
  const loaded=replayImageReady===st.frame_id;
@@ -117,7 +121,7 @@ function NavcamFrame(){
  const calibration=frame?.camera_model?.validation;
  const behind=Math.abs(st.turn_to_route_deg??0)>90;
  return <div className="navcam">
-  <div className="navcam-stage"><img key={st.frame_id} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>set({replayImageReady:st.frame_id})}/>
+  <div className="navcam-stage"><img ref={image} key={st.frame_id} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>set({replayImageReady:st.frame_id})}/>
    {loaded&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Same remaining route as the map, projected with measured camera geometry">{segs.map((seg,i)=><polyline key={i} className={verified?'new':'unverified'} points={seg.map(q=>`${q[0]},${q[1]}`).join(' ')}/>)}</svg>}
    {!loaded&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
    {loaded&&!segs.length&&<div className="offscreen-guidance"><RotateCcw size={26}/><strong>{behind?'Destination behind the camera':'Route outside this camera view'}</strong><span>{behind?'Follow the return route on the map.':'The map keeps the complete route.'}</span></div>}

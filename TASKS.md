@@ -252,6 +252,11 @@ Kullanıcı dört karenin yetersiz olduğunu ve başka videoların araştırılm
   Reprodüksiyon manifesti, kaynak bağlantıları ve hashli video metadata dosyası.
 - [x] 0.5×–4× interaktif oynatma; doğru görüntü hazır olmadan kare atlanmaz.
 - [x] 30 Python testi ve production build geçti. Kaynak ayrıntıları NASA_FOOTAGE.md.
+- [x] Public API: 207 katalog karesi, 142 replay adımı, 19 rota güncellemesi;
+  120 saniyelik MP4 Range 206 ve dosya SHA256 eşleşmesi doğrulandı. Free Render'da
+  ilk hesap yaklaşık 74 saniye; sonraki aynı istekler hesap cache'inden dönüyor.
+- [x] Filmden aynı kareye dönüşte cache'lenmiş fotoğrafın load olayını tekrar
+  göndermemesi düzeltildi; görüntü zaten hazırsa overlay/playback bekletilmiyor.
 
 Özgün NASA filmlerine planner rotası/konumu uydurulmaz. Kalibre interaktif kayıt,
 orijinal filmlerden ayrı seçilir. Backend uyanırken de özgün filmler açılabilir.
