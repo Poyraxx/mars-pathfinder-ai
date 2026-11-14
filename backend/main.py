@@ -19,7 +19,7 @@ from PIL import Image
 from . import data
 from .coordinates import point_to_cell, cell_to_point
 from .events import EventLog
-from .global_dem import GlobalRegion, MAX_SPAN_KM
+from .global_dem import GlobalRegion
 from .camera_route import project_route, view_mission
 from . import orbital
 from . import features
@@ -132,8 +132,7 @@ async def create_mission(request: MissionRequest):
             region=await asyncio.to_thread(GlobalRegion,points)
         except ValueError as exc:
             messages={"polar_not_supported":"Global coarse planning is limited to latitudes within +-80 degrees.",
-                      "antimeridian_not_supported":"Waypoints may not straddle the 180 degree meridian.",
-                      "span_too_large":f"Waypoints must lie within {int(MAX_SPAN_KM)} km of each other."}
+}
             reject(str(exc),messages.get(str(exc),"Global DEM could not be prepared."))
         except Exception as exc:
             reject("dem_unavailable",f"Global DEM could not be prepared ({type(exc).__name__}: {str(exc)[:160]}).",502)

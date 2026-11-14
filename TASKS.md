@@ -108,7 +108,7 @@ Bu tamamlanana kadar projenin ana füzyon hedefi tamamlandı deneme.
 - [x] Video benzeri oynatma: sürüş/panorama dizilerinde kare kare oynat/duraklat.
 - [x] Tüm Mars kaba planlama: `backend/global_dem.py` — MOLA/HRSC 200 m LERC karoları canlı çekilir,
   ≤384² ızgara (≥163 m hücre). Jezero 5.9 km, Olympus Mons 89.6 km, Valles Marineris 229 km test edildi.
-  Kaya/engel bilgisi yok; |enlem| ≤ 80°, ≤ 2000 km.
+  Kaya/engel bilgisi yok; |enlem| ≤ 80°, mesafe sınırı yok (uzun rotada hücre büyür), 180° meridyeni destekli.
 - [x] 2055 IAU adı (USGS Gazetteer) küre etiketleri + arama + tür/çap kartı.
 - [x] Küresel planlama varsayılan (Gale seçmeden kürede başlangıç/hedef). Rota üzerinde/yakınında adlı
   yer şekilleri listesi; "Avoid" ile seçilen yer şekli IAU çapı kadar daire olarak terrain/surface

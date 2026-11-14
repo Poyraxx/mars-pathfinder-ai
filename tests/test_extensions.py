@@ -30,12 +30,14 @@ def test_global_region_grid_reproduces_known_slope(monkeypatch):
     assert w < 20.0 < e and s < 10.0 < n and region.meta["cell_m"] >= 160
 
 
-def test_global_region_rejects_polar_and_oversized_requests(monkeypatch):
+def test_global_region_rejects_polar_and_allows_long_or_wrapped_spans(monkeypatch):
     _plane_tiles(monkeypatch, grade=0)
     with pytest.raises(ValueError, match="polar"):
         global_dem.GlobalRegion([{"lat": 85, "lon": 0}, {"lat": 86, "lon": 1}])
-    with pytest.raises(ValueError, match="span"):
-        global_dem.GlobalRegion([{"lat": 0, "lon": 0}, {"lat": 0, "lon": 60}])
+    far = global_dem.GlobalRegion([{"lat": 0, "lon": 170}, {"lat": 10, "lon": -100}])  # long, crosses 180
+    assert far.meta["cell_m"] > 10000 and far.meta["shape"][0] <= global_dem.MAX_CELLS
+    w, s, e, n = far.meta["bounds"]
+    assert w > e  # rectangle wraps across the antimeridian
 
 
 def test_global_mission_plans_through_api(monkeypatch):

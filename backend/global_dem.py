@@ -26,7 +26,6 @@ TILE = 512
 LEVEL0_RES = 0.3515625
 MAX_LEVEL = 7
 MAX_CELLS = 384
-MAX_SPAN_KM = 2000.0
 MAX_ABS_LAT = 80.0
 URL = "https://astro.arcgis.com/arcgis/rest/services/OnMars/MDEM200M/ImageServer/tile/{z}/{y}/{x}"
 SOURCE = "Mars MGS MOLA - MEX HRSC Blended DEM Global 200m v2 (NASA/USGS/ESA/DLR/FU Berlin; Esri LERC tiles)"
@@ -90,33 +89,37 @@ def sample(lat: np.ndarray, lon: np.ndarray, z: int) -> np.ndarray:
         vals = np.empty(lat.shape, dtype=np.float64)
         for (a, b) in set(zip(ty.ravel().tolist(), tx.ravel().tolist())):
             sel = (ty == a) & (tx == b)
-            vals[sel] = tile(z, a, b)[gy[sel] - a * TILE, gx[sel] - b * TILE]
+            try:
+                vals[sel] = tile(z, a, b)[gy[sel] - a * TILE, gx[sel] - b * TILE]
+            except OSError:
+                # Upstream tile error: read the same pixels from the next finer level, else no data.
+                vals[sel] = sample(lat[sel], lon[sel], z + 1) if z < MAX_LEVEL else np.nan
         out += w * vals
     return out
 
 
 class GlobalRegion:
     def __init__(self, points: list[dict]):
-        lats = [p["lat"] for p in points]; lons = [p["lon"] for p in points]
+        lats = [p["lat"] for p in points]
         if max(abs(v) for v in lats) > MAX_ABS_LAT:
             raise ValueError("polar_not_supported")
-        if max(lons) - min(lons) > 180:
-            raise ValueError("antimeridian_not_supported")
-        clat = (max(lats) + min(lats)) / 2; clon = (max(lons) + min(lons)) / 2
+        # Unwrap longitudes around the first waypoint so routes may cross the 180 degree meridian.
+        ref = points[0]["lon"]
+        lons = [ref + ((p["lon"] - ref + 180) % 360 - 180) for p in points]
+        clat = (max(lats) + min(lats)) / 2; clon = ((max(lons) + min(lons)) / 2 + 180) % 360 - 180
         coslat = math.cos(math.radians(clat))
         span_n = math.radians(max(lats) - min(lats)) * R
         span_e = math.radians(max(lons) - min(lons)) * R * coslat
         span = max(span_n, span_e)
-        if span > MAX_SPAN_KM * 1000:
-            raise ValueError("span_too_large")
-        extent = max(span * 1.5, 4000.0)
+        # No distance limit: the grid stays <= MAX_CELLS^2 and cells simply grow for long traverses.
+        extent = min(max(span * 1.3, 4000.0), math.pi * R)
         native = [LEVEL0_RES / 2 ** z * math.pi / 180 * R for z in range(MAX_LEVEL + 1)]
         cell = max(extent / MAX_CELLS, native[MAX_LEVEL])
-        z = next(z for z in range(MAX_LEVEL + 1) if native[z] <= cell * 1.01)
+        z = next((z for z in range(MAX_LEVEL + 1) if native[z] <= cell * 1.01), 0)
         n = int(math.ceil(extent / cell))
         self.meta = {"id": "global", "name": "Global coarse terrain", "radius_m": R, "standard_parallel_deg": clat,
-                     "central_lon_deg": 0, "central_lat_deg": 0, "cell_m": round(cell, 3),
-                     "west_m": R * coslat * math.radians(clon) - n * cell / 2,
+                     "central_lon_deg": clon, "central_lat_deg": 0, "cell_m": round(cell, 3),
+                     "west_m": -n * cell / 2,
                      "north_m": R * math.radians(clat) + n * cell / 2, "shape": [n, n],
                      "source_id": SOURCE, "source_level": z, "source_native_m": round(native[z], 1),
                      "coverage_level": "global_coarse",
@@ -124,9 +127,10 @@ class GlobalRegion:
         rows, cols = np.mgrid[0:n, 0:n]
         y = self.meta["north_m"] - (rows + .5) * cell
         x = self.meta["west_m"] + (cols + .5) * cell
-        lat = np.degrees(y / R)
-        lon = (np.degrees(x / (R * coslat)) + 180) % 360 - 180
+        lat = np.clip(np.degrees(y / R), -89.9, 89.9)
+        lon = (np.degrees(x / (R * coslat)) + clon + 180) % 360 - 180
         self.elevation = sample(lat, lon, z).astype(np.float32)
         self.analysis = terrain_analysis(self.elevation, cell)
-        self.meta["bounds"] = [float(lon.min()), float(lat.min()), float(lon.max()), float(lat.max())]
+        half_lon = math.degrees(n * cell / 2 / (R * coslat))
+        self.meta["bounds"] = [((clon - half_lon + 180) % 360) - 180, float(lat.min()), ((clon + half_lon + 180) % 360) - 180, float(lat.max())]
         self.meta["elevation_range_m"] = [float(np.nanmin(self.elevation)), float(np.nanmax(self.elevation))]
