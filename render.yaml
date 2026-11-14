@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: mars-pathfinder-ai
+    runtime: docker
+    plan: free
+    region: frankfurt
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: "1"
