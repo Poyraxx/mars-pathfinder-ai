@@ -361,7 +361,10 @@ def project_path(frame, terrain, path_xy):
     turning[1:] |= np.abs(np.diff(heading)) > np.radians(15)
     turning = ndimage.binary_dilation(turning, iterations=int(math.ceil(body/.04)))
     corridor = runs(body_left, good[3*size:4*size] & ~turning) + runs(body_right, good[4*size:] & ~turning)
-    segments, ribbons, segment = [], [], []
+    segments, ribbons, ribbon_s, segment = [], [], [], []
+    # Ground arc length (m) along the planned path: lets the display size its arrow head and chevrons
+    # in metres on the surface, so they shrink with distance exactly like the ground does.
+    along = np.r_[0., np.cumsum(np.linalg.norm(np.diff(dense, axis=0), axis=1))]
     for i in range(size):
         if i and segment and np.linalg.norm(centre[i]-centre[i-1]) >= .08:
             if len(segment) >= 2:
@@ -375,9 +378,10 @@ def project_path(frame, terrain, path_xy):
             segment = []
         if i and valid[i] and valid[i-1] and np.linalg.norm(centre[i]-centre[i-1]) < .08:
             ribbons.append(np.array([left[i-1], right_edge[i-1], right_edge[i], left[i]]).round(6).tolist())
+            ribbon_s.append([round(float(along[i-1]), 3), round(float(along[i]), 3)])
     if len(segment) >= 2:
         segments.append(segment)
-    return {'segments': segments, 'ribbons': ribbons, 'ribbon_width_m': half*2, 'corridor_edges': corridor, 'body_width_m': body*2,
+    return {'segments': segments, 'ribbons': ribbons, 'ribbon_s_m': ribbon_s, 'ribbon_width_m': half*2, 'corridor_edges': corridor, 'body_width_m': body*2,
             'method': 'Route on measured stereo ground heights, projected by the labelled PDS CAHVORE model; hidden where a closer measured surface is on the same ray'}
 
 

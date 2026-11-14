@@ -41,7 +41,7 @@ def font(size,bold=False):
 
 
 
-ANCHOR=(.5,.985);PAINT=.55
+ANCHOR=(.5,.985);PAINT=.55;HEAD_M=1.0;CHEVRON_EVERY_M=.9;CHEVRON_LEN_M=.28
 
 
 def _unit(v):
@@ -56,41 +56,60 @@ def _smooth(a,k,lock=True):
     return out
 
 
-def ground_arrow(ribbons):
+def ground_arrow(ribbons,ground_m=None):
     """Same geometry as src/routeGeometry.ts: one continuous perspective ribbon from the rover,
-    width non-increasing with distance, gaps bridged, arrow head in the same outline, surface chevrons."""
+    width non-increasing with distance, gaps bridged; arrow head = last HEAD_M metres of ground and
+    chevrons every CHEVRON_EVERY_M metres, so both shrink and foreshorten with distance."""
     if not ribbons:return None
-    c=[];w=[]
-    for q in ribbons:
+    metric=ground_m is not None and len(ground_m)==len(ribbons)
+    c=[];w=[];g=[]
+    for i,q in enumerate(ribbons):
         l0,r0,r1,l1=(np.array(v,float) for v in q[:4]);a_=(l0+r0)/2;b_=(l1+r1)/2
-        if not c or np.linalg.norm(c[-1]-a_)>1e-4:c.append(a_);w.append(np.linalg.norm(l0-r0)/2)
-        c.append(b_);w.append(np.linalg.norm(l1-r1)/2)
+        s0,s1=ground_m[i] if metric else (np.nan,np.nan)
+        if not c or np.linalg.norm(c[-1]-a_)>1e-4:c.append(a_);w.append(np.linalg.norm(l0-r0)/2);g.append(s0)
+        c.append(b_);w.append(np.linalg.norm(l1-r1)/2);g.append(s1)
     if len(c)<2:return None
-    c=np.array(c);w=np.array(w);anchor=np.array(ANCHOR)
+    c=np.array(c);w=np.array(w);g=np.array(g,float);anchor=np.array(ANCHOR)
     k=min(4,len(c)-1);d0=_unit(c[k]-c[0]);d=np.linalg.norm(anchor-c[0]);startw=max(w[0],.03/PAINT)
     if d>.01:
         p1=anchor-[0,d*.45];p2=c[0]-np.array(d0)*d*.45;t=np.arange(24)[:,None]/24;u=1-t
         link=u**3*anchor+3*u*u*t*p1+3*u*t*t*p2+t**3*c[0]
-        c=np.vstack([link,c]);w=np.r_[startw+(w[0]-startw)*t[:,0],w]
+        c=np.vstack([link,c]);w=np.r_[startw+(w[0]-startw)*t[:,0],w];g=np.r_[np.maximum(0,g[0]-.8*(1-t[:,0])),g]
     seg=np.linalg.norm(np.diff(c,axis=0),axis=1);s=np.r_[0,np.cumsum(seg)];keep=np.r_[True,seg>1e-9]
-    c,w,s=c[keep],w[keep],s[keep]
+    c,w,g,s=c[keep],w[keep],g[keep],s[keep]
     grid=np.arange(0,s[-1],.006);grid=np.r_[grid,s[-1]] if s[-1]-grid[-1]>.0015 else grid
-    c=np.column_stack([np.interp(grid,s,c[:,0]),np.interp(grid,s,c[:,1])]);w=np.interp(grid,s,w)
-    c=_smooth(c,3);w=np.minimum.accumulate(w);w=np.maximum(_smooth(w[:,None],4,False)[:,0]*PAINT,.005)
+    c=np.column_stack([np.interp(grid,s,c[:,0]),np.interp(grid,s,c[:,1])]);w=np.interp(grid,s,w);g=np.interp(grid,s,g)
+    c=_smooth(c,3);w=np.minimum.accumulate(w);w=np.maximum(_smooth(w[:,None],4,False)[:,0]*PAINT,.004)
     s=np.r_[0,np.cumsum(np.linalg.norm(np.diff(c,axis=0),axis=1))];total=s[-1]
     if total<.03:return None
     idx=np.arange(len(c));tan=c[np.minimum(idx+2,len(c)-1)]-c[np.maximum(idx-2,0)]
     tan/=np.maximum(np.linalg.norm(tan,axis=1,keepdims=True),1e-9);nrm=np.column_stack([-tan[:,1],tan[:,0]])
-    head=min(total*.3,w[-1]*4.6);b=len(c)-1
-    while b>0 and total-s[b]<head:b-=1
+    b=len(c)-1
+    if metric:
+        while b>0 and g[-1]-g[b]<HEAD_M and total-s[b]<total*.4:b-=1
+    else:
+        head=min(total*.3,w[-1]*4.6)
+        while b>0 and total-s[b]<head:b-=1
     left=c[:b+1]+nrm[:b+1]*w[:b+1,None];right=c[:b+1]-nrm[:b+1]*w[:b+1,None]
-    ht=np.array(_unit(c[-1]-c[b]));nh=np.array([-ht[1],ht[0]]);hw=w[b]*1.8
+    ht=np.array(_unit(c[-1]-c[b]));nh=np.array([-ht[1],ht[0]]);hw=w[b]*2.0
     outline=[*map(tuple,left),tuple(c[b]+nh*hw),tuple(c[-1]),tuple(c[b]-nh*hw),*map(tuple,right[::-1])]
-    chevrons=[];nxt=startw*PAINT*1.6
-    for i in range(b):
-        if s[i]<nxt:continue
-        ww,ln=w[i]*.62,w[i]*.7;apex=c[i]+tan[i]*ln*.5;back=c[i]-tan[i]*ln*.5
-        chevrons.append([tuple(back+nrm[i]*ww),tuple(apex),tuple(back-nrm[i]*ww)]);nxt=s[i]+w[i]*4.2
+    chevrons=[]
+    def chevron(i,ln):
+        ww=w[i]*.62;apex=c[i]+tan[i]*ln*.5;back=c[i]-tan[i]*ln*.5
+        chevrons.append([tuple(back+nrm[i]*ww),tuple(apex),tuple(back-nrm[i]*ww)])
+    if metric:
+        nxt=math.ceil((g[0]+.4)/CHEVRON_EVERY_M)*CHEVRON_EVERY_M
+        for i in range(1,b):
+            if g[i]<nxt:continue
+            j=min(i+3,len(c)-1);lo=max(i-3,0);dg=max(1e-4,g[j]-g[lo]);ln=min(w[i]*1.4,(s[j]-s[lo])/dg*CHEVRON_LEN_M)
+            if g[-1]-g[i]>HEAD_M*.6:chevron(i,ln)
+            nxt+=CHEVRON_EVERY_M
+            while nxt<=g[i]:nxt+=CHEVRON_EVERY_M
+    else:
+        nxt=startw*PAINT*1.6
+        for i in range(b):
+            if s[i]<nxt:continue
+            chevron(i,w[i]*.7);nxt=s[i]+w[i]*4.2
     return outline,chevrons
 
 
@@ -142,7 +161,7 @@ def render_keyframes(result):
         for line in local.get('corridor_edges',[]):
             d.line([(xcam+p[0]*size,cy+p[1]*size) for p in line],fill=CYAN,width=2)
         # Route painted on the ground: one continuous outline, depth-faded fill, light edge, surface chevrons.
-        arrow=ground_arrow(local['ribbons'])
+        arrow=ground_arrow(local['ribbons'],local.get('ribbon_s_m'))
         if arrow:
             outline,chevrons=arrow;sc=lambda pts:[(p[0]*size,p[1]*size) for p in pts]
             mask=Image.new('L',(size,size),0);ImageDraw.Draw(mask).polygon(sc(outline),fill=255)

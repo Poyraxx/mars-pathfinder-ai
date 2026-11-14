@@ -5,7 +5,7 @@ const pts=(ps:[number,number][])=>ps.map(p=>`${p[0].toFixed(4)},${p[1].toFixed(4
 
 /** Route painted on the ground: one continuous perspective ribbon from the rover, with surface chevrons. */
 export default function RouteOverlay({local,faint}:{local:LocalNavigation;faint:boolean}){
- const arrow=groundArrow(local.ribbons);
+ const arrow=groundArrow(local.ribbons,local.ribbon_s_m);
  const k=faint?.45:1;
  const top=arrow?Math.min(...arrow.outline.map(p=>p[1])):0;
  return <svg className="camera-route route-overlay" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Rover route painted on the ground: from the rover, along the collision-checked corridor">
