@@ -1,7 +1,7 @@
 import {useEffect,useRef,useState} from 'react';
 import * as C from 'cesium';
 import {ArrowUp,ArrowDown,ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,RotateCw,SkipBack,SkipForward,Video,Box,Minus} from 'lucide-react';
-import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,scheme,terrain} from './Globe';
+import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,martianOrtho,scheme,terrain} from './Globe';
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario,LocalNavigation} from './types';
 import {ARCHIVE_FILMS} from './ArchiveFilm';
@@ -123,7 +123,7 @@ function FirstPerson(){
    v.scene.screenSpaceCameraController.enableInputs=false;
    v.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:'/api/tiles/viking/{z}/{y}/{x}',tilingScheme:scheme,maximumLevel:7}));
    const region=catalog?.regions[0];
-   if(region?.ortho_bounds){const [w,so,e,n]=region.ortho_bounds;C.SingleTileImageryProvider.fromUrl(`/api/regions/${region.id}/ortho.png`,{rectangle:C.Rectangle.fromDegrees(w,so,e,n),ellipsoid:MARS}).then(p=>{if(!v.isDestroyed()){v.imageryLayers.addImageryProvider(p);v.scene.requestRender();}});}
+   if(region?.ortho_bounds){const [w,so,e,n]=region.ortho_bounds;martianOrtho(`/api/regions/${region.id}/ortho.png`).then(url=>C.SingleTileImageryProvider.fromUrl(url,{rectangle:C.Rectangle.fromDegrees(w,so,e,n),ellipsoid:MARS})).then(p=>{if(!v.isDestroyed()){v.imageryLayers.addImageryProvider(p);v.scene.requestRender();}});}
    viewer.current=v;setReady(true);
   });
   return()=>{disposed=true;viewer.current?.destroy();viewer.current=null;};

@@ -1,5 +1,5 @@
 import {useEffect,useState} from 'react';
-import {Activity,ArrowDownToLine,ArrowUpRight,Crosshair,Eye,Flag,Globe2,Info,Layers3,LoaderCircle,MapPin,Mountain,Orbit,Plus,Radar,Route as RouteIcon,ScanLine,Video,X} from 'lucide-react';
+import {Activity,ArrowDownToLine,ArrowUpRight,Crosshair,Eye,Flag,Globe2,Info,Layers3,LoaderCircle,MapPin,Mountain,Orbit,Plus,Radar,Route as RouteIcon,ScanLine,Video,X,ZoomIn} from 'lucide-react';
 import {Area,AreaChart,ResponsiveContainer,Tooltip,XAxis,YAxis} from 'recharts';
 import CameraView from './CameraView';
 import Globe from './Globe';
@@ -110,7 +110,8 @@ function App(){
     <div className="map-tools">
      <div className="layer-control"><button className={layerMenu?'active':''} onClick={()=>setLayerMenu(!layerMenu)} aria-label="Map layers" aria-expanded={layerMenu}><Layers3 size={17}/></button>{layerMenu&&<div className="layer-popover">{s.catalog?.layers.map(l=><button key={l.id} onClick={()=>s.set({layer:l.id})} className={s.layer===l.id?'selected':''}><strong>{l.name}</strong><small>{l.kind} · {l.resolution_m} m/px</small></button>)}<label className="check"><input type="checkbox" checked={s.showRisk} disabled={!s.region} onChange={e=>s.set({showRisk:e.target.checked})}/>Slope overlay (Gale)</label><p>Thermal mosaic brightness is not current temperature.</p></div>}</div>
      <button onClick={()=>s.set({view:'orbital',exploreTarget:{lat:17,lon:42,alt:10000000},feature:null})} aria-label="Whole planet"><Globe2 size={17}/></button>
-     {s.mode==='replay'&&<button onClick={()=>window.dispatchEvent(new Event('replay-fit'))} aria-label="Fit rover and route"><Crosshair size={17}/></button>}
+     {s.mode==='replay'&&<button onClick={()=>{s.set({followRover:false});window.dispatchEvent(new Event('replay-fit'));}} aria-label="Fit rover and route" title="Fit whole drive"><Crosshair size={17}/></button>}
+     {s.mode==='replay'&&<button className={s.followRover?'active':''} aria-pressed={s.followRover} onClick={()=>{const on=!s.followRover;s.set({followRover:on});if(on)window.dispatchEvent(new Event('replay-rover'));}} aria-label="Zoom to rover and follow it" title="Zoom to rover and follow it"><ZoomIn size={17}/></button>}
      {s.mode==='plan'&&<button className={s.showAI?'active':''} onClick={()=>s.set({showAI:!s.showAI})} aria-label="Route analysis panel" aria-expanded={s.showAI}><Radar size={17}/></button>}
     </div>
     {cameraView&&<CameraView dual={s.view==='dual'}/>}

@@ -22,6 +22,30 @@ export function demHeightAt(lat:number,lon:number):number|null{
  const i=Math.floor(gx),j=Math.floor(gy),ax=gx-i,ay=gy-j,v=localDEM.values;
  return (v[j*w+i]*(1-ax)+v[j*w+i+1]*ax)*(1-ay)+(v[(j+1)*w+i]*(1-ax)+v[(j+1)*w+i+1]*ax)*ay;
 }
+/** Display version of the greyscale HiRISE ortho: luminance mapped onto the surrounding Viking colour and edges
+ * feathered, so the 25 cm patch blends into the 232 m colour base instead of sitting on it as a grey square.
+ * Brightness (the measured signal) is preserved; the hue is a display tint, not HiRISE colour data. */
+const tinted=new Map<string,Promise<string>>();
+export function martianOrtho(url:string):Promise<string>{
+ if(!tinted.has(url))tinted.set(url,new Promise((resolve,reject)=>{
+  const img=new Image();img.crossOrigin='anonymous';
+  img.onload=()=>{
+   const w=img.naturalWidth,h=img.naturalHeight,cv=document.createElement('canvas');cv.width=w;cv.height=h;
+   const ctx=cv.getContext('2d')!;ctx.drawImage(img,0,0);const d=ctx.getImageData(0,0,w,h),px=d.data;
+   const dark=[52,36,32],mid=[118,86,78],light=[214,178,156],feather=Math.round(Math.min(w,h)*.025);
+   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+    const i=(y*w+x)*4,l=Math.min(1,Math.max(0,(px[i]-82)/(170-82)));
+    const a=l<.5?dark:mid,b=l<.5?mid:light,t=l<.5?l*2:(l-.5)*2;
+    const e=Math.min(x,y,w-1-x,h-1-y)/feather,f=e>=1?1:e*e*(3-2*e);
+    px[i]=a[0]+(b[0]-a[0])*t;px[i+1]=a[1]+(b[1]-a[1])*t;px[i+2]=a[2]+(b[2]-a[2])*t;px[i+3]=255*f;
+   }
+   ctx.putImageData(d,0,0);resolve(cv.toDataURL('image/png'));
+  };
+  img.onerror=()=>reject(new Error('ortho unavailable'));img.src=url;
+ }));
+ return tinted.get(url)!;
+}
+
 export function terrain(){
  return new C.CustomHeightmapTerrainProvider({width:65,height:65,tilingScheme:scheme,
   credit:'NASA / USGS / ESA / DLR / FU Berlin · MOLA/HRSC DEM · Esri hosting',
@@ -161,7 +185,7 @@ export default function Globe(){
   const oregion=region??(mode==='replay'?catalog?.regions[0]??null:null);
   if(oregion?.ortho_bounds&&layer==='viking'){
    const [w,s,e,n]=oregion.ortho_bounds;
-   C.SingleTileImageryProvider.fromUrl(`/api/regions/${oregion.id}/ortho.png`,{rectangle:C.Rectangle.fromDegrees(w,s,e,n),ellipsoid:MARS,credit:'NASA/JPL-Caltech/USGS/UArizona · HiRISE PLACES 25cm ortho'}).then(provider=>{if(!v.isDestroyed()){orthoRef.current=v.imageryLayers.addImageryProvider(provider);v.scene.requestRender();}}).catch(()=>setStatus('REGIONAL IMAGERY UNAVAILABLE'));
+   martianOrtho(`/api/regions/${oregion.id}/ortho.png`).then(url=>C.SingleTileImageryProvider.fromUrl(url,{rectangle:C.Rectangle.fromDegrees(w,s,e,n),ellipsoid:MARS,credit:'NASA/JPL-Caltech/USGS/UArizona · HiRISE PLACES 25cm ortho (greyscale, tinted for display)'})).then(provider=>{if(!v.isDestroyed()&&!orthoRef.current){orthoRef.current=v.imageryLayers.addImageryProvider(provider);v.scene.requestRender();}}).catch(()=>setStatus('REGIONAL IMAGERY UNAVAILABLE'));
   }
  },[region,layer,mode,catalog?.regions]);
  useEffect(()=>{
@@ -179,20 +203,37 @@ export default function Globe(){
    ...(w.class!=='other'?{position:C.Cartesian3.fromDegrees(w.lon,w.lat,0,MARS),label:{text:`${w.class.replaceAll('_',' ')} ${(w.score*100).toFixed(0)}%`,font:'10px sans-serif',fillColor:C.Color.fromCssColorString(colours[w.class]),pixelOffset:new C.Cartesian2(0,-12),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}}:{})});});
   v.scene.requestRender();
  },[orbital,mission?.id]);
+ // Replay entities are created once per replay; each step only changes what the callbacks read.
+ // Re-creating them every frame made the clamped lines and the rover model vanish during playback.
+ const stepRef=useRef(0);
+ stepRef.current=replayStep;
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   for(const e of [...v.entities.values])if(String(e.id).startsWith('replay-'))v.entities.remove(e);
   if(mode!=='replay'||!replay){v.scene.requestRender();return;}
-  const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];
-  const done=replay.trail.slice(0,replayStep+1);
-  v.entities.add({id:'replay-trail-all',polyline:{positions:C.Cartesian3.fromDegreesArray(replay.trail.flatMap(p=>[p.lon,p.lat]),MARS),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8}),clampToGround:true}});
-  if(done.length>1)v.entities.add({id:'replay-trail',polyline:{positions:C.Cartesian3.fromDegreesArray(done.flatMap(p=>[p.lon,p.lat]),MARS),width:3,material:C.Color.fromCssColorString('#f4efe6'),clampToGround:true}});
-  if(st.route.length>1)v.entities.add({id:'replay-route',polyline:{positions:C.Cartesian3.fromDegreesArray([st.rover.lon,st.rover.lat,...st.route.flatMap(p=>[p.lon,p.lat])],MARS),width:6,material:new C.PolylineGlowMaterialProperty({glowPower:.22,color:C.Color.fromCssColorString(st.event==='u_turn'?'#f2a65a':'#3ce1ff')}),clampToGround:true}});
+  const step=()=>replay.steps[Math.min(stepRef.current,replay.steps.length-1)];
+  const deg=(ps:{lat:number;lon:number}[])=>C.Cartesian3.fromDegreesArray(ps.flatMap(p=>[p.lon,p.lat]),MARS);
+  const roverPos=()=>{const st=step();return C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,0,MARS);};
+  v.entities.add({id:'replay-trail-all',polyline:{positions:deg(replay.trail),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8}),clampToGround:true}});
+  v.entities.add({id:'replay-trail',polyline:{positions:new C.CallbackProperty(()=>{const done=replay.trail.slice(0,stepRef.current+1);return deg(done.length>1?done:[done[0],done[0]]);},false),width:3,material:C.Color.fromCssColorString('#f4efe6'),clampToGround:true}});
+  const routeColour=new C.CallbackProperty(()=>C.Color.fromCssColorString(step().event==='u_turn'?'#f2a65a':'#3ce1ff'),false);
+  v.entities.add({id:'replay-route',polyline:{positions:new C.CallbackProperty(()=>{const st=step();return deg([st.rover,...(st.route.length?st.route:[st.rover])]);},false),width:6,material:new C.PolylineGlowMaterialProperty({glowPower:.22,color:routeColour}),clampToGround:true}});
   v.entities.add({id:'replay-goal',position:C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,0,MARS),point:{pixelSize:12,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 11px sans-serif',fillColor:C.Color.fromCssColorString('#f2a65a'),pixelOffset:new C.Cartesian2(0,-20),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
-  const pos=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,0,MARS);
-  v.entities.add({id:'replay-rover',position:pos,orientation:C.Transforms.headingPitchRollQuaternion(pos,new C.HeadingPitchRoll(C.Math.toRadians(st.rover.yaw_deg-90),0,0),MARS) as unknown as C.Quaternion,
+  v.entities.add({id:'replay-rover',position:new C.CallbackPositionProperty(roverPos,false) as unknown as C.PositionProperty,
+   orientation:new C.CallbackProperty(()=>C.Transforms.headingPitchRollQuaternion(roverPos(),new C.HeadingPitchRoll(C.Math.toRadians(step().rover.yaw_deg-90),0,0),MARS),false),
    model:{uri:ROVER_MODEL,minimumPixelSize:56,maximumScale:400,heightReference:C.HeightReference.CLAMP_TO_GROUND},
    point:{pixelSize:9,color:C.Color.WHITE,outlineColor:C.Color.fromCssColorString('#3ce1ff'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
+  v.scene.requestRender();
+ },[mode,replay]);
+ useEffect(()=>{
+  const v=viewerRef.current;if(!v||mode!=='replay'||!replay)return;
+  if(useMission.getState().followRover){
+   // Follow mode: keep the current zoom, re-centre on the rover as the replay advances.
+   const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];
+   const ground=v.scene.globe.getHeight(C.Cartographic.fromDegrees(st.rover.lon,st.rover.lat))??catalog?.regions[0]?.display_surface_height_m??-4517;
+   const above=Math.max(15,Math.min(400,v.camera.positionCartographic.height-ground));
+   v.camera.setView({destination:C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+above,MARS),orientation:{heading:v.camera.heading,pitch:v.camera.pitch,roll:0}});
+  }
   v.scene.requestRender();
  },[mode,replay,replayStep]);
  useEffect(()=>{
@@ -207,8 +248,13 @@ export default function Globe(){
    const ground=catalog?.regions[0]?.display_surface_height_m??-4517;
    v.camera.flyTo({destination:C.Cartesian3.fromDegrees(clon,clat,ground+height,MARS),orientation:{heading:0,pitch:-Math.PI/2,roll:0},duration:1.2});
   };
-  fit();window.addEventListener('replay-fit',fit);
-  return()=>window.removeEventListener('replay-fit',fit);
+  const close=()=>{
+   const st=replay.steps[Math.min(useMission.getState().replayStep,replay.steps.length-1)];
+   const ground=v.scene.globe.getHeight(C.Cartographic.fromDegrees(st.rover.lon,st.rover.lat))??catalog?.regions[0]?.display_surface_height_m??-4517;
+   v.camera.flyTo({destination:C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+38,MARS),orientation:{heading:0,pitch:-Math.PI/2,roll:0},duration:1});
+  };
+  fit();window.addEventListener('replay-fit',fit);window.addEventListener('replay-rover',close);
+  return()=>{window.removeEventListener('replay-fit',fit);window.removeEventListener('replay-rover',close);};
  },[mode,replay,catalog?.regions]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
