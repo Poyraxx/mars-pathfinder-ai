@@ -180,3 +180,20 @@ protokolü belirlenmeden modelin “güvenli tehlike detektörü” olduğu iddi
 - İkinci öğrenilmiş orbital modeli sırf isim uğruna yetiştirmek.
 - D*Lite/RL, suit consumables, uçuş veya insan güvenliği sertifikasyonu.
 - Ücretli servis açmak ya da GitHub'a AI coauthor eklemek.
+
+## Devam noktası (14 Kasım 2026, kullanım sınırında durdu)
+
+Kullanıcı isteği: senaryoların varsayılanı GERÇEK rover görüntüsü olacak, rota her karede canlı çizilecek
+(GTA tarzı yeniden rota), sağda küresel harita; 3D render yalnız yardımcı simülasyon.
+- [x] Mesafe sınırı kaldırıldı; 180° meridyeni destekli; bozuk DEM karosunda bir üst seviyeye düşme.
+- [x] Replay motoru (`backend/replay.py`): gerçek PLACES pozları, 2 m sapmada yeniden rota, U dönüşü (>120°),
+  stereo engel ile yeniden rota, özel hedef. Curiosity sol 55–57 (39 kare). Navcam TRAV kareleri yana bakıyor
+  → rota görüntüde görünmüyor (doğru davranış). Yeni arayüz: Explore / Plan / Drive replay modları.
+- [x] Engel dedektörü: 3 m genişlik ve 2 m² alan üstü bileşenler elenir (stereo kusuru/arazi şekli).
+- [ ] SIRADAKİ: Perseverance ham kareleri (mars.nasa.gov raw_images API). Her karede CAHVORE kamera modeli
+  (rover çerçevesi), `attitude` kuaterniyonu, `xyz` (site çerçevesinde rover), `site`/`drive` var.
+  Site başlangıcı: https://mars.nasa.gov/mmgis-maps/M20/Layers/json/M20_waypoints.json (drive 0 satırı).
+  API sol filtresi: `&sol=14`. Sol 14 (ilk sürüş) yalnız 2 FLF karesi → sürüş sırasında çok karesi olan sol seç.
+- [ ] CAHVORE 3D→2D uygula; `mars2020_hazcam_ops_stereo` XYZ ürünleriyle piksel hatasını ölç (doğrulama).
+- [ ] Rota: küresel/yerel DEM'de planla, her gerçek kareye CAHVORE ile izdüşür; varsayılan görünüm gerçek kare.
+- [ ] Demo videosu (MP4): gerçek kare + rota (sol) | harita + rover (sağ).
