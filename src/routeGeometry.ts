@@ -184,13 +184,14 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
   attachNear=true;
  }
  if(near&&visible.length&&dist(near.tip,visible[0][0] as P)<.45){
-  // Taper the paint (not the rover clearance envelope) before the handoff,
-  // including when the measured corridor leaves the camera at its side edge.
+  // Spread the paint taper over the whole visible approach. A fixed short
+  // end-window pinched a broad middle into a needle just before the map join.
+  // This changes paint only; the measured centre and clearance stay unchanged.
   const target=Math.min(w.at(-1)!, .0012+.004*visible[0][0][1]**2);
-  let remaining=0;
-  for(let i=c.length-1;i>=0;i--){
-   if(i<c.length-1)remaining+=dist(c[i],c[i+1]);
-   const t=Math.max(0,1-remaining/.18),blend=t*t*(3-2*t);
+  const arc=[0];for(let i=1;i<c.length;i++)arc.push(arc[i-1]+dist(c[i-1],c[i]));
+  const total=arc.at(-1)||1;
+  for(let i=0;i<c.length;i++){
+   const t=arc[i]/total,blend=t*t*(3-2*t);
    w[i]=lerp(w[i],target,blend);
   }
   chevrons.forEach((ch,index)=>{

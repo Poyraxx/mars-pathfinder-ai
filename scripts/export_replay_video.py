@@ -150,6 +150,14 @@ def render_keyframes(result):
         has_plan=any(stroke['planned'] for stroke in ribbon['strokes'])
         arrived=st['remaining_m']<=1
         if end:d.ellipse((end[0]-9,end[1]-9,end[0]+9,end[1]+9),fill='#1c6b7a');d.ellipse((end[0]-5,end[1]-5,end[0]+5,end[1]+5),fill='#f2fdff',outline=CYAN,width=2)
+        destination=(st.get('camera_route') or {}).get('destination')
+        if destination is not None:
+            gx,gy=P(destination)
+            d.ellipse((gx-4,gy-4,gx+4,gy+4),fill=AMBER,outline='#111b22',width=2)
+            d.line((gx,gy,gx,gy-40),fill='#fff3df',width=2)
+            d.polygon([(gx,gy-40),(gx+24,gy-33),(gx,gy-22)],fill=AMBER,outline='#fff3df')
+            right=gx<xcam+size-130
+            d.text((gx+30 if right else gx-8,gy-30),'Destination',font=font(16,True),fill='#fff3df',stroke_width=2,stroke_fill='#111b22',anchor='la' if right else 'ra')
         for ring in local.get('distant_candidates',[]):d.line([P(q) for q in ring['ring']]+[P(ring['ring'][0])],fill='#ffb23d',width=2)
         for q in local.get('tracked_obstacles',[]):x,y=P(q);d.rectangle((x-2,y-2,x+2,y+2),fill='#ffb23d')
         if not arrived and local['status'] in ('turn_required','out_of_view') and local.get('turn_direction'):draw_turn_cue(d,xcam,cy,size,local['turn_direction'])

@@ -1,12 +1,13 @@
 import {useEffect,useRef,useState} from 'react';
 import * as C from 'cesium';
 import {ArrowUp,ArrowDown,ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,RotateCw,SkipBack,SkipForward,Video,Box,Minus} from 'lucide-react';
-import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,martianOrtho,scheme,terrain} from './Globe';
+import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,martianOrtho,scheme,terrain,replayGroundLine,localDEMMinimum} from './Globe';
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario,LocalNavigation} from './types';
 import {ARCHIVE_FILMS} from './ArchiveFilm';
 import RouteOverlay,{TurnCue} from './RouteOverlay';
 import {mapRoute} from './routeGeometry';
+import {updateReplayLine,updateReplayPose,updateReplayColour,keepReplayDatum} from './replayScene';
 
 const EVENT_TEXT:Record<string,string>={off_route:'Off route · route updated',u_turn:'Make a U-turn · route behind the rover',obstacle:'Obstacle ahead · route updated',no_alternative:'No alternative route found'};
 let replayRequest=0;
@@ -125,14 +126,16 @@ export function ReplayView(){
 
 function FirstPerson(){
  const mount=useRef<HTMLDivElement>(null),viewer=useRef<C.Viewer|null>(null);
+ const cameraPose=useRef<{position:C.Cartesian3;yaw:number}|null>(null);
  const {replay,replayStep,catalog}=useMission();
  const [ready,setReady]=useState(false);
  useEffect(()=>{
-  let disposed=false;
+  let disposed=false,releaseDatum:(()=>void)|undefined;
   void ensureLocalDEM().then(()=>{
    if(disposed||!mount.current)return;
    const v=new C.Viewer(mount.current,{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,sceneModePicker:false,homeButton:false,fullscreenButton:false,navigationHelpButton:false,selectionIndicator:false,infoBox:false,baseLayer:false,
     terrainProvider:terrain(),globe:new C.Globe(MARS),skyAtmosphere:false,requestRenderMode:true,maximumRenderTimeChange:Infinity});
+   releaseDatum=keepReplayDatum(v.scene,localDEMMinimum);
    v.scene.backgroundColor=C.Color.fromCssColorString('#c9a27c');
    v.scene.globe.baseColor=C.Color.fromCssColorString('#8a5a40');
    v.scene.globe.depthTestAgainstTerrain=true;
@@ -144,19 +147,26 @@ function FirstPerson(){
    if(region?.ortho_bounds){const [w,so,e,n]=region.ortho_bounds;martianOrtho(`/api/regions/${region.id}/ortho.png`).then(url=>C.SingleTileImageryProvider.fromUrl(url,{rectangle:C.Rectangle.fromDegrees(w,so,e,n),ellipsoid:MARS})).then(p=>{if(!v.isDestroyed()){v.imageryLayers.addImageryProvider(p);v.scene.requestRender();}});}
    viewer.current=v;setReady(true);
   });
-  return()=>{disposed=true;viewer.current?.destroy();viewer.current=null;};
+  return()=>{disposed=true;releaseDatum?.();viewer.current?.destroy();viewer.current=null;};
  // eslint-disable-next-line react-hooks/exhaustive-deps
  },[]);
  useEffect(()=>{
   const v=viewer.current;if(!v||!replay)return;
   const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];
-  v.entities.removeAll();
   const ground=demHeightAt(st.rover.lat,st.rover.lon)??-4517;
-  if(st.route.length>1)v.entities.add({polyline:{positions:C.Cartesian3.fromDegreesArray([st.rover.lon,st.rover.lat,...st.route.flatMap(p=>[p.lon,p.lat])],MARS),width:9,material:new C.PolylineGlowMaterialProperty({glowPower:.25,color:C.Color.fromCssColorString(st.event==='u_turn'?'#f2a65a':'#3ce1ff')}),clampToGround:true}});
+  const route=v.entities.getById('first-person-route')??v.entities.add({id:'first-person-route',polyline:{positions:[],width:9,material:new C.PolylineGlowMaterialProperty({glowPower:.25,color:C.Color.fromCssColorString('#3ce1ff')}),clampToGround:true}});
+  const groundRoute=replayGroundLine(st.route.length>1?[st.rover,...st.route]:[]);
+  updateReplayLine(route,groundRoute.positions,groundRoute.clampToGround);
+  updateReplayColour(route,C.Color.fromCssColorString(st.event==='u_turn'?'#f2a65a':'#3ce1ff'));
   const gh=demHeightAt(replay.goal.lat,replay.goal.lon)??ground;
-  v.entities.add({position:C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,gh+1.2,MARS),point:{pixelSize:14,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.WHITE,outlineWidth:2,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 12px sans-serif',fillColor:C.Color.WHITE,outlineColor:C.Color.BLACK,outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(0,-20),disableDepthTestDistance:Infinity}});
+  const goal=v.entities.getById('first-person-goal')??v.entities.add({id:'first-person-goal',point:{pixelSize:14,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.WHITE,outlineWidth:2,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 12px sans-serif',fillColor:C.Color.WHITE,outlineColor:C.Color.BLACK,outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(0,-20),disableDepthTestDistance:Infinity}});
+  updateReplayPose(goal,C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,gh+1.2,MARS));
   // Navcam height on Curiosity's mast is about 1.9 m above the ground.
-  v.camera.flyTo({destination:C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+1.9,MARS),orientation:{heading:C.Math.toRadians(st.rover.yaw_deg),pitch:C.Math.toRadians(-14),roll:0},duration:.7,easingFunction:C.EasingFunction.LINEAR_NONE});
+  const position=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+1.9,MARS),previous=cameraPose.current;
+  if(!previous||!C.Cartesian3.equalsEpsilon(previous.position,position,0,.001)||previous.yaw!==st.rover.yaw_deg){
+   v.camera.flyTo({destination:position,orientation:{heading:C.Math.toRadians(st.rover.yaw_deg),pitch:C.Math.toRadians(-14),roll:0},duration:previous?.7:0,easingFunction:C.EasingFunction.LINEAR_NONE});
+   cameraPose.current={position,yaw:st.rover.yaw_deg};
+  }
   v.scene.requestRender();
  },[replay,replayStep,ready]);
  return <div className="first-person"><div ref={mount} className="first-person-canvas"/><div className="view-caption">Rendered from HiRISE 1 m DEM and 25 cm orthophoto at the rover's PLACES pose · not a camera image</div></div>;
@@ -185,7 +195,7 @@ function NavcamFrame(){
    <div className="camera-overlay-controls" role="group" aria-label="Camera route display"><button aria-pressed={cameraOverlay==='guidance'} onClick={()=>set({cameraOverlay:'guidance'})}>Centre guide</button><button aria-pressed={cameraOverlay==='projection'} onClick={()=>set({cameraOverlay:'projection'})}>Ground projection</button></div>
   </div>
   <div className="camera-image-area"><div className="navcam-stage">{held&&!loaded&&<img className="held-frame" src={`/api/frames/${held}/display`} alt=""/>}<img ref={image} key={st.frame_id} className={held&&!loaded?'incoming-frame':undefined} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>{setHeld(st.frame_id);set({replayImageReady:st.frame_id});}}/>
-   {loaded&&local&&(hasRoute||hasPlan)&&<RouteOverlay local={local} faint={cameraOverlay==='projection'} far={st.camera_route?.segments} farEndIsGoal={(st.camera_route?.segments.at(-1)?.at(-1)?.[2]??0)>=st.remaining_m-2}/>}
+   {loaded&&local&&(hasRoute||hasPlan||st.camera_route?.destination)&&<RouteOverlay local={local} faint={cameraOverlay==='projection'} far={st.camera_route?.segments} destination={st.camera_route?.destination}/>}
    {loaded&&local&&((local.tracked_obstacles?.length??0)>0||(local.distant_candidates?.length??0)>0)&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Rocks remembered from earlier frames and distant rock candidates">
     {(local.distant_candidates??[]).map((c,i)=><polygon key={`d${i}`} className="distant-candidate" points={c.ring.map(p=>`${p[0]},${p[1]}`).join(' ')}><title>{`Distant rock candidate · ~${c.range_m} m (stereo-supported, steering cost only)`}</title></polygon>)}
     {(local.tracked_obstacles??[]).map((p,i)=><rect key={`t${i}`} x={p[0]-.003} y={p[1]-.003} width=".006" height=".006" className="tracked-obstacle"/>)}

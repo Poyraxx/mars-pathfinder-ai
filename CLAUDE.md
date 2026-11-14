@@ -1,5 +1,10 @@
 # Current continuation — 15 November 2026
 
+Latest follow-up: [REPLAY_VISUAL_FIXES.md](REPLAY_VISUAL_FIXES.md). Full-approach
+paint taper, an explicitly projected destination flag, and persistent replay
+entities/DEM heights replace the abrupt taper and zoom/stationary-frame flicker.
+Only replay annotation/render behavior changed; panel layout and models stay intact.
+
 The interrupted corridor/continuous-route work after `d99922b` is documented in
 [CONTINUATION_REVIEW.md](CONTINUATION_REVIEW.md). Read it before the older notes.
 Connected measured side exits replace the unfinished free-pivot shortcut; near

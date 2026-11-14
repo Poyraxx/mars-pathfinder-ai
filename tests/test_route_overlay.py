@@ -46,3 +46,18 @@ def test_centre_guide_link_is_entirely_planned_when_no_local_route_exists():
     assert not result['hasLocal']
     assert result['strokes'][0]['centre'][0]==[.5,.985]
     assert result['strokes'][0]['planned']==result['strokes'][0]['centre']
+
+
+def test_taper_is_distributed_through_the_middle_instead_of_pinching_at_the_end():
+    frame={'ribbons':[[[.45,.85],[.55,.85],[.55,.35],[.45,.35]]],
+           'groundM':[[2.,6.]],'localLength':6.,
+           'segments':[[[.5,.30,7.],[.5,.25,15.],[.5,.2,40.]]]}
+    stroke=overlay_geometries([frame])[0]['strokes'][0]
+    c=np.array(stroke['centre']);w=np.array(stroke['width'])
+    arc=np.r_[0,np.cumsum(np.linalg.norm(np.diff(c,axis=0),axis=1))]
+    join=np.argmin(np.linalg.norm(c-[.5,.35],axis=1))
+    middle=np.argmin(abs(arc-arc[join]*.5))
+    assert .3*w[0]<w[middle]<.8*w[0]  # no broad plateau followed by a short squeeze
+    for i in range(join):
+        j=min(join,np.searchsorted(arc,arc[i]+.05))
+        assert w[i]/w[j]<2.8

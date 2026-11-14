@@ -3,16 +3,19 @@ import * as C from 'cesium';
 import Lerc from 'lerc';
 import 'cesium/Build/Cesium/Widgets/widgets.css';
 import {useMission} from './store';
+import {updateReplayLine,updateReplayPose,updateReplayColour,measuredReplayLine,keepReplayDatum} from './replayScene';
 
 // Mars 2000 sphere used by the open MOLA/HRSC service and NASA Trek.
 export const MARS=new C.Ellipsoid(3396190,3396190,3396190);
 export const scheme=new C.GeographicTilingScheme({ellipsoid:MARS});
 const terrainTiles=new Map<string,Promise<ReturnType<typeof Lerc.decode>>>();
 let localDEM:{values:Float32Array;meta:{north_m:number;west_m:number;cell_m:number;shape:number[]}}|null=null;
+let localMinimum:number|null=null;
+export const localDEMMinimum=()=>localMinimum;
 export const ROVER_MODEL='https://assets.science.nasa.gov/content/dam/science/psd/mars/resources/gltf_files/24584_Curiosity_static.glb';
 let localDEMPromise:Promise<void>|null=null;
 export function ensureLocalDEM(){
- if(!localDEMPromise)localDEMPromise=fetch('/api/regions/gale').then(r=>r.ok?r.json():null).then(async meta=>{if(!meta)return;const response=await fetch('/api/regions/gale/heightmap');if(!response.ok)return;localDEM={values:new Float32Array(await response.arrayBuffer()),meta};}).catch(()=>{});
+ if(!localDEMPromise)localDEMPromise=fetch('/api/regions/gale').then(r=>r.ok?r.json():null).then(async meta=>{if(!meta)return;const response=await fetch('/api/regions/gale/heightmap');if(!response.ok)return;localDEM={values:new Float32Array(await response.arrayBuffer()),meta};let low=Infinity;for(const h of localDEM.values)if(Number.isFinite(h))low=Math.min(low,h);localMinimum=Number.isFinite(low)?low:null;}).catch(()=>{});
  return localDEMPromise;
 }
 export function demHeightAt(lat:number,lon:number):number|null{
@@ -21,6 +24,13 @@ export function demHeightAt(lat:number,lon:number):number|null{
  const w=m.shape[1],h=m.shape[0];if(gx<0||gy<0||gx>=w-1||gy>=h-1)return null;
  const i=Math.floor(gx),j=Math.floor(gy),ax=gx-i,ay=gy-j,v=localDEM.values;
  return (v[j*w+i]*(1-ax)+v[j*w+i+1]*ax)*(1-ay)+(v[(j+1)*w+i]*(1-ax)+v[(j+1)*w+i+1]*ax)*ay;
+}
+
+/** Replay annotations on the actual 1 m HiRISE DEM, independent of streamed
+ * terrain LOD/classification rebuilds. The 15 cm lift is display separation.
+ * Outside measured DEM coverage we retain Cesium's ground-clamped fallback. */
+export function replayGroundLine(points:{lat:number;lon:number}[]){
+ return measuredReplayLine(points,demHeightAt,MARS);
 }
 /** Display version of the greyscale HiRISE ortho: luminance mapped onto the surrounding Viking colour and edges
  * feathered, so the 25 cm patch blends into the 232 m colour base instead of sitting on it as a grey square.
@@ -101,6 +111,7 @@ function reliefHeights(route:{points:{lat:number;lon:number}[];profile?:{distanc
 export default function Globe(){
  const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
+ const [groundReady,setGroundReady]=useState(false);
  const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep,relief}=useMission();
  useEffect(()=>{
   if(!mount.current)return;
@@ -108,7 +119,7 @@ export default function Globe(){
   const viewer=new C.Viewer(mount.current,{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,sceneModePicker:false,homeButton:false,fullscreenButton:false,navigationHelpButton:false,selectionIndicator:false,infoBox:false,baseLayer:false,
    terrainProvider:terrain(),globe:new C.Globe(MARS),skyAtmosphere:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,contextOptions:{webgl:{alpha:true}}});
   viewerRef.current=viewer;if(import.meta.env.DEV)(window as unknown as {__viewer:unknown}).__viewer=viewer;
-  void ensureLocalDEM();
+  void ensureLocalDEM().then(()=>{if(!viewer.isDestroyed())setGroundReady(true);});
   viewer.scene.backgroundColor=C.Color.fromCssColorString('#070b10');
   viewer.scene.globe.baseColor=C.Color.fromCssColorString('#9a5940');
   viewer.scene.globe.enableLighting=false;
@@ -148,6 +159,12 @@ export default function Globe(){
   }).catch(()=>setRenderer('MOLA / HRSC · ION UNAVAILABLE'));}
   return()=>{load();error();handler.destroy();viewer.destroy();viewerRef.current=null;};
  },[]);
+ useEffect(()=>{
+  const v=viewerRef.current;if(!v)return;
+  // Keep negative-elevation replay annotations inside the horizon bound during
+  // streamed LOD transitions. Terrain depth and on-demand rendering stay intact.
+  if(mode==='replay')return keepReplayDatum(v.scene,localDEMMinimum);
+ },[mode]);
  useEffect(()=>{
   const viewer=viewerRef.current;if(!viewer)return;
   if(layerRef.current){viewer.imageryLayers.remove(layerRef.current);layerRef.current=null;}
@@ -203,35 +220,38 @@ export default function Globe(){
    ...(w.class!=='other'?{position:C.Cartesian3.fromDegrees(w.lon,w.lat,0,MARS),label:{text:`${w.class.replaceAll('_',' ')} ${(w.score*100).toFixed(0)}%`,font:'10px sans-serif',fillColor:C.Color.fromCssColorString(colours[w.class]),pixelOffset:new C.Cartesian2(0,-12),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}}:{})});});
   v.scene.requestRender();
  },[orbital,mission?.id]);
- // Replay entities are created once per replay; each step only changes what the callbacks read.
- // Re-creating them every frame made the clamped lines and the rover model vanish during playback.
- const stepRef=useRef(0);
- stepRef.current=replayStep;
+ // Keep replay entities and constant geometry alive across renders and zooms.
+ // Dynamic clamped callbacks rebuilt primitives even while the replay was paused.
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   for(const e of [...v.entities.values])if(String(e.id).startsWith('replay-'))v.entities.remove(e);
   if(mode!=='replay'||!replay){v.scene.requestRender();return;}
-  const step=()=>replay.steps[Math.min(stepRef.current,replay.steps.length-1)];
-  const deg=(ps:{lat:number;lon:number}[])=>C.Cartesian3.fromDegreesArray(ps.flatMap(p=>[p.lon,p.lat]),MARS);
-  const roverPos=()=>{const st=step();return C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,0,MARS);};
   // Actual driven path: every logged PLACES drive step between acquisitions (forward, reverse, turns),
   // falling back to the straight pose-to-pose line where no drive log exists.
   const driven=replay.steps.map((st,i)=>st.driven?.length?st.driven.map(([lat,lon])=>({lat,lon})):i?[replay.trail[i-1],replay.trail[i]]:[replay.trail[0]]);
   const upTo=(k:number)=>driven.slice(0,k+1).flat();
-  v.entities.add({id:'replay-trail-all',polyline:{positions:deg(upTo(driven.length-1)),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8}),clampToGround:true}});
-  v.entities.add({id:'replay-trail',polyline:{positions:new C.CallbackProperty(()=>{const done=upTo(stepRef.current);return deg(done.length>1?done:[done[0],done[0]]);},false),width:4,material:new C.PolylineOutlineMaterialProperty({color:C.Color.fromCssColorString('#ff4a3d'),outlineColor:C.Color.fromCssColorString('#2a0805'),outlineWidth:1}),clampToGround:true}});
-  const routeColour=new C.CallbackProperty(()=>C.Color.fromCssColorString(step().event==='u_turn'?'#f2a65a':'#3ce1ff'),false);
-  v.entities.add({id:'replay-route',polyline:{positions:new C.CallbackProperty(()=>{const st=step();return deg([st.rover,...(st.route.length?st.route:[st.rover])]);},false),width:6,material:new C.PolylineGlowMaterialProperty({glowPower:.22,color:routeColour}),clampToGround:true}});
-  v.entities.add({id:'replay-goal',position:C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,0,MARS),point:{pixelSize:12,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 11px sans-serif',fillColor:C.Color.fromCssColorString('#f2a65a'),pixelOffset:new C.Cartesian2(0,-20),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
-  v.entities.add({id:'replay-rover',position:new C.CallbackPositionProperty(roverPos,false) as unknown as C.PositionProperty,
-   orientation:new C.CallbackProperty(()=>C.Transforms.headingPitchRollQuaternion(roverPos(),new C.HeadingPitchRoll(C.Math.toRadians(step().rover.yaw_deg-90),0,0),MARS),false),
-   model:{uri:ROVER_MODEL,minimumPixelSize:56,maximumScale:400,heightReference:C.HeightReference.CLAMP_TO_GROUND},
-   point:{pixelSize:9,color:C.Color.WHITE,outlineColor:C.Color.fromCssColorString('#3ce1ff'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
+  v.entities.add({id:'replay-trail-all',polyline:{...replayGroundLine(upTo(driven.length-1)),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8})}});
+  v.entities.add({id:'replay-trail',polyline:{positions:[],width:4,material:new C.PolylineOutlineMaterialProperty({color:C.Color.fromCssColorString('#ff4a3d'),outlineColor:C.Color.fromCssColorString('#2a0805'),outlineWidth:1}),clampToGround:true}});
+  v.entities.add({id:'replay-route',polyline:{positions:[],width:6,material:new C.PolylineGlowMaterialProperty({glowPower:.22,color:C.Color.fromCssColorString('#3ce1ff')}),clampToGround:true}});
+  const goalHeight=demHeightAt(replay.goal.lat,replay.goal.lon);
+  v.entities.add({id:'replay-goal',position:C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,(goalHeight??0)+.15,MARS),point:{pixelSize:12,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,heightReference:goalHeight===null?C.HeightReference.CLAMP_TO_GROUND:C.HeightReference.NONE,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 11px sans-serif',fillColor:C.Color.fromCssColorString('#f2a65a'),pixelOffset:new C.Cartesian2(0,-20),heightReference:goalHeight===null?C.HeightReference.CLAMP_TO_GROUND:C.HeightReference.NONE,disableDepthTestDistance:Infinity}});
+  const hasDEM=demHeightAt(replay.steps[0].rover.lat,replay.steps[0].rover.lon)!==null;
+  v.entities.add({id:'replay-rover',
+   model:{uri:ROVER_MODEL,minimumPixelSize:56,maximumScale:400,heightReference:hasDEM?C.HeightReference.NONE:C.HeightReference.CLAMP_TO_GROUND},
+   point:{pixelSize:9,color:C.Color.WHITE,outlineColor:C.Color.fromCssColorString('#3ce1ff'),outlineWidth:3,heightReference:hasDEM?C.HeightReference.NONE:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
   v.scene.requestRender();
- },[mode,replay]);
+ },[mode,replay,groundReady]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v||mode!=='replay'||!replay)return;
-  if(useMission.getState().followRover){
+  const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];
+  const done=replay.steps.slice(0,replayStep+1).flatMap((s,i)=>s.driven?.length?s.driven.map(([lat,lon])=>({lat,lon})):i?[replay.trail[i-1],replay.trail[i]]:[replay.trail[0]]);
+  const trail=replayGroundLine(done.length>1?done:[done[0],done[0]]),route=replayGroundLine([st.rover,...(st.route.length?st.route:[st.rover])]);
+  updateReplayLine(v.entities.getById('replay-trail')!,trail.positions,trail.clampToGround);
+  updateReplayLine(v.entities.getById('replay-route')!,route.positions,route.clampToGround);
+  updateReplayColour(v.entities.getById('replay-route')!,C.Color.fromCssColorString(st.event==='u_turn'?'#f2a65a':'#3ce1ff'));
+  const position=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,(demHeightAt(st.rover.lat,st.rover.lon)??0)+.05,MARS);
+  const poseChanged=updateReplayPose(v.entities.getById('replay-rover')!,position,C.Transforms.headingPitchRollQuaternion(position,new C.HeadingPitchRoll(C.Math.toRadians(st.rover.yaw_deg-90),0,0),MARS));
+  if(useMission.getState().followRover&&poseChanged){
    // Follow mode: keep the current zoom, re-centre on the rover as the replay advances.
    const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];
    const ground=v.scene.globe.getHeight(C.Cartographic.fromDegrees(st.rover.lon,st.rover.lat))??catalog?.regions[0]?.display_surface_height_m??-4517;
@@ -239,7 +259,7 @@ export default function Globe(){
    v.camera.setView({destination:C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+above,MARS),orientation:{heading:v.camera.heading,pitch:v.camera.pitch,roll:0}});
   }
   v.scene.requestRender();
- },[mode,replay,replayStep]);
+ },[mode,replay,replayStep,groundReady]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v||mode!=='replay'||!replay)return;
   const fit=()=>{

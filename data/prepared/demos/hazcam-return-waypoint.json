@@ -10,7 +10,7 @@
   "map": "Actual PLACES HiRISE 25 cm orthophoto",
   "calculation": "Real PLACES rover poses replayed in order; route to the real arrival point re-planned on deviation or new stereo obstacles.",
   "camera_overlay": "One tapering overlay from shared web geometry: measured local A* corridor, then dashed-centre projected map context; no unmeasured safe corridor asserted",
-  "overlay_geometry_sha256": "5bddffcfcee1b988f7d0cba0f5049a54de20e8140fb1a2b53c2f548f42da1d67",
+  "overlay_geometry_sha256": "6096a0e9fb0a1a7bf44e89feb22b5be83dc37a373ad4c5abd7e15bbe89a16c0f",
   "local_navigation_settings": {
     "cell_m": 0.1,
     "forward_min_m": 0.0,
@@ -65,6 +65,6 @@
     }
   ],
   "input_frames_sha256": "b088f01b88228289c4d71a70429324aadbdcc19ba208fe7ef95f94e77fe8fcfb",
-  "video_sha256": "88a554f4dd86d855efb9f4bc9b2955a5901197c03ee3d1b5e8f337665ed0f0d4",
+  "video_sha256": "d04e81da55c4f76524d22a9493811f667a5285dccbc9a24dca4c106bf40c4a34",
   "limitation": "Camera reprojection is validated; absolute orbital placement of these Hazcam poses remains archive-based, not independently accepted."
 }

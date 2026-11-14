@@ -39,11 +39,15 @@ def ground_pixels(frame: dict, meta: dict):
     return _xy(ned, meta), rows, cols, xyz.shape[:2], ned
 
 
-def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float) -> dict:
+def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float, destination_xy=None) -> dict:
     ground, rows, cols, shape, ned = ground_pixels(frame, meta)
     tree = cKDTree(ground)
     cell = meta["cell_m"]
     centres = np.array([[meta["west_m"] + (c + .5) * cell, meta["north_m"] - (r + .5) * cell] for r, c in route_cells], dtype=np.float64)
+    # The flag belongs to the requested destination, not the local stopping
+    # point, last visible fragment, or centre of its rounded planning cell.
+    if destination_xy is not None:
+        centres[-1] = np.asarray(destination_xy, dtype=np.float64)
     # 10 cm samples along each leg (vectorised; same values as the former per-sample loop).
     if len(centres) > 1:
         delta = centres[1:] - centres[:-1]
@@ -127,7 +131,10 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
     segments = [s for s in segments if len(s) >= 3]
     rover = np.array(frame["places"]["corrected_rover_origin_global_ned_m"], dtype=float)
     visible = sorted({round(p[2], 1) for s in segments for p in s})
+    destination = ([round(float(projected[-1, 0])/width, 5), round(float(projected[-1, 1])/height, 5)]
+                   if destination_xy is not None and projected is not None and bool(hit[-1]) else None)
     return {"frame_id": frame["id"], "segments": segments, "tolerance_m": tolerance_m,
+            "destination": destination,
             "visible_route_m": round(sum(s[-1][2] - s[0][2] for s in segments), 2),
             "visible_along_range_m": [visible[0], visible[-1]] if visible else None,
             "route_length_m": round(total, 2),

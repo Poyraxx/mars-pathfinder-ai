@@ -5,7 +5,7 @@ type P=[number,number];
 const pts=(ps:P[])=>ps.map(p=>`${p[0].toFixed(5)},${p[1].toFixed(5)}`).join(' ');
 
 /** One tapering route shape; dashes identify the unverified map continuation. */
-export default function RouteOverlay({local,faint,far,farEndIsGoal}:{local:LocalNavigation|null;faint:boolean;far?:number[][][];farEndIsGoal?:boolean}){
+export default function RouteOverlay({local,faint,far,destination}:{local:LocalNavigation|null;faint:boolean;far?:number[][][];destination?:number[]|null}){
  const ribbon=navigationRibbon(local?.ribbons??[],local?.ribbon_s_m,far??[],local?.length_m??0,!faint);
  const k=faint?.45:1;
  const top=ribbon.strokes.length?Math.min(...ribbon.strokes.flatMap(s=>s.centre.map(p=>p[1]))):0;
@@ -26,7 +26,13 @@ export default function RouteOverlay({local,faint,far,farEndIsGoal}:{local:Local
   </g>)}
   {ribbon.chevrons.map((c,i)=><polyline key={i} className="route-chevron" points={pts(c)} opacity={k}/>)}
   {ribbon.hidden.map((h,i)=><polyline key={`h${i}`} className="route-far-hidden" points={pts(h)} opacity={k}/>)}
-  {ribbon.end&&<g className="route-end" opacity={k}><circle cx={ribbon.end[0]} cy={ribbon.end[1]} r=".011" className="route-end-halo"/><circle cx={ribbon.end[0]} cy={ribbon.end[1]} r=".0055" className="route-end-dot"/>{farEndIsGoal&&<title>Destination</title>}</g>}
+  {ribbon.end&&<g className="route-end" opacity={k}><circle cx={ribbon.end[0]} cy={ribbon.end[1]} r=".011" className="route-end-halo"/><circle cx={ribbon.end[0]} cy={ribbon.end[1]} r=".0055" className="route-end-dot"/></g>}
+  {destination&&<g className="camera-destination" transform={`translate(${destination[0]} ${destination[1]})`} role="img" aria-label="Destination in camera view">
+   <title>Destination · calibrated camera projection; map placement uses the archived pose</title>
+   <circle r=".006" fill="#f2a65a" stroke="#111b22" strokeWidth=".002"/>
+   <path d="M0 0V-.055 M0-.055L.033-.045 .0-.031" fill="#f2a65a" stroke="#fff3df" strokeWidth=".003" strokeLinejoin="round"/>
+   <text x={destination[0]>.75?-.012:.041} y="-.032" textAnchor={destination[0]>.75?'end':'start'} fill="#fff3df" stroke="#111b22" strokeWidth=".006" paintOrder="stroke" fontSize=".023" fontWeight="600">Destination</text>
+  </g>}
  </svg>;
 }
 

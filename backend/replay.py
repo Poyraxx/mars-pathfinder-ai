@@ -193,8 +193,8 @@ def compute(scenario_id: str, profile: dict | None = None, goal: dict | None = N
         # PLACES pose only, flagged unverified (display only; never used to update the map).
         verified = bool(f["registration"].get("verified"))
         tol = max(.35, min(1.0, f["registration"]["horizontal_error_bound_m"] / 2)) if verified else .5
-        projection = project_route(f, meta, remaining_cells, tol)
-        projection = {k2: projection[k2] for k2 in ("segments", "visible_route_m", "tolerance_m", "method")} | {"placement": "image-verified" if verified else "archived PLACES pose, not independently verified"}
+        projection = project_route(f, meta, remaining_cells, tol, destination_xy=goal_xy)
+        projection = {k2: projection[k2] for k2 in ("segments", "destination", "visible_route_m", "tolerance_m", "method")} | {"placement": "image-verified" if verified else "archived PLACES pose, not independently verified"}
         guide = navigation_guide(p, yaw, [_centre(c, meta) for c in remaining_cells], remaining)
         driven = _driven_between(frames[k-1] if k else None, f, poses[k-1] if k else None, ned, yaws[k-1] if k else None, yaw)
         # Motion from the dense drive log when available (exact manoeuvres); otherwise the two-pose comparison.
