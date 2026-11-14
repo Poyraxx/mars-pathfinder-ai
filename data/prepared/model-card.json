@@ -1,0 +1,161 @@
+{
+  "ready": true,
+  "name": "LR-ASPP \u00b7 MobileNetV3",
+  "status": "Fine-tuned on real AI4Mars v0.6 MSL/Navcam subset",
+  "classes": [
+    "soil",
+    "bedrock",
+    "sand",
+    "big_rock"
+  ],
+  "input_size": 320,
+  "threshold": 0.7,
+  "threshold_note": "Conservative display threshold; not calibrated as occupancy probability",
+  "training_size": 384,
+  "epochs_completed": 10,
+  "training_device": "cuda",
+  "elapsed_training_s": 223.6,
+  "optimizer": "AdamW",
+  "learning_rates": {
+    "backbone": 0.0001,
+    "head": 0.001
+  },
+  "loss": "weighted CE + Dice",
+  "batch_size": 2,
+  "gradient_accumulation": 4,
+  "split_counts": {
+    "train": 400,
+    "validation": 80,
+    "test": 80
+  },
+  "split_method": "3-sol acquisition-time blocks, deterministic hash; max12 images/block; demo +-3sol excluded",
+  "seed": 42,
+  "dataset": "AI4Mars merged v0.6",
+  "dataset_url": "https://zenodo.org/records/15995036",
+  "dataset_license": "CC-BY-4.0",
+  "metrics": {
+    "miou": 0.5580087769787435,
+    "class_iou": {
+      "soil": 0.8802153130043243,
+      "bedrock": 0.6450087721558422,
+      "sand": 0.7068110227548076,
+      "big_rock": 0.0
+    },
+    "precision": {
+      "soil": 0.943215875607255,
+      "bedrock": 0.8251423348915258,
+      "sand": 0.7214540107384724,
+      "big_rock": 0.0
+    },
+    "recall": {
+      "soil": 0.9294691095277386,
+      "bedrock": 0.7471304286483678,
+      "sand": 0.972085977854189,
+      "big_rock": 0.0
+    },
+    "f1": {
+      "soil": 0.936292037317643,
+      "bedrock": 0.7842010122663788,
+      "sand": 0.828224113076102,
+      "big_rock": 0.0
+    },
+    "confusion_matrix": [
+      [
+        3138332,
+        112148,
+        122114,
+        3884
+      ],
+      [
+        184216,
+        550733,
+        1322,
+        860
+      ],
+      [
+        4626,
+        4559,
+        320871,
+        29
+      ],
+      [
+        94,
+        0,
+        449,
+        0
+      ]
+    ]
+  },
+  "pytorch_test_384": {
+    "miou": 0.5939162633880783,
+    "class_iou": {
+      "soil": 0.9079452083754187,
+      "bedrock": 0.7068857331002693,
+      "sand": 0.7608341120766251,
+      "big_rock": 0.0
+    },
+    "precision": {
+      "soil": 0.9500987811360292,
+      "bedrock": 0.8926978736373482,
+      "sand": 0.7766323945810653,
+      "big_rock": 0.0
+    },
+    "recall": {
+      "soil": 0.9534107180075995,
+      "bedrock": 0.7725253080913361,
+      "sand": 0.9739597349300323,
+      "big_rock": 0.0
+    },
+    "f1": {
+      "soil": 0.9517518683343299,
+      "bedrock": 0.828275401677101,
+      "sand": 0.8641746622904092,
+      "big_rock": 0.0
+    },
+    "confusion_matrix": [
+      [
+        4638387,
+        93107,
+        129426,
+        4126
+      ],
+      [
+        236593,
+        820126,
+        3228,
+        1670
+      ],
+      [
+        6833,
+        5472,
+        463262,
+        81
+      ],
+      [
+        192,
+        0,
+        585,
+        0
+      ]
+    ]
+  },
+  "onnx_parity_pixel_agreement": [
+    0.999990234375,
+    1.0,
+    0.999990234375
+  ],
+  "local_cpu_latency_ms": {
+    "p50": 21.658749999915017,
+    "p95": 25.084469995999825,
+    "threads": 1,
+    "note": "Local CPU measurement; not Render Free benchmark"
+  },
+  "model_sha256": "2a8a64069451c88d8c123ebdae76ea7f4c44dffa182c6d86a037547c23364203",
+  "limitations": [
+    "Test is a held-out crowdsourced-label subset, not an expert gold benchmark.",
+    "Small preliminary subset; no generalization or human-safety guarantee",
+    "Only4 NAV classes; no small-stone class",
+    "RAD archive frames have different photometric processing from training EDR images",
+    "Independent camera-orbital registration remains unverified"
+  ]
+}
