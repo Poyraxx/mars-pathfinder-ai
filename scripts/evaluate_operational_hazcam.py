@@ -22,12 +22,12 @@ from train_operational_hazcam import metrics
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--manifest',type=Path,required=True)
-    ap.add_argument('--split',choices=['validation','test'],default='validation');ap.add_argument('--output',type=Path,required=True)
+    ap.add_argument('--split',choices=['validation','test','test_v6'],default='validation');ap.add_argument('--output',type=Path,required=True)
     ap.add_argument('--obstacle-threshold',type=float,default=.7);ap.add_argument('--hardware-threshold',type=float,default=.8)
     ap.add_argument('--margin',type=int,default=3);ap.add_argument('--render',type=Path);args=ap.parse_args()
     path=args.candidate/'surface.onnx';model_sha=hashlib.sha256(path.read_bytes()).hexdigest()
     policy={'inference_policy':'whole','navigation_obstacle_threshold':args.obstacle_threshold,'hardware_threshold':args.hardware_threshold,'hardware_margin_native_px':args.margin}
-    if args.split=='test':
+    if args.split.startswith('test'):
         frozen=json.loads((args.candidate/'frozen-selection.json').read_text('utf8'))
         assert frozen['model_sha256']==model_sha and frozen['policy']==policy, 'Test requires a previously frozen model and policy'
     entries=[e for e in json.loads(args.manifest.read_text('utf8'))['entries'] if e['split']==args.split]

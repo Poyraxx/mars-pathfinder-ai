@@ -1,0 +1,9 @@
+{
+  "version": 6,
+  "fixed_before_predictions": true,
+  "train": [2900, 3100, 3300, 3503, 4101, 4250, 4650],
+  "test_v6": [2400, 2700, 4450],
+  "substitutions": "3500->3503, 4100->4101, 4900->2400 (no front Hazcam RAD in the archive at the planned sol); chosen before any prediction.",
+  "rule": "Roles fixed before any model prediction on these scenes. Every training/validation/test sol of v5 is at least ~50 sols away. test_v6 scenes are labelled without viewing model output and evaluated once after the next candidate is frozen.",
+  "method": "Native 1024 PDS RAD front Hazcam (B-side) images. SLIC superpixels are numbered on the image; each superpixel is visually classified by the coding assistant (Claude) as substantial obstacle, rover hardware, sky/distant, ground/small stone, or left unknown (255). Same class semantics as v5: ignore harmless gravel, include raised blocks, flat bedrock and shadows are ground, ambiguous stays unknown. Not independent expert truth."
+}
