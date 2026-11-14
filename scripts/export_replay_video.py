@@ -18,7 +18,7 @@ import subprocess
 import sys
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 import imageio_ffmpeg
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -38,6 +38,64 @@ def font(size,bold=False):
     win=Path('C:/Windows/Fonts')/('arialbd.ttf' if bold else 'arial.ttf')
     linux=Path('/usr/share/fonts/truetype/dejavu')/('DejaVuSans-Bold.ttf' if bold else 'DejaVuSans.ttf')
     return ImageFont.truetype(str(win if win.exists() else linux),size)
+
+
+
+ANCHOR=(.5,.985);ANCHOR_HALF=.05
+
+
+def route_strips(ribbons):
+    """Join consecutive projected ribbon quads [l0,r0,r1,l1] into continuous strips (same rule as the web overlay)."""
+    out=[];cur=None
+    for q in ribbons:
+        l0,r0,r1,l1=(tuple(v) for v in q[:4])
+        joined=cur is not None and math.hypot(cur[0][-1][0]-l0[0],cur[0][-1][1]-l0[1])<.004
+        if not joined:
+            cur=([l0],[r0]);out.append(cur)
+        cur[0].append(l1);cur[1].append(r1)
+    return [s for s in out if len(s[0])>=2]
+
+
+def _mid(a,b):return ((a[0]+b[0])/2,(a[1]+b[1])/2)
+
+
+def _unit(v):
+    n=math.hypot(*v) or 1.;return (v[0]/n,v[1]/n)
+
+
+def rover_link(first):
+    """Image-plane Bezier from the rover (bottom centre) to the first visible ground point, tangent to the route."""
+    left,right=first;m0=_mid(left[0],right[0]);k=min(3,len(left)-1);m1=_mid(left[k],right[k])
+    d=_unit((m1[0]-m0[0],m1[1]-m0[1]));dist=math.hypot(m0[0]-ANCHOR[0],m0[1]-ANCHOR[1])
+    p1=(ANCHOR[0],ANCHOR[1]-dist*.45);p2=(m0[0]-d[0]*dist*.45,m0[1]-d[1]*dist*.45)
+    w1=math.hypot(left[0][0]-right[0][0],left[0][1]-right[0][1])/2;ls=[];rs=[]
+    for i in range(29):
+        t=i/28;u=1-t
+        x=u**3*ANCHOR[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t**3*m0[0]
+        y=u**3*ANCHOR[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t**3*m0[1]
+        dx=3*u*u*(p1[0]-ANCHOR[0])+6*u*t*(p2[0]-p1[0])+3*t*t*(m0[0]-p2[0])
+        dy=3*u*u*(p1[1]-ANCHOR[1])+6*u*t*(p2[1]-p1[1])+3*t*t*(m0[1]-p2[1])
+        n=_unit((-dy,dx));w=ANCHOR_HALF*(1-t)+w1*t
+        ls.append((x+n[0]*w,y+n[1]*w));rs.append((x-n[0]*w,y-n[1]*w))
+    return ls+rs[::-1]
+
+
+def route_arrow(last):
+    left,right=last
+    if len(left)<3:return None
+    n=len(left)-1;tip=_mid(left[n],right[n]);prev=_mid(left[n-2],right[n-2])
+    d=_unit((tip[0]-prev[0],tip[1]-prev[1]));w=max(.012,math.hypot(left[n][0]-right[n][0],left[n][1]-right[n][1])*1.1);nr=(-d[1],d[0])
+    return [(tip[0]+d[0]*w*1.6,tip[1]+d[1]*w*1.6),(tip[0]+nr[0]*w,tip[1]+nr[1]*w),(tip[0]-nr[0]*w,tip[1]-nr[1]*w)]
+
+
+def draw_turn_cue(d,ox,oy,size,direction):
+    """Amber in-place rotation arc at the rover position: a guidance icon, not a ground route."""
+    dx=1 if direction=='right' else -1;cx,cy=ox+.5*size,oy+.9*size;rx,ry=.14*size,.1*size
+    pts=[]
+    for i in range(41):
+        a=math.pi*i/40;pts.append((cx-dx*rx*math.cos(a),cy-ry*math.sin(a)))
+    d.line(pts,fill=AMBER,width=9,joint='curve')
+    ex=cx+dx*rx;d.polygon([(ex-dx*.028*size,cy-.025*size),(ex+dx*.012*size,cy),(ex-dx*.028*size,cy+.03*size)],fill=AMBER)
 
 
 def render_keyframes(result):
@@ -77,8 +135,16 @@ def render_keyframes(result):
         local=local_navigation.compute(st['frame_id'],result['goal'])
         for line in local.get('corridor_edges',[]):
             d.line([(xcam+p[0]*size,cy+p[1]*size) for p in line],fill=CYAN,width=2)
-        for polygon in local['ribbons']:
-            d.polygon([(xcam+p[0]*size,cy+p[1]*size) for p in polygon],fill=CYAN)
+        # One union mask so the rover link, strips and arrow read as a single connected ribbon (no seams).
+        px=lambda pts:[(p[0]*size,p[1]*size) for p in pts]
+        parts=route_strips(local['ribbons']);mask=Image.new('L',(size,size),0);md=ImageDraw.Draw(mask)
+        if parts:md.polygon(px(rover_link(parts[0])),fill=255)
+        for left_edge,right_edge in parts:md.polygon(px(left_edge+right_edge[::-1]),fill=255)
+        if parts and (arrow:=route_arrow(parts[-1])):md.polygon(px(arrow),fill=255)
+        if parts:
+            mask=mask.filter(ImageFilter.MaxFilter(3)).point(lambda v:int(v*.88))
+            canvas.paste(Image.new('RGB',(size,size),CYAN),(xcam,cy),mask);d=ImageDraw.Draw(canvas)
+        if local['status']=='turn_required' and local.get('turn_direction'):draw_turn_cue(d,xcam,cy,size,local['turn_direction'])
         for p in local.get('obstacles',[]):
             ox,oy=xcam+p[0]*size,cy+p[1]*size;d.rectangle((ox-2,oy-2,ox+2,oy+2),fill='#ff5a4a')
         # Same route payload as the in-app map; only the cartographic projection changes.
@@ -98,20 +164,22 @@ def render_keyframes(result):
         d.text((xmap+24,my+21),f"{st['remaining_m']:.1f} m remaining",font=font(24,True),fill=WHITE)
         d.text((xmap+24,my+55),f"ROUTE v{st['route_version']}  /  FRAME {index+1} OF {len(result['steps'])}",font=font(14),fill=MUTED)
         d.rounded_rectangle((xcam+12,cy+12,xcam+size-12,cy+100),radius=7,fill='#10252f')
-        if local['ribbons']:
+        if local['status']=='u_turn' and local['ribbons']:
+            label=f"U-turn {local.get('turn_direction','')}: swing out, then head back"
+        elif local['ribbons']:
             label=f"Local route / {local['min_obstacle_distance_m']:.1f} m from nearest rock" if local.get('min_obstacle_distance_m') else 'Local route / no rock in measured range'
         elif local['status']=='turn_required':
-            turn=local.get('required_turn_deg',0)
-            label=f"U-turn: destination {abs(turn):.0f} deg to the {'right' if turn>0 else 'left'}"
+            turn=abs(local.get('required_turn_deg',0))
+            label=f"Turn in place {local.get('turn_direction','')} {turn:.0f} deg"
         else:
             label='No measured safe corridor'
-        d.text((xcam+27,cy+22),label,font=font(23,True),fill=CYAN if local['ribbons'] else AMBER)
+        d.text((xcam+27,cy+22),label,font=font(23,True),fill=CYAN if local['ribbons'] and local['status']!='u_turn' else AMBER)
         motion=st['motion'];details=motion['label']
         if motion['distance_m'] is not None:
             details+=f" / {motion['distance_m']:.1f} m / {motion['heading_change_deg']:+.1f} deg"
         d.text((xcam+27,cy+56),'Recorded: '+details,font=font(17),fill=WHITE)
         d.text((xcam+27,cy+81),f"Sol {st['sol']} / {st['time'][:19].replace('T',' ')} UTC",font=font(13),fill=MUTED)
-        if not local['ribbons']:
+        if not local['ribbons'] and local['status']!='turn_required':
             import textwrap
             box=(xcam+36,cy+230,xcam+size-36,cy+366)
             d.rounded_rectangle(box,radius=7,fill='#10252f')

@@ -55,16 +55,35 @@ export function terrain(){
 }
 let flownMission='';
 const typeColor:Record<string,string>={Mons:'#f0c58d',Tholus:'#f0c58d',Patera:'#f0c58d',Vallis:'#8ec9d6',Valles:'#8ec9d6',Chasma:'#8ec9d6',Planitia:'#b8c4a0',Planum:'#b8c4a0',Crater:'#d3c4b1'};
+/** Oblique camera looking north at a point, so exaggerated relief reads as height. Altitude is clamped to a regional scale. */
+function obliqueOver(v:C.Viewer,lat:number,lon:number,height:number){
+ const alt=Math.min(1600000,Math.max(80000,height));
+ v.camera.flyTo({destination:C.Cartesian3.fromRadians(lon,lat-alt*1.05/3396190,alt*1.15,MARS),orientation:{heading:0,pitch:C.Math.toRadians(-45),roll:0},duration:1.4});
+}
+
+const RELIEF_X=12;
+/** Route heights for the exaggerated relief view: the route's own MOLA/HRSC elevation profile, scaled like the terrain and lifted slightly so it is never buried. */
+function reliefHeights(route:{points:{lat:number;lon:number}[];profile?:{distance_m:number;elevation_m:number}[]}):number[]|null{
+ const prof=route.profile;if(!prof?.length)return null;
+ const R=3396190,rad=Math.PI/180;let d=0;const out:number[]=[];
+ route.points.forEach((p,i)=>{
+  if(i){const q=route.points[i-1],a=Math.sin((p.lat-q.lat)*rad/2)**2+Math.cos(p.lat*rad)*Math.cos(q.lat*rad)*Math.sin((p.lon-q.lon)*rad/2)**2;d+=2*R*Math.asin(Math.min(1,Math.sqrt(a)));}
+  out.push(d);
+ });
+ const scale=prof[prof.length-1].distance_m/(d||1);
+ return out.map(x=>{x*=scale;let j=0;while(j<prof.length-2&&prof[j+1].distance_m<x)j++;const a=prof[j],b=prof[Math.min(j+1,prof.length-1)],t=b.distance_m>a.distance_m?Math.min(1,Math.max(0,(x-a.distance_m)/(b.distance_m-a.distance_m))):0;return (a.elevation_m+(b.elevation_m-a.elevation_m)*t)*RELIEF_X+1800;});
+}
+
 export default function Globe(){
  const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
- const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep}=useMission();
+ const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep,relief}=useMission();
  useEffect(()=>{
   if(!mount.current)return;
   C.Ellipsoid.default=MARS;
   const viewer=new C.Viewer(mount.current,{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,sceneModePicker:false,homeButton:false,fullscreenButton:false,navigationHelpButton:false,selectionIndicator:false,infoBox:false,baseLayer:false,
    terrainProvider:terrain(),globe:new C.Globe(MARS),skyAtmosphere:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,contextOptions:{webgl:{alpha:true}}});
-  viewerRef.current=viewer;
+  viewerRef.current=viewer;if(import.meta.env.DEV)(window as unknown as {__viewer:unknown}).__viewer=viewer;
   void ensureLocalDEM();
   viewer.scene.backgroundColor=C.Color.fromCssColorString('#070b10');
   viewer.scene.globe.baseColor=C.Color.fromCssColorString('#9a5940');
@@ -126,12 +145,16 @@ export default function Globe(){
   if(coverage){const [w,s,e,n]=coverage;v.entities.add({id:'coverage',rectangle:{coordinates:C.Rectangle.fromDegrees(w,s,e,n),material:C.Color.fromCssColorString('#6faeab').withAlpha(.045),outline:true,outlineColor:C.Color.fromCssColorString('#64b9b0'),height:0,classificationType:C.ClassificationType.BOTH}});}
   for(const [id,p,color]of [['start',start,'#75dbc1'],['goal',goal,'#f4b06f'],...stops.map((p,i)=>[`stop-${i}`,p,'#b7b4ed'])] as [string,{lat:number;lon:number}|null,string][]){if(p)v.entities.add({id,position:C.Cartesian3.fromDegrees(p.lon,p.lat,0,MARS),point:{pixelSize:10,color:C.Color.fromCssColorString(color),outlineColor:C.Color.fromCssColorString('#111b22'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:id==='start'?'START':id==='goal'?'DESTINATION':`SCIENCE ${id.split('-')[1]}`,font:'10px sans-serif',pixelOffset:new C.Cartesian2(0,-23),fillColor:C.Color.fromCssColorString(color),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});}
   const route=mission?.routes.find(r=>r.mode===activeRoute&&r.status==='ready');
-  if(route?.points.length)v.entities.add({id:'active-route',polyline:{positions:C.Cartesian3.fromDegreesArray(route.points.flatMap(p=>[p.lon,p.lat]),MARS),width:4,material:new C.PolylineGlowMaterialProperty({glowPower:.16,color:C.Color.fromCssColorString('#75dbc1')}),clampToGround:true}});
+  if(route?.points.length){
+   const lifted=relief&&mode!=='replay'?reliefHeights(route):null;
+   if(lifted)v.entities.add({id:'active-route',polyline:{positions:C.Cartesian3.fromDegreesArrayHeights(route.points.flatMap((p,i)=>[p.lon,p.lat,lifted[i]]),MARS),width:10,material:new C.PolylineOutlineMaterialProperty({color:C.Color.fromCssColorString('#3ce1ff'),outlineColor:C.Color.fromCssColorString('#06121a'),outlineWidth:2.5}),depthFailMaterial:new C.ColorMaterialProperty(C.Color.fromCssColorString('#3ce1ff').withAlpha(.45))}});
+   else v.entities.add({id:'active-route',polyline:{positions:C.Cartesian3.fromDegreesArray(route.points.flatMap(p=>[p.lon,p.lat]),MARS),width:4,material:new C.PolylineGlowMaterialProperty({glowPower:.16,color:C.Color.fromCssColorString('#75dbc1')}),clampToGround:true}});
+  }
   const old=mission?.previous_route;
   if(old?.points.length)v.entities.add({id:'old-route',polyline:{positions:C.Cartesian3.fromDegreesArray(old.points.flatMap(p=>[p.lon,p.lat]),MARS),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.fromCssColorString('#e7a66b').withAlpha(.6)}),clampToGround:true}});
-  if(!region&&route?.points.length&&mission?.region?.bounds&&flownMission!==mission.id){flownMission=mission.id;const [w,s,e,n]=mission.region.bounds;v.camera.flyTo({destination:C.Rectangle.fromDegrees(w,s,e,n),duration:1.6});}
+  if(!region&&route?.points.length&&mission?.region?.bounds&&flownMission!==mission.id){flownMission=mission.id;const [w,s,e,n]=mission.region.bounds;if(relief&&mode!=='replay'){const la=route.points.map(p=>p.lat),lo=route.points.map(p=>p.lon),s2=Math.min(...la),n2=Math.max(...la),w2=Math.min(...lo),e2=Math.max(...lo);obliqueOver(v,C.Math.toRadians((s2+n2)/2),C.Math.toRadians((w2+e2)/2),Math.max(e2-w2,n2-s2)*59000*.95);}else v.camera.flyTo({destination:C.Rectangle.fromDegrees(w,s,e,n),duration:1.6});}
   v.scene.requestRender();
- },[region,start,goal,stops,mission,activeRoute]);
+ },[region,start,goal,stops,mission,activeRoute,relief,mode]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   if(orthoRef.current){v.imageryLayers.remove(orthoRef.current);orthoRef.current=null;}
@@ -187,5 +210,19 @@ export default function Globe(){
   fit();window.addEventListener('replay-fit',fit);
   return()=>window.removeEventListener('replay-fit',fit);
  },[mode,replay,catalog?.regions]);
+ useEffect(()=>{
+  const v=viewerRef.current;if(!v)return;
+  // Relief view: exaggerate real MOLA/HRSC heights so mountains rise and basins sink.
+  (v.scene as unknown as {verticalExaggeration:number}).verticalExaggeration=relief&&mode!=='replay'?RELIEF_X:1;
+  if(relief&&mode!=='replay'){
+   // Tilt the view so the exaggerated relief reads as height, not just colour.
+   const canvas=v.scene.canvas,centre=v.camera.pickEllipsoid(new C.Cartesian2(canvas.clientWidth/2,canvas.clientHeight/2),MARS);
+   if(centre){
+    const c=MARS.cartesianToCartographic(centre);
+    obliqueOver(v,c.latitude,c.longitude,MARS.cartesianToCartographic(v.camera.position).height);
+   }
+  }
+  v.scene.requestRender();
+ },[relief,mode]);
  return <div className={`globe-wrap ${pick?'picking':''}`}><div className="globe-canvas" ref={mount}/><div className="globe-vignette"/><div className="globe-source"><span className="status-dot"/>{status}<span className="source-divider">/</span>{renderer}</div>{pick&&<div className="pick-prompt">Select {pick==='stop'?'a science waypoint':`the ${pick} point`} on the terrain <button onClick={()=>useMission.getState().set({pick:null})}>Cancel</button></div>}</div>;
 }
