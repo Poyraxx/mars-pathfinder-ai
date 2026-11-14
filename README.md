@@ -71,10 +71,17 @@ model, real EVA consumables, D*Lite and arbitrary-photo localization are not imp
 
 ## Deploy
 
-Dockerfile and render.yaml target a public Render Free Python/ONNX service. Connect this repository
-to Render and create its Blueprint. No paid service is enabled. The service may sleep, cold-start,
-or lose session state; export reports to preserve them. A public deployment is not asserted until
-a real accessible URL has been verified.
+**Live demo: https://mars-pathfinder-ai.onrender.com** (Render Free, Frankfurt, Docker).
+
+Dockerfile and render.yaml define the service; no paid service is enabled. The free instance sleeps
+when idle, so the first request can take about a minute (cold start). Session state is in memory
+and is lost on restart or sleep; export the JSON report to keep results.
+
+Verified on 14 November 2026 against the public URL from an external client: mission creation,
+planning of the three routes on the server (about 8.8 s wall time including queueing/SSE), live SSE
+events, real ONNX CPU inference on two archived Navcam frames (server-reported 401 ms first call,
+244 ms second), `localization.rejected` with map version unchanged, duplicate-frame 409, overlay PNGs
+and the JSON report. These are single-run Render Free measurements, not benchmarks.
 
 ## Sources and attribution
 
@@ -85,6 +92,6 @@ a real accessible URL has been verified.
 - [Global DEM service](https://astro.arcgis.com/arcgis/rest/services/OnMars/MDEM200M/ImageServer) — NASA/USGS/ESA/DLR/FU Berlin; Esri hosting.
 - CesiumJS (Apache2.0), Torchvision (BSD3-Clause), ONNX Runtime (MIT), React (MIT), FastAPI (MIT).
 
-Original implementation assisted by OpenAI Codex. This is an AI tool disclosure, not a contributor
+Original implementation assisted by OpenAI Codex; later work assisted by Anthropic Claude. This is an AI tool disclosure, not a contributor
 identity. No NASA endorsement is implied. Data retain their individual provenance and rights;
 the source code is Apache2.0. No NASA logos or mission insignia are used.
