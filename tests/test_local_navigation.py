@@ -8,7 +8,7 @@ import pytest
 from backend import local_navigation as local
 
 
-def terrain_fixture(kind='flat'):
+def terrain_fixture(kind='flat', *, semantic_rocks=True):
     cfg = replace(local.DEFAULT, forward_max_m=16., half_width_m=7.)
     f, r = np.meshgrid(np.arange(.425, 15.98, .04), np.arange(-6.975, 7., .04), indexing='ij')
     h = np.zeros(f.shape)
@@ -19,6 +19,8 @@ def terrain_fixture(kind='flat'):
         rock |= (f-8.)**2+(r+4.)**2 < .7**2
     elif kind == 'low_block':
         rock=(f-8.)**2+r**2<.55**2
+    elif kind == 'near_boulder':
+        rock=(f-2.6)**2+r*r<.35**2
     elif kind == 'pebble':
         rock=(f-8.025)**2+(r-.025)**2<.035**2
     elif kind == 'reference_stone':
@@ -31,7 +33,7 @@ def terrain_fixture(kind='flat'):
     if kind=='reference_stone':h[rock]=.06
     xyz = np.stack((f, r, -h), axis=-1)
     xye = np.full(xyz.shape, .001)
-    classes = np.where(rock, 3, 1).astype(np.uint8)
+    classes = np.where(rock & semantic_rocks, 3, 1).astype(np.uint8)
     confidence = np.full(f.shape, .99)
     return local.build_terrain(xyz, xye, classes, confidence, np.zeros(3), np.array([1., 0.]), np.array([0., 1.]), cfg)
 
@@ -65,6 +67,38 @@ def test_closed_passage_returns_no_path_and_never_falls_back_to_a_curve():
     terrain = terrain_fixture('closed')
     result = local.plan_observed(terrain, [13., 0.])
     assert result['status'] == 'no_path' and result['path_xy'] == []
+
+
+def test_blocked_map_waypoint_stops_on_connected_ground_without_opening_the_wall():
+    terrain=terrain_fixture('closed')
+    before_free=terrain['free'].copy();before_observed=terrain['observed'].copy()
+    result=local.plan_observed(terrain,[8.,0.],waypoint=True)
+    points=np.asarray(result['path_xy'])
+    assert result['status']=='partial' and len(points)>=2
+    assert points[:,0].max()<6.5
+    assert all(local.segment_clear(a,b,terrain) for a,b in zip(points,points[1:]))
+    assert np.array_equal(terrain['free'],before_free) and np.array_equal(terrain['observed'],before_observed)
+    assert local.plan_observed(terrain,[8.,0.])['status']=='no_path'
+
+
+def test_unreachable_far_patch_is_not_selected_as_a_partial_frontier():
+    terrain=terrain_fixture('closed')
+    result=local.plan_observed(terrain,[30.,0.])
+    points=np.asarray(result['path_xy'])
+    assert result['status']=='partial' and points[:,0].max()<6.5
+    assert all(local.segment_clear(a,b,terrain) for a,b in zip(points,points[1:]))
+
+
+def test_measured_side_exit_can_pass_a_near_boulder_without_a_fake_pivot_disc():
+    terrain=terrain_fixture('near_boulder')
+    result=local.plan_observed(terrain,[13.,0.])
+    points=assert_validated(result,terrain)
+    assert np.abs(points[:,1]).max()>1.5
+    dense=np.concatenate([np.linspace(a,b,100) for a,b in zip(points,points[1:])])
+    rc=tuple(local._cell(dense,terrain).T)
+    required=local.DEFAULT.half_width_m_body+local.DEFAULT.clearance_m
+    assert terrain['clearance'][rc].min()>=required
+    assert terrain['observed'][rc].all()
 
 
 def test_harmless_pebble_is_not_inflated_into_a_rover_sized_obstacle():
@@ -321,3 +355,30 @@ def test_memory_never_overrides_a_cell_measured_in_the_current_frame():
     remembered = local._site_to_global(frame, site_xy, np.zeros(2))
     updated, added = local.with_memory(frame, terrain, remembered)
     assert added.tolist() == [[3, 1]] and updated['blocked'][3, 1] and not updated['blocked'][0, 1]
+
+
+def test_memory_survives_a_model_miss_only_when_stereo_remeasures_the_rock():
+    frame={'camera_model':{'rover_origin_in_site_m':[0.,0.,0.],'rover_to_site_rotation':np.eye(3).tolist()},
+           'places':{'archive_site_to_global_ned_rotation':np.eye(3).tolist(),
+                     'archive_site_to_global_ned_translation_m':[0.,0.,0.],
+                     'corrected_rover_origin_global_ned_m':[0.,0.,0.]}}
+    cfg=replace(local.DEFAULT,forward_max_m=16.,half_width_m=7.)
+    terrain=terrain_fixture('reference_stone',semantic_rocks=False)
+    assert terrain['model_rock_confirmed_cells']==0 and not terrain['blocked'].any()
+    remembered=np.array([[8.025,.025,-.06]])
+    updated,added=local.with_memory(frame,terrain,remembered,cfg)
+    assert len(added)==1 and updated['blocked'][tuple(added[0])]
+    flat=terrain_fixture()
+    cleared,added=local.with_memory(frame,flat,remembered,cfg)
+    assert not len(added) and not cleared['blocked'].any()
+
+
+def test_memory_expires_by_elapsed_frames_even_when_no_new_rocks_are_found(monkeypatch):
+    seen=[]
+    def compute(fid,goal,route,remembered=None):
+        seen.append(remembered)
+        return {'frame_id':fid,'_confirmed_global':np.array([[3.,0.,-.2]]) if fid=='0' else np.empty((0,3))}
+    monkeypatch.setattr(local,'compute',compute)
+    local.compute_sequence([{'frame_id':str(i)} for i in range(local.MEMORY_FRAMES+3)],None)
+    assert seen[1] is not None and seen[local.MEMORY_FRAMES] is not None
+    assert seen[local.MEMORY_FRAMES+1] is None

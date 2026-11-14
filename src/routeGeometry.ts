@@ -56,7 +56,7 @@ function smooth<T extends number|P>(v:T[],k:number,lockEnds=true):T[]{
  });
 }
 
-export type GroundArrow={outline:P[];chevrons:P[][];length:number;tip:P};
+export type GroundArrow={outline:P[];chevrons:P[][];length:number;tip:P;centre:P[];width:number[]};
 
 export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):GroundArrow|null{
  if(!ribbons.length)return null;
@@ -112,5 +112,127 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):
   let next=startW*PAINT*1.6;
   for(let i=0;i<b;i++){if(s[i]<next)continue;chevron(i,w[i]*.7);next=s[i]+w[i]*4.2;}
  }
- return {outline,chevrons,length:total,tip};
+ return {outline,chevrons,length:total,tip,centre:c,width:w};
+}
+
+/** Projected map context, distinct from the collision-checked local corridor. */
+export function mapRoute(segments:number[][][],fromM=2){
+ const visible=segments.map(seg=>seg.filter(p=>p.length>=3&&p.every(Number.isFinite)&&p[2]>=fromM))
+  .filter(s=>s.length>=2).map(seg=>seg.map((p,i)=>{
+   if(i===0||i===seg.length-1)return p;
+   const half=Math.max(1.5,p[2]*.06);let x=0,y=0,n=0;
+   for(let j=i;j>=0&&p[2]-seg[j][2]<=half;j--){x+=seg[j][0];y+=seg[j][1];n++;}
+   for(let j=i+1;j<seg.length&&seg[j][2]-p[2]<=half;j++){x+=seg[j][0];y+=seg[j][1];n++;}
+   return [x/n,y/n,p[2]];
+  })).filter(s=>s.reduce((v,p,i)=>v+(i?dist(p as P,s[i-1] as P):0),0)>=.008);
+ const hidden:P[][]=[];
+ for(let i=1;i<visible.length;i++){
+  const a=visible[i-1].at(-1)!,b=visible[i][0];
+  if(dist(a as P,b as P)<.15)hidden.push([[a[0],a[1]],[b[0],b[1]]]);
+ }
+ return {visible,hidden};
+}
+
+export type RibbonStroke={outline:P[];centre:P[];width:number[];planned:P[]};
+export type NavigationRibbon={strokes:RibbonStroke[];chevrons:P[][];hidden:P[][];end:P|null;hasLocal:boolean};
+
+function outlineTrack(centre:P[],width:number[],planned:P[]):RibbonStroke{
+ const left:P[]=[],right:P[]=[];
+ for(let i=0;i<centre.length;i++){
+  const a=centre[Math.max(0,i-1)],b=centre[Math.min(centre.length-1,i+1)],t=unit([b[0]-a[0],b[1]-a[1]]);
+  left.push([centre[i][0]-t[1]*width[i],centre[i][1]+t[0]*width[i]]);
+  right.push([centre[i][0]+t[1]*width[i],centre[i][1]-t[0]*width[i]]);
+ }
+ return {outline:[...left,...right.reverse()],centre,width,planned};
+}
+
+/** One tapering outline across the near/map handoff. The planned continuation
+ * remains marked separately; joining display geometry does not validate terrain.
+ * True camera exits/occlusions remain separate strips, never invented ground. */
+export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefined,segments:number[][][],localLength=0,planningLink=false):NavigationRibbon{
+ const near=groundArrow(ribbons,groundM,false),plan=mapRoute(segments,near?Math.max(2,localLength+.5):2);
+ let visible=plan.visible,attachNear=false;
+ if(near&&visible.length){
+  // The first projected map fragment can lie behind the local endpoint after a
+  // detour. Attach to the nearest forward fragment, not back toward the rover.
+  const before=near.centre[Math.max(0,near.centre.length-4)],tangent=unit([near.tip[0]-before[0],near.tip[1]-before[1]]);
+  let best=Infinity,attachment:[number,number]|null=null;
+  for(let si=0;si<visible.length;si++)for(let pi=0;pi<visible[si].length;pi++){
+   const p=visible[si][pi];
+   const delta:P=[p[0]-near.tip[0],p[1]-near.tip[1]],d=Math.hypot(...delta);
+   if(p[1]>near.tip[1]+.025||delta[0]*tangent[0]+delta[1]*tangent[1]<-.03)continue;
+   const score=d+p[2]*.00001;
+   if(score<best){best=score;attachment=[si,pi];}
+  }
+  if(attachment&&best<.45){
+   const [si,pi]=attachment;visible=visible.slice(si);visible[0]=visible[0].slice(pi);attachNear=true;
+  }
+ }
+ const strokes:RibbonStroke[]=[],chevrons=near?.chevrons.map(ch=>[...ch])??[];
+ let c:P[]=near?[...near.centre]:[],w=near?[...near.width]:[],planned:P[]=[];
+ if(!near&&planningLink&&visible.length){
+  // Centre-guide mode may connect the projected map to the rover as a thin HUD
+  // direction cue. Every point is planned/unchecked; hasLocal stays false.
+  const first=visible[0][0],after=visible[0][Math.min(3,visible[0].length-1)];
+  const end:P=[first[0],first[1]],d=dist(ANCHOR,end),dir=unit([after[0]-end[0],after[1]-end[1]]);
+  const p1:P=[ANCHOR[0],ANCHOR[1]-d*.35],p2:P=[end[0]-dir[0]*d*.25,end[1]-dir[1]*d*.25];
+  for(let j=0;j<32;j++){
+   const t=j/32,u=1-t;
+   const point:P=[u*u*u*ANCHOR[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*end[0],u*u*u*ANCHOR[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*end[1]];
+   c.push(point);w.push(lerp(.006,.0012+.004*end[1]**2,t*t*(3-2*t)));planned.push(point);
+  }
+  attachNear=true;
+ }
+ if(near&&visible.length&&dist(near.tip,visible[0][0] as P)<.45){
+  // Taper the paint (not the rover clearance envelope) before the handoff,
+  // including when the measured corridor leaves the camera at its side edge.
+  const target=Math.min(w.at(-1)!, .0012+.004*visible[0][0][1]**2);
+  let remaining=0;
+  for(let i=c.length-1;i>=0;i--){
+   if(i<c.length-1)remaining+=dist(c[i],c[i+1]);
+   const t=Math.max(0,1-remaining/.18),blend=t*t*(3-2*t);
+   w[i]=lerp(w[i],target,blend);
+  }
+  chevrons.forEach((ch,index)=>{
+   const at:P=[ch.reduce((v,p)=>v+p[0],0)/ch.length,ch.reduce((v,p)=>v+p[1],0)/ch.length];
+   let i=0;for(let j=1;j<c.length;j++)if(dist(c[j],at)<dist(c[i],at))i=j;
+   const scale=w[i]/near.width[i];
+   chevrons[index]=ch.map(p=>[at[0]+(p[0]-at[0])*scale,at[1]+(p[1]-at[1])*scale]);
+  });
+ }
+ const flush=()=>{if(c.length>=2)strokes.push(outlineTrack(c,w,planned));c=[];w=[];planned=[];};
+ for(const seg of visible){
+  const first:P=[seg[0][0],seg[0][1]],last=c.at(-1),joined=attachNear&&!!last&&dist(last,first)<.45&&strokes.length===0;
+  let extension:P[]=[];const joinWidth=joined?w.at(-1)!:0;
+  if(joined&&last){
+   const before=c[Math.max(0,c.length-4)],after=seg[Math.min(3,seg.length-1)],d=dist(last,first);
+   const a=unit([last[0]-before[0],last[1]-before[1]]),b=unit([after[0]-first[0],after[1]-first[1]]);
+   const p1:P=[last[0]+a[0]*d*.3,last[1]+a[1]*d*.3],p2:P=[first[0]-b[0]*d*.3,first[1]-b[1]*d*.3];
+   if(!planned.length||dist(planned.at(-1)!,last)>1e-7)planned.push(last);
+   for(let j=1;j<24&&d>.0001;j++){
+    const t=j/24,u=1-t;
+    extension.push([u*u*u*last[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*first[0],u*u*u*last[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*first[1]]);
+   }
+  }else flush();
+  extension.push(...seg.map(p=>[p[0],p[1]] as P));
+  let travelled=0,previous=joined?last:extension[0];
+  const taperDistance=joined?Math.max(.07,Math.min(.25,dist(last!,first)+.06)):.07;
+  for(const p of extension){
+   travelled+=previous?dist(previous,p):0;previous=p;
+   const base=.0012+.004*Math.max(0,Math.min(1,p[1]))**2;
+   const t=Math.min(1,travelled/taperDistance),blend=t*t*(3-2*t);
+   const half=joined?lerp(joinWidth,Math.min(joinWidth,base),blend):base;
+   if(c.length&&dist(c.at(-1)!,p)<1e-7)continue;
+   c.push(p);w.push(half);planned.push(p);
+  }
+  // Subsequent visible pieces are separated by a true camera/occlusion gap.
+  flush();
+ }
+ flush();
+ const hidden:P[][]=[];
+ for(let i=1;i<visible.length;i++){
+  const a=visible[i-1].at(-1)!,b=visible[i][0];
+  if(dist(a as P,b as P)<.15)hidden.push([[a[0],a[1]],[b[0],b[1]]]);
+ }
+ return {strokes,chevrons,hidden,end:strokes.at(-1)?.centre.at(-1)??null,hasLocal:!!near};
 }

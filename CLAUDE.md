@@ -1,4 +1,13 @@
-# Current work: local Hazcam obstacles (14 November 2026) — PROMOTED (v11)
+# Current continuation — 15 November 2026
+
+The interrupted corridor/continuous-route work after `d99922b` is documented in
+[CONTINUATION_REVIEW.md](CONTINUATION_REVIEW.md). Read it before the older notes.
+Connected measured side exits replace the unfinished free-pivot shortcut; near
+and map routes use one tapered geometry shared by browser/video. Map-only context
+is labelled unverified. Rock memory can use current stereo reconfirmation and
+expires by elapsed frames. Model v11 and the global map remain unchanged.
+
+# Previous work: local Hazcam obstacles (14 November 2026) — PROMOTED (v11)
 
 Done by Claude after Codex ran out of tokens. User sensitivity: match the red reference rocks,
 ignore only very small gravel, include large raised bedrock blocks, never mistake rover equipment

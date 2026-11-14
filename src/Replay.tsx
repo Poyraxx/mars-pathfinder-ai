@@ -6,9 +6,23 @@ import {api,useMission} from './store';
 import type {ReplayResult,Scenario,LocalNavigation} from './types';
 import {ARCHIVE_FILMS} from './ArchiveFilm';
 import RouteOverlay,{TurnCue} from './RouteOverlay';
+import {mapRoute} from './routeGeometry';
 
 const EVENT_TEXT:Record<string,string>={off_route:'Off route · route updated',u_turn:'Make a U-turn · route behind the rover',obstacle:'Obstacle ahead · route updated',no_alternative:'No alternative route found'};
 let replayRequest=0;
+
+function localInstruction(local:LocalNavigation|null,hasPlan:boolean,arrived=false){
+ if(arrived)return 'Destination reached';
+ if(!local)return 'Analysing local terrain…';
+ if(local.status==='ready')return 'Local route verified';
+ if(local.status==='partial')return 'Follow the measured segment';
+ if(local.status==='u_turn')return `U-turn ${local.turn_direction}: swing out, then head back`;
+ if(local.status==='turn_required')return `Turn in place ${local.turn_direction} ${Math.abs(local.required_turn_deg??0).toFixed(0)}°`;
+ if(local.status==='out_of_view'&&local.turn_direction)return `Swing ${local.turn_direction} beside the rover`;
+ if(local.status==='out_of_view')return hasPlan?'Map plan · local route outside view':'Route outside camera view';
+ if(hasPlan)return local.status==='no_path'?'Map plan · local passage blocked':'Map plan · local ground unverified';
+ return local.status==='insufficient_geometry'?'Too little measured ground':'No measured safe corridor';
+}
 
 export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
  const s=useMission.getState();
@@ -96,7 +110,7 @@ export function ReplayView(){
   return()=>controller.abort();
  },[st?.frame_id,r,s.replayView,s.archiveVideo,s.localBatch]);
  const local=s.localNavigation?.frame_id===st?.frame_id&&s.localNavigation?.goal_key===(r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'')?s.localNavigation:null;
- const instruction=s.replayView==='3d'?st?.guidance?.instruction:local?(local.status==='ready'?'Local route verified':local.status==='partial'?'Follow the route':local.status==='u_turn'?`U-turn ${local.turn_direction}: swing out, then head back`:local.status==='turn_required'?`Turn in place ${local.turn_direction} ${Math.abs(local.required_turn_deg??0).toFixed(0)}°`:local.status==='out_of_view'&&local.turn_direction?`Swing ${local.turn_direction} beside the rover`:local.status==='out_of_view'?'Route outside camera view':'No measured safe corridor'):'Analysing local terrain…';
+ const instruction=s.replayView==='3d'?st?.guidance?.instruction:localInstruction(local,!!st&&mapRoute(st.camera_route?.segments??[]).visible.length>0,(st?.remaining_m??Infinity)<=1);
  return <section className="replay-view" aria-label="Rover view">
   <div className="replay-view-tabs" role="tablist">
    <button role="tab" aria-selected={s.replayView==='navcam'} className={s.replayView==='navcam'?'active':''} onClick={()=>s.set({replayView:'navcam'})}><Video size={14}/>Real camera</button>
@@ -162,6 +176,8 @@ function NavcamFrame(){
  const motion=st.motion;
  const local=localNavigation?.frame_id===st.frame_id&&localNavigation?.goal_key===`?goal_lat=${replay!.goal.lat}&goal_lon=${replay!.goal.lon}`?localNavigation:null;
  const hasRoute=!!local?.ribbons.length;
+ const hasPlan=mapRoute(st.camera_route?.segments??[]).visible.length>0;
+ const arrived=st.remaining_m<=1;
  const MotionIcon=motion?.kind.includes('right')?RotateCw:motion?.kind.includes('left')?RotateCcw:motion?.kind==='reverse'?ArrowDown:motion?.kind==='forward'?ArrowUp:Minus;
  return <div className="navcam">
   <div className="camera-tools">
@@ -169,7 +185,7 @@ function NavcamFrame(){
    <div className="camera-overlay-controls" role="group" aria-label="Camera route display"><button aria-pressed={cameraOverlay==='guidance'} onClick={()=>set({cameraOverlay:'guidance'})}>Centre guide</button><button aria-pressed={cameraOverlay==='projection'} onClick={()=>set({cameraOverlay:'projection'})}>Ground projection</button></div>
   </div>
   <div className="camera-image-area"><div className="navcam-stage">{held&&!loaded&&<img className="held-frame" src={`/api/frames/${held}/display`} alt=""/>}<img ref={image} key={st.frame_id} className={held&&!loaded?'incoming-frame':undefined} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>{setHeld(st.frame_id);set({replayImageReady:st.frame_id});}}/>
-   {loaded&&hasRoute&&<RouteOverlay local={local!} faint={cameraOverlay==='projection'} far={st.camera_route?.segments} farEndIsGoal={(st.camera_route?.segments.at(-1)?.at(-1)?.[2]??0)>=st.remaining_m-2}/>}
+   {loaded&&local&&(hasRoute||hasPlan)&&<RouteOverlay local={local} faint={cameraOverlay==='projection'} far={st.camera_route?.segments} farEndIsGoal={(st.camera_route?.segments.at(-1)?.at(-1)?.[2]??0)>=st.remaining_m-2}/>}
    {loaded&&local&&((local.tracked_obstacles?.length??0)>0||(local.distant_candidates?.length??0)>0)&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Rocks remembered from earlier frames and distant rock candidates">
     {(local.distant_candidates??[]).map((c,i)=><polygon key={`d${i}`} className="distant-candidate" points={c.ring.map(p=>`${p[0]},${p[1]}`).join(' ')}><title>{`Distant rock candidate · ~${c.range_m} m (stereo-supported, steering cost only)`}</title></polygon>)}
     {(local.tracked_obstacles??[]).map((p,i)=><rect key={`t${i}`} x={p[0]-.003} y={p[1]-.003} width=".006" height=".006" className="tracked-obstacle"/>)}
@@ -177,10 +193,10 @@ function NavcamFrame(){
    {loaded&&local&&(local.obstacles?.length??0)>0&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Obstacle cells measured by stereo">{local.obstacles!.map((p,i)=><rect key={i} x={p[0]-.0025} y={p[1]-.0025} width=".005" height=".005" fill="#ff5a4a" fillOpacity=".85"/>)}</svg>}
    {!loaded&&!held&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
    {loaded&&!local&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Analysing segmentation and stereo terrain…</div>}
-   {loaded&&local&&!hasRoute&&(local.status==='turn_required'||(local.status==='out_of_view'&&!!local.turn_direction))&&<TurnCue direction={local.turn_direction??'left'} degrees={Math.abs(local.required_turn_deg??180)}/>}
-   {loaded&&local&&!hasRoute&&<div className={`offscreen-guidance ${local.status==='turn_required'||(local.status==='out_of_view'&&local.turn_direction)?'turn':''}`}>{local.status==='turn_required'||(local.status==='out_of_view'&&local.turn_direction)?(local.turn_direction==='right'?<RotateCw size={26}/>:<RotateCcw size={26}/>):<RotateCcw size={26}/>}<strong>{local.status==='insufficient_geometry'?'Too little measured ground':local.status==='turn_required'?`Turn in place ${local.turn_direction} ${Math.abs(local.required_turn_deg??0).toFixed(0)}°`:local.status==='out_of_view'&&local.turn_direction?`Swing ${local.turn_direction} beside the rover`:local.status==='out_of_view'?'Route outside camera view':'No measured safe corridor'}</strong><span>{local.reason}</span></div>}
+   {loaded&&local&&!hasRoute&&!arrived&&(local.status==='turn_required'||(local.status==='out_of_view'&&!!local.turn_direction))&&<TurnCue direction={local.turn_direction??'left'} degrees={Math.abs(local.required_turn_deg??180)}/>}
+   {loaded&&local&&!hasRoute&&!arrived&&!hasPlan&&<div className={`offscreen-guidance ${local.status==='turn_required'||(local.status==='out_of_view'&&local.turn_direction)?'turn':''}`}>{local.status==='turn_required'||(local.status==='out_of_view'&&local.turn_direction)?(local.turn_direction==='right'?<RotateCw size={26}/>:<RotateCcw size={26}/>):hasPlan?<MapPin size={26}/>:<RotateCcw size={26}/>}<strong>{localInstruction(local,hasPlan)}</strong><span>{local.reason}</span></div>}
   </div></div>
-  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>Route: A* on measured stereo terrain for a 2.8 m wide rover, projected with the PDS camera model. The link from the rover to the first visible route point is drawn in the image (that ground is under the rover or outside stereo). Thin line beyond it: the map plan to the destination (dotted where hidden), ending in a dot. Red: measured obstacles. Orange: rocks remembered from earlier frames where this view has no measurement{local?.tracking?.remembered_cells_used?` (${local.tracking.remembered_cells_used} cells)`:''}; orange rings: distant stereo rock candidates (4–12 m, steering cost only). Dashed: rover width.{local?.corridor_observed_fraction!==undefined?` Corridor measured: ${Math.round(local.corridor_observed_fraction*100)}%.`:''}</div>
+  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>Route: A* on measured stereo terrain for a 2.8 m wide rover, projected with the PDS camera model. The link from the rover to the first visible route point is drawn in the image (that ground is under the rover or outside stereo). The dashed-centre continuation is the projected map plan, with unverified local clearance; hidden stretches are dotted, ending in a dot. Red: measured obstacles. Orange: earlier stereo-confirmed rocks, retained while unseen or remeasured as raised ground{local?.tracking?.remembered_cells_used?` (${local.tracking.remembered_cells_used} cells)`:''}; orange rings: distant stereo rock candidates (4–12 m, steering cost only). Dashed: rover width.{local?.corridor_observed_fraction!==undefined?` Corridor measured: ${Math.round(local.corridor_observed_fraction*100)}%.`:''}</div>
  </div>;
 }
 
