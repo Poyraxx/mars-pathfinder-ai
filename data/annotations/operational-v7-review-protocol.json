@@ -1,0 +1,11 @@
+{
+  "version": 7,
+  "fixed_before_predictions": true,
+  "goal": "Raised-block terrain, where v13 failed the IoU gate.",
+  "train_new": [3900, 4500, 2850, 2000, 3050],
+  "dropped": "4002: too dark to label reliably with superpixels; not used",
+  "train_from_consumed_test_v6": [2400, 2700, 4450],
+  "test_v7": [4300, 2199, 2950],
+  "selection": "17 candidate sols (>=~50 sols from every earlier scene) were downloaded and viewed as plain thumbnails only. Block-rich scenes chosen for training; test_v7 deliberately mixes a large raised outcrop (4300), a plate field (2199) and a broad flat bright slab that must stay ground (2950). No model prediction was viewed on any of them before this file.",
+  "method": "Same as v6: SLIC superpixels classified by eye plus traced polygons for rocks smaller than a superpixel."
+}

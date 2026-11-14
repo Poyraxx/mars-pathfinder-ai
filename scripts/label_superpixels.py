@@ -103,11 +103,11 @@ def build():
                         "label_sha256": hashlib.sha256(out.read_bytes()).hexdigest(), "pixel_counts": counts, "regions": regions,
                         "annotation": "operational-v6 superpixel review"})
         print(sid, scene["split"], counts)
-    manifest = {**{k: v for k, v in v5.items() if k != "entries"}, "version": 6,
+    manifest = {**{k: v for k, v in v5.items() if k != "entries"}, "version": 7,
                 "protocol": v5["protocol"] + " Version6: ten more native scenes (7 train, 3 new test_v6) labelled by "
                 "visually classifying deterministic SLIC superpixels; roles fixed before predictions "
                 "(data/annotations/operational-v6-review-protocol.json).", "entries": entries}
-    (TRAINING / "manifest-operational-v6.json").write_text(json.dumps(manifest, indent=1), "utf-8")
+    (TRAINING / "manifest-operational-v7.json").write_text(json.dumps(manifest, indent=1), "utf-8")
 
 
 def main():
