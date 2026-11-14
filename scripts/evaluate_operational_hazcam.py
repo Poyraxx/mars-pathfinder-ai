@@ -22,7 +22,7 @@ from train_operational_hazcam import metrics
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--manifest',type=Path,required=True)
-    ap.add_argument('--split',choices=['validation','test','test_v6'],default='validation');ap.add_argument('--output',type=Path,required=True)
+    ap.add_argument('--split',choices=['validation','test','test_v6','test_v7'],default='validation');ap.add_argument('--output',type=Path,required=True)
     ap.add_argument('--obstacle-threshold',type=float,default=.7);ap.add_argument('--hardware-threshold',type=float,default=.8)
     ap.add_argument('--margin',type=int,default=3);ap.add_argument('--render',type=Path);args=ap.parse_args()
     path=args.candidate/'surface.onnx';model_sha=hashlib.sha256(path.read_bytes()).hexdigest()

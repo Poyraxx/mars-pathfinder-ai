@@ -50,6 +50,6 @@
     }
   ],
   "input_frames_sha256": "b088f01b88228289c4d71a70429324aadbdcc19ba208fe7ef95f94e77fe8fcfb",
-  "video_sha256": "7e0a93cb7b4cbe8ac3b12f91551de77b69d104dba711bbe93dd8a78cfb5aa9a1",
+  "video_sha256": "a1f059cdc4d1ee8071d1786e08b970d62aeadcfcaf108d514ef1d224506f58f5",
   "limitation": "Camera reprojection is validated; absolute orbital placement of these Hazcam poses remains archive-based, not independently accepted."
 }

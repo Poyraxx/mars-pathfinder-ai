@@ -56,7 +56,7 @@ def _smooth(a,k,lock=True):
     return out
 
 
-def ground_arrow(ribbons,ground_m=None):
+def ground_arrow(ribbons,ground_m=None,head=True):
     """Same geometry as src/routeGeometry.ts: one continuous perspective ribbon from the rover,
     width non-increasing with distance, gaps bridged; arrow head = last HEAD_M metres of ground and
     chevrons every CHEVRON_EVERY_M metres, so both shrink and foreshorten with distance."""
@@ -85,14 +85,16 @@ def ground_arrow(ribbons,ground_m=None):
     idx=np.arange(len(c));tan=c[np.minimum(idx+2,len(c)-1)]-c[np.maximum(idx-2,0)]
     tan/=np.maximum(np.linalg.norm(tan,axis=1,keepdims=True),1e-9);nrm=np.column_stack([-tan[:,1],tan[:,0]])
     b=len(c)-1
-    if metric:
+    if not head:
+        pass
+    elif metric:
         while b>0 and g[-1]-g[b]<HEAD_M and total-s[b]<total*.4:b-=1
     else:
         head=min(total*.3,w[-1]*4.6)
         while b>0 and total-s[b]<head:b-=1
     left=c[:b+1]+nrm[:b+1]*w[:b+1,None];right=c[:b+1]-nrm[:b+1]*w[:b+1,None]
     ht=np.array(_unit(c[-1]-c[b]));nh=np.array([-ht[1],ht[0]]);hw=w[b]*2.0
-    outline=[*map(tuple,left),tuple(c[b]+nh*hw),tuple(c[-1]),tuple(c[b]-nh*hw),*map(tuple,right[::-1])]
+    outline=[*map(tuple,left),tuple(c[b]+nh*hw),tuple(c[-1]),tuple(c[b]-nh*hw),*map(tuple,right[::-1])] if head else [*map(tuple,left),*map(tuple,right[::-1])]
     chevrons=[]
     def chevron(i,ln):
         ww=w[i]*.62;apex=c[i]+tan[i]*ln*.5;back=c[i]-tan[i]*ln*.5
@@ -110,8 +112,24 @@ def ground_arrow(ribbons,ground_m=None):
         for i in range(b):
             if s[i]<nxt:continue
             chevron(i,w[i]*.7);nxt=s[i]+w[i]*4.2
-    return outline,chevrons
+    return outline,chevrons,tuple(c[-1])
 
+
+
+def far_route(segments,from_m):
+    """Same rule as src/RouteOverlay.tsx: projected map route beyond the local corridor, smoothed in metres."""
+    out=[]
+    for seg in segments:
+        seg=[p for p in seg if p[2]>=from_m]
+        if len(seg)<4:continue
+        sm=[]
+        for i,p in enumerate(seg):
+            if i in (0,len(seg)-1):sm.append(p);continue
+            half=max(1.5,p[2]*.06);win=[q for q in seg if abs(q[2]-p[2])<=half]
+            sm.append([sum(q[0] for q in win)/len(win),sum(q[1] for q in win)/len(win),p[2]])
+        length=sum(math.hypot(sm[i][0]-sm[i-1][0],sm[i][1]-sm[i-1][1]) for i in range(1,len(sm)))
+        if length>=.02:out.append(sm)
+    return {'visible':out}
 
 def draw_turn_cue(d,ox,oy,size,direction):
     """Amber in-place rotation arc at the rover position: a guidance icon, not a ground route."""
@@ -162,9 +180,9 @@ def render_keyframes(result):
         for line in local.get('corridor_edges',[]):
             d.line([(xcam+p[0]*size,cy+p[1]*size) for p in line],fill=CYAN,width=2)
         # Route painted on the ground: one continuous outline, depth-faded fill, light edge, surface chevrons.
-        arrow=ground_arrow(local['ribbons'],local.get('ribbon_s_m'))
+        arrow=ground_arrow(local['ribbons'],local.get('ribbon_s_m'),head=False)
         if arrow:
-            outline,chevrons=arrow;sc=lambda pts:[(p[0]*size,p[1]*size) for p in pts]
+            outline,chevrons,tip=arrow;sc=lambda pts:[(p[0]*size,p[1]*size) for p in pts]
             mask=Image.new('L',(size,size),0);ImageDraw.Draw(mask).polygon(sc(outline),fill=255)
             ytop=min(p[1] for p in outline)*size;ramp=np.clip((np.arange(size)-ytop)/max(1,size-ytop),0,1)
             alpha=(np.asarray(mask,np.float32)/255)*(.34+.32*ramp[:,None])
@@ -173,6 +191,19 @@ def render_keyframes(result):
             canvas.paste(Image.fromarray(np.clip(blend,0,255).astype(np.uint8)),(xcam,cy));d=ImageDraw.Draw(canvas)
             d.line([(xcam+x,cy+y) for x,y in sc(outline+[outline[0]])],fill='#c9f8ff',width=2,joint='curve')
             for ch in chevrons:d.line([(xcam+x,cy+y) for x,y in sc(ch)],fill='#f2fdff',width=3,joint='curve')
+        # Far part of the plan (map route projected with the camera model), thin line ending in a dot.
+        far=far_route((st.get('camera_route') or {}).get('segments') or [],(local.get('length_m') or 0)+1 if arrow else 2)
+        P=lambda q:(xcam+q[0]*size,cy+q[1]*size)
+        if far['visible']:
+            if arrow and math.hypot(tip[0]-far['visible'][0][0][0],tip[1]-far['visible'][0][0][1])<.45:
+                a,b=P(tip),P(far['visible'][0][0]);n=max(2,int(math.hypot(b[0]-a[0],b[1]-a[1])/9))
+                for k in range(n+1):x,y=a[0]+(b[0]-a[0])*k/n,a[1]+(b[1]-a[1])*k/n;d.ellipse((x-1.6,y-1.6,x+1.6,y+1.6),fill=CYAN)
+            for seg in far['visible']:
+                pts=[P(q) for q in seg];d.line(pts,fill='#04121a',width=6,joint='curve');d.line(pts,fill=CYAN,width=3,joint='curve')
+        end=P(far['visible'][-1][-1]) if far['visible'] else (P(tip) if arrow else None)
+        if end:d.ellipse((end[0]-9,end[1]-9,end[0]+9,end[1]+9),fill='#1c6b7a');d.ellipse((end[0]-5,end[1]-5,end[0]+5,end[1]+5),fill='#f2fdff',outline=CYAN,width=2)
+        for ring in local.get('distant_candidates',[]):d.line([P(q) for q in ring['ring']]+[P(ring['ring'][0])],fill='#ffb23d',width=2)
+        for q in local.get('tracked_obstacles',[]):x,y=P(q);d.rectangle((x-2,y-2,x+2,y+2),fill='#ffb23d')
         if local['status']=='turn_required' and local.get('turn_direction'):draw_turn_cue(d,xcam,cy,size,local['turn_direction'])
         for p in local.get('obstacles',[]):
             ox,oy=xcam+p[0]*size,cy+p[1]*size;d.rectangle((ox-2,oy-2,ox+2,oy+2),fill='#ff5a4a')
@@ -222,7 +253,7 @@ def render_keyframes(result):
             d.multiline_text((box[0]+16,box[1]+18),'\n'.join(lines),font=font(18),fill=WHITE,spacing=7)
         d.text((WIDTH-61,my+20),'N',font=font(20,True),fill=WHITE)
         d.text((30,866),'Accelerated archive timelapse. Recorded rover motion; calculated route does not control the rover.',font=font(16),fill=MUTED)
-        d.text((30,886),'Local route: A* on measured stereo terrain for a 2.8 m wide rover, projected with the PDS camera model. Red: measured obstacles. Lines: rover width.',font=font(12),fill=MUTED)
+        d.text((30,886),'Near: A* on measured stereo for a 2.8 m rover. Thin line: map plan to destination. Red: measured obstacles; orange: remembered rocks / distant candidates.',font=font(12),fill=MUTED)
         rendered.append(canvas)
     return rendered
 

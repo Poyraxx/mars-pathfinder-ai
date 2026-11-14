@@ -18,6 +18,14 @@ for rocks. UI, global 3D map, recorded motion and other modules preserved. Detai
   consumed too; next = more raised-block scenes + a new holdout.
 - Speed: default replays are computed during the Docker build (sealed by input hash, labelled as
   build-time); A* and route sampling were sped up with identical outputs. Render: ~1 s instead of minutes.
+- 15 Nov: camera route continues past the measured corridor as a thin line along the projected map
+  plan to the destination (dotted where hidden, ends in a dot, no arrow head). The local planner aims
+  at the map route 6 m ahead so the two connect. Stereo-confirmed rocks (raised steps + confirmed rocks)
+  are remembered in global coordinates for 12 frames / 10 m and fill only cells the current view
+  cannot measure (orange). Distant 4-12 m stereo rock candidates are drawn as orange rings.
+- Dataset v7 (+8 scenes incl. raised blocks, new test_v7). Challenger v14: validation 0.614 vs 0.552,
+  but failed the IoU gate on test_v7 (0.38 vs 0.42, only 7 objects), so v11 stays. test_v7 consumed;
+  next = a larger holdout (>= 30 objects) before another promotion.
 - NVIDIA-derived weights: non-commercial research/evaluation only (LICENSES/NVIDIA-SegFormer.txt).
 
 ---

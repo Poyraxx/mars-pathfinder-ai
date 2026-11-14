@@ -135,6 +135,24 @@ are traced as polygons on a 64 px coordinate grid. Roles were fixed before any p
 v13 failed the IoU gate (Sol 2700's large raised blocks), so v11 stays. test_v6 is now consumed. The
 clearest next gain is more labelled raised-block terrain plus a new holdout.
 
+## Dataset v7 and the v14 challenger (not promoted)
+
+Eight more scenes (`operational-v7-review-protocol.json`): five raised-block training scenes (Sol 3900,
+4500, 2850, 2000, 3050; Sol 4002 dropped as too dark to label), the consumed test_v6 scenes moved into
+training, and a new test_v7 (Sol 4300 boulders, 2199 plate field, 2950 broad flat slab).
+
+| | v11 (production) | v14 (v10 + v7 data) |
+|---|---|---|
+| Validation objective | 0.552 | **0.614** |
+| Validation rocks found | 27/36 | **29/36** |
+| test_v7 rocks found | 4/7 | 4/7 |
+| test_v7 obstacle IoU | **0.42** | 0.38 |
+| test_v7 ground as obstacle | 4.0 % | **2.3 %** |
+
+v14 failed the pre-declared IoU gate (driven by the two large Sol 4300 boulders, whose polygon labels
+are coarse), so v11 stays. test_v7 is consumed. With only 7 test objects the decision is noisy; the
+next step is a larger independent holdout (>= 30 objects) before another promotion attempt.
+
 ## Native pixels and actual geometry
 
 The former network read the256×256 reference thumbnail and enlarged it. It now
