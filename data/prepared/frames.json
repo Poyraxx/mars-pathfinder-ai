@@ -209,19 +209,21 @@
       "accuracy_note": "PLACES SIS section4.4.1.2 gives expected0.5m localized_pos accuracy relative to included base map. This is not a verified bound for interpolated in-drive frames or an independently registered HiRISE DTM."
     },
     "coordinate_chain_available": true,
-    "registration_verified": false,
-    "enabled_for_map_update": false,
-    "registration_status": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed.",
+    "registration_verified": true,
+    "enabled_for_map_update": true,
+    "registration_status": "Image-correlation registration: residual <= 0.75 m, planner bound 1.25 m; empirical tolerance, not a confidence interval.",
     "xye_note": "MSL_CAMERA_SIS section5.2.1.4: three axis-aligned estimated range-error components in meters forming an error ellipsoid; not a localization bound, covariance, confidence interval or total error budget.",
     "region_id": "gale",
     "image_path": "pds/NLA_402556045XYZ_D0043480TRAV00022M1/reference.png",
     "xyz_path": "pds/NLA_402556045XYZ_D0043480TRAV00022M1/xyz.npy",
     "xye_path": "pds/NLA_402556045XYZ_D0043480TRAV00022M1/xye.npy",
     "registration": {
-      "verified": false,
-      "horizontal_error_bound_m": null,
-      "evidence": null,
-      "reason": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed."
+      "verified": true,
+      "horizontal_error_bound_m": 1.25,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/NLA_402556045XYZ_D0043480TRAV00022M1/registration-evidence.json",
+      "evidence_sha256": "886177d209e1c576fcda61295f975ebff40648fff65a295ba1afdbefd2d2765f",
+      "reason": "Camera content matches HiRISE at the archived placement (image-correlation shift search, empirical null test)."
     },
     "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556045RAD_D0043480TRAV00022M1.LBL"
   },
@@ -435,19 +437,21 @@
       "accuracy_note": "PLACES SIS section4.4.1.2 gives expected0.5m localized_pos accuracy relative to included base map. This is not a verified bound for interpolated in-drive frames or an independently registered HiRISE DTM."
     },
     "coordinate_chain_available": true,
-    "registration_verified": false,
-    "enabled_for_map_update": false,
-    "registration_status": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed.",
+    "registration_verified": true,
+    "enabled_for_map_update": true,
+    "registration_status": "Image-correlation registration: residual <= 0.35 m, planner bound 0.85 m; empirical tolerance, not a confidence interval.",
     "xye_note": "MSL_CAMERA_SIS section5.2.1.4: three axis-aligned estimated range-error components in meters forming an error ellipsoid; not a localization bound, covariance, confidence interval or total error budget.",
     "region_id": "gale",
     "image_path": "pds/NLA_402556100XYZ_D0043486TRAV00022M1/reference.png",
     "xyz_path": "pds/NLA_402556100XYZ_D0043486TRAV00022M1/xyz.npy",
     "xye_path": "pds/NLA_402556100XYZ_D0043486TRAV00022M1/xye.npy",
     "registration": {
-      "verified": false,
-      "horizontal_error_bound_m": null,
-      "evidence": null,
-      "reason": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed."
+      "verified": true,
+      "horizontal_error_bound_m": 0.8535533905932737,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/NLA_402556100XYZ_D0043486TRAV00022M1/registration-evidence.json",
+      "evidence_sha256": "d74533c2f2cf8e9c598a68d001ca18446f50cd78761228856965161cbb98e553",
+      "reason": "Camera content matches HiRISE at the archived placement (image-correlation shift search, empirical null test)."
     },
     "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556100RAD_D0043486TRAV00022M1.LBL"
   },
@@ -661,19 +665,21 @@
       "accuracy_note": "PLACES SIS section4.4.1.2 gives expected0.5m localized_pos accuracy relative to included base map. This is not a verified bound for interpolated in-drive frames or an independently registered HiRISE DTM."
     },
     "coordinate_chain_available": true,
-    "registration_verified": false,
-    "enabled_for_map_update": false,
-    "registration_status": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed.",
+    "registration_verified": true,
+    "enabled_for_map_update": true,
+    "registration_status": "Image-correlation registration: residual <= 0.35 m, planner bound 0.85 m; empirical tolerance, not a confidence interval.",
     "xye_note": "MSL_CAMERA_SIS section5.2.1.4: three axis-aligned estimated range-error components in meters forming an error ellipsoid; not a localization bound, covariance, confidence interval or total error budget.",
     "region_id": "gale",
     "image_path": "pds/NLA_402556155XYZ_D0043492TRAV00022M1/reference.png",
     "xyz_path": "pds/NLA_402556155XYZ_D0043492TRAV00022M1/xyz.npy",
     "xye_path": "pds/NLA_402556155XYZ_D0043492TRAV00022M1/xye.npy",
     "registration": {
-      "verified": false,
-      "horizontal_error_bound_m": null,
-      "evidence": null,
-      "reason": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed."
+      "verified": true,
+      "horizontal_error_bound_m": 0.8535533905932737,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/NLA_402556155XYZ_D0043492TRAV00022M1/registration-evidence.json",
+      "evidence_sha256": "315277da20822434969b217772c4f1ad47e73771e7f20b302b0d7ace9566a458",
+      "reason": "Camera content matches HiRISE at the archived placement (image-correlation shift search, empirical null test)."
     },
     "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556155RAD_D0043492TRAV00022M1.LBL"
   }
