@@ -68,6 +68,11 @@ def evaluate(model,loader,device):
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument("--epochs",type=int,default=10);parser.add_argument("--batch",type=int,default=2);parser.add_argument("--minutes",type=float,default=240);parser.add_argument("--export-only",action="store_true")
+    parser.add_argument("--init",type=Path,help="start from this state_dict (fine-tune) instead of ImageNet")
+    parser.add_argument("--extra",type=Path,help="extra manifest (e.g. stereo pseudo-labels); its train entries are added")
+    parser.add_argument("--repeat",type=int,default=1,help="oversample extra train entries")
+    parser.add_argument("--lr-scale",type=float,default=1.)
+    parser.add_argument("--tag",help="write the candidate model to TRAINING/<tag>/ instead of publishing it")
     args=parser.parse_args()
     random.seed(42);np.random.seed(42);torch.manual_seed(42)
     torch.set_num_threads(4)
@@ -77,6 +82,11 @@ def main():
     groups={split:{e["group"] for e in manifest["entries"] if e["split"]==split} for split in ["train","validation","test"]}
     assert not(groups["train"]&groups["validation"] or groups["train"]&groups["test"] or groups["validation"]&groups["test"]),"Split leakage"
     splits={s:[e for e in manifest["entries"] if e["split"]==s] for s in groups}
+    extra=json.loads(args.extra.read_text("utf-8")) if args.extra else None
+    if extra:
+        splits["train"]=splits["train"]+[e for e in extra["entries"] if e["split"]=="train"]*args.repeat
+    out_dir=TRAINING/args.tag if args.tag else OUT
+    out_dir.mkdir(parents=True,exist_ok=True)
     hist=np.zeros(4,dtype=np.int64)
     for e in splits["train"]:
         label=np.asarray(Image.open(e["label"]))
@@ -85,11 +95,12 @@ def main():
     print({"class_pixel_counts":hist.tolist(),"loss_weights":weights.tolist(),"split_counts":{s:len(v) for s,v in splits.items()}},flush=True)
     loaders={s:DataLoader(MarsDataset(v,augment=s=="train"),batch_size=args.batch,shuffle=s=="train",num_workers=0) for s,v in splits.items()}
     model=lraspp_mobilenet_v3_large(weights=None,weights_backbone=MobileNet_V3_Large_Weights.IMAGENET1K_V2,num_classes=4).to(device)
-    optimizer=torch.optim.AdamW([{"params":model.backbone.parameters(),"lr":1e-4},{"params":model.classifier.parameters(),"lr":1e-3}],weight_decay=1e-4)
+    if args.init:model.load_state_dict(torch.load(args.init,map_location=device,weights_only=True))
+    optimizer=torch.optim.AdamW([{"params":model.backbone.parameters(),"lr":1e-4*args.lr_scale},{"params":model.classifier.parameters(),"lr":1e-3*args.lr_scale}],weight_decay=1e-4)
     scaler=torch.amp.GradScaler("cuda",enabled=device.type=="cuda")
     ce=nn.CrossEntropyLoss(weight=torch.tensor(weights,dtype=torch.float32,device=device),ignore_index=255)
     began=time.perf_counter();best=-1.;history=[]
-    checkpoint=TRAINING/"best-surface.pt"
+    checkpoint=(TRAINING/args.tag/"best-surface.pt") if args.tag else TRAINING/"best-surface.pt"
     for epoch in range(0 if args.export_only else args.epochs):
         for p in model.backbone.parameters():p.requires_grad=epoch>=2
         model.train()
@@ -113,7 +124,7 @@ def main():
             if i%50==0:print(f"epoch{epoch+1} batch{i}/{len(loaders['train'])} loss={float(loss.detach())*4:.4f}",flush=True)
         val=evaluate(model,loaders["validation"],device)
         row={"epoch":epoch+1,"train_loss":running/max(batches,1),"validation":val,"elapsed_s":time.perf_counter()-began};history.append(row)
-        (TRAINING/'history.json').write_text(json.dumps(history,indent=2),'utf-8')
+        (out_dir/'history.json' if args.tag else TRAINING/'history.json').write_text(json.dumps(history,indent=2),'utf-8')
         print(json.dumps(row),flush=True)
         if val["miou"]>best:
             best=val["miou"];torch.save(model.state_dict(),checkpoint)
@@ -125,13 +136,12 @@ def main():
     class Export(nn.Module):
         def __init__(self,m):super().__init__();self.m=m
         def forward(self,x):return self.m(x)["out"]
-    OUT.mkdir(parents=True,exist_ok=True)
     export_model=Export(model).eval()
-    torch.onnx.export(export_model,torch.randn(1,3,320,320),str(OUT/"surface.onnx"),opset_version=17,input_names=["image"],output_names=["logits"],dynamo=False,external_data=False)
+    torch.onnx.export(export_model,torch.randn(1,3,320,320),str(out_dir/"surface.onnx"),opset_version=17,input_names=["image"],output_names=["logits"],dynamo=False,external_data=False)
     model.eval()  # Keep BatchNorm in eval after the exporter restores wrapper state.
     import onnxruntime as ort
     options=ort.SessionOptions();options.intra_op_num_threads=1;options.inter_op_num_threads=1
-    session=ort.InferenceSession(str(OUT/"surface.onnx"),sess_options=options,providers=["CPUExecutionProvider"])
+    session=ort.InferenceSession(str(out_dir/"surface.onnx"),sess_options=options,providers=["CPUExecutionProvider"])
     ds=MarsDataset(splits["test"],size=320)
     confusion=np.zeros((4,4),dtype=np.int64);latencies=[];agreement=[]
     for i in range(len(ds)):
@@ -151,10 +161,10 @@ def main():
           "dataset":"AI4Mars merged v0.6","dataset_url":manifest["source"],"dataset_license":"CC-BY-4.0",
           "metrics":scores(confusion),"pytorch_test_384":test,"onnx_parity_pixel_agreement":agreement,
           "local_cpu_latency_ms":{"p50":float(np.median(latencies)),"p95":float(np.percentile(latencies,95)),"threads":1,"note":"Local CPU measurement; not Render Free benchmark"},
-          "model_sha256":hashlib.file_digest((OUT/"surface.onnx").open("rb"),"sha256").hexdigest(),
+          "model_sha256":hashlib.file_digest((out_dir/"surface.onnx").open("rb"),"sha256").hexdigest(),
           "limitations":[manifest["note"],"Small preliminary subset; no generalization or human-safety guarantee","Only4 NAV classes; no small-stone class","RAD archive frames have different photometric processing from training EDR images","Camera-orbital registration is measured separately by image correlation; this card covers segmentation only"]}
-    (OUT/"model-card.json").write_text(json.dumps(card,indent=2),"utf-8")
-    if history:(OUT/"training-history.json").write_text(json.dumps(history,indent=2),"utf-8")
+    (out_dir/"model-card.json").write_text(json.dumps(card,indent=2),"utf-8")
+    if history:(out_dir/"training-history.json").write_text(json.dumps(history,indent=2),"utf-8")
     print(json.dumps(card,indent=2),flush=True)
 
 

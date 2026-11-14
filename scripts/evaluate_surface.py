@@ -19,9 +19,9 @@ from train_surface import MarsDataset, TRAINING, scores  # noqa: E402
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("models", nargs="+", type=Path); ap.add_argument("--split", default="test")
+    ap = argparse.ArgumentParser(); ap.add_argument("models", nargs="+", type=Path); ap.add_argument("--split", default="test"); ap.add_argument("--manifest", type=Path, help="default: AI4Mars manifest; e.g. manifest-pseudo.json with --split pseudo_test")
     args = ap.parse_args()
-    manifest = json.loads((TRAINING / "manifest.json").read_text("utf-8"))
+    manifest = json.loads((args.manifest or TRAINING / "manifest.json").read_text("utf-8"))
     ds = MarsDataset([e for e in manifest["entries"] if e["split"] == args.split], size=320)
     out = {}
     for path in args.models:
