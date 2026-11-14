@@ -41,51 +41,57 @@ def font(size,bold=False):
 
 
 
-ANCHOR=(.5,.985);ANCHOR_HALF=.05
-
-
-def route_strips(ribbons):
-    """Join consecutive projected ribbon quads [l0,r0,r1,l1] into continuous strips (same rule as the web overlay)."""
-    out=[];cur=None
-    for q in ribbons:
-        l0,r0,r1,l1=(tuple(v) for v in q[:4])
-        joined=cur is not None and math.hypot(cur[0][-1][0]-l0[0],cur[0][-1][1]-l0[1])<.004
-        if not joined:
-            cur=([l0],[r0]);out.append(cur)
-        cur[0].append(l1);cur[1].append(r1)
-    return [s for s in out if len(s[0])>=2]
-
-
-def _mid(a,b):return ((a[0]+b[0])/2,(a[1]+b[1])/2)
+ANCHOR=(.5,.985);PAINT=.55
 
 
 def _unit(v):
     n=math.hypot(*v) or 1.;return (v[0]/n,v[1]/n)
 
 
-def rover_link(first):
-    """Image-plane Bezier from the rover (bottom centre) to the first visible ground point, tangent to the route."""
-    left,right=first;m0=_mid(left[0],right[0]);k=min(3,len(left)-1);m1=_mid(left[k],right[k])
-    d=_unit((m1[0]-m0[0],m1[1]-m0[1]));dist=math.hypot(m0[0]-ANCHOR[0],m0[1]-ANCHOR[1])
-    p1=(ANCHOR[0],ANCHOR[1]-dist*.45);p2=(m0[0]-d[0]*dist*.45,m0[1]-d[1]*dist*.45)
-    w1=math.hypot(left[0][0]-right[0][0],left[0][1]-right[0][1])/2;ls=[];rs=[]
-    for i in range(29):
-        t=i/28;u=1-t
-        x=u**3*ANCHOR[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t**3*m0[0]
-        y=u**3*ANCHOR[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t**3*m0[1]
-        dx=3*u*u*(p1[0]-ANCHOR[0])+6*u*t*(p2[0]-p1[0])+3*t*t*(m0[0]-p2[0])
-        dy=3*u*u*(p1[1]-ANCHOR[1])+6*u*t*(p2[1]-p1[1])+3*t*t*(m0[1]-p2[1])
-        n=_unit((-dy,dx));w=ANCHOR_HALF*(1-t)+w1*t
-        ls.append((x+n[0]*w,y+n[1]*w));rs.append((x-n[0]*w,y-n[1]*w))
-    return ls+rs[::-1]
+def _smooth(a,k,lock=True):
+    out=a.copy()
+    for i in range(len(a)):
+        if lock and (i==0 or i==len(a)-1):continue
+        out[i]=a[max(0,i-k):i+k+1].mean(axis=0)
+    return out
 
 
-def route_arrow(last):
-    left,right=last
-    if len(left)<3:return None
-    n=len(left)-1;tip=_mid(left[n],right[n]);prev=_mid(left[n-2],right[n-2])
-    d=_unit((tip[0]-prev[0],tip[1]-prev[1]));w=max(.012,math.hypot(left[n][0]-right[n][0],left[n][1]-right[n][1])*1.1);nr=(-d[1],d[0])
-    return [(tip[0]+d[0]*w*1.6,tip[1]+d[1]*w*1.6),(tip[0]+nr[0]*w,tip[1]+nr[1]*w),(tip[0]-nr[0]*w,tip[1]-nr[1]*w)]
+def ground_arrow(ribbons):
+    """Same geometry as src/routeGeometry.ts: one continuous perspective ribbon from the rover,
+    width non-increasing with distance, gaps bridged, arrow head in the same outline, surface chevrons."""
+    if not ribbons:return None
+    c=[];w=[]
+    for q in ribbons:
+        l0,r0,r1,l1=(np.array(v,float) for v in q[:4]);a_=(l0+r0)/2;b_=(l1+r1)/2
+        if not c or np.linalg.norm(c[-1]-a_)>1e-4:c.append(a_);w.append(np.linalg.norm(l0-r0)/2)
+        c.append(b_);w.append(np.linalg.norm(l1-r1)/2)
+    if len(c)<2:return None
+    c=np.array(c);w=np.array(w);anchor=np.array(ANCHOR)
+    k=min(4,len(c)-1);d0=_unit(c[k]-c[0]);d=np.linalg.norm(anchor-c[0]);startw=max(w[0],.03/PAINT)
+    if d>.01:
+        p1=anchor-[0,d*.45];p2=c[0]-np.array(d0)*d*.45;t=np.arange(24)[:,None]/24;u=1-t
+        link=u**3*anchor+3*u*u*t*p1+3*u*t*t*p2+t**3*c[0]
+        c=np.vstack([link,c]);w=np.r_[startw+(w[0]-startw)*t[:,0],w]
+    seg=np.linalg.norm(np.diff(c,axis=0),axis=1);s=np.r_[0,np.cumsum(seg)];keep=np.r_[True,seg>1e-9]
+    c,w,s=c[keep],w[keep],s[keep]
+    grid=np.arange(0,s[-1],.006);grid=np.r_[grid,s[-1]] if s[-1]-grid[-1]>.0015 else grid
+    c=np.column_stack([np.interp(grid,s,c[:,0]),np.interp(grid,s,c[:,1])]);w=np.interp(grid,s,w)
+    c=_smooth(c,3);w=np.minimum.accumulate(w);w=np.maximum(_smooth(w[:,None],4,False)[:,0]*PAINT,.005)
+    s=np.r_[0,np.cumsum(np.linalg.norm(np.diff(c,axis=0),axis=1))];total=s[-1]
+    if total<.03:return None
+    idx=np.arange(len(c));tan=c[np.minimum(idx+2,len(c)-1)]-c[np.maximum(idx-2,0)]
+    tan/=np.maximum(np.linalg.norm(tan,axis=1,keepdims=True),1e-9);nrm=np.column_stack([-tan[:,1],tan[:,0]])
+    head=min(total*.3,w[-1]*4.6);b=len(c)-1
+    while b>0 and total-s[b]<head:b-=1
+    left=c[:b+1]+nrm[:b+1]*w[:b+1,None];right=c[:b+1]-nrm[:b+1]*w[:b+1,None]
+    ht=np.array(_unit(c[-1]-c[b]));nh=np.array([-ht[1],ht[0]]);hw=w[b]*1.8
+    outline=[*map(tuple,left),tuple(c[b]+nh*hw),tuple(c[-1]),tuple(c[b]-nh*hw),*map(tuple,right[::-1])]
+    chevrons=[];nxt=startw*PAINT*1.6
+    for i in range(b):
+        if s[i]<nxt:continue
+        ww,ln=w[i]*.62,w[i]*.7;apex=c[i]+tan[i]*ln*.5;back=c[i]-tan[i]*ln*.5
+        chevrons.append([tuple(back+nrm[i]*ww),tuple(apex),tuple(back-nrm[i]*ww)]);nxt=s[i]+w[i]*4.2
+    return outline,chevrons
 
 
 def draw_turn_cue(d,ox,oy,size,direction):
@@ -135,15 +141,18 @@ def render_keyframes(result):
         local=local_navigation.compute(st['frame_id'],result['goal'])
         for line in local.get('corridor_edges',[]):
             d.line([(xcam+p[0]*size,cy+p[1]*size) for p in line],fill=CYAN,width=2)
-        # One union mask so the rover link, strips and arrow read as a single connected ribbon (no seams).
-        px=lambda pts:[(p[0]*size,p[1]*size) for p in pts]
-        parts=route_strips(local['ribbons']);mask=Image.new('L',(size,size),0);md=ImageDraw.Draw(mask)
-        if parts:md.polygon(px(rover_link(parts[0])),fill=255)
-        for left_edge,right_edge in parts:md.polygon(px(left_edge+right_edge[::-1]),fill=255)
-        if parts and (arrow:=route_arrow(parts[-1])):md.polygon(px(arrow),fill=255)
-        if parts:
-            mask=mask.filter(ImageFilter.MaxFilter(3)).point(lambda v:int(v*.88))
-            canvas.paste(Image.new('RGB',(size,size),CYAN),(xcam,cy),mask);d=ImageDraw.Draw(canvas)
+        # Route painted on the ground: one continuous outline, depth-faded fill, light edge, surface chevrons.
+        arrow=ground_arrow(local['ribbons'])
+        if arrow:
+            outline,chevrons=arrow;sc=lambda pts:[(p[0]*size,p[1]*size) for p in pts]
+            mask=Image.new('L',(size,size),0);ImageDraw.Draw(mask).polygon(sc(outline),fill=255)
+            ytop=min(p[1] for p in outline)*size;ramp=np.clip((np.arange(size)-ytop)/max(1,size-ytop),0,1)
+            alpha=(np.asarray(mask,np.float32)/255)*(.34+.32*ramp[:,None])
+            region=np.asarray(canvas.crop((xcam,cy,xcam+size,cy+size)),np.float32)
+            cyan=np.array([60,225,255],np.float32);blend=region+(255-region)*(cyan/255)*alpha[...,None]*1.6
+            canvas.paste(Image.fromarray(np.clip(blend,0,255).astype(np.uint8)),(xcam,cy));d=ImageDraw.Draw(canvas)
+            d.line([(xcam+x,cy+y) for x,y in sc(outline+[outline[0]])],fill='#c9f8ff',width=2,joint='curve')
+            for ch in chevrons:d.line([(xcam+x,cy+y) for x,y in sc(ch)],fill='#f2fdff',width=3,joint='curve')
         if local['status']=='turn_required' and local.get('turn_direction'):draw_turn_cue(d,xcam,cy,size,local['turn_direction'])
         for p in local.get('obstacles',[]):
             ox,oy=xcam+p[0]*size,cy+p[1]*size;d.rectangle((ox-2,oy-2,ox+2,oy+2),fill='#ff5a4a')

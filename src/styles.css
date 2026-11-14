@@ -321,3 +321,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .relief-route i{flex:none;width:18px;height:4px;margin-top:6px;border-radius:2px;background:#3ce1ff;box-shadow:0 0 0 1.5px #06121a}
 @media(max-width:700px){.relief-legend{right:10px;bottom:40px;width:148px;padding:8px 10px;gap:4px;font-size:10.5px}.relief-legend small,.relief-legend .relief-route{display:none}.relief-bar{height:7px}.relief-ticks{font-size:9.5px}.relief-switch{left:10px;bottom:40px}.relief-switch button{height:28px;padding:0 10px;font-size:12px}}
 .navcam-stage img.incoming-frame{position:absolute;inset:0;opacity:0}
+.route-overlay .route-shadow{fill:#02080c;opacity:.45;transform:translate(0,.004px)}
+.route-overlay .route-paint{stroke:#c9f8ff;stroke-opacity:.85;stroke-width:1.6;stroke-linejoin:round;vector-effect:non-scaling-stroke;mix-blend-mode:screen}
+.route-overlay .route-chevron{fill:none;stroke:#f2fdff;stroke-opacity:.8;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
