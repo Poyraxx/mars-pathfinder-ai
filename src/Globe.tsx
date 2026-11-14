@@ -40,11 +40,12 @@ function terrain(){
    return out;
   }});
 }
-const landmarks=[{name:'OLYMPUS MONS',lat:18.65,lon:-133.8},{name:'VALLES MARINERIS',lat:-13.9,lon:-59.2},{name:'GALE CRATER',lat:-4.59,lon:137.44},{name:'JEZERO CRATER',lat:18.38,lon:77.58},{name:'HELLAS PLANITIA',lat:-42.4,lon:70.5},{name:'ELYSIUM PLANITIA',lat:4.5,lon:135.9}];
+let flownMission='';
+const typeColor:Record<string,string>={Mons:'#f0c58d',Tholus:'#f0c58d',Patera:'#f0c58d',Vallis:'#8ec9d6',Valles:'#8ec9d6',Chasma:'#8ec9d6',Planitia:'#b8c4a0',Planum:'#b8c4a0',Crater:'#d3c4b1'};
 export default function Globe(){
  const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
- const {region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget}=useMission();
+ const {region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital}=useMission();
  useEffect(()=>{
   if(!mount.current)return;
   C.Ellipsoid.default=MARS;
@@ -64,7 +65,19 @@ export default function Globe(){
   viewer.scene.screenSpaceCameraController.minimumZoomDistance=5;
   viewer.scene.screenSpaceCameraController.maximumZoomDistance=19000000;
   viewer.camera.setView({destination:C.Cartesian3.fromDegrees(42,17,10500000,MARS)});
-  for(const p of landmarks)viewer.entities.add({id:`landmark-${p.name}`,position:C.Cartesian3.fromDegrees(p.lon,p.lat,100,MARS),label:{text:p.name,font:'10px sans-serif',fillColor:C.Color.fromCssColorString('#d3c4b1'),outlineWidth:2,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(0,-10),distanceDisplayCondition:new C.DistanceDisplayCondition(20000,16000000),scaleByDistance:new C.NearFarScalar(20000,1,15000000,.75),disableDepthTestDistance:Number.POSITIVE_INFINITY}});
+  const names=viewer.scene.primitives.add(new C.LabelCollection({scene:viewer.scene}));
+  fetch('/api/nomenclature').then(r=>r.ok?r.json():null).then(catalogue=>{
+   if(!catalogue||viewer.isDestroyed())return;
+   useMission.getState().set({features:catalogue.features});
+   for(const f of catalogue.features as {name:string;type:string;diameter_km:number;lat:number;lon:number}[]){
+    // Larger features stay visible from further away; tiny craters appear only close up.
+    const far=Math.min(17000000,Math.max(120000,f.diameter_km*14000));
+    names.add({position:C.Cartesian3.fromDegrees(f.lon,f.lat,f.type==='Mons'||f.type==='Tholus'?22000:3000,MARS),text:f.diameter_km>=300?f.name.toUpperCase():f.name,
+     font:f.diameter_km>=300?'600 11px sans-serif':'10px sans-serif',fillColor:C.Color.fromCssColorString(typeColor[f.type]||'#cdbfae'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,
+     distanceDisplayCondition:new C.DistanceDisplayCondition(0,far),scaleByDistance:new C.NearFarScalar(50000,1.05,15000000,.8)});
+   }
+   viewer.scene.requestRender();
+  }).catch(()=>{});
   const load=viewer.scene.globe.tileLoadProgressEvent.addEventListener(n=>setStatus(n?'STREAMING PLANETARY DATA':'PLANETARY DATA CONNECTED'));
   const error=viewer.terrainProvider.errorEvent.addEventListener(()=>setStatus('TERRAIN SERVICE RETRYING'));
   const handler=new C.ScreenSpaceEventHandler(viewer.scene.canvas);
@@ -98,13 +111,15 @@ export default function Globe(){
  },[region,view,exploreTarget]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
-  for(const entity of [...v.entities.values])if(!String(entity.id).startsWith('landmark-'))v.entities.remove(entity);
-  if(region){const [w,s,e,n]=region.bounds;v.entities.add({id:'coverage',rectangle:{coordinates:C.Rectangle.fromDegrees(w,s,e,n),material:C.Color.fromCssColorString('#6faeab').withAlpha(.045),outline:true,outlineColor:C.Color.fromCssColorString('#64b9b0'),height:0,classificationType:C.ClassificationType.BOTH}});}
+  for(const e of [...v.entities.values])if(!String(e.id).startsWith('orbital-'))v.entities.remove(e);
+  const coverage=region?.bounds??mission?.region?.bounds;
+  if(coverage){const [w,s,e,n]=coverage;v.entities.add({id:'coverage',rectangle:{coordinates:C.Rectangle.fromDegrees(w,s,e,n),material:C.Color.fromCssColorString('#6faeab').withAlpha(.045),outline:true,outlineColor:C.Color.fromCssColorString('#64b9b0'),height:0,classificationType:C.ClassificationType.BOTH}});}
   for(const [id,p,color]of [['start',start,'#75dbc1'],['goal',goal,'#f4b06f'],...stops.map((p,i)=>[`stop-${i}`,p,'#b7b4ed'])] as [string,{lat:number;lon:number}|null,string][]){if(p)v.entities.add({id,position:C.Cartesian3.fromDegrees(p.lon,p.lat,0,MARS),point:{pixelSize:10,color:C.Color.fromCssColorString(color),outlineColor:C.Color.fromCssColorString('#111b22'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:id==='start'?'START':id==='goal'?'DESTINATION':`SCIENCE ${id.split('-')[1]}`,font:'10px sans-serif',pixelOffset:new C.Cartesian2(0,-23),fillColor:C.Color.fromCssColorString(color),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});}
   const route=mission?.routes.find(r=>r.mode===activeRoute&&r.status==='ready');
   if(route?.points.length)v.entities.add({id:'active-route',polyline:{positions:C.Cartesian3.fromDegreesArray(route.points.flatMap(p=>[p.lon,p.lat]),MARS),width:4,material:new C.PolylineGlowMaterialProperty({glowPower:.16,color:C.Color.fromCssColorString('#75dbc1')}),clampToGround:true}});
   const old=mission?.previous_route;
   if(old?.points.length)v.entities.add({id:'old-route',polyline:{positions:C.Cartesian3.fromDegreesArray(old.points.flatMap(p=>[p.lon,p.lat]),MARS),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.fromCssColorString('#e7a66b').withAlpha(.6)}),clampToGround:true}});
+  if(!region&&route?.points.length&&mission?.region?.bounds&&flownMission!==mission.id){flownMission=mission.id;const [w,s,e,n]=mission.region.bounds;v.camera.flyTo({destination:C.Rectangle.fromDegrees(w,s,e,n),duration:1.6});}
   v.scene.requestRender();
  },[region,start,goal,stops,mission,activeRoute]);
  useEffect(()=>{
@@ -120,5 +135,15 @@ export default function Globe(){
   if(riskRef.current){v.imageryLayers.remove(riskRef.current);riskRef.current=null;}
   if(showRisk&&region){const [w,s,e,n]=region.bounds;C.SingleTileImageryProvider.fromUrl(`/api/regions/${region.id}/risk.png`,{rectangle:C.Rectangle.fromDegrees(w,s,e,n),ellipsoid:MARS}).then(provider=>{if(!v.isDestroyed()){riskRef.current=v.imageryLayers.addImageryProvider(provider);v.scene.requestRender();}});}
  },[showRisk,region]);
+ useEffect(()=>{
+  const v=viewerRef.current;if(!v)return;
+  for(const e of [...v.entities.values])if(String(e.id).startsWith('orbital-'))v.entities.remove(e);
+  if(!orbital||orbital.mission_id!==mission?.id){v.scene.requestRender();return;}
+  const colours:Record<string,string>={crater:'#f0c58d',dark_dune:'#785cc8',slope_streak:'#5ac8e6',bright_dune:'#fae696',impact_ejecta:'#ee785a',swiss_cheese:'#96dca0',spider:'#dc78c8',other:'#9aa9ad'};
+  const half=orbital.window_m/2/3396190*180/Math.PI;
+  orbital.windows.forEach((w,i)=>{const dl=half/Math.max(Math.cos(w.lat*Math.PI/180),.05);v.entities.add({id:`orbital-${i}`,rectangle:{coordinates:C.Rectangle.fromDegrees(w.lon-dl,w.lat-half,w.lon+dl,w.lat+half),material:C.Color.fromCssColorString(colours[w.class]??'#9aa9ad').withAlpha(w.class==='other'?.06:.28),outline:true,outlineColor:C.Color.fromCssColorString(colours[w.class]??'#9aa9ad').withAlpha(.8),height:0,classificationType:C.ClassificationType.BOTH},
+   ...(w.class!=='other'?{position:C.Cartesian3.fromDegrees(w.lon,w.lat,0,MARS),label:{text:`${w.class.replaceAll('_',' ')} ${(w.score*100).toFixed(0)}%`,font:'10px sans-serif',fillColor:C.Color.fromCssColorString(colours[w.class]),pixelOffset:new C.Cartesian2(0,-12),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}}:{})});});
+  v.scene.requestRender();
+ },[orbital,mission?.id]);
  return <div className={`globe-wrap ${pick?'picking':''}`}><div className="globe-canvas" ref={mount}/><div className="globe-vignette"/><div className="globe-source"><span className="status-dot"/>{status}<span className="source-divider">/</span>{renderer}</div>{pick&&<div className="pick-prompt">Select {pick==='stop'?'a science waypoint':`the ${pick} point`} on the terrain <button onClick={()=>useMission.getState().set({pick:null})}>Cancel</button></div>}</div>;
 }
