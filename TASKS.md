@@ -232,3 +232,26 @@ Korunan sınırlar: yeni4 featured Hazcam pozu bağımsız orbital eşleşmeyi g
 arşiv pozuyla görselleştirilir, engel füzyonuna girmez. Uzak görüntü çizgisi stereo
 ile düşey hizalanmış DEM yüksekliğini kullanır. ML güvenilirliği/safety sertifikası
 iddiası yok. Model eğitimleri bu turda yeniden yapılmadı.
+
+## Uzun gerçek görüntü talebi — 14 Kasım 2026
+
+Kullanıcı dört karenin yetersiz olduğunu ve başka videoların araştırılmasını istedi.
+
+- [x] NASA'nın Perseverance Sol 200 AutoNav sürüşü bulundu; özgün MP4 28.8 saniye,
+  192 farklı decoded görüntü, 175 m toplam sürüş. Uygulamada native video oynatıcı.
+- [x] NASA'nın beş yıllık Curiosity Hazcam filmi, 5 dakika 49 saniye, özgün tarih/
+  sol ve konum haritasıyla uygulamada oynatılıyor. İleri sarma ve mobil doğrulandı.
+- [x] Mevcut 1 m DEM alanında Sol 40–150 arşivi tarandı; 142 gerçek Hazcam RAD/XYZ/
+  XYE ürünü, kamera etiketleri ve PLACES konumları hazırlandı. Tam katalog 207 kare.
+- [x] 142 CAHVORE modelinin her biri gerçek stereo piksellerine yeniden izdüşürüldü;
+  p95 aralığı 0.1446–0.3676 px. Güven kapısı genişletilmedi.
+- [x] Varsayılan kayıt 142 gerçek çekim, yaklaşık 459 m kaydedilmiş hareket, 19 rota
+  güncellemesi. 34 ardışık çekim çifti 25 cm üzerinde konum değiştiriyor; diğerleri
+  yerinde bilim çalışması/dönüş. Çekimler arasında hareket uydurulmuyor.
+- [x] 120 saniyelik 1600×900 MP4, 142 çekimin tamamı + aynı rota/HiRISE haritası.
+  Reprodüksiyon manifesti, kaynak bağlantıları ve hashli video metadata dosyası.
+- [x] 0.5×–4× interaktif oynatma; doğru görüntü hazır olmadan kare atlanmaz.
+- [x] 30 Python testi ve production build geçti. Kaynak ayrıntıları NASA_FOOTAGE.md.
+
+Özgün NASA filmlerine planner rotası/konumu uydurulmaz. Kalibre interaktif kayıt,
+orijinal filmlerden ayrı seçilir. Backend uyanırken de özgün filmler açılabilir.

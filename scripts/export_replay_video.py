@@ -1,10 +1,10 @@
-"""Export a 30-second scientific visualization of actual NASA archive imagery.
+"""Export a scientific visualization of actual NASA archive imagery.
 
 Left: original camera pixels + the server's calibrated route projection.
 Right: actual georeferenced HiRISE ortho + the identical route and PLACES pose.
 No synthetic camera frames, simulated rover movement or guessed camera FOV.
 The sparse acquisitions are held as a clearly labelled accelerated timelapse.
-Run: python scripts/export_replay_video.py [scenario_id]
+Run: python scripts/export_replay_video.py [scenario_id] [--duration seconds]
 Requires imageio-ffmpeg only at authoring time; exported films need no encoder on Render.
 """
 from __future__ import annotations
@@ -112,7 +112,8 @@ def render_keyframes(result):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('scenario',nargs='?',default='hazcam-rocknest-approach');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('scenario',nargs='?',default='hazcam-rocknest-approach');parser.add_argument('--duration',type=int,default=DURATION);args=parser.parse_args()
+    duration=max(1,args.duration)
     data.load_regions();result=replay.compute(args.scenario)
     frames=render_keyframes(result)
     output=data.DATA_DIR/'demos'/f'{args.scenario}.mp4';output.parent.mkdir(exist_ok=True)
@@ -122,11 +123,11 @@ def main():
     process=subprocess.Popen(command,stdin=subprocess.PIPE)
     try:
         payloads=[f.tobytes() for f in frames]
-        for i in range(FPS*DURATION):process.stdin.write(payloads[min(len(frames)-1,i*len(frames)//(FPS*DURATION))])
+        for i in range(FPS*duration):process.stdin.write(payloads[min(len(frames)-1,i*len(frames)//(FPS*duration))])
     finally:
         process.stdin.close()
     if process.wait()!=0:raise RuntimeError('Video encoder failed')
-    proof={'scenario':args.scenario,'duration_s':DURATION,'fps':FPS,'dimensions':[WIDTH,HEIGHT],
+    proof={'scenario':args.scenario,'duration_s':duration,'fps':FPS,'dimensions':[WIDTH,HEIGHT],
            'footage':'Actual NASA/JPL-Caltech PDS Hazcam pixels, accelerated still-image timelapse; no interpolated motion',
            'map':'Actual PLACES HiRISE 25 cm orthophoto','calculation':result['method'],
            'rover_frames':[s['frame_id'] for s in result['steps']], 'events':result['events'],

@@ -4,6 +4,7 @@ import {ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,SkipBack,Skip
 import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,scheme,terrain} from './Globe';
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario} from './types';
+import {ARCHIVE_FILMS} from './ArchiveFilm';
 
 const EVENT_TEXT:Record<string,string>={off_route:'Off route · route updated',u_turn:'Make a U-turn · route behind the rover',obstacle:'Obstacle ahead · route updated',no_alternative:'No alternative route found'};
 let replayRequest=0;
@@ -11,7 +12,7 @@ let replayRequest=0;
 export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
  const s=useMission.getState();
  const request=++replayRequest;
- s.set({busy:true,error:null});
+ s.set({busy:true,error:null,archiveVideo:null});
  try{
   const q=goal?`?goal_lat=${goal.lat}&goal_lon=${goal.lon}`:'';
   const r=await api<ReplayResult>(`/api/scenarios/${id}/replay${q}`);
@@ -29,18 +30,21 @@ export function ReplayPanel(){
  const current=s.replay?.scenario.id??selected;
  return <div className="panel-section">
   <h2 className="panel-title">Rover navigation</h2>
-  <p className="panel-lede">Real NASA camera frames on the left. The same remaining route and recorded rover position on the right.</p>
-  <div className="scenario-list">{s.scenarios.map(sc=><button key={sc.id} className={`scenario ${current===sc.id?'active':''}`} onClick={()=>{setSelected(sc.id);void loadReplay(sc.id);}} disabled={s.busy}>
+  <p className="panel-lede">Watch full NASA drive films, or follow real camera acquisitions with a calculated route and map.</p>
+  <h3 className="replay-section-title">NASA drive films</h3>
+  <div className="film-list">{ARCHIVE_FILMS.map(f=><button key={f.id} className={`film-choice ${s.archiveVideo===f.id?'active':''}`} onClick={()=>s.set({archiveVideo:f.id,replayGoalPick:false,pick:null})}><Video size={17}/><span><strong>{f.title}</strong><small>{f.summary}</small></span></button>)}</div>
+  <h3 className="replay-section-title">Route replays</h3>
+  <div className="scenario-list">{s.scenarios.map(sc=><button key={sc.id} className={`scenario ${!s.archiveVideo&&current===sc.id?'active':''}`} onClick={()=>{setSelected(sc.id);void loadReplay(sc.id);}} disabled={s.busy}>
    {sc.first_frame&&<img src={`/api/frames/${sc.first_frame}/image`} alt=""/>}
    <span><strong>{sc.title}</strong><small>{sc.subtitle}</small><small>{sc.frame_count} real archive frames</small></span>
   </button>)}</div>
-  {s.replay&&<div className="scenario-detail">
+  {s.replay&&!s.archiveVideo&&<div className="scenario-detail">
    <p>{s.replay.scenario.story}</p>
    <div className="button-row">
     <button className="ghost-button" onClick={()=>s.set({replayGoalPick:true,pick:'goal'})} disabled={s.busy}><Flag size={14}/>{s.replayGoalPick?'Click the map…':'Set a new destination'}</button>
     {s.replay.goal.custom&&<button className="ghost-button" onClick={()=>void loadReplay(s.replay!.scenario.id)} disabled={s.busy}><RotateCcw size={14}/>Real destination</button>}
    </div>
-   {s.replay.scenario.demo_available&&<a className="ghost-button demo-download" href={`/api/scenarios/${s.replay.scenario.id}/demo.mp4`} download><Video size={14}/>Download 30-second demo</a>}
+   {s.replay.scenario.demo_available&&<a className="ghost-button demo-download" href={`/api/scenarios/${s.replay.scenario.id}/demo.mp4`} download><Video size={14}/>Download route film</a>}
    <h3>Sources</h3>
    <ul className="reference-list">{s.replay.scenario.references.map(r=><li key={r.url}><a href={r.url} target="_blank" rel="noreferrer">{r.label}<ArrowUpRight size={12}/></a></li>)}</ul>
    <p className="fine-print">{s.replay.scenario.note} Computed live in {Math.round(s.replay.compute_ms)} ms · re-plan when off route by more than {s.replay.parameters.deviation_m} m.</p>
@@ -126,9 +130,11 @@ function NavcamFrame(){
 export function ReplayTimeline(){
  const s=useMission();
  const [playing,setPlaying]=useState(false);
+ const [speed,setSpeed]=useState(1);
  const r=s.replay,n=r?.steps.length??0;
- useEffect(()=>{setPlaying(false);},[r?.scenario.id]);
- useEffect(()=>{if(!playing||!r)return;const t=window.setInterval(()=>{const st=useMission.getState();if(st.replayView==='navcam'&&st.replayImageReady!==r.steps[st.replayStep].frame_id)return;if(st.replayStep>=n-1){setPlaying(false);return;}st.set({replayStep:st.replayStep+1,frameId:r.steps[st.replayStep+1].frame_id});},2400);return()=>window.clearInterval(t);},[playing,r,n]);
+ useEffect(()=>{setPlaying(false);},[r,s.archiveVideo]);
+ useEffect(()=>{if(!playing||!r||s.archiveVideo)return;const t=window.setInterval(()=>{const st=useMission.getState();if(st.replayView==='navcam'&&st.replayImageReady!==r.steps[st.replayStep].frame_id)return;if(st.replayStep>=n-1){setPlaying(false);return;}st.set({replayStep:st.replayStep+1,frameId:r.steps[st.replayStep+1].frame_id});},1000/speed);return()=>window.clearInterval(t);},[playing,r,n,speed,s.archiveVideo]);
+ if(s.archiveVideo)return <section className="replay-timeline film-timeline"><Video size={18}/><span>NASA original film · use the video controls to play, seek or enter fullscreen.</span></section>;
  if(!r)return <section className="replay-timeline empty"><span>Select a drive replay from the left.</span></section>;
  const go=(i:number)=>s.set({replayStep:Math.max(0,Math.min(n-1,i)),frameId:r.steps[Math.max(0,Math.min(n-1,i))].frame_id});
  return <section className="replay-timeline">
@@ -142,6 +148,7 @@ export function ReplayTimeline(){
    <div className="scrubber-marks">{r.events.map(e=><button key={e.step} className={`mark ${e.type}`} style={{left:`${(e.step/(n-1))*100}%`}} onClick={()=>go(e.step)} title={EVENT_TEXT[e.type]}/>)}</div>
    <div className="scrubber-labels"><span>Frame {s.replayStep+1} of {n}</span><span>{r.events.length} re-plans · {r.events.filter(e=>e.type==='u_turn').length} U-turns</span></div>
   </div>
+  <label className="replay-speed">Speed<select aria-label="Replay speed" value={speed} onChange={e=>setSpeed(Number(e.target.value))}>{[.5,1,2,4].map(v=><option key={v} value={v}>{v}×</option>)}</select></label>
   {s.busy&&<LoaderCircle className="spin" size={16}/>}
  </section>;
 }

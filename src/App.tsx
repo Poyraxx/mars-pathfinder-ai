@@ -3,6 +3,7 @@ import {Activity,ArrowDownToLine,ArrowUpRight,Crosshair,Eye,Flag,Globe2,Info,Lay
 import {Area,AreaChart,ResponsiveContainer,Tooltip,XAxis,YAxis} from 'recharts';
 import CameraView from './CameraView';
 import Globe from './Globe';
+import ArchiveFilm from './ArchiveFilm';
 import {ReplayPanel,ReplayTimeline,ReplayView} from './Replay';
 import {api,useMission} from './store';
 import type {Catalog,Event,Mission,OrbitalResult,Point} from './types';
@@ -96,7 +97,8 @@ function App(){
    {s.mode==='replay'&&<ReplayPanel/>}
   </aside>
 
-  <main className={`stage ${s.mode==='replay'?'split':''}`}>
+  <main className={`stage ${s.mode==='replay'&&!s.archiveVideo?'split':''}`}>
+   {s.mode==='replay'&&s.archiveVideo?<ArchiveFilm key={s.archiveVideo}/>:<>
    {s.mode==='replay'&&<ReplayView/>}
    <div className="map-area">
     <Globe/>
@@ -110,9 +112,9 @@ function App(){
      {s.mode==='plan'&&<button className={s.showAI?'active':''} onClick={()=>s.set({showAI:!s.showAI})} aria-label="Route analysis panel" aria-expanded={s.showAI}><Radar size={17}/></button>}
     </div>
     {cameraView&&<CameraView dual={s.view==='dual'}/>}
-   </div>
+   </div></>}
    {s.error&&<div className="error-banner" role="alert"><Info size={16}/><span>{s.error}</span><button onClick={()=>s.set({error:null})} aria-label="Dismiss error"><X size={15}/></button></div>}
-   {!connected&&<div className="service-overlay"><Radar size={26}/><h2>{booting?'Waking the server':'Server unavailable'}</h2><p>The free server sleeps when idle and needs about a minute to wake.</p><button className="primary-button" onClick={load} disabled={booting}>{booting?<LoaderCircle className="spin" size={15}/>:<Activity size={15}/>}Try again</button></div>}
+   {!connected&&!(s.mode==='replay'&&s.archiveVideo)&&<div className="service-overlay"><Radar size={26}/><h2>{booting?'Waking the server':'Server unavailable'}</h2><p>The free server sleeps when idle and needs about a minute to wake.</p><button className="primary-button" onClick={load} disabled={booting}>{booting?<LoaderCircle className="spin" size={15}/>:<Activity size={15}/>}Try again</button></div>}
   </main>
 
   {showDetails&&<aside className="details">

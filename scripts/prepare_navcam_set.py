@@ -65,6 +65,7 @@ def main() -> None:
     parser.add_argument("--sequence", default="approach")
     parser.add_argument("--front-hazcam", action="store_true", help="prepare forward-facing calibrated MSL Hazcam RAD/XYZ/XYE products instead of side-looking Navcam")
     parser.add_argument("--per-sol",type=int,default=0,help="bound new footage to the first N matched acquisitions on each requested sol")
+    parser.add_argument("--manifest",type=Path,help="JSON list of exact {id, sol} archive products to prepare")
     args = parser.parse_args()
     cache = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "mars-pathfinder" / "raw" / "pds"
     listing = P.fetch(P.BASE, cache / "sol57-directory.html").decode("utf-8", errors="replace")
@@ -75,8 +76,16 @@ def main() -> None:
     frames_path = DATA / "frames.json"
     frames = json.loads(frames_path.read_text("utf-8"))
     existing = {f["id"] for f in frames}
-    chosen = products(listing) if not args.drive_sols else []
+    chosen = products(listing) if not args.drive_sols and not args.manifest else []
     bases = {}
+    if args.manifest:
+        for item in json.loads(args.manifest.read_text('utf-8')):
+            xyz_id,sol=item['id'],int(item['sol'])
+            base=P.BASE.replace('SOL00057',f'SOL{sol:05d}')
+            if args.front_hazcam:
+                base=base.replace('MSLNAV_1XXX/DATA_V1','MSLHAZ_1XXX/DATA')
+            bases[xyz_id]=(base,sol)
+            chosen.append((args.sequence,xyz_id))
     for sol in args.drive_sols:
         base = P.BASE.replace("SOL00057", f"SOL{sol:05d}")
         if args.front_hazcam:
@@ -183,6 +192,7 @@ def main() -> None:
             "registration_verified": False, "enabled_for_map_update": False,
             "source_url": prods[0]["label_url"]})
         print(f"added {sequence} #{order[sequence]} {xyz_id} valid={valid.mean():.2f}", flush=True)
+        frames_path.write_text(json.dumps(frames, indent=2), "utf-8")
     frames_path.write_text(json.dumps(frames, indent=2), "utf-8")
 
 

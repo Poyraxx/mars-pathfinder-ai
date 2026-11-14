@@ -25,3 +25,11 @@ loading/disabled/error states. Reduced motion suppresses decorative animation.
 
 QA: CUA browser at desktop and mobile widths, real WebGL; Python algorithm/API tests;
 TypeScript build. Third-party headless browser launchers are not used in this Codex session.
+
+Long footage extension: the replay sidebar distinguishes NASA drive films from
+route replays. A selected original film fills the stage with native video controls,
+NASA attribution, date and source link; an unrelated planner map is not shown next
+to it. The default route replay contains142 real acquisitions. Timeline speed is
+adjustable from0.5× to4× and waits for the correct source image before advancing.
+Native video fits its bounded stage on desktop and mobile; captions and controls
+remain visible. Full-film sources can be opened while the planner server wakes.

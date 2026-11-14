@@ -71,3 +71,19 @@ def test_missed_destination_replans_at_last_frame_and_never_mirrors_route():
     assert last['deviation_before_replan_m']>2
     assert abs(last['turn_to_route_deg'])>120
     assert not last['camera_route']['segments']
+
+
+def test_extended_traverse_uses_many_distinct_real_acquisitions_and_poses():
+    data.load_regions()
+    result=replay.compute('hazcam-extended-traverse')
+    steps=result['steps']
+    assert len(steps)>=100 and len({s['frame_id'] for s in steps})==len(steps)
+    assert [s['time'] for s in steps]==sorted(s['time'] for s in steps)
+    frames={f['id']:f for f in data.frame_catalog()}
+    positions=np.array([frames[s['frame_id']]['places']['corrected_rover_origin_global_ned_m'][:2] for s in steps])
+    assert np.count_nonzero(np.linalg.norm(np.diff(positions,axis=0),axis=1)>.25)>=30
+    assert np.linalg.norm(positions[-1]-positions[0])>100
+    assert all(frames[s['frame_id']]['camera_model']['validation']['accepted'] for s in steps)
+    assert all(s['route'] for s in steps)
+    assert any(s['camera_route']['segments'] for s in steps)
+    assert steps[-1]['remaining_m']<steps[0]['remaining_m']

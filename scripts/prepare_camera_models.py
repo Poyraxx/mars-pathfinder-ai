@@ -55,7 +55,7 @@ def main():
                                'median_error_px':float(np.median(errors)) if len(errors) else None,
                                'p95_error_px':p95, 'accepted': p95 is not None and p95<1.5 and valid_fraction>.95}
         f['camera_model'] = model
-        evidence_file=data/f.get('registration',{}).get('evidence','missing-evidence')
+        evidence_file=data/(f.get('registration',{}).get('evidence') or 'missing-evidence')
         if evidence_file.is_file():
             import hashlib
             evidence=json.loads(evidence_file.read_text('utf-8'))

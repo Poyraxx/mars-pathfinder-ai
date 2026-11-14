@@ -61,6 +61,13 @@ def main():
                      'story':'A counterfactual navigation task on the same real footage: the destination is a measured ground point in the first view. The recorded rover continues its historical drive. The planner recommends a return or U-turn when it passes the requested waypoint; the footage is never altered to pretend it followed that recommendation.',
                      'destination':view_mission(approach[0],meta)['goal']}
         scenarios=[forward,return_trip,*scenarios]
+        if len(hazcam)>20:
+            extended={**common,'id':'hazcam-extended-traverse','title':'Curiosity · extended field traverse',
+                      'subtitle':f"{len(hazcam)} real acquisitions · Sols {hazcam[0]['sol']}–{hazcam[-1]['sol']}",
+                      'frames':[f['id'] for f in hazcam],'sols':sorted({f['sol'] for f in hazcam}),
+                      'story':f"Follow {len(hazcam)} actual forward-camera acquisitions through Curiosity's approach to Rocknest, fieldwork, turns and departure. Stationary science acquisitions remain in their historical order. Camera and map use each frame's archived pose and the same calculated remaining route; no intermediate rover motion is fabricated.",
+                      'destination':view_mission(hazcam[-1],meta)['goal']}
+            scenarios=[extended,*scenarios]
     (DATA / "scenarios.json").write_text(json.dumps(scenarios, indent=2), "utf-8")
     print([(s['id'],len(s['frames'])) for s in scenarios])
 

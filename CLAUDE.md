@@ -8,13 +8,18 @@ rover kaydı ilerledikçe geçen yolun geride kalması, sapınca yeniden rota ve
 U dönüşü önerisi. 3D render yalnız yardımcı görünüm. Bir görüntüye göz kararı çizgi
 koymak veya 3D simülasyonu gerçek footage yerine göstermek isteği karşılamıyor.
 
-Güncel uygulama: 12 gerçek Front Hazcam ürünü ve doğrulanmış CAHVORE kamera
-projeksiyonu eklendi; 4 farklı gerçek konumdaki çekimle iki interaktif senaryo
-ve iki30 saniyelik MP4 hazır. Başlangıçta gerçek kamera/harita açılır. Pozlar
+Güncel uygulama: kullanıcının "4 aşırı az, başka videolarda ara" düzeltmesinden
+sonra142 gerçek Front Hazcam ürünü (Sol40–150),207 toplam kare hazırlandı.
+Varsayılan142 çekimlik interaktif kayıt yaklaşık459 m kaydedilmiş hareket,
+19 replan ve2 dakikalık MP4 içerir. İki kısa4-kare tanılama senaryosu korunur.
+NASA'nın192 gerçek kareli Perseverance Sol200 filmi ve5 dakika49 saniyelik
+Curiosity filmi uygulamadan doğrudan oynatılır; bunlara uydurma planner eşleşmesi
+eklenmez. Başlangıçta uzun gerçek kamera/harita kaydı açılır. Pozlar
 arşiv PLACES kaynaklıdır; bu4 Hazcam görüntüsü bağımsız orbital eşleşme testini
-geçmedi ve haritaya engel yazmaz. Kalibrasyonun p95 0.16–0.30 piksel hatası,
+geçmedi ve haritaya engel yazmaz.142 kamera kalibrasyonunda p95 0.14–0.37 piksel hatası,
 mutlak harita doğruluğu anlamına gelmez. Uzak çizgi yüksekliği native DEM'den
-gelir. Video4 gerçek kareden oluşan açıkça etiketli timelapse'tir, sürekli video değil.
+gelir. İnteraktif kayıt ve2 dakikalık film142 gerçek çekimden oluşan timelapse'tir;
+çekimler arasında konum veya görüntü üretilmez.30 test ve production build geçti.
 
 Önceki devir ve tarihî görev maddeleri aşağıda korunmuştur; güncel uygulama için
 README'nin "Real-footage navigation" bölümü ve TASKS.md'nin son bölümü esas alınır.
