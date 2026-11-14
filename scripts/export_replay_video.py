@@ -1,6 +1,6 @@
 """Export a scientific visualization of actual NASA archive imagery.
 
-Left: original camera pixels + a rover-centred directional navigation HUD.
+Left: original camera pixels + a collision-checked local stereo route, if verified.
 Right: actual georeferenced HiRISE ortho + the identical route and PLACES pose.
 No synthetic camera frames, simulated rover movement or guessed camera FOV.
 The sparse acquisitions are held as a clearly labelled accelerated timelapse.
@@ -24,6 +24,7 @@ import imageio_ffmpeg
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from backend import data, replay
+from backend import local_navigation
 
 WIDTH,HEIGHT=1600,900
 FPS,DURATION=24,30
@@ -64,8 +65,8 @@ def render_keyframes(result):
     for index,st in enumerate(result['steps']):
         canvas=Image.new('RGB',(WIDTH,HEIGHT),'#070e14');d=ImageDraw.Draw(canvas)
         d.text((30,21),'PATHFINDER  /  ROVER NAVIGATION',font=font(27,True),fill=WHITE)
-        d.text((30,58),'Real NASA footage + one shared route + recorded Mars position',font=font(18),fill=MUTED)
-        panel(d,(20,86,780,844),'REAL HAZCAM   /   ROVER-CENTRED DIRECTION GUIDE')
+        d.text((30,58),'Real NASA footage / measured local stereo / archive map context',font=font(18),fill=MUTED)
+        panel(d,(20,86,780,844),'REAL HAZCAM   /   LOCAL STEREO CLEARANCE CHECK')
         panel(d,(810,86,1580,844),'MARS MAP   /   HiRISE 25 cm ORTHOPHOTO')
         f=catalogue[st['frame_id']]
         camera=Image.open(data.DATA_DIR/(f.get('display_path') or f['image_path'])).convert('RGB').resize((size,size),Image.Resampling.LANCZOS)
@@ -73,15 +74,13 @@ def render_keyframes(result):
         cy=118;my=118
         canvas.paste(camera,(xcam,cy));canvas.paste(map_image,(xmap,my))
         d=ImageDraw.Draw(canvas)
-        guide=st['guidance'];colour=AMBER if guide['kind']=='u_turn' else CYAN
-        xy=[(xcam+p[0]*size,cy+p[1]*size) for p in guide['points']]
-        d.line(xy,fill='#07131a',width=11,joint='curve');d.line(xy,fill=colour,width=6,joint='curve')
-        tip=np.array(xy[-1]);direction=tip-np.array(xy[-3]);direction/=max(np.linalg.norm(direction),1e-6)
-        side=np.array([-direction[1],direction[0]])
-        d.polygon([tuple(tip+direction*8),tuple(tip-direction*16+side*10),tuple(tip-direction*16-side*10)],fill=colour)
-        ax,ay=xcam+.5*size,cy+.94*size
-        d.ellipse((ax-10,ay-10,ax+10,ay+10),fill=colour,outline='#07131a',width=3)
-        d.polygon([(ax,ay-18),(ax-12,ay+8),(ax,ay+2),(ax+12,ay+8)],fill=WHITE,outline='#07131a',width=2)
+        local=local_navigation.compute(st['frame_id'],result['goal'])
+        for line in local.get('corridor_edges',[]):
+            d.line([(xcam+p[0]*size,cy+p[1]*size) for p in line],fill=CYAN,width=2)
+        for polygon in local['ribbons']:
+            d.polygon([(xcam+p[0]*size,cy+p[1]*size) for p in polygon],fill=CYAN)
+        for p in local.get('obstacles',[]):
+            ox,oy=xcam+p[0]*size,cy+p[1]*size;d.rectangle((ox-2,oy-2,ox+2,oy+2),fill='#ff5a4a')
         # Same route payload as the in-app map; only the cartographic projection changes.
         def mp(p):
             x,y=map_point(p);return x,y+(my-ymain)
@@ -99,15 +98,28 @@ def render_keyframes(result):
         d.text((xmap+24,my+21),f"{st['remaining_m']:.1f} m remaining",font=font(24,True),fill=WHITE)
         d.text((xmap+24,my+55),f"ROUTE v{st['route_version']}  /  FRAME {index+1} OF {len(result['steps'])}",font=font(14),fill=MUTED)
         d.rounded_rectangle((xcam+12,cy+12,xcam+size-12,cy+100),radius=7,fill='#10252f')
-        d.text((xcam+27,cy+22),guide['instruction'],font=font(23,True),fill=colour)
+        if local['ribbons']:
+            label=f"Local route / {local['min_obstacle_distance_m']:.1f} m from nearest rock" if local.get('min_obstacle_distance_m') else 'Local route / no rock in measured range'
+        elif local['status']=='turn_required':
+            turn=local.get('required_turn_deg',0)
+            label=f"U-turn: destination {abs(turn):.0f} deg to the {'right' if turn>0 else 'left'}"
+        else:
+            label='No measured safe corridor'
+        d.text((xcam+27,cy+22),label,font=font(23,True),fill=CYAN if local['ribbons'] else AMBER)
         motion=st['motion'];details=motion['label']
         if motion['distance_m'] is not None:
             details+=f" / {motion['distance_m']:.1f} m / {motion['heading_change_deg']:+.1f} deg"
         d.text((xcam+27,cy+56),'Recorded: '+details,font=font(17),fill=WHITE)
         d.text((xcam+27,cy+81),f"Sol {st['sol']} / {st['time'][:19].replace('T',' ')} UTC",font=font(13),fill=MUTED)
+        if not local['ribbons']:
+            import textwrap
+            box=(xcam+36,cy+230,xcam+size-36,cy+366)
+            d.rounded_rectangle(box,radius=7,fill='#10252f')
+            lines=textwrap.wrap(local['reason'],width=58)
+            d.multiline_text((box[0]+16,box[1]+18),'\n'.join(lines),font=font(18),fill=WHITE,spacing=7)
         d.text((WIDTH-61,my+20),'N',font=font(20,True),fill=WHITE)
         d.text((30,866),'Accelerated archive timelapse. Recorded rover motion; calculated route does not control the rover.',font=font(16),fill=MUTED)
-        d.text((30,886),'Centre guide is a directional HUD, not a calibrated ground trace. Recorded motion is from PLACES pose differences.',font=font(12),fill=MUTED)
+        d.text((30,886),'Local route: A* on measured stereo terrain for a 2.8 m wide rover, projected with the PDS camera model. Red: measured obstacles. Lines: rover width.',font=font(12),fill=MUTED)
         rendered.append(canvas)
     return rendered
 
@@ -131,7 +143,8 @@ def main():
     proof={'scenario':args.scenario,'duration_s':duration,'fps':FPS,'dimensions':[WIDTH,HEIGHT],
            'footage':'Actual NASA/JPL-Caltech PDS Hazcam pixels, accelerated still-image timelapse; no interpolated motion',
            'map':'Actual PLACES HiRISE 25 cm orthophoto','calculation':result['method'],
-           'camera_overlay':'Rover-centred directional HUD from remaining route and heading; not a calibrated ground projection',
+           'camera_overlay':'Collision-checked local stereo A* route, metric ground ribbon projected with PDS CAHVORE; no decorative fallback',
+           'local_navigation_settings':local_navigation.asdict(local_navigation.DEFAULT),
            'motion_analysis':'Independent changes between successive real PLACES poses, not planned motion',
            'rover_frames':[s['frame_id'] for s in result['steps']], 'events':result['events'],
            'input_frames_sha256':hashlib.sha256((data.DATA_DIR/'frames.json').read_bytes()).hexdigest(),

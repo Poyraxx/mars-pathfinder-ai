@@ -24,6 +24,7 @@ from .camera_route import project_route, view_mission
 from . import orbital
 from . import features
 from . import replay
+from . import local_navigation
 from .navigation import cost_grid, plan_legs, metrics, inflate_obstacles
 from .perception import infer, localize_obstacles, hazard_overlay
 from .schemas import MissionRequest, ObservationRequest, PlanRequest
@@ -49,6 +50,7 @@ missions = OrderedDict()
 overlays = {}
 events = EventLog()
 compute_lock = asyncio.Lock()
+local_navigation_lock = asyncio.Lock()
 http = None
 tile_cache = OrderedDict()
 BOOT_ID = uuid.uuid4().hex[:12]
@@ -323,6 +325,25 @@ def frame_display(frame_id: str):
     f=next((f for f in data.frame_catalog() if f["id"]==frame_id),None)
     if not f: reject("unknown_frame","Unknown reference frame.",404)
     return FileResponse(data.DATA_DIR/(f.get("display_path") or f["image_path"]),headers={"Cache-Control":"public,max-age=86400"})
+
+
+@app.get('/api/frames/{frame_id}/local-navigation')
+async def frame_local_navigation(frame_id: str, goal_lat: float|None=None, goal_lon: float|None=None):
+    if (goal_lat is None) != (goal_lon is None):
+        reject('incomplete_goal','Both goal coordinates are required.')
+    if goal_lat is not None and (not math.isfinite(goal_lat) or not math.isfinite(goal_lon) or not -90<=goal_lat<=90 or not -180<=goal_lon<180):
+        reject('invalid_goal','Use finite Mars latitude/longitude coordinates.')
+    if not any(f['id']==frame_id for f in data.frame_catalog()):
+        reject('unknown_frame','Unknown reference frame.',404)
+    if local_navigation_lock.locked():
+        reject('queue_full','Local stereo processing is active; retry shortly.',429)
+    async with local_navigation_lock:
+        goal=None if goal_lat is None else {'lat':goal_lat,'lon':goal_lon}
+        try:
+            return await asyncio.to_thread(local_navigation.compute,frame_id,goal)
+        except (OSError,ValueError,KeyError) as exc:
+            return {'frame_id':frame_id,'status':'unavailable','reason':f'Local stereo/model inputs unavailable ({type(exc).__name__}); no route asserted.',
+                    'segments':[],'ribbons':[],'is_ground_projection':True}
 
 
 orbital_results={}

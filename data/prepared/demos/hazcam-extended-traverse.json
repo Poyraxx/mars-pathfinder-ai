@@ -9,7 +9,24 @@
   "footage": "Actual NASA/JPL-Caltech PDS Hazcam pixels, accelerated still-image timelapse; no interpolated motion",
   "map": "Actual PLACES HiRISE 25 cm orthophoto",
   "calculation": "Real PLACES rover poses replayed in order; route to the real arrival point re-planned on deviation or new stereo obstacles.",
-  "camera_overlay": "Rover-centred directional HUD from remaining route and heading; not a calibrated ground projection",
+  "camera_overlay": "Collision-checked local stereo A* route, metric ground ribbon projected with PDS CAHVORE; no decorative fallback",
+  "local_navigation_settings": {
+    "cell_m": 0.1,
+    "forward_min_m": 0.0,
+    "body_front_m": 1.6,
+    "forward_max_m": 8.0,
+    "half_width_m": 5.0,
+    "max_stereo_error_m": 0.1,
+    "max_triangle_edge_m": 0.3,
+    "max_step_m": 0.25,
+    "rock_relief_m": 0.08,
+    "max_slope_deg": 20.0,
+    "semantic_threshold": 0.7,
+    "half_width_m_body": 1.4,
+    "clearance_m": 0.15,
+    "min_corridor_observed": 0.5,
+    "ribbon_width_m": 0.5
+  },
   "motion_analysis": "Independent changes between successive real PLACES poses, not planned motion",
   "rover_frames": [
     "FLA_401051057XYZ_F0040916FHAZ00304M1",
@@ -291,6 +308,6 @@
     }
   ],
   "input_frames_sha256": "b088f01b88228289c4d71a70429324aadbdcc19ba208fe7ef95f94e77fe8fcfb",
-  "video_sha256": "9256ff37cb9af05075707cfdaeee62cce31a679831ac2d2415503e4a15bb3519",
+  "video_sha256": "46d2eaf503fca99160f2d59d3b03fd70e9e0ca7cd6ce42e34de72304f36079e1",
   "limitation": "Camera reprojection is validated; absolute orbital placement of these Hazcam poses remains archive-based, not independently accepted."
 }

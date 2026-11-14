@@ -2,6 +2,16 @@
 
 ## Güncel kullanıcı isteği — önce bunu esas al
 
+**En son (Claude, 14 Kasım akşam):** Kullanıcının "GTA minimap çizgisi değil, gerçek engelden
+kaçan, zemine oturan AR rota" isteği `backend/local_navigation.py` ile tamamlandı. Stereo XYZ
+(hata ≤0.10 m, ~4 m'ye kadar güvenilir) → 10 cm zemin ızgarası; engel = ≥0.25 m basamak, 0.2 m
+düzleştirilmiş eğim >20°, stereo ile doğrulanan model kayası. Gövde modeli: 2.8 m genişlik koridoru
+(merkez çizgisi ölçülmüş engellerden ≥1.62 m), rota ölçülmüş zeminden geçer, koridorun ≥%50'si
+ölçülmüş olmalı; rover kendi gövdesi altında yerinde dönebilir. A* + çarpışma kontrollü kısaltma +
+yeniden kontrol edilen Chaikin yumuşatma; PDS CAHVORE ile 0.5 m zemin şeridi, rover genişliği kenarları
+ve kırmızı engel işaretleri. Hedef arkadaysa U dönüşü. 142 karenin 63'ünde rota (Jake Matijevic kayası
+soldan dolaşılıyor); diğerlerinde neden yazılır, sahte çizgi yok. 45 test geçti; 3 MP4 yenilendi.
+
 Son düzeltme: kullanıcı çizginin her zaman roverin alt-ortasından çıkmasını ve
 "sağa yöneldi" gibi gerçek hareket bilgisinin ayrı bir algoritmayla gösterilmesini
 istedi. Varsayılan **Centre guide**, [0.5,0.94] rover işaretine bağlı yönlendirme

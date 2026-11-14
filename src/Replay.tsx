@@ -1,9 +1,9 @@
-import {useEffect,useMemo,useRef,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import * as C from 'cesium';
 import {ArrowUp,ArrowDown,ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,RotateCw,SkipBack,SkipForward,Video,Box,Minus} from 'lucide-react';
 import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,scheme,terrain} from './Globe';
 import {api,useMission} from './store';
-import type {ReplayResult,Scenario} from './types';
+import type {ReplayResult,Scenario,LocalNavigation} from './types';
 import {ARCHIVE_FILMS} from './ArchiveFilm';
 
 const EVENT_TEXT:Record<string,string>={off_route:'Off route · route updated',u_turn:'Make a U-turn · route behind the rover',obstacle:'Obstacle ahead · route updated',no_alternative:'No alternative route found'};
@@ -56,6 +56,28 @@ export function ReplayPanel(){
 export function ReplayView(){
  const s=useMission();
  const r=s.replay,st=r?.steps[Math.min(s.replayStep,(r?.steps.length??1)-1)];
+ useEffect(()=>{
+  if(!st||s.replayView!=='navcam'||s.archiveVideo)return;
+  const controller=new AbortController(),frameId=st.frame_id;
+  useMission.getState().set({localNavigation:null});
+  void (async()=>{
+   try{
+    const query=r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'';
+    let result:Response|undefined;
+    for(let i=0;i<4&&!controller.signal.aborted;i++){
+     result=await fetch(`/api/frames/${frameId}/local-navigation${query}`,{signal:controller.signal});
+     if(result.status!==429)break;
+     await new Promise(resolve=>window.setTimeout(resolve,350*2**i));
+    }
+    if(!result?.ok)throw new Error('Local processing unavailable; no route asserted.');
+    const local=await result.json() as LocalNavigation;
+    if(!controller.signal.aborted)useMission.getState().set({localNavigation:{...local,goal_key:query}});
+   }catch(error){if(!controller.signal.aborted)useMission.getState().set({localNavigation:{goal_key:r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'',frame_id:frameId,status:'unavailable',reason:error instanceof Error?error.message:'Local processing unavailable.',segments:[],ribbons:[],is_ground_projection:true}});}
+  })();
+  return()=>controller.abort();
+ },[st?.frame_id,r,s.replayView,s.archiveVideo]);
+ const local=s.localNavigation?.frame_id===st?.frame_id&&s.localNavigation?.goal_key===(r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'')?s.localNavigation:null;
+ const instruction=s.replayView==='3d'?st?.guidance?.instruction:local?(local.status==='ready'?'Local route verified':local.status==='partial'?'Observed segment only':local.status==='turn_required'?'Make a U-turn':'No verified local route'):'Analysing local terrain…';
  return <section className="replay-view" aria-label="Rover view">
   <div className="replay-view-tabs" role="tablist">
    <button role="tab" aria-selected={s.replayView==='navcam'} className={s.replayView==='navcam'?'active':''} onClick={()=>s.set({replayView:'navcam'})}><Video size={14}/>Real camera</button>
@@ -64,7 +86,7 @@ export function ReplayView(){
   {!r?<div className="replay-empty"><MapPin size={22}/><p>Choose a drive replay to start.</p></div>:s.replayView==='3d'?<FirstPerson/>:<NavcamFrame/>}
   {s.busy&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Calculating the shared route…</div>}
   {st?.event&&<div className={`replay-toast ${st.event}`} role="status">{EVENT_TEXT[st.event]}<small>{(st.deviation_before_replan_m??st.deviation_m).toFixed(1)} m before update · route v{st.route_version}</small></div>}
-  {r&&st&&<div className="replay-readout">{st.guidance&&<><small>Route guidance</small><strong className="route-instruction">{st.guidance.instruction}</strong></>}<span><b>{st.remaining_m.toFixed(1)} m</b> to destination</span><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span><span>{st.deviation_m.toFixed(1)} m off route</span></div>}
+  {r&&st&&<div className="replay-readout">{instruction&&<><small>Route guidance</small><strong className="route-instruction">{instruction}</strong></>}<span><b>{st.remaining_m.toFixed(1)} m</b> to destination</span><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span><span>{st.deviation_m.toFixed(1)} m off route</span></div>}
  </section>;
 }
 
@@ -108,19 +130,17 @@ function FirstPerson(){
 }
 
 function NavcamFrame(){
- const {replay,replayStep,replayImageReady,set,catalog,cameraOverlay}=useMission();
+ const {replay,replayStep,replayImageReady,set,catalog,cameraOverlay,localNavigation}=useMission();
  const image=useRef<HTMLImageElement>(null);
  const st=replay!.steps[Math.min(replayStep,replay!.steps.length-1)];
  // A cached image can finish before a fresh replay response clears readiness.
  // The same frame's DOM image then stays mounted and will not fire load again.
  useEffect(()=>{if(image.current?.complete&&image.current.naturalWidth>0)set({replayImageReady:st.frame_id});},[replay,st.frame_id,set]);
- const cr=st.camera_route,verified=cr?.placement==='image-verified';
- const segs=useMemo(()=>cr?.segments??[],[cr]);
  const loaded=replayImageReady===st.frame_id;
  const frame=catalog?.frames.find(f=>f.id===st.frame_id);
- const calibration=frame?.camera_model?.validation;
- const behind=Math.abs(st.turn_to_route_deg??0)>90;
- const guide=st.guidance,motion=st.motion;
+ const motion=st.motion;
+ const local=localNavigation?.frame_id===st.frame_id&&localNavigation?.goal_key===`?goal_lat=${replay!.goal.lat}&goal_lon=${replay!.goal.lon}`?localNavigation:null;
+ const hasRoute=!!local?.ribbons.length;
  const MotionIcon=motion?.kind.includes('right')?RotateCw:motion?.kind.includes('left')?RotateCcw:motion?.kind==='reverse'?ArrowDown:motion?.kind==='forward'?ArrowUp:Minus;
  return <div className="navcam">
   <div className="camera-tools">
@@ -128,18 +148,13 @@ function NavcamFrame(){
    <div className="camera-overlay-controls" role="group" aria-label="Camera route display"><button aria-pressed={cameraOverlay==='guidance'} onClick={()=>set({cameraOverlay:'guidance'})}>Centre guide</button><button aria-pressed={cameraOverlay==='projection'} onClick={()=>set({cameraOverlay:'projection'})}>Ground projection</button></div>
   </div>
   <div className="camera-image-area"><div className="navcam-stage"><img ref={image} key={st.frame_id} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>set({replayImageReady:st.frame_id})}/>
-   {loaded&&cameraOverlay==='projection'&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Same remaining route as the map, projected with measured camera geometry">{segs.map((seg,i)=><polyline key={i} className={verified?'new':'unverified'} points={seg.map(q=>`${q[0]},${q[1]}`).join(' ')}/>)}</svg>}
-   {loaded&&cameraOverlay==='guidance'&&guide&&<svg className={`camera-route navigation-guide ${guide.kind==='u_turn'?'return-guide':''}`} viewBox="0 0 1000 1000" aria-label="Navigation guide starting at the rover centre">
-    <defs><marker id="guide-arrow" markerWidth="34" markerHeight="34" refX="23" refY="17" orient="auto" markerUnits="userSpaceOnUse"><path d="M3 3 L28 17 L3 31 L9 17Z" fill="currentColor"/></marker></defs>
-    <polyline className="guide-outline" points={guide.points.map(p=>`${p[0]*1000},${p[1]*1000}`).join(' ')}/>
-    <polyline className="guide-line" markerEnd="url(#guide-arrow)" points={guide.points.map(p=>`${p[0]*1000},${p[1]*1000}`).join(' ')}/>
-    <circle className="rover-guide-anchor" cx={guide.anchor[0]*1000} cy={guide.anchor[1]*1000} r="14"/>
-    <path className="rover-guide-marker" d="M500 910 L482 949 L500 940 L518 949Z"/>
-   </svg>}
+   {loaded&&hasRoute&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Collision-checked stereo ground route projected through the calibrated camera">{(local!.corridor_edges??[]).map((line,i)=><polyline key={`c${i}`} className="corridor-edge" points={line.map(p=>`${p[0]},${p[1]}`).join(' ')}/>)}{local!.ribbons.map((polygon,i)=><polygon key={i} points={polygon.map(p=>`${p[0]},${p[1]}`).join(' ')} fill="#3ce1ff" fillOpacity={cameraOverlay==='guidance'?.9:.35} stroke="#3ce1ff" strokeWidth="0.0006"/>)}</svg>}
+   {loaded&&local&&(local.obstacles?.length??0)>0&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Obstacle cells measured by stereo">{local.obstacles!.map((p,i)=><rect key={i} x={p[0]-.0025} y={p[1]-.0025} width=".005" height=".005" fill="#ff5a4a" fillOpacity=".85"/>)}</svg>}
    {!loaded&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
-   {loaded&&cameraOverlay==='projection'&&!segs.length&&<div className="offscreen-guidance"><RotateCcw size={26}/><strong>{behind?'Destination behind the camera':'Route outside this camera view'}</strong><span>{behind?'Follow the return route on the map.':'The map keeps the complete route.'}</span></div>}
+   {loaded&&!local&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Analysing segmentation and stereo terrain…</div>}
+   {loaded&&local&&!hasRoute&&<div className="offscreen-guidance"><RotateCcw size={26}/><strong>{local.status==='insufficient_geometry'?'Stereo coverage insufficient':local.status==='turn_required'?'U-turn: destination is behind the rover':'No verified local route'}</strong><span>{local.reason}</span></div>}
   </div></div>
-  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>{cameraOverlay==='guidance'?'Centre guide shows steering direction from the rover; it is not a measured ground trace.':`${calibration?'Calibrated camera + measured terrain.':'Measured stereo projection.'} ${verified?'Orbital placement image-checked.':'Independent map position not established.'} Distant heights use the DEM.`} Recorded footage.</div>
+  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>Measured stereo terrain + segmentation · A* for a 2.8 m wide rover corridor · calibrated PDS camera projection. Red: measured obstacles. Dashed: rover width.{local?.corridor_observed_fraction!==undefined?` Corridor measured: ${Math.round(local.corridor_observed_fraction*100)}%.`:''}</div>
  </div>;
 }
 
@@ -150,7 +165,7 @@ export function ReplayTimeline(){
  const [speed,setSpeed]=useState(1);
  const r=s.replay,n=r?.steps.length??0;
  useEffect(()=>{setPlaying(false);},[r,s.archiveVideo]);
- useEffect(()=>{if(!playing||!r||s.archiveVideo)return;const t=window.setInterval(()=>{const st=useMission.getState();if(st.replayView==='navcam'&&st.replayImageReady!==r.steps[st.replayStep].frame_id)return;if(st.replayStep>=n-1){setPlaying(false);return;}st.set({replayStep:st.replayStep+1,frameId:r.steps[st.replayStep+1].frame_id});},1000/speed);return()=>window.clearInterval(t);},[playing,r,n,speed,s.archiveVideo]);
+ useEffect(()=>{if(!playing||!r||s.archiveVideo)return;const t=window.setInterval(()=>{const st=useMission.getState();if(st.replayView==='navcam'&&(st.replayImageReady!==r.steps[st.replayStep].frame_id||st.localNavigation?.frame_id!==r.steps[st.replayStep].frame_id))return;if(st.replayStep>=n-1){setPlaying(false);return;}st.set({replayStep:st.replayStep+1,frameId:r.steps[st.replayStep+1].frame_id});},1000/speed);return()=>window.clearInterval(t);},[playing,r,n,speed,s.archiveVideo]);
  if(s.archiveVideo)return <section className="replay-timeline film-timeline"><Video size={18}/><span>NASA original film · use the video controls to play, seek or enter fullscreen.</span></section>;
  if(!r)return <section className="replay-timeline empty"><span>Select a drive replay from the left.</span></section>;
  const go=(i:number)=>s.set({replayStep:Math.max(0,Math.min(n-1,i)),frameId:r.steps[Math.max(0,Math.min(n-1,i))].frame_id});

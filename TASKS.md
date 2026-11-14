@@ -277,3 +277,14 @@ orijinal filmlerden ayrı seçilir. Backend uyanırken de özgün filmler açıl
 - [x] 142 gerçek çekimin hepsinde kılavuzun merkezi başlangıcı ve sınırları test edildi.
   Toplam32 Python testi ve production build geçti.
 - [x] Üç MP4 yeni merkez kılavuzu ve gerçek hareket etiketiyle yeniden üretildi.
+
+## Yerel AR rota (14 Kasım akşam, Claude) — tamamlandı
+
+- [x] `backend/local_navigation.py`: ölçülmüş stereo zemin, gövde-genişliği koridoru, A*, çarpışma
+  kontrollü kısaltma ve yumuşatma, CAHVORE izdüşümü (şerit + koridor kenarı + engel işaretleri).
+- [x] Gerçek kare testleri: Jake Matijevic kayası soldan ≥1.62 m payla dolaşılıyor; açık kumda düz rota;
+  kapalı görüşte "rota yok". Sentetik testler: düz, kaya, kapalı geçiş, diyagonal eğim, örtülme, perspektif.
+- [x] 142 Front Hazcam karesinin 63'ünde yerel rota; uzun kayıtta hedef arkadaysa U dönüşü (Rocknest'te
+  batıya dönük park dönemi). Üç demo MP4 yeni katmanlarla yeniden üretildi.
+- Sınırlar: Hazcam stereo ~4 m'ye kadar güvenilir; 0.25 m basamak eşiği araştırma parametresi; segmentasyon
+  Hazcam'de doğrulanmadı (yalnız maliyet, geometri onaylamadıkça engel değil); harita güncellenmez.
