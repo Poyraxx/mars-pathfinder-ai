@@ -12,6 +12,7 @@
   "horizontal_error_bound_m": 0.8535533905932737,
   "error_bound_definition": "max |global best shift| over band-pass settings + 0.5 m quantization margin; empirical research tolerance, not a confidence interval",
   "camera_mask_pixels_25cm": 541,
+  "insufficient_overlap": false,
   "trials": [
     {
       "bandpass_sigma_px": [
@@ -102,5 +103,5 @@
     "Different illumination/epochs between Navcam and HiRISE; band-pass filtering reduces but does not remove this.",
     "Vertical agreement is not tested here; stereo vs orbital DEM differs by about 1.1 m."
   ],
-  "generated_at": "2026-11-14T07:39:19+00:00"
+  "generated_at": "2026-11-14T08:45:51+00:00"
 }

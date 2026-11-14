@@ -1,0 +1,107 @@
+{
+  "frame_id": "NLA_402562484XYZ_F0050000NCAM00445M1",
+  "camera_product_id": "NLA_402562484RAD_F0050000NCAM00445M1",
+  "method": "image_correlation_shift_search",
+  "method_description": "Measure camera/orbital registration of archived Navcam frames by image correlation.\n\nMethod (fixed before evaluation; do not tune per frame):\n\n1. Every valid camera pixel is placed on the 25 cm PLACES HiRISE ortho grid using its\n   archived stereo XYZ (SITE frame) and the documented corrected SITE->global NED affine.\n   This placement is only the starting hypothesis.\n2. Camera brightness (per-frame z-score) and HiRISE DN are band-pass filtered\n   (difference of Gaussians) to suppress illumination/photometric differences.\n3. The zero-mean normalized cross-correlation (NCC) is evaluated for every horizontal\n   shift within +-8 m. The global best shift is the measured horizontal residual of the\n   archived transform. Nothing is fitted to the archived transform itself.\n4. Significance: statistic T = max NCC within +-1 m of a placement. T at the archived\n   placement is compared with T at 2000 random placements of the same patch at least 15 m\n   away (seeded), giving an empirical p-value.\n5. Robustness: steps 2-4 are repeated for four fixed band-pass settings.\n\nAcceptance (all settings): p <= 0.01 and global best shift <= 1.5 m.\nError bound reported to the planner: max |best shift| over settings + 0.5 m (two ortho\npixels for quantization/HiRISE resolution). This is an empirical research tolerance, not a\nprobabilistic confidence interval. The three frames overlap; they are not independent.\n\nRun with --write to store evidence and update frames.json; otherwise it is a dry run.",
+  "acceptance": {
+    "empirical_p_max": 0.01,
+    "best_shift_max_m": 1.5,
+    "all_settings_required": true
+  },
+  "verified": true,
+  "horizontal_error_bound_m": 0.75,
+  "error_bound_definition": "max |global best shift| over band-pass settings + 0.5 m quantization margin; empirical research tolerance, not a confidence interval",
+  "camera_mask_pixels_25cm": 1264,
+  "insufficient_overlap": false,
+  "trials": [
+    {
+      "bandpass_sigma_px": [
+        0.75,
+        4.0
+      ],
+      "best_shift_east_m": 0.0,
+      "best_shift_south_m": 0.0,
+      "best_shift_m": 0.0,
+      "best_ncc": 0.6685334280098421,
+      "ncc_at_archived_placement": 0.6685334280098421,
+      "statistic_T_within_1m": 0.6685334280098421,
+      "null_n": 2000,
+      "null_p95": 0.22826852201904205,
+      "null_p99": 0.27615455180983295,
+      "null_max": 0.3309896045719392,
+      "empirical_p": 0.0004997501249375312
+    },
+    {
+      "bandpass_sigma_px": [
+        1.0,
+        6.0
+      ],
+      "best_shift_east_m": 0.0,
+      "best_shift_south_m": 0.0,
+      "best_shift_m": 0.0,
+      "best_ncc": 0.7202803335298925,
+      "ncc_at_archived_placement": 0.7202803335298925,
+      "statistic_T_within_1m": 0.7202803335298925,
+      "null_n": 2000,
+      "null_p95": 0.2885293339313101,
+      "null_p99": 0.3530131427077442,
+      "null_max": 0.45428204786813786,
+      "empirical_p": 0.0004997501249375312
+    },
+    {
+      "bandpass_sigma_px": [
+        1.5,
+        8.0
+      ],
+      "best_shift_east_m": 0.0,
+      "best_shift_south_m": -0.25,
+      "best_shift_m": 0.25,
+      "best_ncc": 0.711835077710511,
+      "ncc_at_archived_placement": 0.7076492970963336,
+      "statistic_T_within_1m": 0.711835077710511,
+      "null_n": 2000,
+      "null_p95": 0.3579996013108377,
+      "null_p99": 0.4474005807168691,
+      "null_max": 0.5303893671980504,
+      "empirical_p": 0.0004997501249375312
+    },
+    {
+      "bandpass_sigma_px": [
+        1.0,
+        10.0
+      ],
+      "best_shift_east_m": 0.0,
+      "best_shift_south_m": 0.0,
+      "best_shift_m": 0.0,
+      "best_ncc": 0.6725509894645122,
+      "ncc_at_archived_placement": 0.6725509894645122,
+      "statistic_T_within_1m": 0.6725509894645122,
+      "null_n": 2000,
+      "null_p95": 0.32686309629786253,
+      "null_p99": 0.42047190114374283,
+      "null_max": 0.5109662207783159,
+      "empirical_p": 0.0004997501249375312
+    }
+  ],
+  "inputs_sha256": {
+    "reference_png": "01a0320230f2b6268f5f7eab4a87bf056f074dbd637dc738f44f0445437747ac",
+    "xyz_npy": "9e25116c505c3bf26788f903794d1ab8ae53c4b160d414556f95a94b7864c38e",
+    "region_ortho_png": "86bebcfb896a0989dca67b6a0fe5b032afbbe1fe0f0adc8afcf7cdb1e2e7c6da"
+  },
+  "orbital_source": {
+    "source_lid": "urn:nasa:pds:msl_places:data_maps:msl_orbital_map",
+    "version": "42.0",
+    "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/msl_places/data_maps/msl_orbital_map.img",
+    "range_sha256": "f57cc9c65599ae1b2c9352a4de97c4a642ff399721a2345f72cc259dcc1f4493",
+    "pixel_resolution_m": 0.25,
+    "upper_left_easting_m": 8146952.5,
+    "upper_left_northing_m": -271815.0
+  },
+  "limitations": [
+    "Frames are 256x256 TRAV Navcam images covering about 3-11 m range; the three frames overlap and are not independent.",
+    "PLACES localized rover positions were themselves derived against the HiRISE base map; this test checks the full XYZ + corrected affine + projection chain against image content, not the base-map geodesy.",
+    "Different illumination/epochs between Navcam and HiRISE; band-pass filtering reduces but does not remove this.",
+    "Vertical agreement is not tested here; stereo vs orbital DEM differs by about 1.1 m."
+  ],
+  "generated_at": "2026-11-14T08:47:18+00:00"
+}

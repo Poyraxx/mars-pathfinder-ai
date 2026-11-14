@@ -42,6 +42,7 @@ SEED = 57
 P_MAX = 0.01
 SHIFT_MAX_M = 1.5
 QUANTIZATION_MARGIN_M = 0.5
+MIN_MASK_PX = 200
 
 
 def sha256(path: Path) -> str:
@@ -52,7 +53,7 @@ def dog(a, lo, hi):
     return ndimage.gaussian_filter(a, lo) - ndimage.gaussian_filter(a, hi)
 
 
-def camera_patch(frame, res, e0, n0):
+def camera_patch(frame, res, e0, n0, shape):
     xyz = np.load(DATA / frame["xyz_path"]).astype(float)
     img = np.asarray(Image.open(DATA / frame["image_path"]).convert("L"), dtype=float)
     valid = np.isfinite(xyz).all(-1) & (xyz != 0).any(-1)
@@ -60,6 +61,13 @@ def camera_patch(frame, res, e0, n0):
     rot = np.array(p["archive_site_to_global_ned_rotation"]); tr = np.array(p["archive_site_to_global_ned_translation_m"])
     ned = xyz[valid] @ rot.T + tr
     b = img[valid]; b = (b - b.mean()) / (b.std() + 1e-9)
+    # Only ground inside the HiRISE region (minus the search margin) can be compared.
+    margin = SEARCH_M + LOCAL_M + 2
+    inside = ((ned[:, 1] > e0 + margin) & (ned[:, 1] < e0 + shape[1] * res - margin) &
+              (ned[:, 0] < n0 - margin) & (ned[:, 0] > n0 - shape[0] * res + margin))
+    ned, b = ned[inside], b[inside]
+    if len(b) < 10:
+        return None, np.zeros((1, 1), dtype=bool), 0, 0
     c = np.floor((ned[:, 1] - e0) / res).astype(int); r = np.floor((n0 - ned[:, 0]) / res).astype(int)
     r0, c0 = int(r.min()) - 8, int(c.min()) - 8
     h, w = int(r.max()) - r0 + 9, int(c.max()) - c0 + 9
@@ -93,7 +101,9 @@ def local_max(pa, na, ob, mask, y, x, radius):
 
 
 def evaluate(frame, ortho, res, e0, n0):
-    camf, mask, r0, c0 = camera_patch(frame, res, e0, n0)
+    camf, mask, r0, c0 = camera_patch(frame, res, e0, n0, ortho.shape)
+    if int(mask.sum()) < MIN_MASK_PX or mask.shape[0] > ortho.shape[0] // 2 or mask.shape[1] > ortho.shape[1] // 2:
+        return [], int(mask.sum())
     search = int(round(SEARCH_M / res)); local = int(round(LOCAL_M / res))
     out = []
     for lo, hi in SETTINGS:
@@ -137,8 +147,8 @@ def main():
     summary = []
     for frame in frames:
         trials, mask_px = evaluate(frame, ortho, res, e0, n0)
-        ok = all(t["empirical_p"] <= P_MAX and t["best_shift_m"] <= SHIFT_MAX_M for t in trials)
-        bound = max(t["best_shift_m"] for t in trials) + QUANTIZATION_MARGIN_M
+        ok = bool(trials) and all(t["empirical_p"] <= P_MAX and t["best_shift_m"] <= SHIFT_MAX_M for t in trials)
+        bound = (max(t["best_shift_m"] for t in trials) + QUANTIZATION_MARGIN_M) if trials else None
         evidence = {
             "frame_id": frame["id"], "camera_product_id": frame["reference_image_product_id"],
             "method": "image_correlation_shift_search",
@@ -148,6 +158,7 @@ def main():
             "horizontal_error_bound_m": float(bound) if ok else None,
             "error_bound_definition": "max |global best shift| over band-pass settings + 0.5 m quantization margin; empirical research tolerance, not a confidence interval",
             "camera_mask_pixels_25cm": mask_px,
+            "insufficient_overlap": not trials,
             "trials": trials,
             "inputs_sha256": {"reference_png": sha256(DATA / frame["image_path"]), "xyz_npy": sha256(DATA / frame["xyz_path"]),
                               "region_ortho_png": sha256(ortho_path)},
@@ -177,7 +188,7 @@ def main():
                                                  f"planner bound {bound:.2f} m; empirical tolerance, not a confidence interval.")
             else:
                 frame["registration"] = {"verified": False, "horizontal_error_bound_m": None, "method": evidence["method"],
-                                         "evidence": rel, "reason": "Image-correlation registration did not meet the fixed acceptance criteria."}
+                                         "evidence": rel, "reason": ("Too few dense ground pixels to measure registration (fewer than 200 cells with >=2 samples)." if not trials else "Image-correlation registration did not meet the fixed acceptance criteria.")}
                 frame["registration_verified"] = False
                 frame["enabled_for_map_update"] = False
     if args.write:
