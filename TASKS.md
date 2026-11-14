@@ -57,6 +57,32 @@ Python sunucusundan geliyor. Model ve plan sonuçları gerçek. Private repo pri
   gerçek route.replanned olayını ve eski/yeni rota farkını göster.
 - [ ] Kayıt başarısız/eksikse harita değişmediğini koru; gate'i bypass etme.
 
+Durum (14 Kasım 2026, yalnız yerelde; GitHub/Render'a henüz gönderilmedi):
+
+- [x] Elle 6 kontrol noktası bu karelerde güvenilir değil: kareler 256×256 TRAV, menzil
+  3–11 m, kayalar 10–40 cm (HiRISE 25 cm'de 1–2 piksel). Bunun yerine önceden sabitlenmiş
+  `scripts/register_image_correlation.py`: kamera piksellerini XYZ + düzeltilmiş affine ile
+  HiRISE ortho'ya yerleştir, DoG band-pass, ±8 m NCC kaydırma araması, 15 m+ uzaktaki
+  2000 rastgele yerleştirmeyle ampirik null, 4 sabit filtre ayarı.
+- [x] Sonuç: 3 karenin hepsinde tüm ayarlarda p ≤ 0.0025, en iyi kayma 0.35–0.75 m.
+  Planlayıcı sınırı (max kayma + 0.5 m) 0.85–1.25 m. Kanıt:
+  `data/prepared/pds/<frame>/registration-evidence.json` (girdi hash'leri dahil).
+  DEM–stereo yükseklik eşleştirmesi bilgi vermedi (rölyef 0.4–0.6 m); kullanılmadı.
+- [x] Gerçek füzyon: kabul edilen karelerle 47 hücre engel, harita v2, `route.replanned`.
+  Kamera izdüşümünü kesen 50 m görevde surface rotası 50.00 → 52.49 m (eski rotanın
+  9 hücresi bloklandı). Varsayılan 201 m rota izdüşümden geçmediği için değişmez.
+- [x] Model `big_rock` pikselleri gözle incelendiğinde çoğu kum/çakıl/görüntü kenarıydı;
+  gerçek bloklar yakalanmıyordu. Karar (kullanıcı tam yetki verdi): harita engelleri artık
+  **stereo XYZ basamak yüksekliği** (`backend/perception.py::stereo_hazards`): yerel zemin =
+  2 m pencerede 0.25 m hücre minimumlarının 20. persentili; basamak ≥ `profile.obstacle_step_m`
+  (varsayılan 0.15 m); XYE normu ≤ 0.10 m; ≥6 piksellik bileşen. Model yalnız bağlam olarak
+  gösteriliyor, haritaya yazmıyor (test ile korunuyor). Gözle: işaretlenenler kaya tepeleri;
+  alçak/uzak kayalar kaçabiliyor. XYE filtresi olmadan uzak menzil gürültüsü sahte şerit üretiyor.
+- [x] Kare 2 stereo engelleri: 15 hücre, harita v1; kesen 50 m görevde surface rotası
+  50.00 → 51.66 m (eski rotanın 5 hücresi bloklu). Kare 3 başka konumdan aynı kayaları
+  gördü ve yeni hücre eklemedi (`route.unchanged`) — kareler arası tutarlılık.
+- [x] Arayüz: kayıt sınırı, stereo engel pikseli, "FRAME PROCESSED" (409 tekrarını önler).
+
 Kabul: açık evidence + metre cinsinden bağımsız residual + gerçek geometrik harita
 güncellemesi. Metadata tutarlılığı veya gözle güzel hizalama tek başına yeterli değil.
 Bu tamamlanana kadar projenin ana füzyon hedefi tamamlandı deneme.

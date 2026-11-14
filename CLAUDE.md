@@ -60,7 +60,10 @@ Yerel `.git` henüz commit içermiyor; dosyalar staged. Uzak depo ise tarayıcı
 Render free servisi canlı: https://mars-pathfinder-ai.onrender.com — public URL'de uçtan
 uca akış doğrulandı (ayrıntı TASKS.md P0). Uzak repo 71/71 dosya yerelle eşleşiyor.
 Yerel git hâlâ commitsiz: bu ortamda GitHub kimlik bilgisi yok, `git fetch` çalışmıyor.
-Sıradaki zorunlu hedef: gerçek kamera–harita eşleştirmesi (TASKS.md P0 bilimsel açık).
+Kamera–harita eşleştirmesi görüntü korelasyonu ile ölçüldü (3 kare, 0.35–0.75 m, p ≤ 0.0025);
+harita engelleri stereo basamak yüksekliğinden geliyor, model haritaya yazmıyor. Kullanıcı
+proje bitene kadar karar yetkisini Claude'a verdi; GitHub'a Claude'u yazar/katkıcı/coauthor
+olarak ekleme (kullanıcı ayrıca vurguladı). Sıradaki: model iyileştirme (P1), mobil QA, teslim.
 
 ## İlk devam noktası (Codex devri; tarihî)
 

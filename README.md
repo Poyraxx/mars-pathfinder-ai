@@ -11,8 +11,13 @@ Research prototype for the Martian Map challenge. **Not certified for human EVA 
 - Distance and terrain-aware A*, route profiles, waypoints, comparisons and JSON reports.
 - Three matched Sol57 PDS Navcam RAD, XYZ and XYE products; corrected PLACES rover transforms.
 - Real LR-ASPP/MobileNetV3 Surface training, ONNX CPU inference, live SSE algorithm events.
-- Conservative fusion/replanning pipeline, **disabled for the supplied frames until independent
-  camera/orbital control-point residuals are validated**. Metadata consistency alone is insufficient.
+- Camera/orbital registration measured by image correlation against the 25 cm HiRISE ortho
+  (`scripts/register_image_correlation.py`): all three frames match at the archived placement with a
+  0.35–0.75 m shift and empirical p ≤ 0.0025 against 2000 random placements, across four fixed
+  filter settings. Evidence JSON with input hashes is stored per frame.
+- Live fusion and replanning: map obstacles are **measured stereo height steps** (≥ 0.15 m above
+  local ground, XYE ≤ 0.10 m), placed through the registered transform and inflated by clearance +
+  registration bound. The learned big-rock class is shown but never written to the map.
 
 ## Run locally
 
@@ -60,11 +65,14 @@ relative to the rendering sphere; scientific profiles retain source areoid heigh
 brightness is not current temperature. Big-rock scores are not occupancy probabilities.
 
 Selected camera positions are interpolated archive localizations. Using Site4 alone caused about
-7.3m horizontal drift; the supplied transformations correct the rover anchor. Independent
-horizontal residuals remain unmeasured. Stereo-vs-DEM elevations differ around1.1m for the first
-frame, so absolute vertical agreement is not claimed. `scripts/validate_registration.py` accepts
-at least six independently identified real camera/orbital feature pairs and enables a frame only
-when empirical residuals meet the2m research tolerance. No such controls are fabricated here.
+7.3m horizontal drift; the supplied transformations correct the rover anchor. Image-correlation
+residuals are 0.35–0.75 m; the planner uses max shift + 0.5 m (0.85–1.25 m). This is an empirical
+research tolerance, not a confidence interval. The three frames overlap (3–11 m range) and are not
+independent; PLACES localizations were themselves made against the HiRISE base map. Manual
+control points were not usable: rocks here are 10–40 cm, 1–2 HiRISE pixels. Stereo-vs-DEM
+elevations differ around1.1m, so absolute vertical agreement is not claimed; DEM-shape matching
+was uninformative on this flat terrain (0.4–0.6 m relief). Stereo obstacles can miss low or
+distant rocks; they are not a hazard-safety guarantee.
 
 The Orbital component currently performs deterministic DEM analysis. A second trained orbital
 model, real EVA consumables, D*Lite and arbitrary-photo localization are not implemented.
@@ -92,6 +100,6 @@ and the JSON report. These are single-run Render Free measurements, not benchmar
 - [Global DEM service](https://astro.arcgis.com/arcgis/rest/services/OnMars/MDEM200M/ImageServer) — NASA/USGS/ESA/DLR/FU Berlin; Esri hosting.
 - CesiumJS (Apache2.0), Torchvision (BSD3-Clause), ONNX Runtime (MIT), React (MIT), FastAPI (MIT).
 
-Original implementation assisted by OpenAI Codex; later work assisted by Anthropic Claude. This is an AI tool disclosure, not a contributor
+Original implementation assisted by OpenAI Codex. This is an AI tool disclosure, not a contributor
 identity. No NASA endorsement is implied. Data retain their individual provenance and rights;
 the source code is Apache2.0. No NASA logos or mission insignia are used.
