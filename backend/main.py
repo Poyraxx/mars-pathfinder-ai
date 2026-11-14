@@ -19,6 +19,9 @@ from PIL import Image
 from . import data
 from .coordinates import point_to_cell, cell_to_point
 from .events import EventLog
+from .global_dem import GlobalRegion, MAX_SPAN_KM
+from .camera_route import project_route, view_mission
+from . import orbital
 from .navigation import cost_grid, plan_legs, metrics, inflate_obstacles
 from .perception import infer, localize_obstacles, hazard_overlay
 from .schemas import MissionRequest, ObservationRequest, PlanRequest
@@ -34,6 +37,8 @@ SOURCES = [
  {"name":"MSL Navcam RDR","url":"https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=MSL-M-NAVCAM-5-RDR-V1.0","usage":"Archived camera reference images, XYZ and error products"},
  {"name":"MSL PLACES","url":"https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/","usage":"Archive localization and coordinate frame transforms"},
  {"name":"AI4Mars v0.6 · CC BY 4.0","url":"https://zenodo.org/records/15995036","usage":"Surface terrain labels; Swan, Ono & Atha (2022)"},
+ {"name":"HiRISE labeled landmarks v3.2 · CC BY 4.0","url":"https://zenodo.org/records/4002935","usage":"Orbital landmark training data; Wagstaff et al., NASA JPL"},
+ {"name":"Gazetteer of Planetary Nomenclature","url":"https://planetarynames.wr.usgs.gov/","usage":"IAU-approved Mars feature names, types, diameters and centres (USGS Astrogeology)"},
  {"name":"MOLA / HRSC 200m DEM","url":"https://astro.arcgis.com/arcgis/rest/services/OnMars/MDEM200M/ImageServer","usage":"Open global 3D terrain, hosted by Esri; NASA/USGS/ESA/DLR/FU Berlin"},
 ]
 missions = OrderedDict()
@@ -43,6 +48,7 @@ compute_lock = asyncio.Lock()
 http = None
 tile_cache = OrderedDict()
 BOOT_ID = uuid.uuid4().hex[:12]
+MAX_GLOBAL_MISSIONS = 6
 
 
 @asynccontextmanager
@@ -67,8 +73,12 @@ def reject(code,message,status=422):
     raise HTTPException(status,detail={"code":code,"message":message})
 
 
+def region_of(mission):
+    return mission.get("_region") or data.regions[mission["request"]["region_id"]]
+
+
 def route_result(mission,mode):
-    region = data.regions[mission["request"]["region_id"]]
+    region = region_of(mission)
     request = mission["request"]
     cost = cost_grid(region.analysis,mode,request["profile"]["max_slope_deg"], mission["blocked"] if mode=="surface" else None)
     points = [point_to_cell(p,region.meta) for p in [request["start"],*request["stops"],request["goal"]]]
@@ -97,7 +107,8 @@ def catalog():
             "regions":[r.meta for r in data.regions.values()],"model":data.model_status(),
             "frames":data.frame_catalog(),"boot_id":BOOT_ID,
             "disclaimer":"Research prototype. Not flight qualified or certified for human EVA safety.",
-            "orbital_method":"Deterministic DEM analysis; learned orbital model not installed"}
+            "orbital_method":"Deterministic DEM terrain costs + learned HiRISE landmark classifier (context)" if orbital.card().get("ready") else "Deterministic DEM analysis; learned orbital model not installed",
+            "orbital_model":{k:v for k,v in orbital.card().items() if k in ("ready","name","classes","test","dataset","dataset_url","dataset_license","limitations","split_counts","ctx_transfer_check")}}
 
 
 @app.get("/api/regions/{region_id}")
@@ -108,19 +119,40 @@ def region_info(region_id: str):
 
 
 @app.post("/api/missions",status_code=201)
-def create_mission(request: MissionRequest):
-    if request.region_id not in data.regions: reject("insufficient_dem","Choose an installed numerical DEM planning area.")
-    region = data.regions[request.region_id]
-    for p in [request.start,*request.stops,request.goal]:
-        row,col = point_to_cell(p.model_dump(),region.meta)
+async def create_mission(request: MissionRequest):
+    points=[p.model_dump() for p in [request.start,*request.stops,request.goal]]
+    if request.region_id=="global":
+        try:
+            region=await asyncio.to_thread(GlobalRegion,points)
+        except ValueError as exc:
+            messages={"polar_not_supported":"Global coarse planning is limited to latitudes within +-80 degrees.",
+                      "antimeridian_not_supported":"Waypoints may not straddle the 180 degree meridian.",
+                      "span_too_large":f"Waypoints must lie within {int(MAX_SPAN_KM)} km of each other."}
+            reject(str(exc),messages.get(str(exc),"Global DEM could not be prepared."))
+        except OSError:
+            reject("dem_unavailable","Global DEM tile service is temporarily unavailable.",502)
+    elif request.region_id in data.regions:
+        region = data.regions[request.region_id]
+    else:
+        reject("insufficient_dem","Choose an installed numerical DEM planning area.")
+    for p in points:
+        row,col = point_to_cell(p,region.meta)
         if not (0<=row<region.elevation.shape[0] and 0<=col<region.elevation.shape[1]) or not region.analysis["valid"][row,col]:
             reject("outside_coverage","A waypoint lies outside valid DEM coverage. Pick inside the outlined planning area.")
     if len(missions)>=64: reject("queue_full","Session capacity reached. Retry after server restart.",503)
+    global_ids=[k for k,v in missions.items() if v.get("_region") is not None]
+    while len(global_ids)>=MAX_GLOBAL_MISSIONS:
+        missions.pop(global_ids.pop(0),None)
     mid = uuid.uuid4().hex
     missions[mid] = {"id":mid,"request":request.model_dump(),"map_version":0,"routes":[],"observations":[],
-                     "blocked":np.zeros(region.elevation.shape,dtype=bool),"processed":set(),"state":"created"}
-    events.append(mid,"mission.created","Mission created · Human EVA research profile",map_version=0)
-    return {"id":mid,"map_version":0}
+                     "blocked":np.zeros(region.elevation.shape,dtype=bool),"processed":set(),"state":"created",
+                     "region":{k:v for k,v in region.meta.items() if k!="shape"}|{"shape":list(region.elevation.shape)}}
+    if request.region_id=="global":
+        missions[mid]["_region"]=region
+        events.append(mid,"mission.created",f"Mission created · global coarse DEM {region.meta['cell_m']:.0f} m cells (level {region.meta['source_level']})",map_version=0)
+    else:
+        events.append(mid,"mission.created","Mission created · Human EVA research profile",map_version=0)
+    return {"id":mid,"map_version":0,"region":missions[mid]["region"]}
 
 
 @app.post("/api/missions/{mission_id}/plan",status_code=202)
@@ -173,7 +205,7 @@ async def observe(mission_id: str,payload: ObservationRequest):
                 frame,mask,conf,png,result = await asyncio.to_thread(infer,payload.frame_id)
                 overlays[(mission_id,payload.frame_id)]=png
                 events.append(mission_id,"perception.completed","Surface · Segmentation completed on archived camera image",**result)
-                loc=await asyncio.to_thread(localize_obstacles,frame,mask,conf,data.regions[m["request"]["region_id"]].meta,
+                loc=await asyncio.to_thread(localize_obstacles,frame,mask,conf,region_of(m).meta,
                                             m["request"]["profile"].get("obstacle_step_m",.15))
                 if loc.get("hazard_mask") is not None and loc["hazard_mask"].any():
                     overlays[(mission_id,payload.frame_id)]=await asyncio.to_thread(hazard_overlay,png,loc["hazard_mask"])
@@ -188,7 +220,7 @@ async def observe(mission_id: str,payload: ObservationRequest):
                 if not loc["accepted"]:
                     events.append(mission_id,"localization.rejected",loc["reason"],frame_id=payload.frame_id,map_version=m["map_version"])
                 else:
-                    region=data.regions[m["request"]["region_id"]]
+                    region=region_of(m)
                     inflation=(m["request"]["profile"]["clearance_m"]+loc["registration_error_m"])/region.meta["cell_m"]
                     update=inflate_obstacles(region.elevation.shape,loc["points_rc"],inflation)
                     changed=bool(np.any(update & ~m["blocked"]))
@@ -213,7 +245,7 @@ async def observe(mission_id: str,payload: ObservationRequest):
 
 
 def public_state(m):
-    return {k:v for k,v in m.items() if k not in ("blocked","processed")}
+    return {k:v for k,v in m.items() if k not in ("blocked","processed","_region")}
 
 
 @app.get("/api/missions/{mission_id}/state")
@@ -241,6 +273,83 @@ async def event_stream(mission_id: str,request: Request,after: int=0):
             yield ": heartbeat\n\n"
             await asyncio.sleep(1)
     return StreamingResponse(stream(),media_type="text/event-stream",headers={"Cache-Control":"no-cache","X-Accel-Buffering":"no"})
+
+
+@app.get("/api/frames/{frame_id}/view-mission")
+def frame_view_mission(frame_id: str):
+    f=next((f for f in data.frame_catalog() if f["id"]==frame_id),None)
+    if not f: reject("unknown_frame","Unknown reference frame.",404)
+    if not f["registration"].get("verified"): reject("unregistered_frame","This frame has no accepted orbital registration.",409)
+    return view_mission(f,data.regions[f["region_id"]].meta)
+
+
+@app.get("/api/missions/{mission_id}/camera-route/{frame_id}")
+def camera_route(mission_id: str, frame_id: str, mode: str="surface", previous: bool=False):
+    m=mission_or_404(mission_id)
+    f=next((f for f in data.frame_catalog() if f["id"]==frame_id),None)
+    if not f: reject("unknown_frame","Unknown reference frame.",404)
+    if f.get("region_id")!=m["request"]["region_id"]: reject("wrong_region","Camera frame and mission region do not match.")
+    reg=f["registration"]
+    if not reg.get("verified"): reject("unregistered_frame","Route cannot be placed in an image without accepted orbital registration.",409)
+    route=m.get("previous_route") if previous else next((r for r in m["routes"] if r["mode"]==mode and r["status"]=="ready"),None)
+    if route is None or route.get("status")!="ready": reject("no_route","No planned route of this kind exists for the mission.",409)
+    tolerance=max(0.35,min(1.0,reg["horizontal_error_bound_m"]/2))
+    return {**project_route(f,region_of(m).meta,route["cells"],tolerance),"mode":mode,"map_version":route["map_version"],
+            "registration_error_m":reg["horizontal_error_bound_m"]}
+
+
+@app.get("/api/frames/{frame_id}/display")
+def frame_display(frame_id: str):
+    f=next((f for f in data.frame_catalog() if f["id"]==frame_id),None)
+    if not f: reject("unknown_frame","Unknown reference frame.",404)
+    return FileResponse(data.DATA_DIR/(f.get("display_path") or f["image_path"]),headers={"Cache-Control":"public,max-age=86400"})
+
+
+orbital_results={}
+
+
+@app.post("/api/regions/{region_id}/orbital-analysis")
+async def orbital_analysis(region_id: str):
+    if region_id not in data.regions: reject("unsupported_region","Unknown region.",404)
+    if not orbital.card().get("ready"): reject("orbital_model_not_ready","The learned orbital model is not installed.",503)
+    if compute_lock.locked(): reject("queue_full","Another computation is active. Retry shortly.",429)
+    async with compute_lock:
+        result,png=await asyncio.to_thread(orbital.analyze_region,region_id)
+    orbital_results[region_id]=png
+    return result
+
+
+@app.post("/api/missions/{mission_id}/orbital-analysis")
+async def mission_orbital_analysis(mission_id: str, mode: str="surface"):
+    m=mission_or_404(mission_id)
+    if not orbital.card().get("ready"): reject("orbital_model_not_ready","The learned orbital model is not installed.",503)
+    route=next((r for r in m["routes"] if r["mode"]==mode and r["status"]=="ready"),None)
+    if route is None: reject("no_route","Plan the mission before running the orbital analysis.",409)
+    if compute_lock.locked(): reject("queue_full","Another computation is active. Retry shortly.",429)
+    async with compute_lock:
+        events.append(mission_id,"orbital.started","Orbital · Classifying CTX windows along the route",map_version=m["map_version"])
+        try:
+            result=await asyncio.to_thread(orbital.analyze_route,route["points"],route["distance_m"])
+        except Exception as exc:
+            events.append(mission_id,"job.failed",f"Orbital analysis failed: {type(exc).__name__}")
+            reject("orbital_failed","Orbital imagery or model unavailable.",502)
+    found=", ".join(f"{k.replace('_',' ')} {v}" for k,v in result["class_counts"].items() if v)
+    events.append(mission_id,"orbital.completed",f"Orbital · {len(result['windows'])} CTX windows of {result['window_m']:.0f} m: {found or 'no coverage'}",map_version=m["map_version"])
+    m["orbital"]=result
+    return result
+
+
+@app.get("/api/regions/{region_id}/orbital-analysis.png")
+def orbital_png(region_id: str):
+    if region_id not in orbital_results: reject("not_processed","Run the orbital analysis first.",404)
+    return Response(orbital_results[region_id],media_type="image/png")
+
+
+@app.get("/api/nomenclature")
+def nomenclature():
+    path=data.DATA_DIR/"global"/"nomenclature.json"
+    if not path.exists(): reject("not_prepared","Nomenclature catalogue not prepared.",404)
+    return FileResponse(path,media_type="application/json",headers={"Cache-Control":"public,max-age=86400"})
 
 
 @app.get("/api/frames")
