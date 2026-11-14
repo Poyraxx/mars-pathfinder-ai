@@ -145,6 +145,7 @@ def render_keyframes(result):
         draw.rounded_rectangle(rect,radius=8,fill='#0b151d',outline='#304350',width=1)
         draw.text((rect[0]+14,rect[1]+11),label,font=font(17,True),fill=WHITE)
     rendered=[]
+    locals_by_frame=local_navigation.compute_sequence(result['steps'],result['goal'])
     for index,st in enumerate(result['steps']):
         canvas=Image.new('RGB',(WIDTH,HEIGHT),'#070e14');d=ImageDraw.Draw(canvas)
         d.text((30,21),'PATHFINDER  /  ROVER NAVIGATION',font=font(27,True),fill=WHITE)
@@ -157,7 +158,7 @@ def render_keyframes(result):
         cy=118;my=118
         canvas.paste(camera,(xcam,cy));canvas.paste(map_image,(xmap,my))
         d=ImageDraw.Draw(canvas)
-        local=local_navigation.compute(st['frame_id'],result['goal'])
+        local=locals_by_frame[st['frame_id']]
         for line in local.get('corridor_edges',[]):
             d.line([(xcam+p[0]*size,cy+p[1]*size) for p in line],fill=CYAN,width=2)
         # Route painted on the ground: one continuous outline, depth-faded fill, light edge, surface chevrons.

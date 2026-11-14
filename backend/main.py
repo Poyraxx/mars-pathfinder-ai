@@ -351,6 +351,7 @@ async def frame_local_navigation(frame_id: str, goal_lat: float|None=None, goal_
     async with local_navigation_lock:
         try:
             result=await asyncio.to_thread(local_navigation.compute,frame_id,goal)
+            result.pop('_confirmed_global',None)
             frame_local_cache[key]=result
             while len(frame_local_cache)>600: frame_local_cache.pop(next(iter(frame_local_cache)))
             return result
@@ -402,13 +403,7 @@ def _scenario_local(scenario_id, goal):
     try:
         began=time.perf_counter()
         result=_replay_once(scenario_id,goal)
-        frames={}
-        for st in result['steps']:
-            if st['frame_id'] in frames: continue
-            try:
-                frames[st['frame_id']]=local_navigation.compute(st['frame_id'],result['goal'])
-            except (OSError,ValueError,KeyError) as exc:
-                frames[st['frame_id']]={'frame_id':st['frame_id'],'status':'unavailable','reason':f'Local stereo/model inputs unavailable ({type(exc).__name__}).','segments':[],'ribbons':[],'is_ground_projection':True}
+        frames=local_navigation.compute_sequence(result['steps'],result['goal'])
         payload={'scenario':scenario_id,'goal':result['goal'],'frames':frames,'compute_ms':round((time.perf_counter()-began)*1000,1),
                  'computed_at':datetime.now(timezone.utc).isoformat(timespec='seconds'),
                  'note':'Computed on this server from the archived stereo products and kept in memory for smooth playback.'}

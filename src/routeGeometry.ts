@@ -56,9 +56,9 @@ function smooth<T extends number|P>(v:T[],k:number,lockEnds=true):T[]{
  });
 }
 
-export type GroundArrow={outline:P[];chevrons:P[][];length:number};
+export type GroundArrow={outline:P[];chevrons:P[][];length:number;tip:P};
 
-export function groundArrow(ribbons:number[][][],groundM?:number[][]):GroundArrow|null{
+export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):GroundArrow|null{
  if(!ribbons.length)return null;
  let tr=centreline(ribbons,groundM?.length===ribbons.length?groundM:undefined);
  if(tr.c.length<2)return null;
@@ -85,12 +85,14 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][]):GroundArro
  const gEnd=g[g.length-1];
  // Arrow head: the last HEAD_M metres of ground (foreshortened by the camera), base 1.8x the local width.
  let b=c.length-1;
- if(metric)while(b>0&&gEnd-g[b]<HEAD_M&&total-s[b]<total*.4)b--;
+ if(!head){}
+ else if(metric)while(b>0&&gEnd-g[b]<HEAD_M&&total-s[b]<total*.4)b--;
  else{const headLen=Math.min(total*.3,w[w.length-1]*4.6);while(b>0&&total-s[b]<headLen)b--;}
  const left:P[]=[],right:P[]=[];
  for(let i=0;i<=b;i++){const n:P=[-tan[i][1],tan[i][0]];left.push([c[i][0]+n[0]*w[i],c[i][1]+n[1]*w[i]]);right.push([c[i][0]-n[0]*w[i],c[i][1]-n[1]*w[i]]);}
  const tip=c[c.length-1],hw=w[b]*2.0,ht=unit([tip[0]-c[b][0],tip[1]-c[b][1]]),nh:P=[-ht[1],ht[0]];
- const outline=[...left,[c[b][0]+nh[0]*hw,c[b][1]+nh[1]*hw] as P,tip,[c[b][0]-nh[0]*hw,c[b][1]-nh[1]*hw] as P,...right.reverse()];
+ // Without a head the ribbon simply ends on the ground; the plan continues as a thin line beyond it.
+ const outline=head?[...left,[c[b][0]+nh[0]*hw,c[b][1]+nh[1]*hw] as P,tip,[c[b][0]-nh[0]*hw,c[b][1]-nh[1]*hw] as P,...right.reverse()]:[...left,...right.reverse()];
  // Chevrons painted on the surface: every CHEVRON_EVERY_M metres of ground, CHEVRON_LEN_M long on the ground,
  // so their spacing and length foreshorten with distance; their width follows the local ribbon width.
  const chevrons:P[][]=[];
@@ -110,5 +112,5 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][]):GroundArro
   let next=startW*PAINT*1.6;
   for(let i=0;i<b;i++){if(s[i]<next)continue;chevron(i,w[i]*.7);next=s[i]+w[i]*4.2;}
  }
- return {outline,chevrons,length:total};
+ return {outline,chevrons,length:total,tip};
 }

@@ -325,3 +325,11 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .route-overlay .route-paint{stroke:#c9f8ff;stroke-opacity:.85;stroke-width:1.6;stroke-linejoin:round;vector-effect:non-scaling-stroke;mix-blend-mode:screen}
 .route-overlay .route-chevron{fill:none;stroke:#f2fdff;stroke-opacity:.8;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .recorded-motion>span{min-width:0}.recorded-motion .motion-detail{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.route-overlay .route-far-outline{fill:none;stroke:#04121a;stroke-opacity:.7;stroke-width:4.5;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.route-overlay .route-far-line{fill:none;stroke:#3ce1ff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 2px #3ce1ffaa)}
+.route-overlay .route-far-hidden{fill:none;stroke:#3ce1ff;stroke-opacity:.9;stroke-width:2.4;stroke-dasharray:1 6;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.route-overlay .route-far-mark{fill:#dffbff;stroke:#04121a;stroke-width:.8;vector-effect:non-scaling-stroke}
+.route-overlay .route-end-halo{fill:#3ce1ff;fill-opacity:.28}
+.route-overlay .route-end-dot{fill:#f2fdff;stroke:#3ce1ff;stroke-width:2;vector-effect:non-scaling-stroke}
+.camera-route .tracked-obstacle{fill:#ffb23d;fill-opacity:.9}
+.camera-route .distant-candidate{fill:#ffb23d;fill-opacity:.12;stroke:#ffb23d;stroke-width:1.6;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}

@@ -57,16 +57,7 @@ def main():
         sid = scenario["id"]
         tick = time.perf_counter()
         result = replay.compute(sid)
-        frames = {}
-        for step in result["steps"]:
-            if step["frame_id"] in frames:
-                continue
-            try:
-                frames[step["frame_id"]] = local_navigation.compute(step["frame_id"], result["goal"])
-            except (OSError, ValueError, KeyError) as exc:
-                frames[step["frame_id"]] = {"frame_id": step["frame_id"], "status": "unavailable",
-                                            "reason": f"Local stereo/model inputs unavailable ({type(exc).__name__}).",
-                                            "segments": [], "ribbons": [], "is_ground_projection": True}
+        frames = local_navigation.compute_sequence(result["steps"], result["goal"])
         replays[sid] = result
         local[sid] = {"scenario": sid, "goal": result["goal"], "frames": frames,
                       "compute_ms": round((time.perf_counter() - tick) * 1000, 1), "computed_at": built_at}

@@ -294,3 +294,30 @@ def test_local_api_validates_goal_and_does_not_change_global_map():
         assert client.get(path+'?goal_lat=0').status_code == 422
         assert client.get('/api/frames/not-a-source/local-navigation').status_code == 404
     assert (data.DATA_DIR/'gale/elevation.npy').read_bytes() == before
+
+
+def test_remembered_rock_fills_only_unmeasured_cells_and_survives_a_missed_view():
+    """A stereo-confirmed obstacle from an earlier frame is carried in global coordinates. It is
+    added only where the current frame has no measurement, and it reaches the planner's clearance."""
+    from backend import data, replay
+    data.load_regions()
+    steps = replay.compute('hazcam-extended-traverse')['steps']
+    frames = local.compute_sequence(steps[:30], None)
+    used = [f for f in frames.values() if f.get('tracking', {}).get('remembered_cells_used', 0) > 0]
+    assert used, 'memory never used on the Rocknest approach'
+    assert all('_confirmed_global' not in f for f in frames.values())
+    single = local.compute(steps[23]['frame_id'])
+    assert 'tracked_obstacles' in single and single['tracking']['remembered_cells_used'] == 0
+
+
+def test_memory_never_overrides_a_cell_measured_in_the_current_frame():
+    frame = _frame('FLA_404772660')
+    terrain = {'blocked': np.zeros((4, 4), bool), 'rover_cells': np.zeros((4, 4), bool),
+               'observed': np.array([[True]*4, [True]*4, [False]*4, [False]*4]), 'corridor_observed': np.ones((4, 4)),
+               'cost': np.ones((4, 4)), 'height': np.zeros((4, 4)), 'x0': 0., 'y0': -.2, 'cell_m': .1}
+    origin, forward, right = local.frame_basis(frame)
+    cells = local._centres(np.array([[0, 1], [3, 1]]), terrain)
+    site_xy = origin[:2]+cells[:, 0, None]*forward+cells[:, 1, None]*right
+    remembered = local._site_to_global(frame, site_xy, np.zeros(2))
+    updated, added = local.with_memory(frame, terrain, remembered)
+    assert added.tolist() == [[3, 1]] and updated['blocked'][3, 1] and not updated['blocked'][0, 1]
