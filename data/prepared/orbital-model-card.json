@@ -1,0 +1,365 @@
+{
+  "ready": true,
+  "name": "MobileNetV3-Small \u00b7 HiRISE landmark classifier",
+  "task": "8-class orbital landmark classification",
+  "classes": [
+    "other",
+    "crater",
+    "dark_dune",
+    "slope_streak",
+    "bright_dune",
+    "impact_ejecta",
+    "swiss_cheese",
+    "spider"
+  ],
+  "input_size": 224,
+  "input": "grayscale replicated to 3 channels, ImageNet normalisation",
+  "dataset": "Mars orbital image (HiRISE) labeled data set v3.2",
+  "dataset_url": "https://zenodo.org/records/4002935",
+  "dataset_license": "CC-BY-4.0",
+  "citation": "Wagstaff, Lu, Dunkel, McLaughlin, Altinok, Stanboli et al., NASA JPL",
+  "split_counts": {
+    "train": 51058,
+    "val": 14959,
+    "test": 1793
+  },
+  "label_rows_without_image": 0,
+  "split_method": "Published split by source HiRISE image; augmented copies stay with originals",
+  "selection": "best validation macro-F1",
+  "epochs": 6,
+  "seed": 42,
+  "device": "cuda",
+  "elapsed_training_s": 550.5,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.0119404652176942,
+      "val_macro_f1": 0.6856138744685296,
+      "val_accuracy": 0.8691757470419146,
+      "elapsed_s": 129.4
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.7811851011295068,
+      "val_macro_f1": 0.6215448800563144,
+      "val_accuracy": 0.7719767364128618,
+      "elapsed_s": 213.3
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.7243031285759202,
+      "val_macro_f1": 0.7061472369824733,
+      "val_accuracy": 0.8801390467277225,
+      "elapsed_s": 297.0
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.696181395644308,
+      "val_macro_f1": 0.708379398150939,
+      "val_accuracy": 0.8983889297412929,
+      "elapsed_s": 381.0
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.6720487188855956,
+      "val_macro_f1": 0.7128352515182579,
+      "val_accuracy": 0.9091516812621164,
+      "elapsed_s": 465.4
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.6674131619134792,
+      "val_macro_f1": 0.7327699907635647,
+      "val_accuracy": 0.9096196269804131,
+      "elapsed_s": 550.5
+    }
+  ],
+  "validation": {
+    "accuracy": 0.9096196269804131,
+    "macro_f1": 0.7327699907635647,
+    "precision": {
+      "other": 0.9423,
+      "crater": 0.8477,
+      "dark_dune": 0.3969,
+      "slope_streak": 0.8117,
+      "bright_dune": 0.8861,
+      "impact_ejecta": 0.7699,
+      "swiss_cheese": 0.8371,
+      "spider": 0.8259
+    },
+    "recall": {
+      "other": 0.9611,
+      "crater": 0.8453,
+      "dark_dune": 0.7075,
+      "slope_streak": 0.651,
+      "bright_dune": 0.9091,
+      "impact_ejecta": 0.3766,
+      "swiss_cheese": 0.9618,
+      "spider": 0.3952
+    },
+    "f1": {
+      "other": 0.9516,
+      "crater": 0.8465,
+      "dark_dune": 0.5086,
+      "slope_streak": 0.7225,
+      "bright_dune": 0.8974,
+      "impact_ejecta": 0.5058,
+      "swiss_cheese": 0.8951,
+      "spider": 0.5346
+    },
+    "support": {
+      "other": 11221,
+      "crater": 1435,
+      "dark_dune": 147,
+      "slope_streak": 616,
+      "bright_dune": 77,
+      "impact_ejecta": 231,
+      "swiss_cheese": 812,
+      "spider": 420
+    },
+    "confusion_matrix": [
+      [
+        10785,
+        218,
+        2,
+        72,
+        8,
+        6,
+        122,
+        8
+      ],
+      [
+        221,
+        1213,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      [
+        13,
+        0,
+        104,
+        0,
+        0,
+        0,
+        30,
+        0
+      ],
+      [
+        215,
+        0,
+        0,
+        401,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        0,
+        0,
+        70,
+        0,
+        0,
+        1
+      ],
+      [
+        42,
+        0,
+        72,
+        4,
+        0,
+        87,
+        0,
+        26
+      ],
+      [
+        29,
+        0,
+        0,
+        2,
+        0,
+        0,
+        781,
+        0
+      ],
+      [
+        135,
+        0,
+        84,
+        15,
+        0,
+        20,
+        0,
+        166
+      ]
+    ]
+  },
+  "test": {
+    "accuracy": 0.9291689905186837,
+    "macro_f1": 0.6948055695891141,
+    "precision": {
+      "other": 0.9459,
+      "crater": 0.8857,
+      "dark_dune": 0.9661,
+      "slope_streak": 0.7174,
+      "bright_dune": 0.6667,
+      "impact_ejecta": 0.3333,
+      "swiss_cheese": 0.9767,
+      "spider": 0.0
+    },
+    "recall": {
+      "other": 0.9798,
+      "crater": 0.6966,
+      "dark_dune": 0.8636,
+      "slope_streak": 0.6735,
+      "bright_dune": 1.0,
+      "impact_ejecta": 0.5714,
+      "swiss_cheese": 1.0,
+      "spider": 0.0
+    },
+    "f1": {
+      "other": 0.9625,
+      "crater": 0.7799,
+      "dark_dune": 0.912,
+      "slope_streak": 0.6947,
+      "bright_dune": 0.8,
+      "impact_ejecta": 0.4211,
+      "swiss_cheese": 0.9882,
+      "spider": 0.0
+    },
+    "support": {
+      "other": 1482,
+      "crater": 89,
+      "dark_dune": 66,
+      "slope_streak": 49,
+      "bright_dune": 16,
+      "impact_ejecta": 7,
+      "swiss_cheese": 42,
+      "spider": 42
+    },
+    "confusion_matrix": [
+      [
+        1452,
+        8,
+        2,
+        12,
+        1,
+        4,
+        1,
+        2
+      ],
+      [
+        18,
+        62,
+        0,
+        1,
+        4,
+        4,
+        0,
+        0
+      ],
+      [
+        6,
+        0,
+        57,
+        0,
+        3,
+        0,
+        0,
+        0
+      ],
+      [
+        16,
+        0,
+        0,
+        33,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        16,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        42,
+        0
+      ],
+      [
+        42,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "onnx_test_batch_agreement": 1.0,
+  "limitations": [
+    "Landmark crops are centred on labelled features at varied browse scales; sliding-window use on a map ortho is a domain shift.",
+    "Class 'other' dominates; rare classes have small test support.",
+    "Classifies 8 landmark types; it does not detect rocks or trafficability."
+  ],
+  "ctx_transfer_check": {
+    "labels": "IAU-approved crater centres and diameters (USGS Gazetteer), 1-30 km, |lat|<=60",
+    "imagery": "Murray Lab CTX global mosaic beta01 (Caltech; NASA/JPL/MSSS), Esri tiles",
+    "window": "1.4 x crater diameter, centred",
+    "evaluated": 131,
+    "requested": 150,
+    "crater_recall_on_named_craters": 0.6565,
+    "crater_rate_on_offset_windows": 0.084,
+    "prediction_distribution_on_craters": {
+      "other": 45,
+      "crater": 86,
+      "dark_dune": 0,
+      "slope_streak": 0,
+      "bright_dune": 0,
+      "impact_ejecta": 0,
+      "swiss_cheese": 0,
+      "spider": 0
+    },
+    "prediction_distribution_offset": {
+      "other": 120,
+      "crater": 11,
+      "dark_dune": 0,
+      "slope_streak": 0,
+      "bright_dune": 0,
+      "impact_ejecta": 0,
+      "swiss_cheese": 0,
+      "spider": 0
+    },
+    "note": "Transfer check on a different camera (CTX) than training (HiRISE). Offset rate is a reference, not precision."
+  }
+}
