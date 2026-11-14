@@ -63,6 +63,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(); parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--drive-sols", type=int, nargs="*", default=[], help="add mid-drive TRAV frames from these sols")
     parser.add_argument("--sequence", default="approach")
+    parser.add_argument("--front-hazcam", action="store_true", help="prepare forward-facing calibrated MSL Hazcam RAD/XYZ/XYE products instead of side-looking Navcam")
+    parser.add_argument("--per-sol",type=int,default=0,help="bound new footage to the first N matched acquisitions on each requested sol")
     args = parser.parse_args()
     cache = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "mars-pathfinder" / "raw" / "pds"
     listing = P.fetch(P.BASE, cache / "sol57-directory.html").decode("utf-8", errors="replace")
@@ -77,8 +79,20 @@ def main() -> None:
     bases = {}
     for sol in args.drive_sols:
         base = P.BASE.replace("SOL00057", f"SOL{sol:05d}")
-        lst = P.fetch(base, cache / f"sol{sol}-directory.html").decode("utf-8", errors="replace")
-        for item in drive_products(lst, args.sequence):
+        if args.front_hazcam:
+            base = base.replace("MSLNAV_1XXX/DATA_V1", "MSLHAZ_1XXX/DATA")
+        listing_name = f"{'hazcam-' if args.front_hazcam else ''}sol{sol}-directory.html"
+        lst = P.fetch(base, cache / listing_name).decode("utf-8", errors="replace")
+        if args.front_hazcam:
+            names = set(re.findall(r'href="([^"/]+)\.LBL"', lst))
+            items = [(args.sequence, n.replace("RAD_", "XYZ_")) for n in sorted(names)
+                     if re.match(r"FLA_\d+RAD_F", n)
+                     and n.replace("RAD_", "XYZ_") in names and n.replace("RAD_", "XYE_") in names]
+        else:
+            items = drive_products(lst, args.sequence)
+        if args.per_sol:
+            items=items[:args.per_sol]
+        for item in items:
             bases[item[1]] = (base, sol); chosen.append(item)
     if args.limit:
         chosen = chosen[:args.limit]
@@ -147,7 +161,7 @@ def main() -> None:
         az = re.search(r"INSTRUMENT_AZIMUTH\s*=\s*([-\d.]+)", lab); el = re.search(r"INSTRUMENT_ELEVATION\s*=\s*([-\d.]+)", lab)
         rel = lambda p: str(p.relative_to(DATA)).replace("\\", "/")
         frames.append({
-            "id": xyz_id, "number": len(frames) + 1, "mission": "MSL", "instrument": "NAV_LEFT_A", "sol": sol,
+            "id": xyz_id, "number": len(frames) + 1, "mission": "MSL", "instrument": "FRONT_HAZCAM_LEFT_A" if args.front_hazcam else "NAV_LEFT_A", "sol": sol,
             "acquired_at": P.field(lab, "START_TIME") + "Z", "site": site, "drive": motion[1], "pose": motion[2],
             "sequence": sequence, "sequence_index": order[sequence],
             "instrument_azimuth_deg": float(az.group(1)) if az else None, "instrument_elevation_deg": float(el.group(1)) if el else None,

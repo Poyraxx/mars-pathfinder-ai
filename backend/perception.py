@@ -4,6 +4,7 @@ import io
 import json
 import os
 import time
+from functools import lru_cache
 from pathlib import Path
 import numpy as np
 from PIL import Image
@@ -13,6 +14,35 @@ from .coordinates import project
 PALETTE = np.array([[194,146,104],[112,163,176],[232,188,76],[238,91,69]],dtype=np.uint8)
 _session = None
 _dll_handle = None
+
+
+@lru_cache(maxsize=128)
+def _file_sha(path: str, size: int, mtime_ns: int):
+    # Size/mtime participate in the key; changed local inputs invalidate the cache.
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _sha(path: Path):
+    st=path.stat()
+    return _file_sha(str(path),st.st_size,st.st_mtime_ns)
+
+
+def registration_evidence_matches(frame: dict) -> bool:
+    """A passing flag cannot outlive its evidence or exact camera/XYZ inputs."""
+    reg=frame.get('registration',{})
+    try:
+        path=DATA_DIR/reg['evidence']
+        if _sha(path)!=reg['evidence_sha256']:
+            return False
+        proof=json.loads(path.read_text('utf-8'))
+        if not proof.get('verified') or proof.get('frame_id')!=frame['id']:
+            return False
+        if abs(proof['horizontal_error_bound_m']-reg['horizontal_error_bound_m'])>1e-8:
+            return False
+        hashes=proof['inputs_sha256']
+        return _sha(DATA_DIR/frame['xyz_path'])==hashes['xyz_npy'] and _sha(DATA_DIR/frame['image_path'])==hashes['reference_png']
+    except (KeyError,OSError,TypeError,ValueError):
+        return False
 
 
 def get_session():
@@ -140,11 +170,13 @@ def localize_obstacles(frame: dict, mask: np.ndarray, confidence: np.ndarray, me
         return {"accepted":False,"reason":"Missing, unsupported or excessive registration error bound; map unchanged."}
     if not frame.get("xyz_path") or not frame.get("places"):
         return {"accepted":False,"reason":"Missing XYZ product or frame transform; map unchanged."}
+    if not registration_evidence_matches(frame):
+        return {"accepted":False,"reason":"Registration evidence is missing, mismatched or stale; map unchanged."}
     xyz = np.load(DATA_DIR / frame["xyz_path"])
     if xyz.shape != (*mask.shape,3):
         return {"accepted":False,"reason":"Reference image and XYZ geometry differ; map unchanged."}
-    # Obstacles come from measured stereo geometry. The learned big_rock class has 0 held-out
-    # recall and visible false positives, so it is reported but never written to the map.
+    # Obstacles come from measured stereo geometry. The learned big_rock class has
+    # insufficient held-out precision, so it never asserts occupied map cells.
     xye = np.load(DATA_DIR / frame["xye_path"]) if frame.get("xye_path") else None
     found = stereo_hazards(xyz, xye, step_m)
     classes = model_status().get("classes",[])

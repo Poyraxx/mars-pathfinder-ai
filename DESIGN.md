@@ -12,9 +12,12 @@ amber #dba776 for camera/attention. Unknown data is stated in words. Error color
 Typography: Manrope display and DM Sans controls, with system fallbacks and tabular numbers.
 One line icon family (Lucide), a custom geometric project mark, no NASA logo.
 
-Layout: desktop left navigation, central Cesium canvas, optional right intelligence,
-collapsible bottom route analysis. Narrow screens use navigation and intelligence drawers;
-secondary panels start closed. No page-level scroll; individual data panels may scroll.
+Layout: in replay, a quiet scenario selector, actual camera left and the synchronized
+Cesium map right, with transport controls underneath. Camera is the first/default
+tab; simulation is named explicitly. The map fits the entire track and route and
+offers whole-planet and fit-route controls. Mobile stacks camera and map above
+transport and scenario selection; the page may scroll. Plan mode keeps optional
+analysis panels and Explore keeps global feature search.
 
 Behavior: route and model results are API-backed. Source imagery is actual PDS/NASA data.
 No fabricated terrain illustration is substituted for an analysis result. Controls have

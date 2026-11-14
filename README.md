@@ -3,6 +3,51 @@
 Global Mars exploration and terrain-aware mission planning with real NASA/USGS/PDS data.
 Research prototype for the Martian Map challenge. **Not certified for human EVA operations.**
 
+## Real-footage navigation
+
+The default view is now the actual forward-facing rover camera on the left and
+the same remaining route on the Mars map on the right. A 3D simulation is optional.
+Two ready-made scenarios use real Curiosity Front Hazcam acquisitions from sols
+50, 52, 53 and 55: an approach to Rocknest, and a missed-waypoint return task.
+The latter is explicitly counterfactual: recorded footage never changes in response
+to a suggested U-turn. The planner re-routes on the server; it does not control a rover.
+
+The camera projection uses the PDS-labelled CAHVORE model, rover-frame quaternion,
+stereo XYZ and native DEM. Unfitted checks on 12 actual Hazcam products reproduce
+original stereo pixel positions with p95 error 0.16–0.30 pixels. This validates
+camera projection, **not absolute orbital localization**. The four featured poses
+use archival PLACES placement; they did not pass the independent image-correlation
+gate and never add obstacle cells. Distant route heights are DEM estimates aligned
+vertically to nearby stereo, with stereo/DEM occlusion checks. Out-of-view routes
+produce direction guidance instead of mirrored ground lines.
+
+Every featured actual acquisition has a visible forward route in the approach
+scenario. At the second acquisition the recorded rover is 4.05 m off the initial
+route; the server computes v2. In the return task later views correctly show a
+U-turn and the route behind the camera on the map. Traversed route sections are
+removed, and image overlays wait for the matching image to load.
+
+Two downloadable 30-second MP4s are included in `data/prepared/demos/` and served
+at `/api/scenarios/{scenario_id}/demo.mp4`. These are labelled accelerated
+**still-image archive timelapses**, not continuous video or live camera feeds.
+The interactive app computes its own results; it does not play the MP4 as live inference.
+Reproduce the data and videos with:
+
+```powershell
+python scripts/prepare_navcam_set.py --front-hazcam --drive-sols 50 52 53 55 56 57 --sequence hazcam
+python scripts/prepare_camera_models.py
+python scripts/register_image_correlation.py --only-new --write
+python scripts/build_scenarios.py
+python scripts/export_replay_video.py hazcam-rocknest-approach
+python scripts/export_replay_video.py hazcam-return-waypoint
+```
+
+The curated dataset uses the first matched acquisition on sols50/52/53 and the
+matched sets on55/56/57; `--per-sol 1` bounds an individual preparation run.
+The full catalogue currently contains 65 Navcam and12 Hazcam products;21 pass the
+image-registration gate. Each image, geometry array, calibration and localization
+keeps its own source and hashes.
+
 ## Implemented
 
 - React/TypeScript/Cesium global Mars, streamed real Viking imagery and MOLA/HRSC terrain.

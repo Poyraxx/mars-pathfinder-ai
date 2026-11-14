@@ -1,5 +1,24 @@
 # Claude için başlangıç
 
+## Güncel kullanıcı isteği — önce bunu esas al
+
+Son proje sohbetleri ve kullanıcının Paint çizimi okundu. İstenen varsayılan,
+gerçek rover görüntüsü solda ve aynı rota/konumun Mars haritasında sağda olması;
+rover kaydı ilerledikçe geçen yolun geride kalması, sapınca yeniden rota ve gerekirse
+U dönüşü önerisi. 3D render yalnız yardımcı görünüm. Bir görüntüye göz kararı çizgi
+koymak veya 3D simülasyonu gerçek footage yerine göstermek isteği karşılamıyor.
+
+Güncel uygulama: 12 gerçek Front Hazcam ürünü ve doğrulanmış CAHVORE kamera
+projeksiyonu eklendi; 4 farklı gerçek konumdaki çekimle iki interaktif senaryo
+ve iki30 saniyelik MP4 hazır. Başlangıçta gerçek kamera/harita açılır. Pozlar
+arşiv PLACES kaynaklıdır; bu4 Hazcam görüntüsü bağımsız orbital eşleşme testini
+geçmedi ve haritaya engel yazmaz. Kalibrasyonun p95 0.16–0.30 piksel hatası,
+mutlak harita doğruluğu anlamına gelmez. Uzak çizgi yüksekliği native DEM'den
+gelir. Video4 gerçek kareden oluşan açıkça etiketli timelapse'tir, sürekli video değil.
+
+Önceki devir ve tarihî görev maddeleri aşağıda korunmuştur; güncel uygulama için
+README'nin "Real-footage navigation" bölümü ve TASKS.md'nin son bölümü esas alınır.
+
 Bu proje Codex'ten Claude'a devrediliyor. Kullanıcı 14 Kasım 2026'da Codex'in
 uygulama/yayın çalışmalarını durdurmasını ve devam edebilmen için devir belgeleri
 hazırlamasını istedi. Projeyi yeniden kurarak başlama; çalışan uygulama, gerçek

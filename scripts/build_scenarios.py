@@ -5,10 +5,13 @@ from each frame's PLACES localization; nothing is interpolated or invented here.
 replay itself (route, deviations, re-routes, camera overlays) is computed live by the API.
 """
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "prepared"
+sys.path.insert(0,str(ROOT))
+from backend.camera_route import view_mission
 
 
 def main():
@@ -33,8 +36,33 @@ def main():
         ],
         "note": "Frames are real archived images replayed in order; motion between frames is not interpolated.",
     }]
+    hazcam = sorted([f for f in frames if f.get('instrument')=='FRONT_HAZCAM_LEFT_A'],key=lambda f:f['acquired_at'])
+    if hazcam:
+        meta=json.loads((DATA/'gale/metadata.json').read_text('utf-8'))
+        # Four actual acquisitions at progressively different rover positions.
+        # Later sol55 images are in-place turns, not additional forward motion.
+        approach=[next(f for f in hazcam if f['sol']==sol) for sol in [50,52,53,55]]
+        refs=[{'label':'NASA PDS: calibrated Front Hazcam images, XYZ and camera models',
+               'url':'https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/'},
+              {'label':'NASA PDS: PLACES rover localizations',
+               'url':'https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/'},
+              {'label':'JPL: original Hazcam time-lapse film and map',
+               'url':'https://www.jpl.nasa.gov/videos/rover-pov-five-years-of-curiosity-on-mars/'}]
+        common={'mission':'MSL Curiosity','region_id':'gale','camera':'Front Left Hazcam A · calibrated CAHVORE',
+                'frames':[f['id'] for f in approach],'sols':[50,52,53,55], 'default_view':'navcam',
+                'image_kind':'real_archive', 'references':refs,
+                'note':'Real PDS images in acquisition order. This is an accelerated archive timelapse, not continuous video or a live camera. No invented frames or interpolated rover motion.'}
+        forward={**common,'id':'hazcam-rocknest-approach','title':'Real footage · approach to Rocknest',
+                 'subtitle':'Forward-facing camera · Sols 50–55 · ~60 m of recorded motion',
+                 'story':'Follow Curiosity through four real forward-facing acquisitions. The cyan route is computed from the current recorded pose to a fixed ground point in the final view. Camera and map share the same remaining route; the server re-plans if the recorded drive leaves it.',
+                 'destination':view_mission(approach[-1],meta)['goal']}
+        return_trip={**common,'id':'hazcam-return-waypoint','title':'Real footage · missed waypoint',
+                     'subtitle':'Same recorded drive · alternative nearby destination',
+                     'story':'A counterfactual navigation task on the same real footage: the destination is a measured ground point in the first view. The recorded rover continues its historical drive. The planner recommends a return or U-turn when it passes the requested waypoint; the footage is never altered to pretend it followed that recommendation.',
+                     'destination':view_mission(approach[0],meta)['goal']}
+        scenarios=[forward,return_trip,*scenarios]
     (DATA / "scenarios.json").write_text(json.dumps(scenarios, indent=2), "utf-8")
-    print(len(scenarios), "scenario,", len(scenarios[0]["frames"]), "frames")
+    print([(s['id'],len(s['frames'])) for s in scenarios])
 
 
 if __name__ == "__main__":

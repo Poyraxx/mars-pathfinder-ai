@@ -105,7 +105,8 @@ function App(){
     {s.mode==='replay'&&<span className="map-label">Map · real rover track</span>}
     <div className="map-tools">
      <div className="layer-control"><button className={layerMenu?'active':''} onClick={()=>setLayerMenu(!layerMenu)} aria-label="Map layers" aria-expanded={layerMenu}><Layers3 size={17}/></button>{layerMenu&&<div className="layer-popover">{s.catalog?.layers.map(l=><button key={l.id} onClick={()=>s.set({layer:l.id})} className={s.layer===l.id?'selected':''}><strong>{l.name}</strong><small>{l.kind} · {l.resolution_m} m/px</small></button>)}<label className="check"><input type="checkbox" checked={s.showRisk} disabled={!s.region} onChange={e=>s.set({showRisk:e.target.checked})}/>Slope overlay (Gale)</label><p>Thermal mosaic brightness is not current temperature.</p></div>}</div>
-     <button onClick={()=>s.set({view:'orbital',exploreTarget:null,feature:null})} aria-label="Whole planet"><Globe2 size={17}/></button>
+     <button onClick={()=>s.set({view:'orbital',exploreTarget:{lat:17,lon:42,alt:10000000},feature:null})} aria-label="Whole planet"><Globe2 size={17}/></button>
+     {s.mode==='replay'&&<button onClick={()=>window.dispatchEvent(new Event('replay-fit'))} aria-label="Fit rover and route"><Crosshair size={17}/></button>}
      {s.mode==='plan'&&<button className={s.showAI?'active':''} onClick={()=>s.set({showAI:!s.showAI})} aria-label="Route analysis panel" aria-expanded={s.showAI}><Radar size={17}/></button>}
     </div>
     {cameraView&&<CameraView dual={s.view==='dual'}/>}

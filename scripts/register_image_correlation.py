@@ -169,7 +169,7 @@ def main():
             "orbital_source": {k: ortho_meta[k] for k in ("source_lid", "version", "image_url", "range_sha256", "pixel_resolution_m",
                                                           "upper_left_easting_m", "upper_left_northing_m")},
             "limitations": [
-                "Frames are 256x256 TRAV Navcam images covering about 3-11 m range; the three frames overlap and are not independent.",
+                f"Camera: {frame['instrument']}; geometry grid {frame['shape']}. Nearby acquisitions overlap and are not independent observations of map geodesy.",
                 "PLACES localized rover positions were themselves derived against the HiRISE base map; this test checks the full XYZ + corrected affine + projection chain against image content, not the base-map geodesy.",
                 "Different illumination/epochs between Navcam and HiRISE; band-pass filtering reduces but does not remove this.",
                 "Vertical agreement is not tested here; stereo vs orbital DEM differs by about 1.1 m.",

@@ -1,0 +1,30 @@
+{
+  "scenario": "hazcam-rocknest-approach",
+  "duration_s": 30,
+  "fps": 24,
+  "dimensions": [
+    1600,
+    900
+  ],
+  "footage": "Actual NASA/JPL-Caltech PDS Hazcam pixels, accelerated still-image timelapse; no interpolated motion",
+  "map": "Actual PLACES HiRISE 25 cm orthophoto",
+  "calculation": "Real PLACES rover poses replayed in order; route to the real arrival point re-planned on deviation or new stereo obstacles.",
+  "rover_frames": [
+    "FLA_401936576XYZ_F0042956FHAZ00305M1",
+    "FLA_402116846XYZ_F0043200FHAZ00304M1",
+    "FLA_402204165XYZ_F0043232FHAZ00302M1",
+    "FLA_402378017XYZ_F0043394FHAZ00304M1"
+  ],
+  "events": [
+    {
+      "step": 1,
+      "type": "off_route",
+      "deviation_m": 4.05,
+      "route_version": 2,
+      "turn_deg": 9.0
+    }
+  ],
+  "input_frames_sha256": "08fe5dc3e0da24df11ca05bb3ec9f444a4ac5a5ceea934f2457c0bc288c9cf2d",
+  "video_sha256": "a83bdbb7e1b7b259a896900d5f41b96d9c486df32eea28dc349cae64105212ec",
+  "limitation": "Camera reprojection is validated; absolute orbital placement of these Hazcam poses remains archive-based, not independently accepted."
+}

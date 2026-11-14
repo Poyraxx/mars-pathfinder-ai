@@ -1,5 +1,8 @@
 # Claude için kalan görevler
 
+Not: aşağıdaki eski devir maddelerinin bir kısmı tarihîdir. Güncel gerçek-footage
+devamının sonucu dosyanın son bölümünde ve README'de bulunur.
+
 Son güncelleme:14 Kasım2026. HANDOFF.md ayrıntıların ve mevcut doğrulamanın kaynağı.
 `[x]` uygulanmış/doğrulanmış, `[ ]` açık. Bu liste bir tamamlanma iddiası değildir.
 
@@ -197,3 +200,33 @@ Kullanıcı isteği: senaryoların varsayılanı GERÇEK rover görüntüsü ola
 - [ ] CAHVORE 3D→2D uygula; `mars2020_hazcam_ops_stereo` XYZ ürünleriyle piksel hatasını ölç (doğrulama).
 - [ ] Rota: küresel/yerel DEM'de planla, her gerçek kareye CAHVORE ile izdüşür; varsayılan görünüm gerçek kare.
 - [ ] Demo videosu (MP4): gerçek kare + rota (sol) | harita + rover (sağ).
+
+## Gerçek-footage devamı — Codex, 14 Kasım 2026
+
+- [x] Bu klasöre ait5 Claude Code oturumunun kullanıcı/assistant konuşmaları ve
+  Paint referansları incelendi; son kullanıcı düzeltmesi esas alındı.
+- [x] Perseverance araştırmasına bağımlı kalmadan, aynı planlama bölgesindeki
+  gerçek ileri bakan Curiosity Front Hazcam RAD/XYZ/XYE kaynakları bulundu.
+- [x] 12 Hazcam ürünü: Sol50,52,53,55,56,57. Native1024 görüntü ve256 stereo grid.
+  Mevcut katalog77 kare:65 Navcam+12 Hazcam,21 orbital image-registration kabulü.
+- [x] NASA-AMMOS VICAR esaslı CAHVORE portu ve PDS rover/site dönüşümü. Fit
+  yapılmadan her gerçek stereo noktasının kaynak pikseline reprojeksiyonu:
+  p95 0.16–0.30 px. Bu mutlak orbital konum doğrulaması değildir.
+- [x] Varsayılan senaryo gerçek4 çekim: Sol50→52→53→55. Yaklaşık60 m kayıtlı ilerleme,
+  kamera ve haritada aynı kalan rota; 4.05 m sapmada gerçek yeniden planlama.
+- [x] Aynı gerçek footage ile kaçırılmış waypoint senaryosu: önerilen U dönüşü,
+  hedef görüntü arkasında ise yanıltıcı çizgi yerine yönlendirme ve haritada rota.
+- [x] Geçilen rota kısmının kırpılması, son karede de replan, profile-aware cache.
+- [x] Fotoğraf yüklenmeden yeni overlay gösterilmiyor; playback görüntüyü bekler.
+- [x] İlk açılışta ortho yüklenmemesi (catalog bağımlılığı), rota kadrajının
+  kesilmesi ve mobil başlık taşması düzeltildi. Whole planet / fit-route kontrolleri.
+- [x] Gerçek kamera varsayılan; 3D simulation ayrı sekme. Oynat/duraklat/scrub.
+- [x] İki30 s,1600×900,24 fps H.264 MP4; gerçek fotoğraf+HiRISE map, API'den indirme.
+  Bunlar4 gerçek kareden hızlandırılmış timelapse; kesintisiz veya canlı video değil.
+- [x] 28 Python testi ve production TypeScript/Vite build geçti.
+- [ ] Canlı Render güncellemesi ve son public URL kontrolü bu devamın sonunda kaydedilecek.
+
+Korunan sınırlar: yeni4 featured Hazcam pozu bağımsız orbital eşleşmeyi geçmedi;
+arşiv pozuyla görselleştirilir, engel füzyonuna girmez. Uzak görüntü çizgisi stereo
+ile düşey hizalanmış DEM yüksekliğini kullanır. ML güvenilirliği/safety sertifikası
+iddiası yok. Model eğitimleri bu turda yeniden yapılmadı.

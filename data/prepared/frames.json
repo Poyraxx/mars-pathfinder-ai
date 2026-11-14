@@ -14114,5 +14114,3523 @@
     "registration_verified": false,
     "enabled_for_map_update": false,
     "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00056/NLA_402464014RAD_D0043464TRAV00021M1.LBL"
+  },
+  {
+    "id": "FLA_402378017XYZ_F0043394FHAZ00304M1",
+    "number": 66,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 55,
+    "acquired_at": "2012-10-01T15:43:13.108Z",
+    "site": 4,
+    "drive": 3394,
+    "pose": 2,
+    "sequence": "hazcam",
+    "sequence_index": 1,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402378017RAD_F0043394FHAZ00304M1",
+    "products": [
+      {
+        "product_id": "FLA_402378017RAD_F0043394FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017RAD_F0043394FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017RAD_F0043394FHAZ00304M1.IMG",
+        "image_sha256": "ea7b5eb48c4e4a5cc28bebb3a32302a86aa2f0c17ce8dbaafdacd5bf80fc9429",
+        "label_sha256": "6184e535456d73152f2ba1a768ee18e4d4473907841d18b7860dbb531257f555",
+        "layout": {
+          "filename": "FLA_402378017RAD_F0043394FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402378017XYZ_F0043394FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017XYZ_F0043394FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017XYZ_F0043394FHAZ00304M1.IMG",
+        "image_sha256": "77e79de676a05e8aa72429732bc2f319d43206e687e663dc53ea4702711b7066",
+        "label_sha256": "240a0d2babf51cb5802a65893b1b60e8599c5f425cd16ee637868f90919e8ebe",
+        "layout": {
+          "filename": "FLA_402378017XYZ_F0043394FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402378017XYE_F0043394FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017XYE_F0043394FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017XYE_F0043394FHAZ00304M1.IMG",
+        "image_sha256": "205fa72d9f9c7a9c155f66b7910cbe99b2bbcbdddf540419c1b8369396c79982",
+        "label_sha256": "51195cf8c70e30cc56280d4b2ce636631e33b3ccc710815a4c899f016f2139cb",
+        "layout": {
+          "filename": "FLA_402378017XYE_F0043394FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.548919677734375,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 472.0,
+      "dn_high": 5259.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3394",
+        "pose": "-1",
+        "landing_x": "-35.310",
+        "landing_y": "394.984",
+        "landing_z": "16.000",
+        "northing": "-272074.578",
+        "easting": "8147206.207",
+        "planetocentric_latitude": "-4.590062697",
+        "planetodetic_latitude": "-4.644340733",
+        "longitude": "137.448296616",
+        "elevation": "-4517.000",
+        "map_pixel_line": "2242.31",
+        "map_pixel_sample": "24672.83",
+        "dem_pixel_line": "561.50",
+        "dem_pixel_sample": "6168.71",
+        "roll": "-2.750",
+        "pitch": "-4.650",
+        "yaw": "89.873",
+        "quat_s": "0.707790900",
+        "quat_v1": "0.011672013",
+        "quat_v2": "-0.045641754",
+        "quat_v3": "0.704849360",
+        "sclk": "402378002",
+        "sol": "55"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272074.578,
+        8147206.207,
+        4517.0
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999997848,
+          -6.528399617723041e-07,
+          6.591063387897369e-08
+        ],
+        [
+          6.52839956559786e-07,
+          0.9999999999997838,
+          7.697127470353213e-08
+        ],
+        [
+          -6.591068412818858e-08,
+          -7.69712316569146e-08,
+          0.9999999999999949
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.8544370525,
+        8146878.584996766,
+        4502.780225433436
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402378017XYZ_F0043394FHAZ00304M1/reference.png",
+    "display_path": "pds/FLA_402378017XYZ_F0043394FHAZ00304M1/display.png",
+    "xyz_path": "pds/FLA_402378017XYZ_F0043394FHAZ00304M1/xyz.npy",
+    "xye_path": "pds/FLA_402378017XYZ_F0043394FHAZ00304M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402378017XYZ_F0043394FHAZ00304M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017RAD_F0043394FHAZ00304M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          0.0022090493918396348,
+          -0.998837396884465,
+          -0.04815573367575599
+        ],
+        [
+          0.9967064717205183,
+          0.00610292751030983,
+          -0.0808638578491022
+        ],
+        [
+          0.08106373622786159,
+          -0.04781849914907231,
+          0.995561179339527
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378017XYZ_F0043394FHAZ00304M1.LBL",
+      "source_label_sha256": "240a0d2babf51cb5802a65893b1b60e8599c5f425cd16ee637868f90919e8ebe",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 35974,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.07166126971024497,
+        "p95_error_px": 0.26728539220100817,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402378202XYZ_F0043400FHAZ00307M1",
+    "number": 67,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 55,
+    "acquired_at": "2012-10-01T15:46:18.857Z",
+    "site": 4,
+    "drive": 3400,
+    "pose": 2,
+    "sequence": "hazcam",
+    "sequence_index": 2,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402378202RAD_F0043400FHAZ00307M1",
+    "products": [
+      {
+        "product_id": "FLA_402378202RAD_F0043400FHAZ00307M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202RAD_F0043400FHAZ00307M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202RAD_F0043400FHAZ00307M1.IMG",
+        "image_sha256": "cd87b8c7dc2bc4981d153d6463119d361c8f7defad7637f6fa8498be1c78ecf0",
+        "label_sha256": "73c9103063541184d12d8a1789cff465485ff730a97653910bde778a6ef358f0",
+        "layout": {
+          "filename": "FLA_402378202RAD_F0043400FHAZ00307M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402378202XYZ_F0043400FHAZ00307M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202XYZ_F0043400FHAZ00307M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202XYZ_F0043400FHAZ00307M1.IMG",
+        "image_sha256": "d2a4bd0d0d118ba80341927f6fc2bf232551623166d8e01390a1e5ec4ad9f704",
+        "label_sha256": "0d43a4a1c02b13d35983fd3a1a5191aecfee97a32ae9ea2f016c849a1e3b8cb8",
+        "layout": {
+          "filename": "FLA_402378202XYZ_F0043400FHAZ00307M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402378202XYE_F0043400FHAZ00307M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202XYE_F0043400FHAZ00307M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202XYE_F0043400FHAZ00307M1.IMG",
+        "image_sha256": "ff3627693b220ed9315a83f1a961160d32585b81ca306bf6218405a34035b4e1",
+        "label_sha256": "eb18cc6946dcda320b079a3aba685af3bca3de30392677abf4b1028b90df9cbd",
+        "layout": {
+          "filename": "FLA_402378202XYE_F0043400FHAZ00307M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.504302978515625,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 559.0,
+      "dn_high": 6004.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3400",
+        "pose": "-1",
+        "landing_x": "-35.310",
+        "landing_y": "394.984",
+        "landing_z": "16.000",
+        "northing": "-272074.578",
+        "easting": "8147206.207",
+        "planetocentric_latitude": "-4.590062697",
+        "planetodetic_latitude": "-4.644340733",
+        "longitude": "137.448296616",
+        "elevation": "-4517.000",
+        "map_pixel_line": "2242.31",
+        "map_pixel_sample": "24672.83",
+        "dem_pixel_line": "561.50",
+        "dem_pixel_sample": "6168.71",
+        "roll": "-4.576",
+        "pitch": "2.344",
+        "yaw": "-179.958",
+        "quat_s": "0.001179716",
+        "quat_v1": "0.020421127",
+        "quat_v2": "0.039922703",
+        "quat_v3": "-0.998993400",
+        "sclk": "402378201",
+        "sol": "55"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272074.578,
+        8147206.207,
+        4517.0
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999993,
+          1.0969023525945628e-08,
+          -3.728229500928819e-08
+        ],
+        [
+          -1.0969022566741477e-08,
+          0.9999999999999997,
+          2.5717137549785874e-08
+        ],
+        [
+          3.7282295291927894e-08,
+          -2.571713714660388e-08,
+          0.999999999999999
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.8546530635,
+        8146878.58499967,
+        4502.780208303338
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402378202XYZ_F0043400FHAZ00307M1/reference.png",
+    "display_path": "pds/FLA_402378202XYZ_F0043400FHAZ00307M1/display.png",
+    "xyz_path": "pds/FLA_402378202XYZ_F0043400FHAZ00307M1/xyz.npy",
+    "xye_path": "pds/FLA_402378202XYZ_F0043400FHAZ00307M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402378202XYZ_F0043400FHAZ00307M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202RAD_F0043400FHAZ00307M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          -0.9991631732426405,
+          0.003987597936192037,
+          -0.040706907256585455
+        ],
+        [
+          -0.0007265336915423021,
+          -0.9968095701751336,
+          -0.07981323797504002
+        ],
+        [
+          -0.04089529782862605,
+          -0.07971687318231062,
+          0.9959783103790681
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378202XYZ_F0043400FHAZ00307M1.LBL",
+      "source_label_sha256": "0d43a4a1c02b13d35983fd3a1a5191aecfee97a32ae9ea2f016c849a1e3b8cb8",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 33050,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.0617367359639965,
+        "p95_error_px": 0.23506211026382676,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402378404XYZ_F0043406FHAZ00307M1",
+    "number": 68,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 55,
+    "acquired_at": "2012-10-01T15:49:40.898Z",
+    "site": 4,
+    "drive": 3406,
+    "pose": 2,
+    "sequence": "hazcam",
+    "sequence_index": 3,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402378404RAD_F0043406FHAZ00307M1",
+    "products": [
+      {
+        "product_id": "FLA_402378404RAD_F0043406FHAZ00307M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404RAD_F0043406FHAZ00307M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404RAD_F0043406FHAZ00307M1.IMG",
+        "image_sha256": "6ae45d16ea8c7b047a27e5824d70e4cef42029a2c14923b03ba8bf18e01ffa42",
+        "label_sha256": "3ff3a47b208ddde8dd2240e669f0c48edafb88f45dbc254c954a71b1f6f35fbb",
+        "layout": {
+          "filename": "FLA_402378404RAD_F0043406FHAZ00307M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402378404XYZ_F0043406FHAZ00307M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404XYZ_F0043406FHAZ00307M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404XYZ_F0043406FHAZ00307M1.IMG",
+        "image_sha256": "08c2d9d216b9b401fbf879bbddf051c3872dc13326d780b124e3bc7b62dba9db",
+        "label_sha256": "60ca289977fda4bd251a02d706b1a9f0bca8ecc95cb9580f81303f7f1ac5c7e3",
+        "layout": {
+          "filename": "FLA_402378404XYZ_F0043406FHAZ00307M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402378404XYE_F0043406FHAZ00307M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404XYE_F0043406FHAZ00307M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404XYE_F0043406FHAZ00307M1.IMG",
+        "image_sha256": "0ce974d4218c7e1ddfd0672a72b1a7f54892b7953b1c93b0a351c0797c5c3366",
+        "label_sha256": "68ec717ff0741b5292fcd00b640ce3643fc84063964c3ebda4e90162cee64314",
+        "layout": {
+          "filename": "FLA_402378404XYE_F0043406FHAZ00307M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.5950775146484375,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 784.0,
+      "dn_high": 8009.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3406",
+        "pose": "-1",
+        "landing_x": "-35.310",
+        "landing_y": "394.984",
+        "landing_z": "16.000",
+        "northing": "-272074.578",
+        "easting": "8147206.207",
+        "planetocentric_latitude": "-4.590062697",
+        "planetodetic_latitude": "-4.644340733",
+        "longitude": "137.448296616",
+        "elevation": "-4517.000",
+        "map_pixel_line": "2242.31",
+        "map_pixel_sample": "24672.83",
+        "dem_pixel_line": "561.50",
+        "dem_pixel_sample": "6168.71",
+        "roll": "1.005",
+        "pitch": "6.591",
+        "yaw": "-90.142",
+        "quat_s": "0.704681300",
+        "quat_v1": "0.046878160",
+        "quat_v2": "0.034399837",
+        "quat_v3": "-0.707137400",
+        "sclk": "402378395",
+        "sol": "55"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272074.578,
+        8147206.207,
+        4517.0
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999831,
+          1.3324169852502597e-07,
+          1.2558010654654555e-07
+        ],
+        [
+          -1.3324170599090476e-07,
+          0.9999999999999893,
+          5.969312619844007e-08
+        ],
+        [
+          -1.255800986179859e-07,
+          -5.969314293235697e-08,
+          0.9999999999999903
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.85469543864,
+        8146878.584999588,
+        4502.780219968269
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402378404XYZ_F0043406FHAZ00307M1/reference.png",
+    "display_path": "pds/FLA_402378404XYZ_F0043406FHAZ00307M1/display.png",
+    "xyz_path": "pds/FLA_402378404XYZ_F0043406FHAZ00307M1/xyz.npy",
+    "xye_path": "pds/FLA_402378404XYZ_F0043406FHAZ00307M1/xye.npy",
+    "registration": {
+      "verified": true,
+      "horizontal_error_bound_m": 1.0,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402378404XYZ_F0043406FHAZ00307M1/registration-evidence.json",
+      "evidence_sha256": "dbc274602705d5e9c553a9e51f178307c687592371ff6546585c8364b3ce4d59",
+      "reason": "Camera content matches HiRISE at the archived placement (image-correlation shift search, empirical null test)."
+    },
+    "registration_verified": true,
+    "enabled_for_map_update": true,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404RAD_F0043406FHAZ00307M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          -0.0024532081631420954,
+          0.9998382574292932,
+          -0.017816867021520875
+        ],
+        [
+          -0.9933878479060416,
+          -0.004481649062298532,
+          -0.11471921571509093
+        ],
+        [
+          -0.11478050967961181,
+          0.017417629070475213,
+          0.9932381692198764
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402378404XYZ_F0043406FHAZ00307M1.LBL",
+      "source_label_sha256": "60ca289977fda4bd251a02d706b1a9f0bca8ecc95cb9580f81303f7f1ac5c7e3",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 38999,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.06401981444968043,
+        "p95_error_px": 0.25112462333466884,
+        "accepted": true
+      }
+    },
+    "registration_status": "Image-correlation registration: residual <= 0.50 m, planner bound 1.00 m; empirical tolerance, not a confidence interval."
+  },
+  {
+    "id": "FLA_402380707XYZ_F0043416FHAZ00304M1",
+    "number": 69,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 55,
+    "acquired_at": "2012-10-01T16:28:03.695Z",
+    "site": 4,
+    "drive": 3416,
+    "pose": 4,
+    "sequence": "hazcam",
+    "sequence_index": 4,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402380707RAD_F0043416FHAZ00304M1",
+    "products": [
+      {
+        "product_id": "FLA_402380707RAD_F0043416FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707RAD_F0043416FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707RAD_F0043416FHAZ00304M1.IMG",
+        "image_sha256": "e61fda88b8f949c88ad85305dea6073df0faa446767fa1fd5487e67996d4c302",
+        "label_sha256": "17e1f8e85c98b5ee9793ebb49fd2dc9daab3144f799eefbb887dd11d47232a7a",
+        "layout": {
+          "filename": "FLA_402380707RAD_F0043416FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402380707XYZ_F0043416FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707XYZ_F0043416FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707XYZ_F0043416FHAZ00304M1.IMG",
+        "image_sha256": "bfe26f682c89624556e4ba2d068519acb798486b72298cb4ff1b99e7186d7b2e",
+        "label_sha256": "dc53f78b9e8aadc58c443e92934e26714c1caf846f43a2540e4d1213705a6659",
+        "layout": {
+          "filename": "FLA_402380707XYZ_F0043416FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402380707XYE_F0043416FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707XYE_F0043416FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707XYE_F0043416FHAZ00304M1.IMG",
+        "image_sha256": "e572bc7f0f7ba4d7529475a0a2fe6129f827a37c76b23c958bd3f9270dcd2abb",
+        "label_sha256": "b55426da103bc4a86d2be088b388783fdfec9644e3f32bc4f88b07edcf36a1bd",
+        "layout": {
+          "filename": "FLA_402380707XYE_F0043416FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.5828704833984375,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 572.0,
+      "dn_high": 7204.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3416",
+        "pose": "-1",
+        "landing_x": "-35.310",
+        "landing_y": "394.984",
+        "landing_z": "16.000",
+        "northing": "-272074.578",
+        "easting": "8147206.207",
+        "planetocentric_latitude": "-4.590062697",
+        "planetodetic_latitude": "-4.644340733",
+        "longitude": "137.448296616",
+        "elevation": "-4517.000",
+        "map_pixel_line": "2242.31",
+        "map_pixel_sample": "24672.83",
+        "dem_pixel_line": "561.50",
+        "dem_pixel_sample": "6168.71",
+        "roll": "5.373",
+        "pitch": "-1.328",
+        "yaw": "0.194",
+        "quat_s": "0.998831330",
+        "quat_v1": "0.046891306",
+        "quat_v2": "-0.011495981",
+        "quat_v3": "0.002237778",
+        "sclk": "402378609",
+        "sol": "55"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272074.578,
+        8147206.207,
+        4517.0
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999989,
+          3.5524381884727138e-09,
+          4.5757372339034635e-08
+        ],
+        [
+          -3.5524390577039523e-09,
+          0.9999999999999999,
+          1.9001344090807864e-08
+        ],
+        [
+          -4.575737227346119e-08,
+          -1.9001344264143485e-08,
+          0.9999999999999988
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.8546518145,
+        8146878.584999742,
+        4502.78020637519
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402380707XYZ_F0043416FHAZ00304M1/reference.png",
+    "display_path": "pds/FLA_402380707XYZ_F0043416FHAZ00304M1/display.png",
+    "xyz_path": "pds/FLA_402380707XYZ_F0043416FHAZ00304M1/xyz.npy",
+    "xye_path": "pds/FLA_402380707XYZ_F0043416FHAZ00304M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402380707XYZ_F0043416FHAZ00304M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707RAD_F0043416FHAZ00304M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          0.9997256684645128,
+          -0.005548456578221421,
+          -0.02275527285669116
+        ],
+        [
+          0.0033922055862516676,
+          0.9955923936803474,
+          -0.0937244823250408
+        ],
+        [
+          0.023175002792739357,
+          0.09362158018019068,
+          0.9953380927956694
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        3.27665,
+        327.622,
+        14.2198
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00055/FLA_402380707XYZ_F0043416FHAZ00304M1.LBL",
+      "source_label_sha256": "dc53f78b9e8aadc58c443e92934e26714c1caf846f43a2540e4d1213705a6659",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 38199,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.061722957941350826,
+        "p95_error_px": 0.2485196759140549,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402468252XYZ_F0043474FHAZ00308M1",
+    "number": 70,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 56,
+    "acquired_at": "2012-10-02T16:47:09.497Z",
+    "site": 4,
+    "drive": 3474,
+    "pose": 4,
+    "sequence": "hazcam",
+    "sequence_index": 5,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402468252RAD_F0043474FHAZ00308M1",
+    "products": [
+      {
+        "product_id": "FLA_402468252RAD_F0043474FHAZ00308M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252RAD_F0043474FHAZ00308M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252RAD_F0043474FHAZ00308M1.IMG",
+        "image_sha256": "d9e57b36911a457ac0419d74e12776111911209c21d34fc111d77be5a883fcd3",
+        "label_sha256": "013e549f3e9f3bd1248de86fc8085f3afdd768253bfe8f9bdad337f6645d7241",
+        "layout": {
+          "filename": "FLA_402468252RAD_F0043474FHAZ00308M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402468252XYZ_F0043474FHAZ00308M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252XYZ_F0043474FHAZ00308M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252XYZ_F0043474FHAZ00308M1.IMG",
+        "image_sha256": "9c09d3747e85f94fe792699ad471d89dfdd0a0dddd5a32150a1707188dd5c2e6",
+        "label_sha256": "43645c963b29bff2f3ad187528658db6323b677e23306ffa3527f39c9ccb338b",
+        "layout": {
+          "filename": "FLA_402468252XYZ_F0043474FHAZ00308M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402468252XYE_F0043474FHAZ00308M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252XYE_F0043474FHAZ00308M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252XYE_F0043474FHAZ00308M1.IMG",
+        "image_sha256": "2b5ce4c65441e7a2c216651db237f82359fb9221b384d5b4ec570ce1de6335d8",
+        "label_sha256": "58ecd53d273bc9fee9b15f1f529bea58772ba7b6c49e780964fb77b417d3beaa",
+        "layout": {
+          "filename": "FLA_402468252XYE_F0043474FHAZ00308M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.6768341064453125,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 721.0,
+      "dn_high": 8416.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3474",
+        "pose": "-1",
+        "landing_x": "-32.582",
+        "landing_y": "398.201",
+        "landing_z": "16.000",
+        "northing": "-272071.850",
+        "easting": "8147209.424",
+        "planetocentric_latitude": "-4.590016674",
+        "planetodetic_latitude": "-4.644294170",
+        "longitude": "137.448350889",
+        "elevation": "-4517.000",
+        "map_pixel_line": "2231.40",
+        "map_pixel_sample": "24685.70",
+        "dem_pixel_line": "558.77",
+        "dem_pixel_sample": "6171.93",
+        "roll": "-0.526",
+        "pitch": "1.359",
+        "yaw": "-77.482",
+        "quat_s": "0.779954850",
+        "quat_v1": "0.003842654",
+        "quat_v2": "0.012117770",
+        "quat_v3": "-0.625706700",
+        "sclk": "402464170",
+        "sol": "56"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        6.07327,
+        330.8,
+        14.4297
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272071.85,
+        8147209.424,
+        4517.0
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999595,
+          -2.799332990839404e-07,
+          -5.0473191343969144e-08
+        ],
+        [
+          2.799333002352749e-07,
+          0.9999999999999605,
+          2.2879289837575975e-08
+        ],
+        [
+          5.0473184939603574e-08,
+          -2.2879303965977383e-08,
+          0.9999999999999984
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.92317666975,
+        8146878.62399797,
+        4502.570307261936
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402468252XYZ_F0043474FHAZ00308M1/reference.png",
+    "display_path": "pds/FLA_402468252XYZ_F0043474FHAZ00308M1/display.png",
+    "xyz_path": "pds/FLA_402468252XYZ_F0043474FHAZ00308M1/xyz.npy",
+    "xye_path": "pds/FLA_402468252XYZ_F0043474FHAZ00308M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402468252XYZ_F0043474FHAZ00308M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252RAD_F0043474FHAZ00308M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          0.2166883342801018,
+          0.976139092110665,
+          0.014093922104275722
+        ],
+        [
+          -0.9759528343767121,
+          0.2169524843416858,
+          -0.02115855878911694
+        ],
+        [
+          -0.023711407781419558,
+          -0.009170190365371127,
+          0.9996767861412438
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        6.07327,
+        330.8,
+        14.4297
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00056/FLA_402468252XYZ_F0043474FHAZ00308M1.LBL",
+      "source_label_sha256": "43645c963b29bff2f3ad187528658db6323b677e23306ffa3527f39c9ccb338b",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 44357,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.0426899618241347,
+        "p95_error_px": 0.1722188588191903,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402556211XYZ_F0043492FHAZ00310M1",
+    "number": 71,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 57,
+    "acquired_at": "2012-10-03T17:13:08.822Z",
+    "site": 4,
+    "drive": 3492,
+    "pose": 4,
+    "sequence": "hazcam",
+    "sequence_index": 6,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402556211RAD_F0043492FHAZ00310M1",
+    "products": [
+      {
+        "product_id": "FLA_402556211RAD_F0043492FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211RAD_F0043492FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211RAD_F0043492FHAZ00310M1.IMG",
+        "image_sha256": "c0d95c959372935a165ba364a3b800e17bb290673ee6bd1d39124cf341f79a46",
+        "label_sha256": "205b955e1cd50aaffd76cc99de0b0404dfe29865baf5338f1acedd2c083b486d",
+        "layout": {
+          "filename": "FLA_402556211RAD_F0043492FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556211XYZ_F0043492FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211XYZ_F0043492FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211XYZ_F0043492FHAZ00310M1.IMG",
+        "image_sha256": "44ca442526f8f44ad5b31ca204e70d1151a3a8880ae60f866bb017fd6cd0ae41",
+        "label_sha256": "90bd9a83fff66c82678fc389b4f9bae6333d01932adc231aa9f9df51b7a3ada1",
+        "layout": {
+          "filename": "FLA_402556211XYZ_F0043492FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556211XYE_F0043492FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211XYE_F0043492FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211XYE_F0043492FHAZ00310M1.IMG",
+        "image_sha256": "ad3f2353c9c6426703dc254ef92896730b2ed4539629aaaf6b3c6aca6716c1bf",
+        "label_sha256": "cc0320a8b40fe5b75a965c523e1c685af511210ef4500e3a1a5aab47d30aca9a",
+        "layout": {
+          "filename": "FLA_402556211XYE_F0043492FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.666961669921875,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 724.0,
+      "dn_high": 7954.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3492",
+        "pose": "-1",
+        "landing_x": "-32.881",
+        "landing_y": "396.890",
+        "landing_z": "16.002",
+        "northing": "-272072.149",
+        "easting": "8147208.113",
+        "planetocentric_latitude": "-4.590021725",
+        "planetodetic_latitude": "-4.644299280",
+        "longitude": "137.448328771",
+        "elevation": "-4517.002",
+        "map_pixel_line": "2232.60",
+        "map_pixel_sample": "24680.45",
+        "dem_pixel_line": "559.07",
+        "dem_pixel_sample": "6170.62",
+        "roll": "-1.544",
+        "pitch": "3.205",
+        "yaw": "-108.888",
+        "quat_s": "0.581522100",
+        "quat_v1": "0.014914696",
+        "quat_v2": "0.027217517",
+        "quat_v3": "-0.812938400",
+        "sclk": "402556155",
+        "sol": "57"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272072.149,
+        8147208.113,
+        4517.002
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.999999999999954,
+          3.0190526505486313e-07,
+          3.276352365747091e-08
+        ],
+        [
+          -3.0190526494865346e-07,
+          0.9999999999999545,
+          1.7692196638592915e-09
+        ],
+        [
+          -3.276352310237976e-08,
+          -1.7692295472746892e-09,
+          0.9999999999999996
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.82128999685,
+        8146878.456001687,
+        4502.60450076908
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402556211XYZ_F0043492FHAZ00310M1/reference.png",
+    "display_path": "pds/FLA_402556211XYZ_F0043492FHAZ00310M1/display.png",
+    "xyz_path": "pds/FLA_402556211XYZ_F0043492FHAZ00310M1/xyz.npy",
+    "xye_path": "pds/FLA_402556211XYZ_F0043492FHAZ00310M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402556211XYZ_F0043492FHAZ00310M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211RAD_F0043492FHAZ00310M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          -0.32321893569218196,
+          0.9462952367931629,
+          0.007405702707032672
+        ],
+        [
+          -0.9446714722170454,
+          -0.3221822468739495,
+          -0.06159877741102923
+        ],
+        [
+          -0.055904643718506966,
+          -0.0269058473537868,
+          0.9980735174268885
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556211XYZ_F0043492FHAZ00310M1.LBL",
+      "source_label_sha256": "90bd9a83fff66c82678fc389b4f9bae6333d01932adc231aa9f9df51b7a3ada1",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 43710,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.038683147215747817,
+        "p95_error_px": 0.16032616729528593,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402556301XYZ_F0043496FHAZ00310M1",
+    "number": 72,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 57,
+    "acquired_at": "2012-10-03T17:14:38.973Z",
+    "site": 4,
+    "drive": 3496,
+    "pose": 2,
+    "sequence": "hazcam",
+    "sequence_index": 7,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402556301RAD_F0043496FHAZ00310M1",
+    "products": [
+      {
+        "product_id": "FLA_402556301RAD_F0043496FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301RAD_F0043496FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301RAD_F0043496FHAZ00310M1.IMG",
+        "image_sha256": "379b5bf6cff4f91699acf6fb9fb77b88c9eb1ed39523620892828e0b4156383c",
+        "label_sha256": "c0807012cdddf21fc5568fbb4575b1e2b5da3f5ecf46cf2675567906e71d6f35",
+        "layout": {
+          "filename": "FLA_402556301RAD_F0043496FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556301XYZ_F0043496FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301XYZ_F0043496FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301XYZ_F0043496FHAZ00310M1.IMG",
+        "image_sha256": "80820dc1351d3117c96993363b6daefb33fb91c33a583e1f30f54798d7af78f9",
+        "label_sha256": "288b237ba49ea1f0fe132f5a4449b70a8c2901f64088d46358390d0868b3a224",
+        "layout": {
+          "filename": "FLA_402556301XYZ_F0043496FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556301XYE_F0043496FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301XYE_F0043496FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301XYE_F0043496FHAZ00310M1.IMG",
+        "image_sha256": "2963dd2637d1fd40808350d9799edff4a7a6a0020245d86a3405a49bf451c1c4",
+        "label_sha256": "13fe4c97b11b5b6fda9f3ecb2a6514099d5f459ecb54216216c1063ca779d6b2",
+        "layout": {
+          "filename": "FLA_402556301XYE_F0043496FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.670318603515625,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 721.0,
+      "dn_high": 7993.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3496",
+        "pose": "-1",
+        "landing_x": "-32.881",
+        "landing_y": "396.890",
+        "landing_z": "16.002",
+        "northing": "-272072.149",
+        "easting": "8147208.113",
+        "planetocentric_latitude": "-4.590021726",
+        "planetodetic_latitude": "-4.644299281",
+        "longitude": "137.448328774",
+        "elevation": "-4517.002",
+        "map_pixel_line": "2232.60",
+        "map_pixel_sample": "24680.45",
+        "dem_pixel_line": "559.07",
+        "dem_pixel_sample": "6170.62",
+        "roll": "-1.391",
+        "pitch": "2.937",
+        "yaw": "-108.874",
+        "quat_s": "0.581614000",
+        "quat_v1": "0.013789000",
+        "quat_v2": "0.024780000",
+        "quat_v3": "-0.812971000",
+        "sclk": "402556294",
+        "sol": "57"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272072.149,
+        8147208.113,
+        4517.002
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999546,
+          -6.075078630211824e-09,
+          3.026967403618121e-07
+        ],
+        [
+          6.075310896070514e-09,
+          0.9999999999997063,
+          -7.666989355227964e-07
+        ],
+        [
+          -3.026967356921303e-07,
+          7.666989373752764e-07,
+          0.9999999999996604
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.82119235536,
+        8146878.456011004,
+        4502.604248969287
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402556301XYZ_F0043496FHAZ00310M1/reference.png",
+    "display_path": "pds/FLA_402556301XYZ_F0043496FHAZ00310M1/display.png",
+    "xyz_path": "pds/FLA_402556301XYZ_F0043496FHAZ00310M1/xyz.npy",
+    "xye_path": "pds/FLA_402556301XYZ_F0043496FHAZ00310M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402556301XYZ_F0043496FHAZ00310M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301RAD_F0043496FHAZ00310M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          -0.3230706206986602,
+          0.9463531888883485,
+          0.006404367434540668
+        ],
+        [
+          -0.9449864563500192,
+          -0.32222283179692135,
+          -0.056329778836833995
+        ],
+        [
+          -0.05124423242098757,
+          -0.024250537099764248,
+          0.9983916766950518
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556301XYZ_F0043496FHAZ00310M1.LBL",
+      "source_label_sha256": "288b237ba49ea1f0fe132f5a4449b70a8c2901f64088d46358390d0868b3a224",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 43930,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.03872577600918867,
+        "p95_error_px": 0.16216356534836998,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402556325XYZ_F0043500FHAZ00310M1",
+    "number": 73,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 57,
+    "acquired_at": "2012-10-03T17:15:03.553Z",
+    "site": 4,
+    "drive": 3500,
+    "pose": 2,
+    "sequence": "hazcam",
+    "sequence_index": 8,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402556325RAD_F0043500FHAZ00310M1",
+    "products": [
+      {
+        "product_id": "FLA_402556325RAD_F0043500FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325RAD_F0043500FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325RAD_F0043500FHAZ00310M1.IMG",
+        "image_sha256": "9c3831b2899e6058f80e7886f96aba90bc953f55719bb65293c75fb5b06bedc4",
+        "label_sha256": "76d21284237baf282f499e64b7fc0495476d4a353f976b9b9e29255acc4df6ae",
+        "layout": {
+          "filename": "FLA_402556325RAD_F0043500FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556325XYZ_F0043500FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325XYZ_F0043500FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325XYZ_F0043500FHAZ00310M1.IMG",
+        "image_sha256": "7bd68ec9bff2adc9d49de5513c7ee5162c52e1de03f1a3230f0950c020f28043",
+        "label_sha256": "275a1a0bd624b0349918628a128a3c12a621e0441237743039b6072251a4655c",
+        "layout": {
+          "filename": "FLA_402556325XYZ_F0043500FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556325XYE_F0043500FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325XYE_F0043500FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325XYE_F0043500FHAZ00310M1.IMG",
+        "image_sha256": "f0d3f1574f6f0c857d13e0132cc0f8ce32fcd6825f351e23cbb49f1f8889c6ae",
+        "label_sha256": "15e515674d82113d8fb8ffc9a47233aed492ae93970511f93fd9a04a6439c1a3",
+        "layout": {
+          "filename": "FLA_402556325XYE_F0043500FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.673095703125,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 724.0,
+      "dn_high": 7999.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3500",
+        "pose": "-1",
+        "landing_x": "-32.881",
+        "landing_y": "396.890",
+        "landing_z": "16.002",
+        "northing": "-272072.149",
+        "easting": "8147208.113",
+        "planetocentric_latitude": "-4.590021726",
+        "planetodetic_latitude": "-4.644299281",
+        "longitude": "137.448328774",
+        "elevation": "-4517.002",
+        "map_pixel_line": "2232.60",
+        "map_pixel_sample": "24680.45",
+        "dem_pixel_line": "559.07",
+        "dem_pixel_sample": "6170.62",
+        "roll": "-1.304",
+        "pitch": "2.778",
+        "yaw": "-108.829",
+        "quat_s": "0.581931000",
+        "quat_v1": "0.013094000",
+        "quat_v2": "0.023354000",
+        "quat_v3": "-0.812797000",
+        "sclk": "402556324",
+        "sol": "57"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272072.149,
+        8147208.113,
+        4517.002
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999472,
+          9.341566458507093e-09,
+          -3.251189599188897e-07
+        ],
+        [
+          -9.341642217455475e-09,
+          0.9999999999999729,
+          -2.3277251219073093e-07
+        ],
+        [
+          3.2511895774084494e-07,
+          2.3277251523814117e-07,
+          0.99999999999992
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.8211883986,
+        8146878.456003404,
+        4502.604421420776
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402556325XYZ_F0043500FHAZ00310M1/reference.png",
+    "display_path": "pds/FLA_402556325XYZ_F0043500FHAZ00310M1/display.png",
+    "xyz_path": "pds/FLA_402556325XYZ_F0043500FHAZ00310M1/xyz.npy",
+    "xye_path": "pds/FLA_402556325XYZ_F0043500FHAZ00310M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402556325XYZ_F0043500FHAZ00310M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325RAD_F0043500FHAZ00310M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          -0.32236939448618585,
+          0.9465955921122242,
+          0.005895633326237264
+        ],
+        [
+          -0.945372421090706,
+          -0.3216214706837488,
+          -0.05320352466067881
+        ],
+        [
+          -0.048466059667636036,
+          -0.022724757180881856,
+          0.9985662854670004
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556325XYZ_F0043500FHAZ00310M1.LBL",
+      "source_label_sha256": "275a1a0bd624b0349918628a128a3c12a621e0441237743039b6072251a4655c",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 44112,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.038775558090293205,
+        "p95_error_px": 0.16268672240565174,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402556346XYZ_F0043504FHAZ00310M1",
+    "number": 74,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 57,
+    "acquired_at": "2012-10-03T17:15:24.474Z",
+    "site": 4,
+    "drive": 3504,
+    "pose": 2,
+    "sequence": "hazcam",
+    "sequence_index": 9,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402556346RAD_F0043504FHAZ00310M1",
+    "products": [
+      {
+        "product_id": "FLA_402556346RAD_F0043504FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346RAD_F0043504FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346RAD_F0043504FHAZ00310M1.IMG",
+        "image_sha256": "bb65420ed23d1ab409ad9ccc52c76133fb8fdf353737c01d3cb0eaf22457378d",
+        "label_sha256": "e91e8d7d28f87d052c79c6944fd7f6085f7dacef332528f572e1b1cddc994096",
+        "layout": {
+          "filename": "FLA_402556346RAD_F0043504FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556346XYZ_F0043504FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346XYZ_F0043504FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346XYZ_F0043504FHAZ00310M1.IMG",
+        "image_sha256": "ace355897ab06807d8b6d807e07842f8f47a3908bf5f5935377129ccb9b60ef8",
+        "label_sha256": "1bf1a9b0e15431c2fd86e3ea7be69d96a9f74c15f109dc7f8444ed8fd0b0acd9",
+        "layout": {
+          "filename": "FLA_402556346XYZ_F0043504FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402556346XYE_F0043504FHAZ00310M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346XYE_F0043504FHAZ00310M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346XYE_F0043504FHAZ00310M1.IMG",
+        "image_sha256": "b593f8ff70fdcc4ba117f9f5c915e36921d1f16498c1bbf5d0de8c13d0869403",
+        "label_sha256": "1c275dfb2ec2a2c2b82d1db770f8cc4a6ef7af8119dea73d71bca3a093d2817b",
+        "layout": {
+          "filename": "FLA_402556346XYE_F0043504FHAZ00310M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.6752471923828125,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 723.0,
+      "dn_high": 8005.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3504",
+        "pose": "-1",
+        "landing_x": "-32.881",
+        "landing_y": "396.890",
+        "landing_z": "16.002",
+        "northing": "-272072.149",
+        "easting": "8147208.113",
+        "planetocentric_latitude": "-4.590021725",
+        "planetodetic_latitude": "-4.644299280",
+        "longitude": "137.448328771",
+        "elevation": "-4517.002",
+        "map_pixel_line": "2232.60",
+        "map_pixel_sample": "24680.45",
+        "dem_pixel_line": "559.07",
+        "dem_pixel_sample": "6170.62",
+        "roll": "-1.251",
+        "pitch": "2.685",
+        "yaw": "-108.797",
+        "quat_s": "0.582160800",
+        "quat_v1": "0.012699440",
+        "quat_v2": "0.022511244",
+        "quat_v3": "-0.812662800",
+        "sclk": "402556346",
+        "sol": "57"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272072.149,
+        8147208.113,
+        4517.002
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999962,
+          9.288411727187771e-08,
+          -9.858154843056626e-09
+        ],
+        [
+          -9.288411840232594e-08,
+          0.9999999999999873,
+          -1.3217141954219252e-07
+        ],
+        [
+          9.858142588200749e-09,
+          1.321714204782895e-07,
+          0.9999999999999912
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.8212204779,
+        8146878.45600243,
+        4502.604456372849
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402556346XYZ_F0043504FHAZ00310M1/reference.png",
+    "display_path": "pds/FLA_402556346XYZ_F0043504FHAZ00310M1/display.png",
+    "xyz_path": "pds/FLA_402556346XYZ_F0043504FHAZ00310M1/xyz.npy",
+    "xye_path": "pds/FLA_402556346XYZ_F0043504FHAZ00310M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402556346XYZ_F0043504FHAZ00310M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346RAD_F0043504FHAZ00310M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          -0.32185500456057436,
+          0.9467725890654836,
+          0.005569617002440564
+        ],
+        [
+          -0.945629074830337,
+          -0.32116404625215855,
+          -0.051374198100432734
+        ],
+        [
+          -0.04685092181413111,
+          -0.021801834537087804,
+          0.9986639430438968
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        5.67219,
+        329.657,
+        14.3975
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00057/FLA_402556346XYZ_F0043504FHAZ00310M1.LBL",
+      "source_label_sha256": "1bf1a9b0e15431c2fd86e3ea7be69d96a9f74c15f109dc7f8444ed8fd0b0acd9",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 44253,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.03878253998090298,
+        "p95_error_px": 0.16056107901564037,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_401936576XYZ_F0042956FHAZ00305M1",
+    "number": 75,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 50,
+    "acquired_at": "2012-09-26T13:05:48.387Z",
+    "site": 4,
+    "drive": 2956,
+    "pose": 4,
+    "sequence": "hazcam",
+    "sequence_index": 1,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_401936576RAD_F0042956FHAZ00305M1",
+    "products": [
+      {
+        "product_id": "FLA_401936576RAD_F0042956FHAZ00305M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576RAD_F0042956FHAZ00305M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576RAD_F0042956FHAZ00305M1.IMG",
+        "image_sha256": "8fb19d9d82295f8dcce13627f88ca098da07d11aff6f2fa5587ce8ae83b339eb",
+        "label_sha256": "dddd04b7f85213d3f53260b2c5f567260c5ea2e652d372f192a3549fa0f43cec",
+        "layout": {
+          "filename": "FLA_401936576RAD_F0042956FHAZ00305M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_401936576XYZ_F0042956FHAZ00305M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576XYZ_F0042956FHAZ00305M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576XYZ_F0042956FHAZ00305M1.IMG",
+        "image_sha256": "d65490f2e597b0c11ae8f2a07af1b36fdc87a41b56c12f5bad7c1893215978a4",
+        "label_sha256": "1e484dc47803adcd7157942c73bdf8f9e0b456a95b6b90550987878f0d12f6ec",
+        "layout": {
+          "filename": "FLA_401936576XYZ_F0042956FHAZ00305M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_401936576XYE_F0042956FHAZ00305M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576XYE_F0042956FHAZ00305M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576XYE_F0042956FHAZ00305M1.IMG",
+        "image_sha256": "39fdc44c5a00233012c6a215940c12596009ea2b6226907b5e20846e6bc3a533",
+        "label_sha256": "758f7a147cfa7e3cc0d2b725a56ee332d171af460bc11babc980503c7954a4cd",
+        "layout": {
+          "filename": "FLA_401936576XYE_F0042956FHAZ00305M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.56622314453125,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 504.0,
+      "dn_high": 5355.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "2956",
+        "pose": "-1",
+        "landing_x": "-42.011",
+        "landing_y": "336.175",
+        "landing_z": "13.900",
+        "northing": "-272081.279",
+        "easting": "8147147.398",
+        "planetocentric_latitude": "-4.590175747",
+        "planetodetic_latitude": "-4.644455108",
+        "longitude": "137.447304472",
+        "elevation": "-4514.900",
+        "map_pixel_line": "2269.12",
+        "map_pixel_sample": "24437.59",
+        "dem_pixel_line": "568.20",
+        "dem_pixel_sample": "6109.91",
+        "roll": "1.111",
+        "pitch": "-3.697",
+        "yaw": "45.225",
+        "quat_s": "0.922483560",
+        "quat_v1": "0.021349296",
+        "quat_v2": "-0.026046474",
+        "quat_v3": "0.384564500",
+        "sclk": "401934397",
+        "sol": "50"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        -3.79179,
+        270.01,
+        11.9266
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272081.279,
+        8147147.398,
+        4514.9
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999992039,
+          -1.2618018605002842e-06,
+          6.22414039322426e-10
+        ],
+        [
+          1.2618018605799822e-06,
+          0.9999999999992035,
+          3.463630952053689e-08
+        ],
+        [
+          -6.22457744335295e-10,
+          -3.4636308742551267e-08,
+          0.9999999999999994
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.4868693083,
+        8146877.388004372,
+        4502.973409349789
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_401936576XYZ_F0042956FHAZ00305M1/reference.png",
+    "display_path": "pds/FLA_401936576XYZ_F0042956FHAZ00305M1/display.png",
+    "xyz_path": "pds/FLA_401936576XYZ_F0042956FHAZ00305M1/xyz.npy",
+    "xye_path": "pds/FLA_401936576XYZ_F0042956FHAZ00305M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_401936576XYZ_F0042956FHAZ00305M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576RAD_F0042956FHAZ00305M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          0.7028643422375913,
+          -0.7106201294621438,
+          -0.03163460153256348
+        ],
+        [
+          0.7083958322112561,
+          0.7033095971571655,
+          -0.059421843225766484
+        ],
+        [
+          0.06447527678606806,
+          0.01935567487409185,
+          0.9977315753916624
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        -3.79179,
+        270.01,
+        11.9266
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00050/FLA_401936576XYZ_F0042956FHAZ00305M1.LBL",
+      "source_label_sha256": "1e484dc47803adcd7157942c73bdf8f9e0b456a95b6b90550987878f0d12f6ec",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 37108,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.06707772938062045,
+        "p95_error_px": 0.25651172420362206,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402116846XYZ_F0043200FHAZ00304M1",
+    "number": 76,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 52,
+    "acquired_at": "2012-09-28T15:10:19.974Z",
+    "site": 4,
+    "drive": 3200,
+    "pose": 8,
+    "sequence": "hazcam",
+    "sequence_index": 2,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402116846RAD_F0043200FHAZ00304M1",
+    "products": [
+      {
+        "product_id": "FLA_402116846RAD_F0043200FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846RAD_F0043200FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846RAD_F0043200FHAZ00304M1.IMG",
+        "image_sha256": "082150590c5932fa009ff543bfc832249172f60308a83c0bf84125a23d66fbb0",
+        "label_sha256": "ff5fcadb8ff362723347f7fb890f9c57e4820355694e1bbc73ac91ccab9d9603",
+        "layout": {
+          "filename": "FLA_402116846RAD_F0043200FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 49152,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402116846XYZ_F0043200FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846XYZ_F0043200FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846XYZ_F0043200FHAZ00304M1.IMG",
+        "image_sha256": "e6c21c53e6dede41b3d1eb211aabdc5cc0b7710df9bea20cac9b8f139243edbd",
+        "label_sha256": "2616883e2c2d90e6fdbda731950e505026ae23c3cf58edc87c83377e163b24d9",
+        "layout": {
+          "filename": "FLA_402116846XYZ_F0043200FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402116846XYE_F0043200FHAZ00304M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846XYE_F0043200FHAZ00304M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846XYE_F0043200FHAZ00304M1.IMG",
+        "image_sha256": "c50f186cd26420614925717c4479139326d0ccf5ceeb4691b361d2c71f9f7cb6",
+        "label_sha256": "12d6916df2a658a3b6a26db26a79408cb2e49947d32faeff20c24941cbc88dbb",
+        "layout": {
+          "filename": "FLA_402116846XYE_F0043200FHAZ00304M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.36663818359375,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 401.0,
+      "dn_high": 4575.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3200",
+        "pose": "-1",
+        "landing_x": "-35.261",
+        "landing_y": "371.490",
+        "landing_z": "15.500",
+        "northing": "-272074.529",
+        "easting": "8147182.713",
+        "planetocentric_latitude": "-4.590061871",
+        "planetodetic_latitude": "-4.644339896",
+        "longitude": "137.447900258",
+        "elevation": "-4516.500",
+        "map_pixel_line": "2242.12",
+        "map_pixel_sample": "24578.85",
+        "dem_pixel_line": "561.45",
+        "dem_pixel_sample": "6145.22",
+        "roll": "-2.536",
+        "pitch": "0.787",
+        "yaw": "99.750",
+        "quat_s": "0.644169000",
+        "quat_v1": "-0.019509941",
+        "quat_v2": "-0.012492931",
+        "quat_v3": "0.764532300",
+        "sclk": "402111344",
+        "sol": "52"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        3.31742,
+        305.345,
+        12.6964
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272074.529,
+        8147182.713,
+        4516.5
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.999999999999921,
+          -3.866866656052934e-07,
+          -9.092418097148756e-08
+        ],
+        [
+          3.8668666680335517e-07,
+          0.9999999999999248,
+          1.2916598760590178e-08
+        ],
+        [
+          9.092417596445669e-08,
+          -1.2916633919313185e-08,
+          0.9999999999999958
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272077.84630077274,
+        8146877.367998553,
+        4503.803603642396
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402116846XYZ_F0043200FHAZ00304M1/reference.png",
+    "display_path": "pds/FLA_402116846XYZ_F0043200FHAZ00304M1/display.png",
+    "xyz_path": "pds/FLA_402116846XYZ_F0043200FHAZ00304M1/xyz.npy",
+    "xye_path": "pds/FLA_402116846XYZ_F0043200FHAZ00304M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402116846XYZ_F0043200FHAZ00304M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846RAD_F0043200FHAZ00304M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          -0.16933098452330708,
+          -0.9844885626376195,
+          -0.04592698244040378
+        ],
+        [
+          0.9854635039578102,
+          -0.16978011200339793,
+          0.006032904384145117
+        ],
+        [
+          -0.013736813588387069,
+          -0.04423780740302687,
+          0.9989265820612697
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        3.31742,
+        305.345,
+        12.6964
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00052/FLA_402116846XYZ_F0043200FHAZ00304M1.LBL",
+      "source_label_sha256": "2616883e2c2d90e6fdbda731950e505026ae23c3cf58edc87c83377e163b24d9",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 24028,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.08384688970607614,
+        "p95_error_px": 0.2974750390202163,
+        "accepted": true
+      }
+    }
+  },
+  {
+    "id": "FLA_402204165XYZ_F0043232FHAZ00302M1",
+    "number": 77,
+    "mission": "MSL",
+    "instrument": "FRONT_HAZCAM_LEFT_A",
+    "sol": 53,
+    "acquired_at": "2012-09-29T15:25:39.745Z",
+    "site": 4,
+    "drive": 3232,
+    "pose": 4,
+    "sequence": "hazcam",
+    "sequence_index": 3,
+    "instrument_azimuth_deg": 1.03995,
+    "instrument_elevation_deg": -43.4728,
+    "native_shape": [
+      1024,
+      1024
+    ],
+    "shape": [
+      256,
+      256
+    ],
+    "grid_sampling": "block-centre every 4 px",
+    "reference_image_product_id": "FLA_402204165RAD_F0043232FHAZ00302M1",
+    "products": [
+      {
+        "product_id": "FLA_402204165RAD_F0043232FHAZ00302M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165RAD_F0043232FHAZ00302M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165RAD_F0043232FHAZ00302M1.IMG",
+        "image_sha256": "063defcc48322c835488f9b30a9a40e0455f4593e45c5fdd570b01209e605d51",
+        "label_sha256": "a99820ea32ac33a643890f444beca3c05cc63efc035981f802742f742f63052a",
+        "layout": {
+          "filename": "FLA_402204165RAD_F0043232FHAZ00302M1.IMG",
+          "shape_bands_lines_samples": [
+            1,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">i2",
+          "offset_bytes": 47104,
+          "record_bytes": 2048,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402204165XYZ_F0043232FHAZ00302M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165XYZ_F0043232FHAZ00302M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165XYZ_F0043232FHAZ00302M1.IMG",
+        "image_sha256": "be1881e092255a09464c5829e2abe896d01d749854b4f44699af931e20deae74",
+        "label_sha256": "75e6a2bfd7309cba4c99a622aad767fad94c27aa70a9744668af4e65769120de",
+        "layout": {
+          "filename": "FLA_402204165XYZ_F0043232FHAZ00302M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      },
+      {
+        "product_id": "FLA_402204165XYE_F0043232FHAZ00302M1",
+        "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165XYE_F0043232FHAZ00302M1.LBL",
+        "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165XYE_F0043232FHAZ00302M1.IMG",
+        "image_sha256": "3b9e9364bbae1700123bfc5ae098f90f51cd3fed6d17d371c5844c7b8d5db7c2",
+        "label_sha256": "5e58d3b984ff04c8fabd2b55e8c431ceb7661915ba4f17f53a64e6fe02250c0d",
+        "layout": {
+          "filename": "FLA_402204165XYE_F0043232FHAZ00302M1.IMG",
+          "shape_bands_lines_samples": [
+            3,
+            1024,
+            1024
+          ],
+          "dtype_on_disk": ">f4",
+          "offset_bytes": 53248,
+          "record_bytes": 4096,
+          "scaling_factor": 1.0,
+          "offset": 0.0,
+          "band_storage": "BAND_SEQUENTIAL"
+        }
+      }
+    ],
+    "valid_pixel_fraction": 0.5778350830078125,
+    "display_transform": {
+      "method": "percentile_stretch_1_99",
+      "dn_low": 428.0,
+      "dn_high": 4853.0,
+      "scientific_radiance": false
+    },
+    "frame": {
+      "name": "SITE_FRAME",
+      "index": 4,
+      "axes": [
+        "north",
+        "east",
+        "down"
+      ],
+      "units": "m"
+    },
+    "places": {
+      "view": "localized_interp_demv2",
+      "row": {
+        "frame": "ROVER",
+        "site": "4",
+        "drive": "3232",
+        "pose": "-1",
+        "landing_x": "-35.464",
+        "landing_y": "373.861",
+        "landing_z": "15.500",
+        "northing": "-272074.732",
+        "easting": "8147185.084",
+        "planetocentric_latitude": "-4.590065295",
+        "planetodetic_latitude": "-4.644343361",
+        "longitude": "137.447940258",
+        "elevation": "-4516.500",
+        "map_pixel_line": "2242.93",
+        "map_pixel_sample": "24588.34",
+        "dem_pixel_line": "561.66",
+        "dem_pixel_sample": "6147.59",
+        "roll": "-3.875",
+        "pitch": "1.946",
+        "yaw": "81.417",
+        "quat_s": "0.757119060",
+        "quat_v1": "-0.036693227",
+        "quat_v2": "-0.009178006",
+        "quat_v3": "0.652181000",
+        "sclk": "402200721",
+        "sol": "53"
+      },
+      "site_row": {
+        "frame": "SITE",
+        "site": "4",
+        "drive": "-1",
+        "pose": "-1",
+        "landing_x": "-38.781",
+        "landing_y": "74.736",
+        "landing_z": "1.837",
+        "northing": "-272078.049",
+        "easting": "8146885.959",
+        "planetocentric_latitude": "-4.590121255",
+        "planetodetic_latitude": "-4.644399977",
+        "longitude": "137.442893838",
+        "elevation": "-4502.837",
+        "map_pixel_line": "2256.20",
+        "map_pixel_sample": "23391.84",
+        "dem_pixel_line": "564.97",
+        "dem_pixel_sample": "5848.47",
+        "roll": "0.000",
+        "pitch": "-0.000",
+        "yaw": "0.000",
+        "quat_s": "1.000000000",
+        "quat_v1": "0.000000000",
+        "quat_v2": "0.000000000",
+        "quat_v3": "0.000000000",
+        "sclk": "400070892",
+        "sol": "29"
+      },
+      "telemetry_rover_origin_in_site_m": [
+        3.69422,
+        307.368,
+        12.7019
+      ],
+      "corrected_rover_origin_global_ned_m": [
+        -272074.732,
+        8147185.084,
+        4516.5
+      ],
+      "archive_site_to_global_ned_rotation": [
+        [
+          0.9999999999999961,
+          7.905088579947652e-08,
+          -2.8059461707226015e-08
+        ],
+        [
+          -7.905088464107018e-08,
+          0.9999999999999958,
+          4.169869484954905e-08
+        ],
+        [
+          2.8059464953614635e-08,
+          -4.169869265114306e-08,
+          0.9999999999999988
+        ]
+      ],
+      "archive_site_to_global_ned_translation_m": [
+        -272078.4262439413,
+        8146877.7159997625,
+        4503.798112713186
+      ],
+      "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+      "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+      "correction_note": "Corrected rover origin replaces telemetry rover anchor."
+    },
+    "region_id": "gale",
+    "image_path": "pds/FLA_402204165XYZ_F0043232FHAZ00302M1/reference.png",
+    "display_path": "pds/FLA_402204165XYZ_F0043232FHAZ00302M1/display.png",
+    "xyz_path": "pds/FLA_402204165XYZ_F0043232FHAZ00302M1/xyz.npy",
+    "xye_path": "pds/FLA_402204165XYZ_F0043232FHAZ00302M1/xye.npy",
+    "registration": {
+      "verified": false,
+      "horizontal_error_bound_m": null,
+      "method": "image_correlation_shift_search",
+      "evidence": "pds/FLA_402204165XYZ_F0043232FHAZ00302M1/registration-evidence.json",
+      "reason": "Image-correlation registration did not meet the fixed acceptance criteria."
+    },
+    "registration_verified": false,
+    "enabled_for_map_update": false,
+    "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165RAD_F0043232FHAZ00302M1.LBL",
+    "camera_model": {
+      "type": "CAHVORE",
+      "C": [
+        1.03282,
+        -0.088715,
+        -0.708463
+      ],
+      "A": [
+        0.706251,
+        -3.1e-05,
+        0.707962
+      ],
+      "H": [
+        356.482,
+        455.088,
+        358.439
+      ],
+      "V": [
+        47.9451,
+        -0.87866,
+        692.544
+      ],
+      "O": [
+        0.704987,
+        -0.000211,
+        0.709221
+      ],
+      "R": [
+        3e-06,
+        -0.014403,
+        -0.007247
+      ],
+      "E": [
+        0.002111,
+        0.002025,
+        0.002171
+      ],
+      "T": 3.0,
+      "P": 0.37,
+      "reference_frame": "ROVER_NAV_FRAME",
+      "rover_to_site_rotation": [
+        [
+          0.1491512987856456,
+          -0.9868838464616112,
+          -0.06175891566154439
+        ],
+        [
+          0.9882309288713254,
+          0.14662698832426213,
+          0.043590796242716785
+        ],
+        [
+          -0.03396352886071235,
+          -0.0675336944649955,
+          0.9971387460224561
+        ]
+      ],
+      "rover_origin_in_site_m": [
+        3.69422,
+        307.368,
+        12.7019
+      ],
+      "source_label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00053/FLA_402204165XYZ_F0043232FHAZ00302M1.LBL",
+      "source_label_sha256": "75e6a2bfd7309cba4c99a622aad767fad94c27aa70a9744668af4e65769120de",
+      "native_shape": [
+        1024,
+        1024
+      ],
+      "validation": {
+        "method": "unfitted CAHVORE reprojection of archived stereo XYZ",
+        "sample_count": 37869,
+        "finite_fraction": 1.0,
+        "median_error_px": 0.07292825299147415,
+        "p95_error_px": 0.2551465017903726,
+        "accepted": true
+      }
+    }
   }
 ]

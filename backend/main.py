@@ -37,6 +37,8 @@ SOURCES = [
  {"name":"NASA Mars Trek","url":"https://trek.nasa.gov/mars/","usage":"Challenge resource; optical, topographic and thermal tile layers"},
  {"name":"HiRISE MSL landing-site DTM","url":"https://hirise.lpl.arizona.edu/dtm/ESP_023957_1755","usage":"Numerical DEM; NASA/JPL-Caltech/University of Arizona/USGS"},
  {"name":"MSL Navcam RDR","url":"https://pds.nasa.gov/ds-view/pds/viewProfile.jsp?dsid=MSL-M-NAVCAM-5-RDR-V1.0","usage":"Archived camera reference images, XYZ and error products"},
+ {"name":"MSL Front Hazcam RDR","url":"https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/","usage":"Actual forward-facing imagery, matched stereo XYZ/XYE and per-frame CAHVORE calibration"},
+ {"name":"NASA-AMMOS VICAR camera models","url":"https://github.com/NASA-AMMOS/VICAR/blob/master/vos/p2/sub/cahvor/cmod_cahvore.c","usage":"Reference CAHVORE camera projection; Apache-2.0, Caltech/Todd Litwin"},
  {"name":"MSL PLACES","url":"https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/","usage":"Archive localization and coordinate frame transforms"},
  {"name":"AI4Mars v0.6 · CC BY 4.0","url":"https://zenodo.org/records/15995036","usage":"Surface terrain labels; Swan, Ono & Atha (2022)"},
  {"name":"HiRISE labeled landmarks v3.2 · CC BY 4.0","url":"https://zenodo.org/records/4002935","usage":"Orbital landmark training data; Wagstaff et al., NASA JPL"},
@@ -381,9 +383,21 @@ async def scenario_replay(scenario_id: str, goal_lat: float|None=None, goal_lon:
     if compute_lock.locked(): reject("queue_full","Another computation is active. Retry shortly.",429)
     async with compute_lock:
         try:
-            return await asyncio.to_thread(replay.compute,scenario_id,None,goal)
+            result=await asyncio.to_thread(replay.compute,scenario_id,None,goal)
+            result['scenario']['demo_available']=(data.DATA_DIR/'demos'/f'{scenario_id}.mp4').is_file() and goal is None
+            return result
         except ValueError as exc:
             reject(str(exc),"Pick a destination inside the scenario's 1 m planning area.")
+
+
+@app.get('/api/scenarios/{scenario_id}/demo.mp4')
+def scenario_demo(scenario_id:str):
+    if not any(s['id']==scenario_id for s in replay.scenarios()):
+        reject('unknown_scenario','Unknown scenario.',404)
+    path=data.DATA_DIR/'demos'/f'{scenario_id}.mp4'
+    if not path.is_file():
+        reject('demo_not_prepared','No exported film is available for this scenario.',404)
+    return FileResponse(path,media_type='video/mp4',filename=f'mars-pathfinder-{scenario_id}.mp4')
 
 
 @app.get("/api/nomenclature")

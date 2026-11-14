@@ -1,5 +1,89 @@
 [
   {
+    "mission": "MSL Curiosity",
+    "region_id": "gale",
+    "camera": "Front Left Hazcam A \u00b7 calibrated CAHVORE",
+    "frames": [
+      "FLA_401936576XYZ_F0042956FHAZ00305M1",
+      "FLA_402116846XYZ_F0043200FHAZ00304M1",
+      "FLA_402204165XYZ_F0043232FHAZ00302M1",
+      "FLA_402378017XYZ_F0043394FHAZ00304M1"
+    ],
+    "sols": [
+      50,
+      52,
+      53,
+      55
+    ],
+    "default_view": "navcam",
+    "image_kind": "real_archive",
+    "references": [
+      {
+        "label": "NASA PDS: calibrated Front Hazcam images, XYZ and camera models",
+        "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/"
+      },
+      {
+        "label": "NASA PDS: PLACES rover localizations",
+        "url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/"
+      },
+      {
+        "label": "JPL: original Hazcam time-lapse film and map",
+        "url": "https://www.jpl.nasa.gov/videos/rover-pov-five-years-of-curiosity-on-mars/"
+      }
+    ],
+    "note": "Real PDS images in acquisition order. This is an accelerated archive timelapse, not continuous video or a live camera. No invented frames or interpolated rover motion.",
+    "id": "hazcam-rocknest-approach",
+    "title": "Real footage \u00b7 approach to Rocknest",
+    "subtitle": "Forward-facing camera \u00b7 Sols 50\u201355 \u00b7 ~60 m of recorded motion",
+    "story": "Follow Curiosity through four real forward-facing acquisitions. The cyan route is computed from the current recorded pose to a fixed ground point in the final view. Camera and map share the same remaining route; the server re-plans if the recorded drive leaves it.",
+    "destination": {
+      "lat": -4.590062023813819,
+      "lon": 137.44834800630565
+    }
+  },
+  {
+    "mission": "MSL Curiosity",
+    "region_id": "gale",
+    "camera": "Front Left Hazcam A \u00b7 calibrated CAHVORE",
+    "frames": [
+      "FLA_401936576XYZ_F0042956FHAZ00305M1",
+      "FLA_402116846XYZ_F0043200FHAZ00304M1",
+      "FLA_402204165XYZ_F0043232FHAZ00302M1",
+      "FLA_402378017XYZ_F0043394FHAZ00304M1"
+    ],
+    "sols": [
+      50,
+      52,
+      53,
+      55
+    ],
+    "default_view": "navcam",
+    "image_kind": "real_archive",
+    "references": [
+      {
+        "label": "NASA PDS: calibrated Front Hazcam images, XYZ and camera models",
+        "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/"
+      },
+      {
+        "label": "NASA PDS: PLACES rover localizations",
+        "url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/"
+      },
+      {
+        "label": "JPL: original Hazcam time-lapse film and map",
+        "url": "https://www.jpl.nasa.gov/videos/rover-pov-five-years-of-curiosity-on-mars/"
+      }
+    ],
+    "note": "Real PDS images in acquisition order. This is an accelerated archive timelapse, not continuous video or a live camera. No invented frames or interpolated rover motion.",
+    "id": "hazcam-return-waypoint",
+    "title": "Real footage \u00b7 missed waypoint",
+    "subtitle": "Same recorded drive \u00b7 alternative nearby destination",
+    "story": "A counterfactual navigation task on the same real footage: the destination is a measured ground point in the first view. The recorded rover continues its historical drive. The planner recommends a return or U-turn when it passes the requested waypoint; the footage is never altered to pretend it followed that recommendation.",
+    "destination": {
+      "lat": -4.590145782471964,
+      "lon": 137.44733428455663
+    }
+  },
+  {
     "id": "rocknest-approach",
     "title": "Curiosity \u00b7 approach to Rocknest",
     "subtitle": "Gale Crater \u00b7 Sols 55\u201357 \u00b7 October 2012",

@@ -58,7 +58,7 @@ const typeColor:Record<string,string>={Mons:'#f0c58d',Tholus:'#f0c58d',Patera:'#
 export default function Globe(){
  const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
- const {region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep}=useMission();
+ const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep}=useMission();
  useEffect(()=>{
   if(!mount.current)return;
   C.Ellipsoid.default=MARS;
@@ -135,12 +135,12 @@ export default function Globe(){
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   if(orthoRef.current){v.imageryLayers.remove(orthoRef.current);orthoRef.current=null;}
-  const oregion=region??(mode==='replay'?useMission.getState().catalog?.regions[0]??null:null);
+  const oregion=region??(mode==='replay'?catalog?.regions[0]??null:null);
   if(oregion?.ortho_bounds&&layer==='viking'){
    const [w,s,e,n]=oregion.ortho_bounds;
    C.SingleTileImageryProvider.fromUrl(`/api/regions/${oregion.id}/ortho.png`,{rectangle:C.Rectangle.fromDegrees(w,s,e,n),ellipsoid:MARS,credit:'NASA/JPL-Caltech/USGS/UArizona · HiRISE PLACES 25cm ortho'}).then(provider=>{if(!v.isDestroyed()){orthoRef.current=v.imageryLayers.addImageryProvider(provider);v.scene.requestRender();}}).catch(()=>setStatus('REGIONAL IMAGERY UNAVAILABLE'));
   }
- },[region,layer,mode]);
+ },[region,layer,mode,catalog?.regions]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   if(riskRef.current){v.imageryLayers.remove(riskRef.current);riskRef.current=null;}
@@ -174,9 +174,18 @@ export default function Globe(){
  },[mode,replay,replayStep]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v||mode!=='replay'||!replay)return;
-  const lats=[...replay.trail.map(p=>p.lat),replay.goal.lat],lons=[...replay.trail.map(p=>p.lon),replay.goal.lon];
-  const clat=(Math.min(...lats)+Math.max(...lats))/2,clon=(Math.min(...lons)+Math.max(...lons))/2;
-  v.camera.flyTo({destination:C.Cartesian3.fromDegrees(clon,clat-.00042,-4517+60,MARS),orientation:{heading:0,pitch:C.Math.toRadians(-55),roll:0},duration:1.6});
- },[mode,replay]);
+  const fit=()=>{
+   const positions=[...replay.trail,replay.goal,...replay.steps.flatMap(s=>s.route)];
+   const lats=positions.map(p=>p.lat),lons=positions.map(p=>p.lon);
+   const clat=(Math.min(...lats)+Math.max(...lats))/2,clon=(Math.min(...lons)+Math.max(...lons))/2;
+   const span=Math.max((Math.max(...lats)-Math.min(...lats))*Math.PI/180*3396190,(Math.max(...lons)-Math.min(...lons))*Math.PI/180*3396190,18)*1.35+12;
+   const aspect=v.canvas.clientWidth/Math.max(1,v.canvas.clientHeight);
+   const height=span/(2*Math.tan(Math.PI/6)*Math.min(1,aspect));
+   const ground=catalog?.regions[0]?.display_surface_height_m??-4517;
+   v.camera.flyTo({destination:C.Cartesian3.fromDegrees(clon,clat,ground+height,MARS),orientation:{heading:0,pitch:-Math.PI/2,roll:0},duration:1.2});
+  };
+  fit();window.addEventListener('replay-fit',fit);
+  return()=>window.removeEventListener('replay-fit',fit);
+ },[mode,replay,catalog?.regions]);
  return <div className={`globe-wrap ${pick?'picking':''}`}><div className="globe-canvas" ref={mount}/><div className="globe-vignette"/><div className="globe-source"><span className="status-dot"/>{status}<span className="source-divider">/</span>{renderer}</div>{pick&&<div className="pick-prompt">Select {pick==='stop'?'a science waypoint':`the ${pick} point`} on the terrain <button onClick={()=>useMission.getState().set({pick:null})}>Cancel</button></div>}</div>;
 }
