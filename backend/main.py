@@ -354,6 +354,28 @@ scenario_local_pending={}
 scenario_local_guard=threading.Lock()
 
 
+replay_pending={}
+
+
+def _replay_once(scenario_id, goal):
+    """replay.compute with concurrent callers for the same scenario/goal sharing one computation.
+
+    Replays are read-only and cached in replay._cache, so they do not take the global compute lock:
+    a slow first computation on a free-tier CPU must never block other users' requests."""
+    key=(scenario_id,None if goal is None else (round(goal['lat'],7),round(goal['lon'],7)))
+    with scenario_local_guard:
+        event=replay_pending.get(key); owner=event is None
+        if owner: event=threading.Event(); replay_pending[key]=event
+    if not owner:
+        event.wait()
+    try:
+        return replay.compute(scenario_id,None,goal)
+    finally:
+        if owner:
+            with scenario_local_guard: replay_pending.pop(key,None)
+            event.set()
+
+
 def _scenario_local(scenario_id, goal):
     """Local stereo routes for every frame of a replay, computed once on this server and kept in memory."""
     key=(scenario_id,None if goal is None else (round(goal['lat'],7),round(goal['lon'],7)))
@@ -367,7 +389,7 @@ def _scenario_local(scenario_id, goal):
         event.wait(); return scenario_local_cache.get(key)
     try:
         began=time.perf_counter()
-        result=replay.compute(scenario_id,None,goal)
+        result=_replay_once(scenario_id,goal)
         frames={}
         for st in result['steps']:
             if st['frame_id'] in frames: continue
@@ -460,14 +482,11 @@ def list_scenarios():
 async def scenario_replay(scenario_id: str, goal_lat: float|None=None, goal_lon: float|None=None):
     if not any(s["id"]==scenario_id for s in replay.scenarios()): reject("unknown_scenario","Unknown scenario.",404)
     goal=None if goal_lat is None or goal_lon is None else {"lat":goal_lat,"lon":goal_lon}
-    if compute_lock.locked(): reject("queue_full","Another computation is active. Retry shortly.",429)
-    async with compute_lock:
-        try:
-            result=await asyncio.to_thread(replay.compute,scenario_id,None,goal)
-            result['scenario']['demo_available']=(data.DATA_DIR/'demos'/f'{scenario_id}.mp4').is_file() and goal is None
-            return result
-        except ValueError as exc:
-            reject(str(exc),"Pick a destination inside the scenario's 1 m planning area.")
+    try:
+        result=await asyncio.to_thread(_replay_once,scenario_id,goal)
+    except ValueError as exc:
+        reject(str(exc),"Pick a destination inside the scenario's 1 m planning area.")
+    return {**result,'scenario':{**result['scenario'],'demo_available':(data.DATA_DIR/'demos'/f'{scenario_id}.mp4').is_file() and goal is None}}
 
 
 @app.get('/api/scenarios/{scenario_id}/demo.mp4')

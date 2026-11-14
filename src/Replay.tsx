@@ -16,15 +16,20 @@ export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
  s.set({busy:true,error:null,archiveVideo:null});
  try{
   const q=goal?`?goal_lat=${goal.lat}&goal_lon=${goal.lon}`:'';
-  const r=await api<ReplayResult>(`/api/scenarios/${id}/replay${q}`);
+  // A busy free-tier server answers 429/502/503; retry instead of leaving the user on a spinner.
+  let r!:ReplayResult;
+  for(let attempt=0;;attempt++){
+   try{r=await api<ReplayResult>(`/api/scenarios/${id}/replay${q}`);break;}
+   catch(error){const status=(error as {status?:number}).status;if(request!==replayRequest)return;if(attempt>=8||!status||![429,502,503,504].includes(status))throw error;useMission.getState().set({busyNote:`Server is busy (free tier) · retrying ${attempt+1}/8…`});await new Promise(res=>setTimeout(res,2500+attempt*1500));}
+  }
   if(request!==replayRequest)return;
-  useMission.getState().set({replay:r,replayStep:0,busy:false,replayView:'navcam',replayImageReady:null,localBatch:null,frameId:r.steps[0]?.frame_id??s.frameId});
+  useMission.getState().set({replay:r,replayStep:0,busy:false,busyNote:null,replayView:'navcam',replayImageReady:null,localBatch:null,frameId:r.steps[0]?.frame_id??s.frameId});
   // Preload every real camera frame so playback never waits on the network.
   const seen=new Set<string>();r.steps.forEach((step,i)=>{if(seen.has(step.frame_id))return;seen.add(step.frame_id);window.setTimeout(()=>{const img=new Image();img.src=`/api/frames/${step.frame_id}/display`;},i*40);});
   // All local stereo routes for this replay, computed once on the server.
   const key=`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`;
   void fetch(`/api/scenarios/${id}/local-navigation${q}`).then(res=>res.ok?res.json():null).then(batch=>{if(batch&&request===replayRequest)useMission.getState().set({localBatch:{key,frames:batch.frames}});}).catch(()=>{});
- }catch(error){if(request===replayRequest)useMission.getState().set({busy:false,error:error instanceof Error?error.message:String(error)});}
+ }catch(error){if(request===replayRequest)useMission.getState().set({busy:false,busyNote:null,error:error instanceof Error?error.message:String(error)});}
 }
 
 /** Sidebar content for Replay mode: ready-made scenarios built from real archived drives. */
@@ -94,7 +99,7 @@ export function ReplayView(){
    <button role="tab" aria-selected={s.replayView==='3d'} className={s.replayView==='3d'?'active':''} onClick={()=>s.set({replayView:'3d'})}><Box size={14}/>3D simulation</button>
   </div>
   {!r?<div className="replay-empty"><MapPin size={22}/><p>Choose a drive replay to start.</p></div>:s.replayView==='3d'?<FirstPerson/>:<NavcamFrame/>}
-  {s.busy&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Calculating the shared route…</div>}
+  {s.busy&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>{s.busyNote??'Calculating the shared route…'}</div>}
   {st?.event&&<div className={`replay-toast ${st.event}`} role="status">{EVENT_TEXT[st.event]}<small>{(st.deviation_before_replan_m??st.deviation_m).toFixed(1)} m before update · route v{st.route_version}</small></div>}
   {r&&st&&<div className="replay-readout">{instruction&&<><small>Route guidance</small><strong className="route-instruction">{instruction}</strong></>}<span><b>{st.remaining_m.toFixed(1)} m</b> to destination</span><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span><span>{st.deviation_m.toFixed(1)} m off route</span></div>}
  </section>;
