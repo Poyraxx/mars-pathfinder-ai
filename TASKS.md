@@ -82,6 +82,11 @@ Durum (14 Kasım 2026, yalnız yerelde; GitHub/Render'a henüz gönderilmedi):
   50.00 → 51.66 m (eski rotanın 5 hücresi bloklu). Kare 3 başka konumdan aynı kayaları
   gördü ve yeni hücre eklemedi (`route.unchanged`) — kareler arası tutarlılık.
 - [x] Arayüz: kayıt sınırı, stereo engel pikseli, "FRAME PROCESSED" (409 tekrarını önler).
+- [x] GitHub'a yüklendi (commit `b3a5a14` dahil, tümü Poyraxx) ve Render'da canlı doğrulandı
+  (14 Kasım): dış istemciyle kesen 50 m görev → kare 1: 0 engel px, `route.unchanged`;
+  kare 2: 666 px, harita v1, `route.replanned`, surface 50.00 → 51.66 m; kare 3: 546 px,
+  yeni hücre yok. Render Free: inference 799/346/324 ms; ilk gözlem 6.5 s duvar saati
+  (scipy ilk yükleme dahil). Tek çalıştırma, benchmark değil.
 
 Kabul: açık evidence + metre cinsinden bağımsız residual + gerçek geometrik harita
 güncellemesi. Metadata tutarlılığı veya gözle güzel hizalama tek başına yeterli değil.
