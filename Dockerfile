@@ -15,6 +15,7 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY backend ./backend
 COPY data/prepared ./data/prepared
+COPY LICENSES ./LICENSES
 COPY --from=frontend /app/dist ./dist
 RUN useradd --create-home mars
 USER mars

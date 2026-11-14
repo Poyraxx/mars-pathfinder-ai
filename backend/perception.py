@@ -4,16 +4,21 @@ import io
 import json
 import os
 import time
+import threading
 from functools import lru_cache
 from pathlib import Path
 import numpy as np
 from PIL import Image
 from .data import DATA_DIR, frame_catalog, model_status
 from .coordinates import project
+from .surface_inference import predict_outputs, navigation_masks
 
 PALETTE = np.array([[194,146,104],[112,163,176],[232,188,76],[238,91,69]],dtype=np.uint8)
 _session = None
+_navigation_session = None
+_navigation_model_sha256 = None
 _dll_handle = None
+_session_guard = threading.Lock()
 
 
 @lru_cache(maxsize=128)
@@ -46,6 +51,40 @@ def registration_evidence_matches(frame: dict) -> bool:
 
 
 def get_session():
+    with _session_guard:
+        return _get_session_once()
+
+
+def get_navigation_session():
+    """Local-only learned branch; global terrain model stays independent."""
+    global _navigation_session, _navigation_model_sha256
+    with _session_guard:
+        if _navigation_session is None:
+            path=Path(os.environ.get('MARS_NAVIGATION_MODEL_PATH') or DATA_DIR/'navigation.onnx')
+            if not path.exists():return None
+            # Initialise the same runtime DLL search path as the terrain model.
+            global _dll_handle
+            if os.name=='nt' and _dll_handle is None:
+                config=Path(__file__).resolve().parents[1]/'.local-run.json'
+                dll_dir=os.environ.get('MARS_DLL_DIR') or (json.loads(config.read_text('utf8')).get('dll_dir') if config.exists() else None)
+                if dll_dir:_dll_handle=os.add_dll_directory(dll_dir)
+            import onnxruntime as ort
+            options=ort.SessionOptions();options.intra_op_num_threads=1;options.inter_op_num_threads=1
+            options.enable_cpu_mem_arena=False;options.enable_mem_pattern=False
+            loaded=ort.InferenceSession(str(path),sess_options=options,providers=['CPUExecutionProvider'])
+            outputs=loaded.get_outputs()
+            if len(outputs)!=1 or outputs[0].name!='navigation_logits' or outputs[0].shape[1]!=4:
+                raise ValueError('Expected a separate four-class navigation model; terrain logits are not interchangeable')
+            digest=_sha(path)
+            expected=navigation_model_status().get('model_sha256')
+            if expected and not os.environ.get('MARS_NAVIGATION_MODEL_PATH') and expected!=digest:
+                raise ValueError('Navigation model does not match its evaluation card')
+            _navigation_session=loaded
+            _navigation_model_sha256=digest
+        return _navigation_session
+
+
+def _get_session_once():
     global _session, _dll_handle
     if _session is None:
         if os.name == 'nt':
@@ -59,36 +98,110 @@ def get_session():
         options = ort.SessionOptions()
         options.intra_op_num_threads = 1
         options.inter_op_num_threads = 1
+        options.enable_cpu_mem_arena = False
+        options.enable_mem_pattern = False
         _session = ort.InferenceSession(str(path),sess_options=options,providers=["CPUExecutionProvider"])
     return _session
 
 
+def inference_source(frame):
+    """Use native radiometric pixels; preserve the reference/XYZ coordinate grid.
+
+    display.png is prepared from the SAME RAD product as reference.png, before
+    its BOX downsample. It is not a different camera, crop or generated image.
+    """
+    reference = Image.open(DATA_DIR/frame['image_path']).convert('RGB')
+    source = reference
+    if frame.get('display_path'):
+        source = Image.open(DATA_DIR/frame['display_path']).convert('RGB')
+        expected = frame.get('native_shape')
+        if expected and list(source.size[::-1]) != expected:
+            raise ValueError('Native inference image does not match declared camera dimensions')
+        if source.width*reference.height != source.height*reference.width:
+            raise ValueError('Native/reference aspect ratios differ; refusing misaligned perception')
+    return source, reference
+
+
 def infer(frame_id: str):
+    return _infer(frame_id,for_navigation=False)
+
+
+def infer_navigation(frame_id: str):
+    """Local operational labels, independent from global terrain semantics."""
+    return _infer(frame_id,for_navigation=True)
+
+
+def navigation_model_status():
+    path=DATA_DIR/'navigation-model-card.json'
+    return json.loads(path.read_text('utf8')) if path.exists() else {}
+
+
+def _infer(frame_id,for_navigation):
     frame = next((f for f in frame_catalog() if f["id"] == frame_id),None)
     if frame is None: raise ValueError("unknown_frame")
-    source = Image.open(DATA_DIR / frame["image_path"]).convert("RGB")
-    size = int(model_status().get("input_size",320))
-    img = np.asarray(source.resize((size,size),Image.Resampling.BILINEAR),dtype=np.float32)/255
-    x = ((img - [0.485,0.456,0.406]) / [0.229,0.224,0.225]).transpose(2,0,1)[None].astype(np.float32)
-    session = get_session()
+    if for_navigation:
+        source, reference = inference_source(frame)
+    else:
+        # Preserve the established global terrain classifier's input contract.
+        reference=Image.open(DATA_DIR/frame['image_path']).convert('RGB')
+        source=reference
+    session = get_navigation_session() if for_navigation else None
+    navigation_only=session is not None
+    if session is None:session=get_session()
+    shape = session.get_inputs()[0].shape
+    size = int(shape[-1]) if isinstance(shape[-1],int) else int(model_status().get('input_size',320))
     began = time.perf_counter()
-    logits = session.run(None,{session.get_inputs()[0].name:x})[0][0]
-    logits -= logits.max(axis=0,keepdims=True)
-    probs = np.exp(logits)
-    probs /= probs.sum(axis=0,keepdims=True)
+    policy=(navigation_model_status() if navigation_only else model_status()).get('inference_policy','whole')
+    outputs,passes = predict_outputs(session,source,policy)
+    probs=outputs[0]
     mask = probs.argmax(axis=0).astype(np.uint8)
     confidence = probs.max(axis=0)
-    native_mask = np.asarray(Image.fromarray(mask).resize(source.size,Image.Resampling.NEAREST))
-    native_conf = np.asarray(Image.fromarray(confidence.astype(np.float32)).resize(source.size,Image.Resampling.NEAREST))
-    overlay = np.asarray(source)*.48 + PALETTE[native_mask]*.52
+    navigation=outputs[0] if navigation_only else outputs[1] if len(outputs)>1 else None
+    if navigation_only:
+        # Operational ground has no soil/sand taxonomy. Do not reuse its class
+        # numbers as terrain classes or run the unrelated global model here.
+        mask=np.zeros(probs.shape[1:],np.uint8)
+        confidence=navigation.max(0)
+    hardware=np.zeros(mask.shape,bool);obstacle=np.zeros(mask.shape,bool)
+    nonterrain=np.zeros(mask.shape,bool)
+    if navigation is not None:
+        if navigation.shape[0] not in (3,4) or navigation.shape[1:]!=mask.shape:raise ValueError('Unsupported navigation head dimensions')
+        card=navigation_model_status() if navigation_only else model_status()
+        obstacle,hardware=navigation_masks(navigation,source.size,card.get('navigation_obstacle_threshold',.7),card.get('hardware_threshold',.8),card.get('hardware_margin_native_px',3))
+        nonterrain=hardware.copy()
+        if navigation.shape[0]==4:nonterrain|=(navigation.argmax(0)==3)&(navigation[3]>=.7)
+        if navigation_only:
+            # Uncertain hardware/sky is still not evidence for visible ground.
+            nonterrain|=navigation.argmax(0)>=2
+        if for_navigation:
+            mask[obstacle]=3;confidence[obstacle]=navigation[1][obstacle]
+        # Self pixels are UNKNOWN terrain, never free terrain beneath the rover.
+        mask[nonterrain]=255;confidence[nonterrain]=0.
+    # The public mask remains on the exact reference/XYZ grid. Native pixels
+    # improve inference detail; they never create extra stereo measurements.
+    native_mask = np.asarray(Image.fromarray(mask).resize(reference.size,Image.Resampling.NEAREST))
+    native_conf = np.asarray(Image.fromarray(confidence.astype(np.float32)).resize(reference.size,Image.Resampling.NEAREST))
+    overlay = np.asarray(reference)*.48 + PALETTE[np.minimum(native_mask,3)]*.52
+    overlay[native_mask==255]=np.asarray(reference)[native_mask==255]
     out = io.BytesIO()
     Image.fromarray(overlay.astype(np.uint8)).save(out,format="PNG")
-    names = model_status().get("classes",["soil","bedrock","sand","big_rock"])
+    names = ['ground_candidate','unused_bedrock','unused_sand','obstacle_candidate'] if navigation_only else model_status().get("classes",["soil","bedrock","sand","big_rock"])
+    terrain_scores=native_conf[native_mask!=255]
     result = {"frame_id":frame_id,"inference_ms":round((time.perf_counter()-began)*1000,1),
+              'source_shape':list(source.size[::-1]), 'inference_shape':[size,size], 'geometry_shape':list(reference.size[::-1]),
+              'inference_policy':policy,'inference_passes':passes,
+              'native_source_used':bool(for_navigation and frame.get('display_path')),
+              'navigation_head_used':bool(for_navigation and navigation is not None),
+              'navigation_model_sha256':_navigation_model_sha256 if navigation_only else None,
+              'class_population':'Local operational ground/obstacle candidates' if navigation_only else 'Four terrain material classes',
+              'hardware_masked_fraction':round(float(hardware.mean()),4),
+              'nonterrain_masked_fraction':round(float((native_mask==255).mean()),4),
+              'mask_note':'255 denotes self-hardware or sky/unknown terrain; no hidden ground is asserted. Navigation hazards are separate from the four terrain classes.',
               "class_fractions":{name:round(float((native_mask==i).mean()),4) for i,name in enumerate(names)},
-              "mean_class_score":round(float(native_conf.mean()),3),
+              "mean_class_score":round(float(terrain_scores.mean()),3) if terrain_scores.size else 0.,
+              'score_population':'Predicted terrain pixels only; self-hardware and sky are excluded',
               "confidence_note":"Model score, not a certified probability of correctness",
-              "low_confidence_fraction":round(float((native_conf<.7).mean()),4)}
+              "low_confidence_fraction":round(float((terrain_scores<.7).mean()),4) if terrain_scores.size else 0.}
     return frame,native_mask,native_conf,out.getvalue(),result
 
 

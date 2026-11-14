@@ -1,3 +1,22 @@
+# Current work: local Hazcam obstacles (14 November 2026) — PROMOTED (v11)
+
+Done by Claude after Codex ran out of tokens. User sensitivity: match the red reference rocks,
+ignore only very small gravel, include large raised bedrock blocks, never mistake rover equipment
+for rocks. UI, global 3D map, recorded motion and other modules preserved. Details: MODEL_REFINEMENT.md.
+
+- `data/prepared/navigation.onnx` (SegFormer-B0 local head v11, 512 px, sha 6dcf4882…) and
+  `navigation-model-card.json` are installed. Global v3 `surface.onnx` is unchanged.
+- Selected on validation only with the pre-declared objective (v11 0.552 > v10 0.548 > v10-normalized
+  0.534); ONNX parity 100 %; peak 314 MiB. Frozen before the 3 fresh test scenes were opened once.
+- Validation (5 scenes): 27/36 rocks found, rover hardware as obstacle 0.05 %.
+  Fresh test (3 scenes): 7/20 rocks found (35 %), hardware as obstacle 0.002 %.
+  Previous runtime (v3 big_rock) on the same scenes: 0/36 and 0/20, hardware-as-rock 9 % / 4 %.
+- Appearance only proposes; stereo relief vs nearby measured ground decides occupancy.
+- The 3 test scenes are now consumed. Next real improvement = more reviewed scenes + a NEW holdout.
+- NVIDIA-derived weights: non-commercial research/evaluation only (LICENSES/NVIDIA-SegFormer.txt).
+
+---
+
 # Claude için başlangıç
 
 ## Güncel kullanıcı isteği — önce bunu esas al

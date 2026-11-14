@@ -25,7 +25,7 @@ from scipy.spatial import Delaunay, QhullError
 from . import data
 from .camera_model import site_points_to_pixels
 from .navigation import astar
-from .perception import infer
+from .perception import infer_navigation as infer
 
 
 @dataclass(frozen=True)
@@ -38,13 +38,19 @@ class Settings:
     max_stereo_error_m: float = .10
     max_triangle_edge_m: float = .30
     max_step_m: float = .25      # wheel-hazard research threshold (Curiosity wheels are 0.5 m)
-    rock_relief_m: float = .08
+    rock_relief_m: float = .02  # user-selected sensitive research profile
+    min_rock_width_m: float = .08
+    rock_ground_ring_m: float = .8
+    min_rock_ground_cells: int = 12
     max_slope_deg: float = 20.
     semantic_threshold: float = .70
     half_width_m_body: float = 1.4    # Curiosity is 2.8 m wide (wheel-to-wheel)
     clearance_m: float = .15
     min_corridor_observed: float = .5
     ribbon_width_m: float = .5
+    preview_min_forward_m: float = 4.
+    preview_range_m: float = 12.
+    preview_max_stereo_error_m: float = .5
 
 
 DEFAULT = Settings()
@@ -69,6 +75,55 @@ def _centres(cells, terrain):
     return np.asarray(cells)*terrain['cell_m'] + [terrain['x0']+terrain['cell_m']/2, terrain['y0']+terrain['cell_m']/2]
 
 
+def distant_rock_candidates(xyz, xye, segmentation, confidence, xy, ground_plane, ground_uncertainty, cfg):
+    """Occupied-only lookahead from actual XYZ, never monocular depth/free space.
+
+    Less precise distant stereo cannot extend the drivable surface. A candidate
+    needs semantic AND raised-surface evidence above the near-ground plane,
+    after subtracting vertical uncertainty. It is only a steering cost. A slope
+    change can still produce a false candidate; no safety claim is made here.
+    """
+    error=np.linalg.norm(xye,axis=-1)
+    height=-xyz[...,2]
+    baseline=xy@ground_plane[:2]+ground_plane[2]
+    valid=np.isfinite(xyz).all(-1)&(xyz!=0).any(-1)&np.isfinite(xye).all(-1)
+    valid &= (error>cfg.max_stereo_error_m)&(error<=cfg.preview_max_stereo_error_m)
+    valid &= (xy[...,0]>=cfg.preview_min_forward_m)&(xy[...,0]<=cfg.preview_range_m)&(np.abs(xy[...,1])<=cfg.half_width_m+2.)
+    valid &= (segmentation==3)&(confidence>=cfg.semantic_threshold)
+    valid &= height-baseline >= cfg.rock_relief_m+2*np.abs(xye[...,2])+ground_uncertainty
+    labels,count=ndimage.label(valid)
+    candidates=[]
+    for cid in range(1,count+1):
+        pixels=labels==cid
+        if pixels.sum()<3:continue
+        points=xy[pixels];centre=np.median(points,axis=0)
+        extent=float(np.percentile(np.linalg.norm(points-centre,axis=1),95))
+        bound=float(error[pixels].max())
+        width=float(np.ptp(points,axis=0).max())
+        if width+2*bound<cfg.min_rock_width_m:continue
+        candidates.append({'centre_xy_m':centre.round(3).tolist(),'footprint_radius_m':round(max(.10,extent),3),
+                           'kind':'rock_candidate' if extent<=2. else 'large_raised_region',
+                           'range_error_bound_m':round(bound,3),'support_pixels':int(pixels.sum()),
+                           'source':'measured XYZ + semantic rock + uncertainty-gated relief',
+                           'purpose':'steering cost only; does not establish free ground'})
+    return sorted(candidates,key=lambda e:np.linalg.norm(e['centre_xy_m']))[:64]
+
+
+def lookahead_risk(points, candidates, cfg):
+    """Penalty for continuing the candidate heading into a distant rock envelope."""
+    points=np.atleast_2d(points);length=np.linalg.norm(points,axis=1)
+    direction=points/np.maximum(length[:,None],1e-6)
+    risk=np.zeros(len(points))
+    for candidate in candidates:
+        centre=np.asarray(candidate['centre_xy_m']);along=direction@centre
+        distance=np.linalg.norm(centre-direction*along[:,None],axis=1)
+        envelope=cfg.half_width_m_body+cfg.clearance_m+candidate['footprint_radius_m']+candidate['range_error_bound_m']
+        penalty=np.clip(1-distance/envelope,0,1)
+        penalty[(along<=length)|(length<cfg.body_front_m)]=0
+        risk=np.maximum(risk,penalty)
+    return risk
+
+
 def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, settings=DEFAULT):
     """Rasterize actual stereo and bounded interpolating triangles, never extrapolate."""
     cfg = settings
@@ -85,6 +140,12 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
     # Stereo points on the rover's own wheels and body (visible in the Hazcam's lower corners)
     # are hardware, not terrain: drop everything inside the body box.
     valid &= ~((xy[..., 0] < cfg.body_front_m) & (np.abs(xy[..., 1]) <= cfg.half_width_m_body+.2))
+    # A recognised arm/wheel is not a fixed world obstacle. Its occlusion must
+    # stay unobserved, including during triangle hole filling.
+    self_pixels=valid&(segmentation==255)
+    self_ids=np.ravel_multi_index(rc[self_pixels].T,shape)
+    self_cells=np.zeros(shape[0]*shape[1],bool);self_cells[self_ids]=True
+    valid &= segmentation!=255
     ids = np.ravel_multi_index(rc[valid].T, shape)
     n = shape[0]*shape[1]
     low, high = np.full(n, np.inf), np.full(n, -np.inf)
@@ -121,7 +182,7 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
             bary = np.einsum('nij,nj->ni', tri.transform[safe_idx, :2], targets-tri.transform[safe_idx, 2])
             weights = np.column_stack((bary, 1-bary.sum(1)))
             interpolated = np.sum(measured_z[vertices]*weights, axis=1)
-            holes = ~observed & supported
+            holes = ~observed & supported & ~self_cells
             z[holes] = interpolated[holes]
             sem[holes] = np.all(sem[observed][vertices[holes]], axis=1)
             observed |= holes
@@ -171,9 +232,35 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
         s0, s1 = [slice(None)]*2, [slice(None)]*2
         s0[axis], s1[axis] = slice(None, -1), slice(1, None)
         discontinuity[tuple(s0)] |= bad; discontinuity[tuple(s1)] |= bad
-    # The learned big-rock class blocks only where stereo confirms relief; otherwise it adds cost.
+    # Learned obstacle candidates block only where stereo confirms size/relief.
     rock_sem = rock_count.reshape(shape) > 0
-    rock_confirmed = rock_sem & observed & (np.nan_to_num(relief) >= cfg.rock_relief_m)
+    components,component_count=ndimage.label(rock_sem & observed)
+    rock_confirmed=np.zeros(shape,bool)
+    point_components=components[tuple(rc[valid].T)]
+    # A distant/global plane can mistake a gentle terrain crest for a 2 cm rock.
+    # Compare each candidate with actual nearby non-rock ground, including its
+    # fit residual. Without such support, appearance cannot assert occupation.
+    measured_ground=observed & np.isfinite(low) & ~rock_sem & ~rover_cells & sem
+    for cid in range(1,component_count+1):
+        component=components==cid
+        ring=ndimage.binary_dilation(component,iterations=max(1,int(math.ceil(cfg.rock_ground_ring_m/cfg.cell_m))))&~component&measured_ground
+        ground_rc=np.column_stack(np.nonzero(ring))
+        if len(ground_rc)<cfg.min_rock_ground_cells:continue
+        ground_xy=_centres(ground_rc,t)
+        design=np.column_stack((ground_xy,np.ones(len(ground_xy))))
+        ground_height=low[tuple(ground_rc.T)]
+        if np.linalg.matrix_rank(design)<3:continue
+        local_plane=np.linalg.lstsq(design,ground_height,rcond=None)[0]
+        fit_error=float(np.percentile(np.abs(ground_height-design@local_plane),90))
+        candidate_points=rocks&(point_components==cid)
+        point_relief=height-(xy[valid]@local_plane[:2]+local_plane[2])-np.abs(xye[...,2][valid])-fit_error
+        elevated_points=candidate_points&(point_relief>=cfg.rock_relief_m)
+        points=xy[valid][elevated_points]
+        # Use actual elevated stereo points. Counting one 10 cm grid cell as
+        # a 10 cm stone would inflate even a 2 cm pebble into an obstacle.
+        width=float(np.ptp(points,axis=0).max()) if len(points)>=2 else 0.
+        if width+1e-6>=cfg.min_rock_width_m:
+            rock_confirmed[tuple(rc[valid][elevated_points].T)]=True
     blocked = raised | discontinuity | steep | rock_confirmed
     passable = observed & ~blocked
     # Distance from every cell to the nearest MEASURED obstacle (blocked cell).
@@ -186,10 +273,16 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
     disc = ((yy**2+xx**2)*cfg.cell_m**2 <= cfg.half_width_m_body**2).astype(float)
     corridor_observed = ndimage.convolve(observed.astype(float), disc/disc.sum(), mode='constant', cval=0.)
     free = (passable & (clearance >= radius) & (corridor_observed >= cfg.min_corridor_observed)) | rover_cells
-    cost = 1. + 2*np.minimum(slope, 1.)**2 + 3*(sand_count.reshape(shape) > 0) + 5*rock_sem + 2*(~sem)
+    ground_uncertainty=max(.05,float(np.percentile(np.abs(heights[keep]-a[keep]@coefficients),90))) if keep.sum()>=6 else np.inf
+    preview=distant_rock_candidates(xyz,xye,segmentation,confidence,xy,coefficients,ground_uncertainty,cfg)
+    preview_risk=lookahead_risk(all_xy,preview,cfg).reshape(shape)
+    # A rock-like texture or harmless pebble alone must not create a detour.
+    cost = 1. + 2*np.minimum(slope, 1.)**2 + 3*(sand_count.reshape(shape) > 0) + 2*(~sem) + 6*preview_risk
     cost[~free] = np.inf
     return {**t, 'height': z, 'observed': observed, 'blocked': blocked, 'free': free, 'cost': cost,
             'clearance': clearance, 'corridor_observed': corridor_observed, 'rover_cells': rover_cells, 'support_pixels': int(valid.sum()),
+            'distant_rock_candidates':preview, 'lookahead_risk':preview_risk,
+            'nonterrain_pixels_excluded':int(self_pixels.sum()),
             'semantic_rock_pixels': int(rocks.sum()), 'geometry_obstacle_cells': int((raised | discontinuity | steep).sum()), 'model_rock_cells': int(rock_sem.sum()), 'model_rock_confirmed_cells': int(rock_confirmed.sum())}
 
 
@@ -248,10 +341,15 @@ def plan_observed(terrain, target_xy):
         if not outside.any():
             return {'status': 'no_path', 'reason': 'Measured obstacles leave no 2.8 m wide corridor beyond the rover.', 'path_xy': []}
         progress = np.where(outside, progress, -np.inf)
-        frontier = progress >= progress.max()-terrain['cell_m']*1.5
+        has_preview=bool(terrain.get('distant_rock_candidates'))
+        frontier = progress >= progress.max()-(.75 if has_preview else terrain['cell_m']*1.5)
         candidates = np.flatnonzero(frontier)
         perpendicular = np.abs(points[:, 0]*direction[1]-points[:, 1]*direction[0])
-        goal = tuple(rc[candidates[np.argmin(perpendicular[candidates])]])
+        score=perpendicular[candidates]
+        if has_preview:
+            risk=terrain['lookahead_risk'][tuple(rc[candidates].T)]
+            score=score+8*risk+.5*(progress.max()-progress[candidates])
+        goal = tuple(rc[candidates[np.argmin(score)]])
     try:
         cells, _ = astar(terrain['cost'], start, goal, terrain['cell_m'])
     except (ValueError, TimeoutError):
@@ -420,7 +518,10 @@ def compute(frame_id, goal=None):
     if not frame.get('camera_model', {}).get('validation', {}).get('accepted') or not frame.get('xye_path'):
         return {**empty, 'status': 'insufficient_geometry', 'reason': 'Validated stereo/calibration is missing; no depth is invented.'}
     files = [data.DATA_DIR/frame[k] for k in ('xyz_path', 'xye_path', 'image_path')]
+    if frame.get('display_path'):
+        files.append(data.DATA_DIR/frame['display_path'])
     files += [data.DATA_DIR/'surface.onnx', data.DATA_DIR/'model-card.json']
+    files += [p for p in (data.DATA_DIR/'navigation.onnx',data.DATA_DIR/'navigation-model-card.json') if p.exists()]
     key = hashlib.sha256(json.dumps([[(str(p), p.stat().st_size, p.stat().st_mtime_ns) for p in files], frame['camera_model'], asdict(DEFAULT)], sort_keys=True).encode()).hexdigest()
     terrain, inference = _terrain_cached(frame_id, key)
     origin, forward, right = frame_basis(frame)
@@ -445,6 +546,12 @@ def compute(frame_id, goal=None):
                          'obstacle_cells': int(terrain['blocked'].sum()), 'footprint_safe_cells': int(terrain['free'].sum()),
                          'required_obstacle_distance_m': round(DEFAULT.half_width_m_body+DEFAULT.clearance_m+DEFAULT.cell_m/math.sqrt(2),3),
                          'body_width_m': 2*DEFAULT.half_width_m_body,
+                         'nonterrain_pixels_excluded':terrain['nonterrain_pixels_excluded'],
+                         'candidate_rock_min_measured_width_m':DEFAULT.min_rock_width_m,
+                         'candidate_rock_min_relief_lower_limit_m':DEFAULT.rock_relief_m,
                          'triangle_interpolation_max_edge_m': DEFAULT.max_triangle_edge_m},
             'segmentation': inference,
-            'limitations': 'Research local corridor only (stereo is reliable to about 4 m). Navcam-trained segmentation is not Hazcam-validated. Unmeasured cells are not assumed to be obstacles; the measured share of the corridor is reported. Global map is unchanged.'}
+            'lookahead':{'candidates':terrain['distant_rock_candidates'],'range_m':DEFAULT.preview_range_m,
+                         'extends_drivable_surface':False,
+                         'note':'Distant stereo-supported rock candidates bias the near route. No unobserved continuation is asserted.'},
+            'limitations': 'Research local corridor only (near stereo error <=0.10 m). Camera obstacle/self-hardware perception has limited labelled-scene validation. Unmeasured cells are not assumed to be obstacles; the measured share of the corridor is reported. Distant candidates never establish free ground. Global map is unchanged.'}

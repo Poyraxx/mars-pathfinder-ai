@@ -1,0 +1,82 @@
+{
+  "ready": true,
+  "name": "SegFormer-B0 local navigation head (v11)",
+  "task": "Hazcam local obstacles: ground/small stone, substantial obstacle, rover hardware, sky/distant unknown",
+  "classes": [
+    "ground_or_small_stone",
+    "substantial_obstacle",
+    "rover_hardware",
+    "sky_or_distant_unknown"
+  ],
+  "input_size": 512,
+  "model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "inference_policy": "whole",
+  "navigation_obstacle_threshold": 0.7,
+  "hardware_threshold": 0.8,
+  "hardware_margin_native_px": 3,
+  "training": {
+    "init": "NVIDIA SegFormer-B0 ADE20K (revision 489d5cd8) -> expanded AI4Mars terrain encoder (frozen) -> reviewed operational head v10 -> v11 encoder/spatial refinement, 1 selected epoch",
+    "data": "35 native PDS Hazcam scenes visually reviewed and traced (25 train, 5 validation, 3 fresh test, 2 consumed audit); labels data/annotations/hazcam-operational-v5.json",
+    "selection": "0.5*obstacle IoU + 0.3*obstacle recall + 0.2*hardware IoU - 2*hardware_as_obstacle - 0.5*ground_as_obstacle (defined in train_operational_hazcam.py before training)",
+    "validation_scores": {
+      "v10-operational-reviewed": 0.5478,
+      "v10-normalized-navigation": 0.5338,
+      "v11-navigation-512": 0.5521
+    }
+  },
+  "validation": {
+    "images": 5,
+    "obstacle_iou": 0.472,
+    "obstacle_precision": 0.673,
+    "obstacle_recall": 0.613,
+    "rover_hardware_iou": 0.833,
+    "runtime_obstacle_pixel_recall": 0.567,
+    "hardware_as_obstacle": 0.00045,
+    "ground_as_obstacle": 0.034,
+    "objects_found_25pct_coverage": {
+      "found": 27,
+      "total": 36,
+      "recall": 0.75
+    },
+    "inference_ms_median": 349
+  },
+  "test_fresh_3_scenes": {
+    "images": 3,
+    "obstacle_iou": 0.257,
+    "obstacle_precision": 0.346,
+    "obstacle_recall": 0.498,
+    "rover_hardware_iou": 0.715,
+    "runtime_obstacle_pixel_recall": 0.441,
+    "hardware_as_obstacle": 2e-05,
+    "ground_as_obstacle": 0.0293,
+    "objects_found_25pct_coverage": {
+      "found": 7,
+      "total": 20,
+      "recall": 0.35
+    },
+    "inference_ms_median": 305
+  },
+  "test_note": "Evaluated once after freezing model and policy; never used for tuning. Small sample: 20 reviewed objects.",
+  "baseline_previous_runtime": {
+    "model": "production v3 surface.onnx big_rock>=0.7 (no hardware class)",
+    "results": {
+      "validation": {
+        "obstacle_pixel_recall": 0.002,
+        "ground_as_obstacle": 0.0018,
+        "hardware_as_obstacle": 0.0909,
+        "objects": "0/36"
+      },
+      "test": {
+        "obstacle_pixel_recall": 0.0,
+        "ground_as_obstacle": 0.0021,
+        "hardware_as_obstacle": 0.0384,
+        "objects": "0/20"
+      }
+    }
+  },
+  "peak_working_set_mib": 313.80078125,
+  "export_parity": "100% pixel agreement on 5 validation images, max |logit error| 4e-5",
+  "how_used": "Appearance proposes candidates only. A local route treats a candidate as occupied only when measured stereo supports its size/relief against nearby measured ground; hardware and sky become unknown, never free ground.",
+  "limitations": "Visually reviewed labels by the project (not independent expert truth). 35 scenes cannot establish robustness; small, distant or shadowed rocks are still missed (fresh test object recall 35%). Not flight qualified; zero misses not claimed.",
+  "license": "NVIDIA SegFormer-derived weights: non-commercial research/evaluation only (LICENSES/NVIDIA-SegFormer.txt). AI4Mars CC BY 4.0. PDS imagery NASA/JPL-Caltech."
+}

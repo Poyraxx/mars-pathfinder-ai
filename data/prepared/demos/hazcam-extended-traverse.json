@@ -19,13 +19,19 @@
     "max_stereo_error_m": 0.1,
     "max_triangle_edge_m": 0.3,
     "max_step_m": 0.25,
-    "rock_relief_m": 0.08,
+    "rock_relief_m": 0.02,
+    "min_rock_width_m": 0.08,
+    "rock_ground_ring_m": 0.8,
+    "min_rock_ground_cells": 12,
     "max_slope_deg": 20.0,
     "semantic_threshold": 0.7,
     "half_width_m_body": 1.4,
     "clearance_m": 0.15,
     "min_corridor_observed": 0.5,
-    "ribbon_width_m": 0.5
+    "ribbon_width_m": 0.5,
+    "preview_min_forward_m": 4.0,
+    "preview_range_m": 12.0,
+    "preview_max_stereo_error_m": 0.5
   },
   "motion_analysis": "Independent changes between successive real PLACES poses, not planned motion",
   "rover_frames": [
@@ -308,6 +314,6 @@
     }
   ],
   "input_frames_sha256": "b088f01b88228289c4d71a70429324aadbdcc19ba208fe7ef95f94e77fe8fcfb",
-  "video_sha256": "f15416733779c566ab4b5a0eb20df59ddb7a9e3dfa5995590036a86a8f7d73a1",
+  "video_sha256": "1ba3aa176e045cca3ab2965def45f7d7b6b1e134a7a75949de3190f2207ed306",
   "limitation": "Camera reprojection is validated; absolute orbital placement of these Hazcam poses remains archive-based, not independently accepted."
 }

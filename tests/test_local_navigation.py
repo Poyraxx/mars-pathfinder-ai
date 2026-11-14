@@ -17,9 +17,18 @@ def terrain_fixture(kind='flat'):
         rock = (f-8.)**2+r**2 < .55**2
         # A second obstacle closes the left passage; the right side remains open.
         rock |= (f-8.)**2+(r+4.)**2 < .7**2
+    elif kind == 'low_block':
+        rock=(f-8.)**2+r**2<.55**2
+    elif kind == 'pebble':
+        rock=(f-8.025)**2+(r-.025)**2<.035**2
+    elif kind == 'reference_stone':
+        rock=(f-8.025)**2+(r-.025)**2<.06**2
     elif kind == 'closed':
         rock = abs(f-8.) < .25
     h[rock] = .7
+    if kind=='low_block':h[rock]=.18
+    if kind=='pebble':h[rock]=.008
+    if kind=='reference_stone':h[rock]=.06
     xyz = np.stack((f, r, -h), axis=-1)
     xye = np.full(xyz.shape, .001)
     classes = np.where(rock, 3, 1).astype(np.uint8)
@@ -58,6 +67,51 @@ def test_closed_passage_returns_no_path_and_never_falls_back_to_a_curve():
     assert result['status'] == 'no_path' and result['path_xy'] == []
 
 
+def test_harmless_pebble_is_not_inflated_into_a_rover_sized_obstacle():
+    terrain=terrain_fixture('pebble');result=local.plan_observed(terrain,[13.,0.])
+    points=assert_validated(result,terrain)
+    assert not terrain['blocked'].any() and terrain['model_rock_confirmed_cells']==0
+    assert terrain['semantic_rock_pixels']>0
+    assert len(points)==2 and np.abs(points[:,1]).max()<.11
+
+
+def test_broad_raised_block_is_avoided_even_below_the_quarter_metre_step_limit():
+    terrain=terrain_fixture('low_block');result=local.plan_observed(terrain,[13.,0.])
+    points=assert_validated(result,terrain)
+    assert terrain['model_rock_confirmed_cells']>0 and np.abs(points[:,1]).max()>1.
+
+
+def test_sensitive_profile_includes_reference_sized_raised_stone():
+    terrain=terrain_fixture('reference_stone');result=local.plan_observed(terrain,[13.,0.])
+    points=assert_validated(result,terrain)
+    assert terrain['model_rock_confirmed_cells']>0 and np.abs(points[:,1]).max()>1.
+
+
+def test_self_hardware_does_not_become_an_obstacle_or_interpolated_free_ground():
+    cfg=replace(local.DEFAULT,forward_max_m=16.,half_width_m=7.)
+    f,r=np.meshgrid(np.arange(.425,15.98,.04),np.arange(-6.975,7.,.04),indexing='ij')
+    equipment=(f-5.)**2+r*r<.12**2
+    xyz=np.stack((f,r,np.where(equipment,-1.,0.)),axis=-1)
+    classes=np.where(equipment,255,1).astype('uint8')
+    terrain=local.build_terrain(xyz,np.full(xyz.shape,.001),classes,np.full(f.shape,.99),np.zeros(3),np.array([1.,0.]),np.array([0.,1.]),cfg)
+    rc=tuple(local._cell([[5.,0.]],terrain)[0])
+    assert terrain['nonterrain_pixels_excluded']>0
+    assert not terrain['blocked'][rc] and not terrain['observed'][rc] and not terrain['free'][rc]
+
+
+def test_rock_appearance_on_a_gentle_ground_crest_needs_local_relief():
+    cfg=replace(local.DEFAULT,forward_max_m=16.,half_width_m=7.)
+    f,r=np.meshgrid(np.arange(.425,15.98,.04),np.arange(-6.975,7.,.04),indexing='ij')
+    height=.10*np.cos((f-8.)/2.)
+    texture=(f-8.)**2+r*r<.3**2
+    xyz=np.stack((f,r,-height),axis=-1)
+    terrain=local.build_terrain(xyz,np.full(xyz.shape,.001),np.where(texture,3,1).astype('uint8'),np.full(f.shape,.99),np.zeros(3),np.array([1.,0.]),np.array([0.,1.]),cfg)
+    assert terrain['semantic_rock_pixels']>0 and terrain['model_rock_confirmed_cells']==0
+    result=local.plan_observed(terrain,[13.,0.])
+    points=assert_validated(result,terrain)
+    assert len(points)==2 and np.abs(points[:,1]).max()<.11
+
+
 def test_unknown_ground_and_unobserved_turn_are_not_traversable():
     terrain = terrain_fixture()
     terrain['free'][:] = False
@@ -90,6 +144,31 @@ def test_shortcut_cannot_cut_a_diagonal_obstacle_corner():
     terrain = {'x0': 0., 'y0': 0., 'cell_m': 1., 'free': np.ones((3, 3), bool)}
     terrain['free'][0, 1] = False
     assert not local.segment_clear([.5, .5], [1.5, 1.5], terrain)
+
+
+def preview_fixture(raised=True,error=.18):
+    f,r=np.meshgrid(np.arange(.425,11.98,.05),np.arange(-4.975,5.,.05),indexing='ij')
+    rock=(f-6.5)**2+r*r<.6**2
+    height=np.where(rock & raised,.65,0.)
+    xyz=np.stack((f,r,-height),axis=-1)
+    xye=np.full(xyz.shape,.001);xye[f>4.5]=[error,.01,.015]
+    segmentation=np.where(rock,3,1).astype('uint8')
+    return local.build_terrain(xyz,xye,segmentation,np.full(f.shape,.99),np.zeros(3),np.array([1.,0.]),np.array([0.,1.]))
+
+
+def test_distant_stereo_rock_biases_heading_without_extending_known_ground():
+    terrain=preview_fixture();result=local.plan_observed(terrain,[20.,0.])
+    assert len(terrain['distant_rock_candidates'])==1
+    assert result['status']=='partial', result
+    points=np.asarray(result['path_xy'])
+    assert abs(points[-1,1])>.9  # start avoiding before reaching the distant rock
+    assert points[:,0].max()<4.6  # uncertain far XYZ never became drivable
+    assert all(local.segment_clear(a,b,terrain) for a,b in zip(points,points[1:]))
+
+
+def test_semantic_rock_on_flat_ground_and_excessive_stereo_error_cannot_create_preview():
+    assert not preview_fixture(raised=False)['distant_rock_candidates']
+    assert not preview_fixture(error=.8)['distant_rock_candidates']
 
 
 def calibrated_plane(tmp_path, monkeypatch):
@@ -158,12 +237,24 @@ def _terrain_for(frame):
     return local.build_terrain(xyz, xye, mask, conf, origin, forward, right)
 
 
-def test_real_hazcam_rock_ahead_is_passed_on_a_measured_side_with_body_clearance():
-    # Curiosity Front Hazcam, sol 46, facing the 'Jake Matijevic' rock.
+def test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route():
+    # Catalogue sol 45, facing Jake Matijevic. This demo is a training scene,
+    # so this checks planner geometry, not held-out model generalisation.
     frame = _frame('FLA_401492677')
     result = local.compute(frame['id'])
-    assert result['status'] in ('ready', 'partial') and result['ribbons'] and result['obstacles']
     terrain = _terrain_for(frame)
+    assert result['obstacles']
+    if result['status']=='no_path':
+        # The user-selected sensitive profile also blocks the smaller measured
+        # rocks beside Jake. Prove the rover's free component cannot exit its
+        # footprint, instead of weakening clearance to recover the old demo.
+        from scipy import ndimage
+        labels,_=ndimage.label(terrain['free'])
+        start=tuple(local._cell([[.05,0.]],terrain)[0])
+        assert not ((labels==labels[start])&~terrain['rover_cells']).any()
+        assert not result['ribbons'] and not result['segments']
+        return
+    assert result['status'] in ('ready', 'partial') and result['ribbons']
     points = np.array(result['path_xy'])
     assert all(local.segment_clear(a, b, terrain) for a, b in zip(points, points[1:]))
     assert result['min_obstacle_distance_m'] >= result['geometry']['required_obstacle_distance_m']-local.DEFAULT.cell_m
@@ -172,11 +263,16 @@ def test_real_hazcam_rock_ahead_is_passed_on_a_measured_side_with_body_clearance
     assert (quads >= 0).all() and (quads <= 1).all()
 
 
-def test_real_hazcam_open_sand_keeps_a_straight_route():
+def test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster():
+    """Open sand with a stereo-confirmed rock cluster ahead-left (~4 m). The route stays a simple,
+    nearly straight lane but shifts right just enough for the 2.8 m body clearance; it never
+    bends toward the rock, and scoop marks/rover hardware are not obstacles."""
     result = local.compute(_frame('FLA_404772660')['id'])
     points = np.array(result['path_xy'])
-    assert result['status'] in ('ready', 'partial') and len(points) >= 2
-    assert np.abs(points[:, 1]).max() < .3 and result['ribbons']
+    assert result['status'] in ('ready', 'partial') and len(points) >= 2 and result['ribbons']
+    assert result['min_obstacle_distance_m'] >= result['geometry']['required_obstacle_distance_m']
+    assert points[:, 1].min() > -.3 and np.abs(points[:, 1]).max() < 1.2
+    assert len(points) <= 4
 
 
 def test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve():

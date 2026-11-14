@@ -1,0 +1,22 @@
+{
+  "train": [
+    3250,
+    3349,
+    3449,
+    3650,
+    3849,
+    3951,
+    4053,
+    4550
+  ],
+  "validation": [
+    3549,
+    4151
+  ],
+  "test": [
+    3750,
+    4350,
+    4750
+  ],
+  "known_test_failure": "v9 proposed candidates overclassified some flat bedrock; previous 4200/4798 now consumed audit only. New test roles fixed before model prediction."
+}

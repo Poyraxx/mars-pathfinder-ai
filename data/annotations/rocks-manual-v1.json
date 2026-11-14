@@ -1,0 +1,1547 @@
+{
+  "version": 1,
+  "protocol": "Sparse visual polygon delineation during this run from actual native PDS RAD images, not independently expert-verified. Detached raised rocks=3; continuous bedrock=1; clear sand=2; clear soil=0. Only inspected regions labelled; unknown, hardware, shadows and ambiguous fragments remain 255. Polygon edges eroded by 2 native pixels. No metric depth or safety class inferred from appearance. Validation and test sols never enter training. Test scenes are a small auxiliary check, not a complete Hazcam benchmark.",
+  "scenes": [
+    {
+      "id": "FLB_619437917RAD_F0763002FHAZ00337M1",
+      "sol": 2500,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02500/FLB_619437917RAD_F0763002FHAZ00337M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02500/FLB_619437917RAD_F0763002FHAZ00337M1.LBL",
+      "raw_sha256": "8dc0a53da74f75a02ef44143085b5b4fe96d39ac5ba6f5e439e070ad677f86dd",
+      "image_sha256": "4883ccb914c8d81af44b3f048a862c63521834bde2c597f3240e2c84ccea1e21",
+      "preparation": "Actual PDS RAD percentile1-99 stretch, no synthetic pixels",
+      "split": "train",
+      "group": "manual-sol-2500",
+      "regions": [
+        {
+          "id": "rock-01",
+          "class_id": 3,
+          "polygon": [
+            [
+              304,
+              556
+            ],
+            [
+              308,
+              550
+            ],
+            [
+              312,
+              552
+            ],
+            [
+              316,
+              559
+            ],
+            [
+              314,
+              562
+            ],
+            [
+              305,
+              562
+            ]
+          ]
+        },
+        {
+          "id": "rock-02",
+          "class_id": 3,
+          "polygon": [
+            [
+              490,
+              336
+            ],
+            [
+              494,
+              328
+            ],
+            [
+              499,
+              326
+            ],
+            [
+              503,
+              333
+            ],
+            [
+              500,
+              340
+            ],
+            [
+              494,
+              340
+            ]
+          ]
+        },
+        {
+          "id": "rock-03",
+          "class_id": 3,
+          "polygon": [
+            [
+              376,
+              427
+            ],
+            [
+              386,
+              422
+            ],
+            [
+              395,
+              422
+            ],
+            [
+              400,
+              426
+            ],
+            [
+              390,
+              432
+            ],
+            [
+              380,
+              433
+            ]
+          ]
+        },
+        {
+          "id": "rock-04",
+          "class_id": 3,
+          "polygon": [
+            [
+              492,
+              401
+            ],
+            [
+              497,
+              394
+            ],
+            [
+              505,
+              395
+            ],
+            [
+              510,
+              400
+            ],
+            [
+              504,
+              404
+            ],
+            [
+              494,
+              404
+            ]
+          ]
+        },
+        {
+          "id": "rock-05",
+          "class_id": 3,
+          "polygon": [
+            [
+              270,
+              477
+            ],
+            [
+              274,
+              470
+            ],
+            [
+              280,
+              472
+            ],
+            [
+              284,
+              478
+            ],
+            [
+              278,
+              482
+            ],
+            [
+              271,
+              482
+            ]
+          ]
+        },
+        {
+          "id": "rock-06",
+          "class_id": 3,
+          "polygon": [
+            [
+              536,
+              542
+            ],
+            [
+              544,
+              535
+            ],
+            [
+              556,
+              538
+            ],
+            [
+              556,
+              546
+            ],
+            [
+              548,
+              552
+            ],
+            [
+              539,
+              547
+            ]
+          ]
+        },
+        {
+          "id": "rock-07",
+          "class_id": 3,
+          "polygon": [
+            [
+              492,
+              516
+            ],
+            [
+              496,
+              509
+            ],
+            [
+              502,
+              508
+            ],
+            [
+              506,
+              515
+            ],
+            [
+              502,
+              522
+            ],
+            [
+              494,
+              522
+            ]
+          ]
+        },
+        {
+          "id": "region-08",
+          "class_id": 0,
+          "polygon": [
+            [
+              288,
+              408
+            ],
+            [
+              305,
+              409
+            ],
+            [
+              304,
+              423
+            ],
+            [
+              286,
+              422
+            ]
+          ]
+        },
+        {
+          "id": "region-09",
+          "class_id": 0,
+          "polygon": [
+            [
+              195,
+              417
+            ],
+            [
+              214,
+              417
+            ],
+            [
+              215,
+              431
+            ],
+            [
+              198,
+              436
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FLB_646065742RAD_F0810000FHAZ00302M1",
+      "sol": 2800,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02800/FLB_646065742RAD_F0810000FHAZ00302M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02800/FLB_646065742RAD_F0810000FHAZ00302M1.LBL",
+      "raw_sha256": "241b6aa5ebd65ce3b531deda47c1fa8a77c830172695ab7e8afa78eaf0aee0ce",
+      "image_sha256": "a974e79b529a882d6aa77ba53fa34387b6c1eae9e4b719b904dcde4b9ee9677e",
+      "preparation": "Actual PDS RAD percentile1-99 stretch, no synthetic pixels",
+      "split": "train",
+      "group": "manual-sol-2800",
+      "regions": [
+        {
+          "id": "region-01",
+          "class_id": 1,
+          "polygon": [
+            [
+              490,
+              345
+            ],
+            [
+              558,
+              330
+            ],
+            [
+              596,
+              344
+            ],
+            [
+              575,
+              381
+            ],
+            [
+              516,
+              390
+            ]
+          ]
+        },
+        {
+          "id": "region-02",
+          "class_id": 1,
+          "polygon": [
+            [
+              642,
+              440
+            ],
+            [
+              697,
+              429
+            ],
+            [
+              723,
+              450
+            ],
+            [
+              706,
+              481
+            ],
+            [
+              661,
+              476
+            ]
+          ]
+        },
+        {
+          "id": "region-03",
+          "class_id": 2,
+          "polygon": [
+            [
+              330,
+              746
+            ],
+            [
+              364,
+              751
+            ],
+            [
+              365,
+              780
+            ],
+            [
+              333,
+              785
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FLB_663824339RAD_F0850000FHAZ00302M1",
+      "sol": 3000,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03000/FLB_663824339RAD_F0850000FHAZ00302M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03000/FLB_663824339RAD_F0850000FHAZ00302M1.LBL",
+      "raw_sha256": "c3fe59709cf8d68e0dae588b1057ee16417690ba562298d3b3ead73748288dc0",
+      "image_sha256": "48facb273ea9ca3ac981d6e21ceb83a4eee4175d7c434795af730936f7d2744d",
+      "preparation": "Actual PDS RAD percentile1-99 stretch, no synthetic pixels",
+      "split": "train",
+      "group": "manual-sol-3000",
+      "regions": [
+        {
+          "id": "rock-01",
+          "class_id": 3,
+          "polygon": [
+            [
+              195,
+              346
+            ],
+            [
+              216,
+              336
+            ],
+            [
+              227,
+              332
+            ],
+            [
+              236,
+              339
+            ],
+            [
+              230,
+              346
+            ],
+            [
+              207,
+              354
+            ],
+            [
+              198,
+              352
+            ]
+          ]
+        },
+        {
+          "id": "rock-02",
+          "class_id": 3,
+          "polygon": [
+            [
+              242,
+              344
+            ],
+            [
+              248,
+              333
+            ],
+            [
+              253,
+              331
+            ],
+            [
+              260,
+              339
+            ],
+            [
+              254,
+              348
+            ],
+            [
+              244,
+              352
+            ]
+          ]
+        },
+        {
+          "id": "rock-03",
+          "class_id": 3,
+          "polygon": [
+            [
+              172,
+              436
+            ],
+            [
+              186,
+              428
+            ],
+            [
+              198,
+              432
+            ],
+            [
+              208,
+              442
+            ],
+            [
+              201,
+              446
+            ],
+            [
+              184,
+              450
+            ],
+            [
+              176,
+              445
+            ]
+          ]
+        },
+        {
+          "id": "rock-04",
+          "class_id": 3,
+          "polygon": [
+            [
+              112,
+              455
+            ],
+            [
+              128,
+              443
+            ],
+            [
+              142,
+              442
+            ],
+            [
+              146,
+              450
+            ],
+            [
+              135,
+              460
+            ],
+            [
+              116,
+              465
+            ]
+          ]
+        },
+        {
+          "id": "rock-05",
+          "class_id": 3,
+          "polygon": [
+            [
+              412,
+              420
+            ],
+            [
+              422,
+              404
+            ],
+            [
+              450,
+              394
+            ],
+            [
+              461,
+              402
+            ],
+            [
+              478,
+              412
+            ],
+            [
+              475,
+              420
+            ],
+            [
+              443,
+              426
+            ],
+            [
+              414,
+              430
+            ]
+          ]
+        },
+        {
+          "id": "rock-06",
+          "class_id": 3,
+          "polygon": [
+            [
+              306,
+              530
+            ],
+            [
+              320,
+              522
+            ],
+            [
+              338,
+              520
+            ],
+            [
+              350,
+              523
+            ],
+            [
+              351,
+              537
+            ],
+            [
+              342,
+              548
+            ],
+            [
+              325,
+              548
+            ],
+            [
+              310,
+              540
+            ]
+          ]
+        },
+        {
+          "id": "rock-07",
+          "class_id": 3,
+          "polygon": [
+            [
+              426,
+              522
+            ],
+            [
+              437,
+              512
+            ],
+            [
+              450,
+              514
+            ],
+            [
+              462,
+              521
+            ],
+            [
+              458,
+              532
+            ],
+            [
+              442,
+              537
+            ],
+            [
+              430,
+              532
+            ]
+          ]
+        },
+        {
+          "id": "rock-08",
+          "class_id": 3,
+          "polygon": [
+            [
+              274,
+              535
+            ],
+            [
+              283,
+              522
+            ],
+            [
+              292,
+              518
+            ],
+            [
+              296,
+              522
+            ],
+            [
+              290,
+              537
+            ],
+            [
+              282,
+              544
+            ],
+            [
+              274,
+              542
+            ]
+          ]
+        },
+        {
+          "id": "rock-09",
+          "class_id": 3,
+          "polygon": [
+            [
+              102,
+              484
+            ],
+            [
+              124,
+              475
+            ],
+            [
+              135,
+              476
+            ],
+            [
+              140,
+              488
+            ],
+            [
+              125,
+              494
+            ],
+            [
+              100,
+              502
+            ]
+          ]
+        },
+        {
+          "id": "rock-10",
+          "class_id": 3,
+          "polygon": [
+            [
+              141,
+              518
+            ],
+            [
+              152,
+              507
+            ],
+            [
+              158,
+              500
+            ],
+            [
+              164,
+              504
+            ],
+            [
+              160,
+              514
+            ],
+            [
+              150,
+              524
+            ]
+          ]
+        },
+        {
+          "id": "rock-11",
+          "class_id": 3,
+          "polygon": [
+            [
+              284,
+              428
+            ],
+            [
+              296,
+              419
+            ],
+            [
+              304,
+              416
+            ],
+            [
+              308,
+              420
+            ],
+            [
+              298,
+              428
+            ],
+            [
+              289,
+              433
+            ]
+          ]
+        },
+        {
+          "id": "rock-12",
+          "class_id": 3,
+          "polygon": [
+            [
+              366,
+              328
+            ],
+            [
+              380,
+              320
+            ],
+            [
+              388,
+              321
+            ],
+            [
+              390,
+              328
+            ],
+            [
+              382,
+              334
+            ],
+            [
+              370,
+              337
+            ]
+          ]
+        },
+        {
+          "id": "rock-13",
+          "class_id": 3,
+          "polygon": [
+            [
+              392,
+              338
+            ],
+            [
+              400,
+              332
+            ],
+            [
+              408,
+              334
+            ],
+            [
+              412,
+              341
+            ],
+            [
+              403,
+              346
+            ],
+            [
+              394,
+              344
+            ]
+          ]
+        },
+        {
+          "id": "rock-14",
+          "class_id": 3,
+          "polygon": [
+            [
+              534,
+              376
+            ],
+            [
+              540,
+              370
+            ],
+            [
+              550,
+              370
+            ],
+            [
+              556,
+              376
+            ],
+            [
+              550,
+              381
+            ],
+            [
+              542,
+              382
+            ]
+          ]
+        },
+        {
+          "id": "rock-15",
+          "class_id": 3,
+          "polygon": [
+            [
+              186,
+              399
+            ],
+            [
+              196,
+              390
+            ],
+            [
+              210,
+              386
+            ],
+            [
+              225,
+              382
+            ],
+            [
+              234,
+              384
+            ],
+            [
+              227,
+              394
+            ],
+            [
+              208,
+              401
+            ],
+            [
+              191,
+              406
+            ]
+          ]
+        },
+        {
+          "id": "rock-16",
+          "class_id": 3,
+          "polygon": [
+            [
+              354,
+              270
+            ],
+            [
+              364,
+              266
+            ],
+            [
+              370,
+              267
+            ],
+            [
+              372,
+              272
+            ],
+            [
+              365,
+              276
+            ],
+            [
+              355,
+              274
+            ]
+          ]
+        },
+        {
+          "id": "region-17",
+          "class_id": 1,
+          "polygon": [
+            [
+              282,
+              342
+            ],
+            [
+              311,
+              337
+            ],
+            [
+              327,
+              340
+            ],
+            [
+              322,
+              348
+            ],
+            [
+              295,
+              356
+            ],
+            [
+              279,
+              356
+            ]
+          ]
+        },
+        {
+          "id": "region-18",
+          "class_id": 1,
+          "polygon": [
+            [
+              510,
+              406
+            ],
+            [
+              551,
+              412
+            ],
+            [
+              569,
+              429
+            ],
+            [
+              552,
+              446
+            ],
+            [
+              531,
+              438
+            ],
+            [
+              515,
+              420
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+      "sol": 3400,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03400/FLB_699324665RAD_F0932566FHAZ00302M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03400/FLB_699324665RAD_F0932566FHAZ00302M1.LBL",
+      "raw_sha256": "3920d15c506b7d30a30c8e2e546c0718b0dbab404b7b3cf6ba7c5b33a70c5af2",
+      "image_sha256": "94b45446b0f139b2bd6f8a6729f9300cb6c8ae35cf9da12c4519033df1537bd5",
+      "preparation": "Actual PDS RAD percentile1-99 stretch, no synthetic pixels",
+      "split": "validation",
+      "group": "manual-sol-3400",
+      "regions": [
+        {
+          "id": "region-01",
+          "class_id": 3,
+          "polygon": [
+            [
+              640,
+              382
+            ],
+            [
+              628,
+              389
+            ],
+            [
+              610,
+              387
+            ],
+            [
+              601,
+              396
+            ],
+            [
+              605,
+              410
+            ],
+            [
+              618,
+              425
+            ],
+            [
+              632,
+              416
+            ],
+            [
+              640,
+              397
+            ]
+          ]
+        },
+        {
+          "id": "region-02",
+          "class_id": 3,
+          "polygon": [
+            [
+              425,
+              274
+            ],
+            [
+              432,
+              278
+            ],
+            [
+              440,
+              294
+            ],
+            [
+              429,
+              303
+            ],
+            [
+              419,
+              297
+            ],
+            [
+              420,
+              283
+            ]
+          ]
+        },
+        {
+          "id": "region-03",
+          "class_id": 3,
+          "polygon": [
+            [
+              238,
+              401
+            ],
+            [
+              245,
+              399
+            ],
+            [
+              252,
+              406
+            ],
+            [
+              246,
+              419
+            ],
+            [
+              239,
+              420
+            ]
+          ]
+        },
+        {
+          "id": "region-04",
+          "class_id": 3,
+          "polygon": [
+            [
+              231,
+              345
+            ],
+            [
+              251,
+              348
+            ],
+            [
+              273,
+              353
+            ],
+            [
+              276,
+              362
+            ],
+            [
+              258,
+              370
+            ],
+            [
+              235,
+              369
+            ],
+            [
+              222,
+              361
+            ]
+          ]
+        },
+        {
+          "id": "region-05",
+          "class_id": 3,
+          "polygon": [
+            [
+              829,
+              386
+            ],
+            [
+              840,
+              384
+            ],
+            [
+              856,
+              394
+            ],
+            [
+              856,
+              403
+            ],
+            [
+              845,
+              400
+            ],
+            [
+              835,
+              394
+            ]
+          ]
+        },
+        {
+          "id": "region-06",
+          "class_id": 2,
+          "polygon": [
+            [
+              415,
+              331
+            ],
+            [
+              487,
+              335
+            ],
+            [
+              489,
+              362
+            ],
+            [
+              425,
+              373
+            ]
+          ]
+        },
+        {
+          "id": "region-07",
+          "class_id": 2,
+          "polygon": [
+            [
+              273,
+              456
+            ],
+            [
+              309,
+              459
+            ],
+            [
+              323,
+              486
+            ],
+            [
+              296,
+              514
+            ],
+            [
+              271,
+              505
+            ]
+          ]
+        },
+        {
+          "id": "region-08",
+          "class_id": 2,
+          "polygon": [
+            [
+              658,
+              554
+            ],
+            [
+              691,
+              553
+            ],
+            [
+              700,
+              574
+            ],
+            [
+              671,
+              593
+            ],
+            [
+              650,
+              579
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "FLB_770343556RAD_F1072484FHAZ00302M1",
+      "sol": 4200,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04200/FLB_770343556RAD_F1072484FHAZ00302M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04200/FLB_770343556RAD_F1072484FHAZ00302M1.LBL",
+      "raw_sha256": "40a718f6c1d28b1c824259b11675f24b1e37d7320f9bbce83ce9beae063af85c",
+      "image_sha256": "18a1b318104b8d11f8ad8bca4863ee93b6c2ed00cf0a4bfb96378fd5fcd1af78",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic scene content",
+      "split": "test",
+      "group": "manual-sol-4200",
+      "regions": [
+        {
+          "id": "region-01",
+          "class_id": 3,
+          "polygon": [
+            [
+              531,
+              467
+            ],
+            [
+              537,
+              466
+            ],
+            [
+              544,
+              478
+            ],
+            [
+              539,
+              488
+            ],
+            [
+              530,
+              486
+            ],
+            [
+              526,
+              476
+            ]
+          ]
+        },
+        {
+          "id": "region-02",
+          "class_id": 3,
+          "polygon": [
+            [
+              511,
+              452
+            ],
+            [
+              519,
+              455
+            ],
+            [
+              524,
+              465
+            ],
+            [
+              517,
+              473
+            ],
+            [
+              506,
+              470
+            ],
+            [
+              502,
+              463
+            ]
+          ]
+        },
+        {
+          "id": "region-03",
+          "class_id": 3,
+          "polygon": [
+            [
+              556,
+              503
+            ],
+            [
+              564,
+              503
+            ],
+            [
+              569,
+              514
+            ],
+            [
+              563,
+              520
+            ],
+            [
+              554,
+              517
+            ]
+          ]
+        },
+        {
+          "id": "region-04",
+          "class_id": 3,
+          "polygon": [
+            [
+              786,
+              365
+            ],
+            [
+              797,
+              368
+            ],
+            [
+              809,
+              381
+            ],
+            [
+              808,
+              389
+            ],
+            [
+              796,
+              388
+            ],
+            [
+              783,
+              376
+            ]
+          ]
+        },
+        {
+          "id": "region-05",
+          "class_id": 3,
+          "polygon": [
+            [
+              325,
+              318
+            ],
+            [
+              335,
+              315
+            ],
+            [
+              342,
+              323
+            ],
+            [
+              338,
+              332
+            ],
+            [
+              327,
+              332
+            ]
+          ]
+        },
+        {
+          "id": "region-06",
+          "class_id": 3,
+          "polygon": [
+            [
+              818,
+              538
+            ],
+            [
+              833,
+              538
+            ],
+            [
+              842,
+              550
+            ],
+            [
+              837,
+              557
+            ],
+            [
+              825,
+              552
+            ]
+          ]
+        },
+        {
+          "id": "region-07",
+          "class_id": 3,
+          "polygon": [
+            [
+              866,
+              535
+            ],
+            [
+              879,
+              536
+            ],
+            [
+              885,
+              546
+            ],
+            [
+              879,
+              558
+            ],
+            [
+              869,
+              552
+            ]
+          ]
+        },
+        {
+          "id": "region-08",
+          "class_id": 1,
+          "polygon": [
+            [
+              325,
+              502
+            ],
+            [
+              350,
+              503
+            ],
+            [
+              362,
+              524
+            ],
+            [
+              346,
+              539
+            ],
+            [
+              322,
+              535
+            ]
+          ]
+        },
+        {
+          "id": "region-09",
+          "class_id": 1,
+          "polygon": [
+            [
+              611,
+              583
+            ],
+            [
+              638,
+              589
+            ],
+            [
+              651,
+              612
+            ],
+            [
+              640,
+              628
+            ],
+            [
+              615,
+              619
+            ]
+          ]
+        },
+        {
+          "id": "region-10",
+          "class_id": 1,
+          "polygon": [
+            [
+              414,
+              568
+            ],
+            [
+              437,
+              562
+            ],
+            [
+              451,
+              574
+            ],
+            [
+              446,
+              591
+            ],
+            [
+              422,
+              592
+            ]
+          ]
+        },
+        {
+          "id": "region-11",
+          "class_id": 0,
+          "polygon": [
+            [
+              589,
+              518
+            ],
+            [
+              608,
+              518
+            ],
+            [
+              610,
+              531
+            ],
+            [
+              592,
+              535
+            ]
+          ]
+        },
+        {
+          "id": "region-12",
+          "class_id": 0,
+          "polygon": [
+            [
+              580,
+              705
+            ],
+            [
+              601,
+              700
+            ],
+            [
+              607,
+              721
+            ],
+            [
+              586,
+              724
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
