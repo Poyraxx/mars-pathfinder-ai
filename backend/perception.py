@@ -62,7 +62,65 @@ def infer(frame_id: str):
     return frame,native_mask,native_conf,out.getvalue(),result
 
 
-def localize_obstacles(frame: dict, mask: np.ndarray, confidence: np.ndarray, meta: dict) -> dict:
+STEREO_CELL_M = 0.1
+GROUND_CELL_M = 0.25
+GROUND_WINDOW_M = 2.0
+GROUND_PERCENTILE = 20
+MAX_STEREO_ERROR_M = 0.10
+MIN_COMPONENT_PX = 6
+
+
+def stereo_hazards(xyz: np.ndarray, xye: np.ndarray, step_m: float) -> dict:
+    """Measured geometric hazards: pixels standing >= step_m above local stereo ground.
+
+    xyz is SITE-frame north/east/down in metres. Local ground is the 20th percentile of
+    per-cell minimum heights within a 2 m window. Only pixels whose XYE range-error norm is
+    <= 0.10 m are used. No learned class is involved.
+    """
+    from scipy import ndimage
+    valid = np.isfinite(xyz).all(-1) & (xyz != 0).any(-1)
+    err = np.linalg.norm(np.nan_to_num(xye, nan=np.inf), axis=-1) if xye is not None else np.full(xyz.shape[:2], np.inf)
+    empty = {"mask": np.zeros(xyz.shape[:2], dtype=bool), "components": 0, "max_step_m": None, "usable_pixels": int((valid & (err <= MAX_STEREO_ERROR_M)).sum())}
+    if valid.sum() < 50:
+        return empty
+    up = -xyz[..., 2]
+    n0, e0 = xyz[..., 0][valid].min(), xyz[..., 1][valid].min()
+    r = np.zeros(xyz.shape[:2], dtype=int); c = np.zeros(xyz.shape[:2], dtype=int)
+    r[valid] = np.floor((xyz[..., 0][valid] - n0) / GROUND_CELL_M).astype(int)
+    c[valid] = np.floor((xyz[..., 1][valid] - e0) / GROUND_CELL_M).astype(int)
+    grid = np.full((r[valid].max() + 1, c[valid].max() + 1), np.inf)
+    np.minimum.at(grid, (r[valid], c[valid]), up[valid])
+    grid[~np.isfinite(grid)] = np.nan
+    k = int(round(GROUND_WINDOW_M / GROUND_CELL_M))
+
+    def ground_of(window):
+        finite = window[np.isfinite(window)]
+        return np.percentile(finite, GROUND_PERCENTILE) if finite.size >= 6 else np.nan
+
+    ground = ndimage.generic_filter(grid, ground_of, size=2 * k + 1, mode="constant", cval=np.nan)
+    step = np.full(xyz.shape[:2], np.nan)
+    step[valid] = up[valid] - ground[r[valid], c[valid]]
+    hazard = valid & (err <= MAX_STEREO_ERROR_M) & np.isfinite(step) & (step >= step_m)
+    labels, count = ndimage.label(hazard)
+    usable_steps = step[valid & (err <= MAX_STEREO_ERROR_M) & np.isfinite(step)]
+    max_step = float(usable_steps.max()) if usable_steps.size else None
+    if count == 0:
+        return {**empty, "max_step_m": max_step}
+    sizes = ndimage.sum(hazard, labels, range(1, count + 1))
+    keep_ids = np.where(sizes >= MIN_COMPONENT_PX)[0] + 1
+    keep = np.isin(labels, keep_ids)
+    return {"mask": keep, "components": int(len(keep_ids)), "max_step_m": max_step, "usable_pixels": empty["usable_pixels"]}
+
+
+def hazard_overlay(png: bytes, hazard: np.ndarray) -> bytes:
+    image = np.asarray(Image.open(io.BytesIO(png)).convert("RGB")).astype(np.float32)
+    if hazard.shape == image.shape[:2] and hazard.any():
+        image[hazard] = image[hazard] * .25 + np.array([60, 225, 255], dtype=np.float32) * .75
+    out = io.BytesIO(); Image.fromarray(image.astype(np.uint8)).save(out, format="PNG")
+    return out.getvalue()
+
+
+def localize_obstacles(frame: dict, mask: np.ndarray, confidence: np.ndarray, meta: dict, step_m: float = 0.15) -> dict:
     registration = frame.get("registration",{})
     if not registration.get("verified"):
         return {"accepted":False,"reason":"Independent orbital registration has not been verified; map unchanged."}
@@ -74,15 +132,21 @@ def localize_obstacles(frame: dict, mask: np.ndarray, confidence: np.ndarray, me
     xyz = np.load(DATA_DIR / frame["xyz_path"])
     if xyz.shape != (*mask.shape,3):
         return {"accepted":False,"reason":"Reference image and XYZ geometry differ; map unchanged."}
-    # Canonical label dictionary is stored in the model card, never inferred from colors.
+    # Obstacles come from measured stereo geometry. The learned big_rock class has 0 held-out
+    # recall and visible false positives, so it is reported but never written to the map.
+    xye = np.load(DATA_DIR / frame["xye_path"]) if frame.get("xye_path") else None
+    found = stereo_hazards(xyz, xye, step_m)
     classes = model_status().get("classes",[])
-    if "big_rock" not in classes:
-        return {"accepted":False,"reason":"Model does not support big_rock."}
-    valid = (mask==classes.index("big_rock")) & (confidence>=model_status().get("threshold",.7))
-    valid &= np.isfinite(xyz).all(axis=-1) & (xyz!=0).any(axis=-1)
-    points = xyz[valid]
-    if len(points)<5:
-        return {"accepted":True,"points_rc":np.empty((0,2)),"registration_error_m":error,"reason":"No geometrically supported high-score big-rock pixels."}
+    model_big_rock = int(((mask==classes.index("big_rock")) & (confidence>=model_status().get("threshold",.7))).sum()) if "big_rock" in classes else 0
+    stats = {"obstacle_source":"stereo_geometry","step_threshold_m":step_m,"max_stereo_error_m":MAX_STEREO_ERROR_M,
+             "hazard_pixels":int(found["mask"].sum()),"hazard_components":found["components"],
+             "max_step_m":None if found["max_step_m"] is None else round(found["max_step_m"],3),
+             "usable_stereo_pixels":found["usable_pixels"],"model_big_rock_pixels_not_used":model_big_rock,
+             "hazard_mask":found["mask"]}
+    points = xyz[found["mask"]]
+    if len(points)<MIN_COMPONENT_PX:
+        return {"accepted":True,"points_rc":np.empty((0,2)),"registration_error_m":error,**stats,
+                "reason":f"No stereo-measured step >= {step_m:.2f} m with stereo error <= {MAX_STEREO_ERROR_M:.2f} m."}
     places = frame["places"]
     rotation = np.array(places["archive_site_to_global_ned_rotation"],dtype=float)
     translation = np.array(places["archive_site_to_global_ned_translation_m"],dtype=float)
@@ -94,5 +158,5 @@ def localize_obstacles(frame: dict, mask: np.ndarray, confidence: np.ndarray, me
     lon = np.degrees(ned[:,1]/3396190.)
     xy = np.array([project(float(a),float(b),meta) for a,b in zip(lat,lon)])
     rc = np.column_stack(((meta["north_m"]-xy[:,1])/meta["cell_m"]-.5,(xy[:,0]-meta["west_m"])/meta["cell_m"]-.5))
-    return {"accepted":True,"points_rc":rc,"registration_error_m":error,
-            "reason":"Metric XYZ transformed through documented PLACES Site frame.","support_pixels":len(points)}
+    return {"accepted":True,"points_rc":rc,"registration_error_m":error,**stats,
+            "reason":f"Stereo-measured steps >= {step_m:.2f} m placed through the registered PLACES transform.","support_pixels":len(points)}

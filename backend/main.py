@@ -20,7 +20,7 @@ from . import data
 from .coordinates import point_to_cell, cell_to_point
 from .events import EventLog
 from .navigation import cost_grid, plan_legs, metrics, inflate_obstacles
-from .perception import infer, localize_obstacles
+from .perception import infer, localize_obstacles, hazard_overlay
 from .schemas import MissionRequest, ObservationRequest, PlanRequest
 
 LAYERS = {
@@ -173,8 +173,16 @@ async def observe(mission_id: str,payload: ObservationRequest):
                 frame,mask,conf,png,result = await asyncio.to_thread(infer,payload.frame_id)
                 overlays[(mission_id,payload.frame_id)]=png
                 events.append(mission_id,"perception.completed","Surface · Segmentation completed on archived camera image",**result)
-                loc=await asyncio.to_thread(localize_obstacles,frame,mask,conf,data.regions[m["request"]["region_id"]].meta)
-                result["localization"]={k:v for k,v in loc.items() if k!="points_rc"}
+                loc=await asyncio.to_thread(localize_obstacles,frame,mask,conf,data.regions[m["request"]["region_id"]].meta,
+                                            m["request"]["profile"].get("obstacle_step_m",.15))
+                if loc.get("hazard_mask") is not None and loc["hazard_mask"].any():
+                    overlays[(mission_id,payload.frame_id)]=await asyncio.to_thread(hazard_overlay,png,loc["hazard_mask"])
+                result["localization"]={k:v for k,v in loc.items() if k not in ("points_rc","hazard_mask")}
+                if loc["accepted"] and "hazard_pixels" in loc:
+                    events.append(mission_id,"geometry.measured",
+                                  f"Stereo geometry · {loc['hazard_pixels']} px stand >= {loc['step_threshold_m']:.2f} m above local ground",
+                                  frame_id=payload.frame_id,hazard_components=loc["hazard_components"],max_step_m=loc["max_step_m"],
+                                  registration_error_m=round(loc["registration_error_m"],2),model_big_rock_pixels_not_used=loc["model_big_rock_pixels_not_used"])
                 m["observations"].append(result)
                 m["processed"].add(payload.frame_id)
                 if not loc["accepted"]:

@@ -19,6 +19,7 @@ class Profile(Contract):
     max_slope_deg: float = Field(default=20, ge=1, le=45)
     speed_m_s: float = Field(default=0.5, ge=0.1, le=2)
     clearance_m: float = Field(default=1.0, ge=0, le=5)
+    obstacle_step_m: float = Field(default=0.15, ge=0.05, le=1.0)
 
 
 class MissionRequest(Contract):
