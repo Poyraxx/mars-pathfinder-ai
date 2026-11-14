@@ -13,7 +13,7 @@ import json
 import math
 import os
 import threading
-import urllib.request
+import httpx
 from collections import OrderedDict
 from pathlib import Path
 
@@ -33,6 +33,8 @@ SOURCE = "Mars MGS MOLA - MEX HRSC Blended DEM Global 200m v2 (NASA/USGS/ESA/DLR
 
 _tiles: OrderedDict = OrderedDict()
 _lock = threading.Lock()
+# httpx ships its own CA bundle (certifi); slim containers may lack system certificates.
+_http = httpx.Client(timeout=40, follow_redirects=True, headers={"User-Agent": "MarsPathfinderResearch/1.0"})
 _dll = None
 
 
@@ -53,7 +55,10 @@ def tile(z: int, y: int, x: int) -> np.ndarray:
         if key in _tiles:
             _tiles.move_to_end(key)
             return _tiles[key]
-    payload = urllib.request.urlopen(urllib.request.Request(URL.format(z=z, y=y, x=x), headers={"User-Agent": "MarsPathfinderResearch/1.0"}), timeout=40).read()
+    try:
+        response = _http.get(URL.format(z=z, y=y, x=x)); response.raise_for_status(); payload = response.content
+    except httpx.HTTPError as exc:
+        raise OSError("dem_tile_unavailable") from exc
     if len(payload) > 8_000_000:
         raise ValueError("dem_tile_too_large")
     err, arr, mask = _lerc().decode(payload)[:3]

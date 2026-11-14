@@ -8,7 +8,7 @@ from __future__ import annotations
 import io
 import math
 import threading
-import urllib.request
+import httpx
 from collections import OrderedDict
 
 import numpy as np
@@ -22,6 +22,8 @@ LEVEL0_RES = 0.3515625 * 2  # degrees per pixel at level 0 (2 x 1 tiles of 512 p
 MAX_LEVEL = 12
 _cache: OrderedDict = OrderedDict()
 _lock = threading.Lock()
+# httpx ships its own CA bundle (certifi); slim containers may lack system certificates.
+_http = httpx.Client(timeout=40, follow_redirects=True, headers={"User-Agent": "MarsPathfinderResearch/1.0"})
 
 
 def _res(z: int) -> float:
@@ -34,7 +36,7 @@ def tile(z: int, y: int, x: int) -> np.ndarray | None:
         if key in _cache:
             _cache.move_to_end(key); return _cache[key]
     try:
-        payload = urllib.request.urlopen(urllib.request.Request(URL.format(z=z, y=y, x=x), headers={"User-Agent": "MarsPathfinderResearch/1.0"}), timeout=30).read()
+        response = _http.get(URL.format(z=z, y=y, x=x)); response.raise_for_status(); payload = response.content
         im = Image.open(io.BytesIO(payload))
         arr = np.asarray(im.convert("LA"), dtype=np.uint8)
         grey = arr[..., 0].astype(np.float32)
