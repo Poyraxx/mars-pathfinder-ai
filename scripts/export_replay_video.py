@@ -1,6 +1,6 @@
 """Export a scientific visualization of actual NASA archive imagery.
 
-Left: original camera pixels + the server's calibrated route projection.
+Left: original camera pixels + a rover-centred directional navigation HUD.
 Right: actual georeferenced HiRISE ortho + the identical route and PLACES pose.
 No synthetic camera frames, simulated rover movement or guessed camera FOV.
 The sparse acquisitions are held as a clearly labelled accelerated timelapse.
@@ -65,7 +65,7 @@ def render_keyframes(result):
         canvas=Image.new('RGB',(WIDTH,HEIGHT),'#070e14');d=ImageDraw.Draw(canvas)
         d.text((30,21),'PATHFINDER  /  ROVER NAVIGATION',font=font(27,True),fill=WHITE)
         d.text((30,58),'Real NASA footage + one shared route + recorded Mars position',font=font(18),fill=MUTED)
-        panel(d,(20,86,780,844),'REAL FRONT HAZCAM   /   NASA-JPL-CALTECH')
+        panel(d,(20,86,780,844),'REAL HAZCAM   /   ROVER-CENTRED DIRECTION GUIDE')
         panel(d,(810,86,1580,844),'MARS MAP   /   HiRISE 25 cm ORTHOPHOTO')
         f=catalogue[st['frame_id']]
         camera=Image.open(data.DATA_DIR/(f.get('display_path') or f['image_path'])).convert('RGB').resize((size,size),Image.Resampling.LANCZOS)
@@ -73,10 +73,15 @@ def render_keyframes(result):
         cy=118;my=118
         canvas.paste(camera,(xcam,cy));canvas.paste(map_image,(xmap,my))
         d=ImageDraw.Draw(canvas)
-        for segment in st['camera_route']['segments']:
-            xy=[(xcam+p[0]*size,cy+p[1]*size) for p in segment]
-            if len(xy)>1:
-                d.line(xy,fill='#07131a',width=9,joint='curve');d.line(xy,fill=CYAN,width=5,joint='curve')
+        guide=st['guidance'];colour=AMBER if guide['kind']=='u_turn' else CYAN
+        xy=[(xcam+p[0]*size,cy+p[1]*size) for p in guide['points']]
+        d.line(xy,fill='#07131a',width=11,joint='curve');d.line(xy,fill=colour,width=6,joint='curve')
+        tip=np.array(xy[-1]);direction=tip-np.array(xy[-3]);direction/=max(np.linalg.norm(direction),1e-6)
+        side=np.array([-direction[1],direction[0]])
+        d.polygon([tuple(tip+direction*8),tuple(tip-direction*16+side*10),tuple(tip-direction*16-side*10)],fill=colour)
+        ax,ay=xcam+.5*size,cy+.94*size
+        d.ellipse((ax-10,ay-10,ax+10,ay+10),fill=colour,outline='#07131a',width=3)
+        d.polygon([(ax,ay-18),(ax-12,ay+8),(ax,ay+2),(ax+12,ay+8)],fill=WHITE,outline='#07131a',width=2)
         # Same route payload as the in-app map; only the cartographic projection changes.
         def mp(p):
             x,y=map_point(p);return x,y+(my-ymain)
@@ -93,20 +98,16 @@ def render_keyframes(result):
         d.rounded_rectangle((xmap+12,my+12,xmap+240,my+88),radius=7,fill='#0b151d')
         d.text((xmap+24,my+21),f"{st['remaining_m']:.1f} m remaining",font=font(24,True),fill=WHITE)
         d.text((xmap+24,my+55),f"ROUTE v{st['route_version']}  /  FRAME {index+1} OF {len(result['steps'])}",font=font(14),fill=MUTED)
-        if st['event']:
-            message={'off_route':'OFF ROUTE - RECALCULATED','u_turn':'MAKE A U-TURN','obstacle':'OBSTACLE - NEW ROUTE','no_alternative':'NO ALTERNATIVE ROUTE'}[st['event']]
-            d.rounded_rectangle((xcam+12,cy+12,xcam+size-12,cy+84),radius=7,fill='#10252f')
-            d.text((xcam+27,cy+22),message,font=font(22,True),fill=AMBER)
-            d.text((xcam+27,cy+54),f"Deviation before update: {st['deviation_before_replan_m']:.1f} m",font=font(16),fill=WHITE)
-        if not st['camera_route']['segments']:
-            d.rounded_rectangle((xcam+70,cy+230,xcam+size-70,cy+310),radius=7,fill='#10252f')
-            d.text((xcam+90,cy+247),'WAYPOINT BEHIND THE CAMERA',font=font(21,True),fill=WHITE)
-            d.text((xcam+90,cy+278),'Return route stays visible on the map.',font=font(17),fill=MUTED)
-        d.rounded_rectangle((xcam+12,cy+size-56,xcam+size-12,cy+size-10),radius=5,fill='#0b151d')
-        d.text((xcam+24,cy+size-46),f"Sol {st['sol']}  /  {st['time'][:19].replace('T',' ')} UTC",font=font(17),fill=WHITE)
+        d.rounded_rectangle((xcam+12,cy+12,xcam+size-12,cy+100),radius=7,fill='#10252f')
+        d.text((xcam+27,cy+22),guide['instruction'],font=font(23,True),fill=colour)
+        motion=st['motion'];details=motion['label']
+        if motion['distance_m'] is not None:
+            details+=f" / {motion['distance_m']:.1f} m / {motion['heading_change_deg']:+.1f} deg"
+        d.text((xcam+27,cy+56),'Recorded: '+details,font=font(17),fill=WHITE)
+        d.text((xcam+27,cy+81),f"Sol {st['sol']} / {st['time'][:19].replace('T',' ')} UTC",font=font(13),fill=MUTED)
         d.text((WIDTH-61,my+20),'N',font=font(20,True),fill=WHITE)
         d.text((30,866),'Accelerated archive timelapse. Recorded rover motion; calculated route does not control the rover.',font=font(16),fill=MUTED)
-        d.text((30,886),'Camera model checked against stereo pixels; map positions are from the archive, without an independent orbital image match.',font=font(12),fill=MUTED)
+        d.text((30,886),'Centre guide is a directional HUD, not a calibrated ground trace. Recorded motion is from PLACES pose differences.',font=font(12),fill=MUTED)
         rendered.append(canvas)
     return rendered
 
@@ -130,6 +131,8 @@ def main():
     proof={'scenario':args.scenario,'duration_s':duration,'fps':FPS,'dimensions':[WIDTH,HEIGHT],
            'footage':'Actual NASA/JPL-Caltech PDS Hazcam pixels, accelerated still-image timelapse; no interpolated motion',
            'map':'Actual PLACES HiRISE 25 cm orthophoto','calculation':result['method'],
+           'camera_overlay':'Rover-centred directional HUD from remaining route and heading; not a calibrated ground projection',
+           'motion_analysis':'Independent changes between successive real PLACES poses, not planned motion',
            'rover_frames':[s['frame_id'] for s in result['steps']], 'events':result['events'],
            'input_frames_sha256':hashlib.sha256((data.DATA_DIR/'frames.json').read_bytes()).hexdigest(),
            'video_sha256':hashlib.sha256(output.read_bytes()).hexdigest(),

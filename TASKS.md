@@ -260,3 +260,20 @@ Kullanıcı dört karenin yetersiz olduğunu ve başka videoların araştırılm
 
 Özgün NASA filmlerine planner rotası/konumu uydurulmaz. Kalibre interaktif kayıt,
 orijinal filmlerden ayrı seçilir. Backend uyanırken de özgün filmler açılabilir.
+
+## Rover merkezinden çizgi ve gerçek hareket bilgisi — 14 Kasım 2026
+
+- [x] Kullanıcının Sol54 13:36:36 görüntüsü katalogda birebir bulundu: extended
+  replay adımı13, FLA_402284021XYZ_F0043232FHAZ00202M1.
+- [x] Varsayılan Centre guide alt-orta[0.5,0.94] rover işaretinden çıkar. İleri,
+  sağ/sol ve U dönüşü kılavuzları kalan gerçek harita rotası ve baş açısından gelir.
+  Ekrana bağlı yönlendirme, ölçülmüş zemin izi olarak sunulmaz.
+- [x] Ground projection seçeneği eski kalibre izdüşümü değiştirmeden korur.
+- [x] Ayrı pose-change algoritması: gerçek ardışık PLACES konum/baş açısı farkı,
+  0/360 açı sarması,25 cm ve5° eşikleri; ileri, geri, sağ/sol, yerinde dönüş ve durma.
+  Recorded motion ile Route guidance farklı etiketlerdir.
+- [x] Fotoğraf, araç kontrolleri ve kaynak metni ayrı satırlarda; merkez başlangıcı
+  metnin altında kaybolmuyor. Desktop/mobile aynı kaynak karede kontrol edildi.
+- [x] 142 gerçek çekimin hepsinde kılavuzun merkezi başlangıcı ve sınırları test edildi.
+  Toplam32 Python testi ve production build geçti.
+- [x] Üç MP4 yeni merkez kılavuzu ve gerçek hareket etiketiyle yeniden üretildi.

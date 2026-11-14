@@ -2,6 +2,16 @@
 
 ## Güncel kullanıcı isteği — önce bunu esas al
 
+Son düzeltme: kullanıcı çizginin her zaman roverin alt-ortasından çıkmasını ve
+"sağa yöneldi" gibi gerçek hareket bilgisinin ayrı bir algoritmayla gösterilmesini
+istedi. Varsayılan **Centre guide**, [0.5,0.94] rover işaretine bağlı yönlendirme
+HUD'udur; zemin ölçümü gibi sunulmaz. Gerçek kalibre izdüşüm **Ground projection**
+seçeneğinde korunur. `backend/guidance.py` yönlendirmeyi kalan rota/baş açısından,
+Recorded motion bilgisini ise ardışık gerçek PLACES poz farkından hesaplar.
+Ekran görüntüsündeki Sol54 13:36:36 karesi birebir kontrol edildi: sol yönlendirme
+çizgisi artık merkezden çıkar; kayıtlı konum o anda değişmediği için hareket etiketi
+Position unchanged'dir.32 test geçti. Üç MP4 de yeni merkez kılavuzuyla yenilendi.
+
 Son proje sohbetleri ve kullanıcının Paint çizimi okundu. İstenen varsayılan,
 gerçek rover görüntüsü solda ve aynı rota/konumun Mars haritasında sağda olması;
 rover kaydı ilerledikçe geçen yolun geride kalması, sapınca yeniden rota ve gerekirse

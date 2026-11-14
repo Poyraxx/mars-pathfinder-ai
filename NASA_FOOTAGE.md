@@ -24,6 +24,15 @@ The exported film is120 seconds,1600×900,24 fps H.264. All142 real acquisitions
 appear without synthetic motion. The app computes replay routes live, independently
 of that MP4. The MP4 has its own source manifest and SHA256 provenance JSON.
 
+Following the user's centre-origin correction, exported films and the default
+camera view use a bottom-centre directional HUD. This is computed from the same
+map route and rover heading; it is not a calibrated ground projection. The original
+ground projection remains selectable in the interactive viewer. All cues start at
+normalized[0.5,0.94]. Recorded motion is a separate pose-difference algorithm:
+25 cm translation deadband,5° heading deadband, signed angles wrapped across0/360°.
+It can report stationary fieldwork while the planner recommends a turn. Neither
+the guide nor a motion label changes archived camera pixels or map obstacle gates.
+
 ## NASA original films
 
 Both films are streamed from NASA's official asset host. The application preserves

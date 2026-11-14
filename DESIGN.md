@@ -33,3 +33,12 @@ to it. The default route replay contains142 real acquisitions. Timeline speed is
 adjustable from0.5× to4× and waits for the correct source image before advancing.
 Native video fits its bounded stage on desktop and mobile; captions and controls
 remain visible. Full-film sources can be opened while the planner server wakes.
+
+Rover-centred guidance: camera defaults to Centre guide, a solid cyan directional
+curve with a visible rover marker at normalized[0.5,0.94]. U-turn cues are amber.
+Ground projection is a separate explicit option and keeps the measured image
+coordinates. The guide's origin is never hidden under captions: camera controls,
+image and source caption occupy separate rows. Recorded motion sits above the
+image; route guidance is labelled separately in the distance readout. Motion uses
+actual successive pose changes, not the suggested route. Mobile gives the camera
+more vertical space and keeps the image-centred origin visible.

@@ -87,3 +87,42 @@ def test_extended_traverse_uses_many_distinct_real_acquisitions_and_poses():
     assert all(s['route'] for s in steps)
     assert any(s['camera_route']['segments'] for s in steps)
     assert steps[-1]['remaining_m']<steps[0]['remaining_m']
+    for step in steps:
+        guide=step['guidance']
+        assert guide['anchor']==[.5,.94] and guide['points'][0]==[.5,.94]
+        assert not guide['is_ground_projection']
+        assert np.isfinite(guide['points']).all()
+        assert (np.array(guide['points'])>=0).all() and (np.array(guide['points'])<=1).all()
+    assert steps[0]['motion']['kind']=='initial'
+    assert any(s['motion']['kind']=='stationary' for s in steps)
+    assert any(s['motion']['kind'] in ('left','right','turn_left','turn_right') for s in steps)
+
+
+def test_pose_change_handles_heading_wrap_turns_and_stopped_rover():
+    from backend.guidance import pose_change
+    assert pose_change(None,None,[0,0],0)['kind']=='initial'
+    right=pose_change([0,0],358,[0,0],6)
+    assert right['kind']=='turn_right' and right['heading_change_deg']==8
+    left=pose_change([0,0],6,[0,0],358)
+    assert left['kind']=='turn_left' and left['heading_change_deg']==-8
+    assert pose_change([0,0],359,[.01,.01],1)['kind']=='stationary'
+    assert pose_change([0,0],0,[0,3],0)['kind']=='forward'
+    assert pose_change([0,0],0,[0,-3],0)['kind']=='reverse'
+    assert pose_change([0,0],0,[0,0],180)['kind']=='reoriented'
+
+
+def test_guidance_origin_and_left_right_steering_are_not_ground_projection():
+    from backend.guidance import navigation_guide
+    ahead=navigation_guide([0,0],0,[[0,2],[0,20]],20)
+    right=navigation_guide([0,0],0,[[5,0],[20,0]],20)
+    left=navigation_guide([0,0],0,[[-5,0],[-20,0]],20)
+    reverse=navigation_guide([0,0],0,[[0,-5],[0,-20]],20)
+    for guide in (ahead,right,left,reverse):
+        assert guide['points'][0]==[.5,.94]
+        assert not guide['is_ground_projection']
+    assert ahead['instruction']=='Continue ahead'
+    assert np.allclose(np.array(ahead['points'])[:,0],.5)
+    assert right['kind']=='right' and left['kind']=='left'
+    assert right['points'][-1][0]>.5 and left['points'][-1][0]<.5
+    assert np.allclose(np.array(right['points'])[:,0],1-np.array(left['points'])[:,0])
+    assert reverse['kind']=='u_turn'

@@ -7,6 +7,17 @@ Research prototype for the Martian Map challenge. **Not certified for human EVA 
 
 The default view is now the actual forward-facing rover camera on the left and
 the same remaining route on the Mars map on the right. A 3D simulation is optional.
+The camera defaults to a **rover-centred steering guide**: every cue begins at
+the visible bottom-centre rover marker. Its shape and left/right/U-turn instruction
+come from the remaining map route relative to the rover's archived heading. This
+is a directional HUD, not a measured ground trace. **Ground projection** switches
+to the original calibrated camera projection without moving its measured pixels.
+
+**Recorded motion** is computed independently from consecutive PLACES poses:
+translation in metres and the wrapped heading change in degrees. It distinguishes
+forward/backward movement, left/right heading changes, rotation in place and an
+unchanged position (25 cm /5° deadbands). These are changes between archived
+acquisitions, not an assertion that the recorded rover followed our suggested route.
 The default extended traverse contains **142 actual Front Hazcam acquisitions**
 from sols40–150: about459 m of recorded movement, interspersed with stationary
 fieldwork and turns. Its142 steps contain34 positional transitions over25 cm
@@ -23,6 +34,8 @@ use archival PLACES placement; they did not pass the independent image-correlati
 gate and never add obstacle cells. Distant route heights are DEM estimates aligned
 vertically to nearby stereo, with stereo/DEM occlusion checks. Out-of-view routes
 produce direction guidance instead of mirrored ground lines.
+That calibration applies to Ground projection; it does not claim pixel accuracy
+for the intentionally screen-anchored Centre guide.
 
 Every featured actual acquisition has a visible forward route in the approach
 scenario. At the second acquisition the recorded rover is 4.05 m off the initial

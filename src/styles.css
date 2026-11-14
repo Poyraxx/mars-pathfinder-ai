@@ -289,3 +289,18 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 
 @media(max-width:700px){:root{--top:92px}.topbar{display:grid;grid-template-columns:auto 1fr;grid-template-rows:30px 40px;gap:4px 12px;padding:8px 12px;overflow:visible}.brand{grid-column:1;grid-row:1;font-size:14px}.brand span{display:inline}.modes{grid-column:1/-1;grid-row:2;width:100%;justify-content:space-around;border-radius:9px}.modes button{flex:1;justify-content:center;white-space:nowrap;padding:0 6px;font-size:12px;height:32px}.topbar-right{grid-column:2;grid-row:1;margin:0;justify-self:end}.text-button{white-space:nowrap;font-size:12px;padding:4px}.topbar .connection{display:none}}
 @media(max-width:700px){.film-heading{padding:12px;gap:10px;align-items:flex-start}.film-heading h2{font-size:15px}.film-heading p{font-size:10px}.film-heading a{font-size:10px;padding:6px}.archive-film footer{padding:10px 12px}.archive-film footer p{font-size:11px}.archive-film footer .fine-print{font-size:10px}.replay-speed select{width:53px}.mode-replay .replay-timeline{gap:9px}.scrubber-labels{font-size:10px;flex-wrap:wrap;gap:2px 8px}.transport{gap:4px}.transport button{width:30px;height:30px}.transport .play{width:40px;height:40px}}
+
+/* The steering guide has its own rover-centred origin; camera calibration stays optional. */
+.navcam{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;container-type:normal}
+.camera-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;background:var(--surface);border-bottom:1px solid var(--line);flex-shrink:0}
+.recorded-motion{display:flex;align-items:center;gap:8px;min-width:0}.recorded-motion>svg{color:var(--accent)}.recorded-motion>span{display:grid;gap:1px}
+.recorded-motion strong{font-size:12px;font-weight:600;line-height:1.3}.recorded-motion small{font-size:10px;color:var(--text-2);font-variant-numeric:tabular-nums;line-height:1.4}
+.camera-overlay-controls{display:flex;gap:3px;flex-shrink:0}.camera-overlay-controls button{font-size:11px;padding:7px 8px;border-radius:var(--radius-sm);color:var(--text-2);white-space:nowrap}
+.camera-overlay-controls button[aria-pressed=true]{background:var(--surface-3);color:var(--text)}.camera-overlay-controls button:hover{background:var(--surface-2)}
+.camera-image-area{position:relative;min-height:0;min-width:0;flex:1;display:flex;align-items:center;justify-content:center;container-type:size}
+.navcam .view-caption{position:static;flex-shrink:0;margin:0;border-radius:0;padding:8px 12px;background:var(--surface);border-top:1px solid var(--line);font-size:10px;line-height:1.45}
+.navigation-guide{color:#3ce1ff}.navigation-guide.return-guide{color:var(--amber)}.camera-route .guide-outline{stroke:#06111ce6;stroke-width:9}.camera-route .guide-line{stroke:currentColor;stroke-width:4.5}
+.rover-guide-anchor{fill:currentColor;stroke:#06111c;stroke-width:6}.rover-guide-marker{fill:#fff;stroke:#06111c;stroke-width:4;stroke-linejoin:round}
+.route-instruction{color:var(--accent);font-size:13px}.replay-toast{top:112px}
+@media(max-width:1100px){.camera-overlay-controls{flex-direction:column}.camera-overlay-controls button{padding:3px 7px}}
+@media(max-width:700px){.mode-replay .stage.split{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr)}.camera-tools{padding:5px 8px;gap:8px}.recorded-motion{gap:5px}.recorded-motion strong{font-size:11px}.recorded-motion small{font-size:9px}.camera-overlay-controls button{font-size:10px;padding:3px 6px}.navcam .view-caption{font-size:9px;padding:5px 8px}.replay-toast{top:104px}.route-instruction{font-size:11px}}

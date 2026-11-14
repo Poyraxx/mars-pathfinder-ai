@@ -1,6 +1,6 @@
 import {useEffect,useMemo,useRef,useState} from 'react';
 import * as C from 'cesium';
-import {ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,SkipBack,SkipForward,Video,Box} from 'lucide-react';
+import {ArrowUp,ArrowDown,ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,RotateCw,SkipBack,SkipForward,Video,Box,Minus} from 'lucide-react';
 import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,scheme,terrain} from './Globe';
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario} from './types';
@@ -64,7 +64,7 @@ export function ReplayView(){
   {!r?<div className="replay-empty"><MapPin size={22}/><p>Choose a drive replay to start.</p></div>:s.replayView==='3d'?<FirstPerson/>:<NavcamFrame/>}
   {s.busy&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Calculating the shared route…</div>}
   {st?.event&&<div className={`replay-toast ${st.event}`} role="status">{EVENT_TEXT[st.event]}<small>{(st.deviation_before_replan_m??st.deviation_m).toFixed(1)} m before update · route v{st.route_version}</small></div>}
-  {r&&st&&<div className="replay-readout"><span><b>{st.remaining_m.toFixed(1)} m</b> to destination</span><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span><span>{st.deviation_m.toFixed(1)} m off route</span></div>}
+  {r&&st&&<div className="replay-readout">{st.guidance&&<><small>Route guidance</small><strong className="route-instruction">{st.guidance.instruction}</strong></>}<span><b>{st.remaining_m.toFixed(1)} m</b> to destination</span><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span><span>{st.deviation_m.toFixed(1)} m off route</span></div>}
  </section>;
 }
 
@@ -108,7 +108,7 @@ function FirstPerson(){
 }
 
 function NavcamFrame(){
- const {replay,replayStep,replayImageReady,set,catalog}=useMission();
+ const {replay,replayStep,replayImageReady,set,catalog,cameraOverlay}=useMission();
  const image=useRef<HTMLImageElement>(null);
  const st=replay!.steps[Math.min(replayStep,replay!.steps.length-1)];
  // A cached image can finish before a fresh replay response clears readiness.
@@ -120,13 +120,26 @@ function NavcamFrame(){
  const frame=catalog?.frames.find(f=>f.id===st.frame_id);
  const calibration=frame?.camera_model?.validation;
  const behind=Math.abs(st.turn_to_route_deg??0)>90;
+ const guide=st.guidance,motion=st.motion;
+ const MotionIcon=motion?.kind.includes('right')?RotateCw:motion?.kind.includes('left')?RotateCcw:motion?.kind==='reverse'?ArrowDown:motion?.kind==='forward'?ArrowUp:Minus;
  return <div className="navcam">
-  <div className="navcam-stage"><img ref={image} key={st.frame_id} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>set({replayImageReady:st.frame_id})}/>
-   {loaded&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Same remaining route as the map, projected with measured camera geometry">{segs.map((seg,i)=><polyline key={i} className={verified?'new':'unverified'} points={seg.map(q=>`${q[0]},${q[1]}`).join(' ')}/>)}</svg>}
-   {!loaded&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
-   {loaded&&!segs.length&&<div className="offscreen-guidance"><RotateCcw size={26}/><strong>{behind?'Destination behind the camera':'Route outside this camera view'}</strong><span>{behind?'Follow the return route on the map.':'The map keeps the complete route.'}</span></div>}
+  <div className="camera-tools">
+   <div className="recorded-motion" aria-label="Recorded rover motion"><MotionIcon size={17}/><span><small>Recorded motion</small><strong>{motion?.label??'Loading pose change…'}</strong>{motion?.distance_m!=null&&<small>Since previous frame · {motion.distance_m.toFixed(1)} m · {(motion.heading_change_deg??0)>0?'+':''}{motion.heading_change_deg?.toFixed(1)}°</small>}</span></div>
+   <div className="camera-overlay-controls" role="group" aria-label="Camera route display"><button aria-pressed={cameraOverlay==='guidance'} onClick={()=>set({cameraOverlay:'guidance'})}>Centre guide</button><button aria-pressed={cameraOverlay==='projection'} onClick={()=>set({cameraOverlay:'projection'})}>Ground projection</button></div>
   </div>
-  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)} · {calibration?'Calibrated camera + measured terrain':'Measured stereo projection'}<br/>{verified?'Orbital placement image-checked.':'Archive-based map position; independent image match not established.'} Distant route height uses the DEM. Recorded footage, not a live rover.</div>
+  <div className="camera-image-area"><div className="navcam-stage"><img ref={image} key={st.frame_id} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>set({replayImageReady:st.frame_id})}/>
+   {loaded&&cameraOverlay==='projection'&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Same remaining route as the map, projected with measured camera geometry">{segs.map((seg,i)=><polyline key={i} className={verified?'new':'unverified'} points={seg.map(q=>`${q[0]},${q[1]}`).join(' ')}/>)}</svg>}
+   {loaded&&cameraOverlay==='guidance'&&guide&&<svg className={`camera-route navigation-guide ${guide.kind==='u_turn'?'return-guide':''}`} viewBox="0 0 1000 1000" aria-label="Navigation guide starting at the rover centre">
+    <defs><marker id="guide-arrow" markerWidth="34" markerHeight="34" refX="23" refY="17" orient="auto" markerUnits="userSpaceOnUse"><path d="M3 3 L28 17 L3 31 L9 17Z" fill="currentColor"/></marker></defs>
+    <polyline className="guide-outline" points={guide.points.map(p=>`${p[0]*1000},${p[1]*1000}`).join(' ')}/>
+    <polyline className="guide-line" markerEnd="url(#guide-arrow)" points={guide.points.map(p=>`${p[0]*1000},${p[1]*1000}`).join(' ')}/>
+    <circle className="rover-guide-anchor" cx={guide.anchor[0]*1000} cy={guide.anchor[1]*1000} r="14"/>
+    <path className="rover-guide-marker" d="M500 910 L482 949 L500 940 L518 949Z"/>
+   </svg>}
+   {!loaded&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
+   {loaded&&cameraOverlay==='projection'&&!segs.length&&<div className="offscreen-guidance"><RotateCcw size={26}/><strong>{behind?'Destination behind the camera':'Route outside this camera view'}</strong><span>{behind?'Follow the return route on the map.':'The map keeps the complete route.'}</span></div>}
+  </div></div>
+  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>{cameraOverlay==='guidance'?'Centre guide shows steering direction from the rover; it is not a measured ground trace.':`${calibration?'Calibrated camera + measured terrain.':'Measured stereo projection.'} ${verified?'Orbital placement image-checked.':'Independent map position not established.'} Distant heights use the DEM.`} Recorded footage.</div>
  </div>;
 }
 

@@ -27,6 +27,7 @@ from .camera_route import project_route
 from .coordinates import cell_to_point
 from .navigation import cost_grid, inflate_obstacles, plan_legs
 from .perception import localize_obstacles
+from .guidance import navigation_guide, pose_change
 
 R = 3396190.0
 DEVIATION_M = 2.0
@@ -165,11 +166,14 @@ def compute(scenario_id: str, profile: dict | None = None, goal: dict | None = N
         tol = max(.35, min(1.0, f["registration"]["horizontal_error_bound_m"] / 2)) if verified else .5
         projection = project_route(f, meta, remaining_cells, tol)
         projection = {k2: projection[k2] for k2 in ("segments", "visible_route_m", "tolerance_m", "method")} | {"placement": "image-verified" if verified else "archived PLACES pose, not independently verified"}
+        guide = navigation_guide(p, yaw, [_centre(c, meta) for c in remaining_cells], remaining)
+        motion = pose_change(_xy(poses[k-1], meta) if k else None, yaws[k-1] if k else None, p, yaw)
         lat, lon = math.degrees(ned[0] / R), (math.degrees(ned[1] / R) + 180) % 360 - 180
         steps.append({"step": k, "frame_id": f["id"], "sol": f["sol"], "time": f["acquired_at"], "rover": {"lat": lat, "lon": lon, "yaw_deg": round(yaw, 1)},
                       "registered": bool(f["registration"].get("verified")), "event": event, "deviation_m": round(dev, 2), "deviation_before_replan_m":round(deviation_before,2),
                       "remaining_m": round(remaining, 1), "route_version": version, "hazard_pixels": hazards,"turn_to_route_deg":round(turn_to_route,1),
-                      "route": [cell_to_point(*remaining_cells[i], meta) for i in idx], "camera_route": projection})
+                      "route": [cell_to_point(*remaining_cells[i], meta) for i in idx], "camera_route": projection,
+                      "guidance": guide, "motion": motion})
     goal_out = {"lat": math.degrees(goal_xy[1] / R), "lon": (math.degrees(goal_xy[0] / R) + 180) % 360 - 180, "custom": goal is not None}
     result = {"scenario": {k: sc[k] for k in ("id", "title", "subtitle", "story", "references", "note", "camera", "sols")}, "goal": goal_out,
               "steps": steps, "events": events, "parameters": {"deviation_m": DEVIATION_M, "u_turn_deg": UTURN_DEG, **profile},

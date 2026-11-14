@@ -5,12 +5,12 @@ type State={
  mission:Mission|null;events:Event[];error:string|null;busy:boolean;view:'orbital'|'terrain'|'astronaut'|'dual';
  layer:string;showRisk:boolean;showTimeline:boolean;activeRoute:string;frameId:string;showSources:boolean;showAI:boolean;showNav:boolean;exploreTarget:(Point&{alt:number})|null;
  planMode:'local'|'global';features:Feature[];feature:Feature|null;orbital:OrbitalResult|null;avoid:string[];
- mode:'explore'|'plan'|'replay';archiveVideo:string|null;scenarios:Scenario[];replay:ReplayResult|null;replayStep:number;replayView:'3d'|'navcam';replayGoalPick:boolean;replayImageReady:string|null;
+ mode:'explore'|'plan'|'replay';archiveVideo:string|null;scenarios:Scenario[];replay:ReplayResult|null;replayStep:number;replayView:'3d'|'navcam';cameraOverlay:'guidance'|'projection';replayGoalPick:boolean;replayImageReady:string|null;
  set:(s:Partial<State>)=>void;selectRegion:(r:Region)=>void;selectPoint:(p:Point)=>void;
 };
 export const useMission=create<State>((set,get)=>({
  catalog:null,region:null,start:null,goal:null,stops:[],pick:null,mission:null,events:[],error:null,busy:false,
- view:'orbital',layer:'viking',showRisk:false,showTimeline:window.innerHeight>=780,activeRoute:'surface',frameId:'',showSources:false,showAI:window.innerWidth>=1200,showNav:false,exploreTarget:null,planMode:'global',features:[],feature:null,orbital:null,avoid:[],mode:'replay',archiveVideo:null,scenarios:[],replay:null,replayStep:0,replayView:'navcam',replayGoalPick:false,replayImageReady:null,
+ view:'orbital',layer:'viking',showRisk:false,showTimeline:window.innerHeight>=780,activeRoute:'surface',frameId:'',showSources:false,showAI:window.innerWidth>=1200,showNav:false,exploreTarget:null,planMode:'global',features:[],feature:null,orbital:null,avoid:[],mode:'replay',archiveVideo:null,scenarios:[],replay:null,replayStep:0,replayView:'navcam',cameraOverlay:'guidance',replayGoalPick:false,replayImageReady:null,
  set:(s)=>set(s),selectRegion:(r)=>set({planMode:'local',feature:null,region:r,start:r.default_start,goal:r.default_goal,stops:[],mission:null,events:[],error:null,view:'terrain',exploreTarget:null,showNav:false}),
  selectPoint:(p)=>{const {pick,stops}=get();if(get().replayGoalPick){set({replayGoalPick:false,pick:null});window.dispatchEvent(new CustomEvent('replay-goal',{detail:p}));return;}if(pick==='start')set({start:p,pick:null,mission:null,events:[]});else if(pick==='goal')set({goal:p,pick:null,mission:null,events:[]});else if(pick==='stop')set({stops:[...stops,p].slice(0,3),pick:null,mission:null,events:[]});}
 }));
