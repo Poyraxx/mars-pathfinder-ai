@@ -62,7 +62,7 @@ export function ReplayPanel(){
    {s.replay.scenario.demo_available&&<a className="ghost-button demo-download" href={`/api/scenarios/${s.replay.scenario.id}/demo.mp4`} download><Video size={14}/>Download route film</a>}
    <h3>Sources</h3>
    <ul className="reference-list">{s.replay.scenario.references.map(r=><li key={r.url}><a href={r.url} target="_blank" rel="noreferrer">{r.label}<ArrowUpRight size={12}/></a></li>)}</ul>
-   <p className="fine-print">{s.replay.scenario.note} Computed live in {Math.round(s.replay.compute_ms)} ms · re-plan when off route by more than {s.replay.parameters.deviation_m} m.</p>
+   <p className="fine-print">{s.replay.scenario.note} {s.replay.computed_at_build?`Computed during this deployment's build (${s.replay.computed_at_build.slice(0,16).replace('T',' ')} UTC) in ${Math.round(s.replay.compute_ms)} ms by the same code; a custom destination is computed live`:`Computed live in ${Math.round(s.replay.compute_ms)} ms`} · re-plan when off route by more than {s.replay.parameters.deviation_m} m.</p>
   </div>}
  </div>;
 }

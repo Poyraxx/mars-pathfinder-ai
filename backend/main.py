@@ -62,7 +62,8 @@ MAX_GLOBAL_MISSIONS = 6
 async def lifespan(app):
     global http
     data.load_regions()
-    threading.Thread(target=_warm_default_scenario, daemon=True).start()
+    if not _load_build_results():
+        threading.Thread(target=_warm_default_scenario, daemon=True).start()
     http = httpx.AsyncClient(timeout=35, follow_redirects=True, limits=httpx.Limits(max_connections=8))
     yield
     await http.aclose()
@@ -420,6 +421,20 @@ def _scenario_local(scenario_id, goal):
             scenario_local_pending.pop(key,None)
         event.set()
 
+
+
+def _load_build_results():
+    """Default replays computed during this deployment's build (same code/models, sealed by input hash)."""
+    from . import precompute
+    sealed=precompute.load()
+    if not sealed:return False
+    note=f"Computed during this deployment's build ({sealed['built_at']}) by the same code and models; custom destinations are computed live."
+    for sid,result in sealed['replays'].items():
+        result['computed_at_build']=sealed['built_at']
+        replay._cache[(sid,json.dumps(None,sort_keys=True),None)]=result
+    for sid,payload in sealed['local'].items():
+        scenario_local_cache[(sid,None)]={**payload,'note':note,'computed_at_build':sealed['built_at']}
+    return True
 
 def _warm_default_scenario():
     try:

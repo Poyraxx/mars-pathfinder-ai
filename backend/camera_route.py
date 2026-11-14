@@ -44,16 +44,19 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
     tree = cKDTree(ground)
     cell = meta["cell_m"]
     centres = np.array([[meta["west_m"] + (c + .5) * cell, meta["north_m"] - (r + .5) * cell] for r, c in route_cells], dtype=np.float64)
-    samples, along = [], []
-    total = 0.0
-    for a, b in zip(centres, centres[1:]):
-        seg = float(np.hypot(*(b - a))); n = max(1, int(seg / 0.1))
-        for t in np.arange(n) / n:
-            samples.append(a + (b - a) * t); along.append(total + seg * t)
-        total += seg
-    if len(centres):
-        samples.append(centres[-1]); along.append(total)
-    samples = np.array(samples); along = np.array(along)
+    # 10 cm samples along each leg (vectorised; same values as the former per-sample loop).
+    if len(centres) > 1:
+        delta = centres[1:] - centres[:-1]
+        seg = np.hypot(delta[:, 0], delta[:, 1])
+        counts = np.maximum(1, (seg / 0.1).astype(int))
+        starts = np.r_[0., np.cumsum(seg)[:-1]]
+        leg = np.repeat(np.arange(len(seg)), counts)
+        t = (np.arange(counts.sum()) - np.repeat(np.cumsum(counts) - counts, counts)) / counts[leg]
+        samples = centres[:-1][leg] + delta[leg] * t[:, None]
+        along = starts[leg] + seg[leg] * t
+        samples = np.vstack([samples, centres[-1:]]); total = float(starts[-1] + seg[-1]); along = np.r_[along, total]
+    else:
+        samples = centres.copy(); along = np.zeros(len(centres)); total = 0.0
     dist, idx = tree.query(samples, k=1)
     hit = dist <= tolerance_m
     model = frame.get('camera_model')

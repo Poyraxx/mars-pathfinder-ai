@@ -34,14 +34,21 @@ def astar(cost: np.ndarray, start: tuple[int, int], goal: tuple[int, int], cell_
         if not (0 <= p[0] < rows and 0 <= p[1] < cols) or not np.isfinite(cost[p]):
             raise ValueError("endpoint_blocked_or_outside")
     began = time.perf_counter()
+    # Same algorithm, arithmetic and heap order as before, on flat Python lists:
+    # NumPy scalar indexing dominated the run time; results are identical.
+    flat = cost.ravel().tolist()
+    finite = np.isfinite(cost).ravel().tolist()
+    gr, gc = goal
+    hypot, heappush, heappop = math.hypot, heapq.heappush, heapq.heappop
     def h(p):
-        return math.hypot(p[0]-goal[0], p[1]-goal[1]) * cell_m if heuristic else 0
+        return hypot(p[0]-gr, p[1]-gc) * cell_m if heuristic else 0
     scores = {start: 0.0}
     parents = {}
     heap = [(h(start), 0.0, start)]
-    directions = [(-1,0),(1,0),(0,-1),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]
+    directions = [(dr, dc, hypot(dr, dc) * cell_m) for dr, dc in
+                  [(-1,0),(1,0),(0,-1),(0,1),(-1,-1),(-1,1),(1,-1),(1,1)]]
     while heap:
-        _, g, p = heapq.heappop(heap)
+        _, g, p = heappop(heap)
         if g > scores[p]:
             continue
         if p == goal:
@@ -52,18 +59,23 @@ def astar(cost: np.ndarray, start: tuple[int, int], goal: tuple[int, int], cell_
             return list(reversed(path)), g
         if time.perf_counter() - began > timeout_s:
             raise TimeoutError("planning_timeout")
-        for dr, dc in directions:
-            r, c = p[0]+dr, p[1]+dc
-            if not (0 <= r < rows and 0 <= c < cols) or not np.isfinite(cost[r,c]):
+        pr, pc = p
+        here = flat[pr*cols+pc]
+        for dr, dc, step in directions:
+            r, c = pr+dr, pc+dc
+            if not (0 <= r < rows and 0 <= c < cols):
                 continue
-            if dr and dc and (not np.isfinite(cost[p[0]+dr,p[1]]) or not np.isfinite(cost[p[0],p[1]+dc])):
+            qi = r*cols+c
+            if not finite[qi]:
                 continue
-            q = (r,c)
-            ng = g + math.hypot(dr,dc) * cell_m * (cost[p] + cost[q]) / 2
+            if dr and dc and (not finite[(pr+dr)*cols+pc] or not finite[pr*cols+pc+dc]):
+                continue
+            q = (r, c)
+            ng = g + step * (here + flat[qi]) / 2
             if ng < scores.get(q, math.inf):
                 scores[q] = ng
                 parents[q] = p
-                heapq.heappush(heap, (ng+h(q), ng, q))
+                heappush(heap, (ng+h(q), ng, q))
     raise ValueError("no_path")
 
 

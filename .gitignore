@@ -16,3 +16,4 @@ artifacts/
 .local-run.json
 *.tsbuildinfo
 .taste-skill/
+data/prepared/build-cache.json.gz

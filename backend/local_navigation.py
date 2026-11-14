@@ -499,7 +499,7 @@ def project_obstacles(frame, terrain, limit=600):
     return (uv[ok]/[w, h]).round(4).tolist()
 
 
-@lru_cache(maxsize=48)
+@lru_cache(maxsize=160)
 def _terrain_cached(frame_id, fingerprint):
     frame, mask, confidence, _, stats = infer(frame_id)
     if data.model_status().get('classes') != ['soil', 'bedrock', 'sand', 'big_rock']:

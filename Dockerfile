@@ -16,6 +16,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY backend ./backend
 COPY data/prepared ./data/prepared
 COPY LICENSES ./LICENSES
+# Compute the default replays once with the same code and models, sealed by an input hash
+# (build-time; labelled as such in the API/UI). Custom destinations stay live.
+RUN python -m backend.precompute
 COPY --from=frontend /app/dist ./dist
 RUN useradd --create-home mars
 USER mars
