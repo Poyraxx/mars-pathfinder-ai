@@ -223,8 +223,10 @@ Kullanıcı isteği: senaryoların varsayılanı GERÇEK rover görüntüsü ola
 - [x] Gerçek kamera varsayılan; 3D simulation ayrı sekme. Oynat/duraklat/scrub.
 - [x] İki30 s,1600×900,24 fps H.264 MP4; gerçek fotoğraf+HiRISE map, API'den indirme.
   Bunlar4 gerçek kareden hızlandırılmış timelapse; kesintisiz veya canlı video değil.
-- [x] 28 Python testi ve production TypeScript/Vite build geçti.
-- [ ] Canlı Render güncellemesi ve son public URL kontrolü bu devamın sonunda kaydedilecek.
+- [x] 29 Python testi ve production TypeScript/Vite build geçti.
+- [x] Private main dalı Render'a yayımlandı. Public API'de iki senaryo, gerçek sapma/U dönüşü,
+  MP4 Range indirme ve dosya hashleri doğrulandı. Linux'ta gerçek registration kanıtı
+  kabul edildi; doğrulanmamış Hazcam kareleri engel haritasını değiştirmedi.
 
 Korunan sınırlar: yeni4 featured Hazcam pozu bağımsız orbital eşleşmeyi geçmedi;
 arşiv pozuyla görselleştirilir, engel füzyonuna girmez. Uzak görüntü çizgisi stereo

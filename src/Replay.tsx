@@ -5,7 +5,7 @@ import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,scheme,terrain} from './Glob
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario} from './types';
 
-const EVENT_TEXT:Record<string,string>={off_route:'Off route · recalculating',u_turn:'Make a U-turn · route behind the rover',obstacle:'Obstacle ahead · re-routing',no_alternative:'No alternative route found'};
+const EVENT_TEXT:Record<string,string>={off_route:'Off route · route updated',u_turn:'Make a U-turn · route behind the rover',obstacle:'Obstacle ahead · route updated',no_alternative:'No alternative route found'};
 let replayRequest=0;
 
 export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
