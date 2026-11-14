@@ -152,7 +152,7 @@ def main():
           "metrics":scores(confusion),"pytorch_test_384":test,"onnx_parity_pixel_agreement":agreement,
           "local_cpu_latency_ms":{"p50":float(np.median(latencies)),"p95":float(np.percentile(latencies,95)),"threads":1,"note":"Local CPU measurement; not Render Free benchmark"},
           "model_sha256":hashlib.file_digest((OUT/"surface.onnx").open("rb"),"sha256").hexdigest(),
-          "limitations":[manifest["note"],"Small preliminary subset; no generalization or human-safety guarantee","Only4 NAV classes; no small-stone class","RAD archive frames have different photometric processing from training EDR images","Independent camera-orbital registration remains unverified"]}
+          "limitations":[manifest["note"],"Small preliminary subset; no generalization or human-safety guarantee","Only4 NAV classes; no small-stone class","RAD archive frames have different photometric processing from training EDR images","Camera-orbital registration is measured separately by image correlation; this card covers segmentation only"]}
     (OUT/"model-card.json").write_text(json.dumps(card,indent=2),"utf-8")
     if history:(OUT/"training-history.json").write_text(json.dumps(history,indent=2),"utf-8")
     print(json.dumps(card,indent=2),flush=True)
