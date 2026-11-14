@@ -65,7 +65,15 @@ def test_unknown_ground_and_unobserved_turn_are_not_traversable():
     result = local.plan_observed(terrain, [13., 0.])
     assert result['status'] == 'insufficient_geometry' and not result['path_xy']
     result = local.plan_observed(terrain, [-13., 0.])
-    assert result['status'] == 'turn_required' and not result['path_xy']
+    assert result['status'] == 'turn_required' and not result['path_xy'] and result['turn_direction'] in ('left', 'right')
+
+
+def test_destination_behind_plans_a_swing_on_measured_free_ground():
+    terrain = terrain_fixture()
+    result = local.plan_observed(terrain, [-10., 4.])
+    assert result['status'] == 'u_turn' and result['turn_direction'] == 'right'
+    points = np.array(result['path_xy'])
+    assert points[-1, 1] > 1. and all(local.segment_clear(a, b, terrain) for a, b in zip(points, points[1:]))
 
 
 def test_combined_diagonal_slope_is_checked_not_only_each_axis():

@@ -305,3 +305,7 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 @media(max-width:1100px){.camera-overlay-controls{flex-direction:column}.camera-overlay-controls button{padding:3px 7px}}
 @media(max-width:700px){.mode-replay .stage.split{grid-template-rows:minmax(0,1.6fr) minmax(0,1fr)}.camera-tools{padding:5px 8px;gap:8px}.recorded-motion{gap:5px}.recorded-motion strong{font-size:11px}.recorded-motion small{font-size:9px}.camera-overlay-controls button{font-size:10px;padding:3px 6px}.navcam .view-caption{font-size:9px;padding:5px 8px}.replay-toast{top:104px}.route-instruction{font-size:11px}}
 .camera-route .corridor-edge{fill:none;stroke:#3ce1ff;stroke-width:1.5;stroke-dasharray:6 5;opacity:.75;vector-effect:non-scaling-stroke}
+.route-overlay .route-strip,.route-overlay .route-link{fill:#3ce1ff;stroke:#3ce1ff;stroke-width:3;stroke-linejoin:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 2px 4px #000a)}
+.turn-cue .turn-arc{fill:none;stroke:#f2a65a;stroke-width:9;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 2px 4px #000a)}
+.turn-cue .turn-head{fill:#f2a65a}
+.offscreen-guidance.turn{top:auto;bottom:22%}

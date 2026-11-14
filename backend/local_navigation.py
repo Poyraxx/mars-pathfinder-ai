@@ -212,8 +212,17 @@ def plan_observed(terrain, target_xy):
     target = np.asarray(target_xy, float)
     angle = math.degrees(math.atan2(target[1], target[0]))
     if target[0] <= 0 or abs(angle) >= 100:
-        return {'status': 'turn_required', 'reason': 'Target behind the observed front terrain; a safe U-turn cannot be verified from this view.',
-                'required_turn_deg': round(angle, 1), 'path_xy': []}
+        # U-turn manoeuvre: swing out to the turning side over measured free ground, then the
+        # rover continues back toward the destination (behind this camera's view).
+        side = 1. if angle > 0 else -1.
+        word = 'right' if side > 0 else 'left'
+        for tx, ty in ((2.8, 2.8), (3.4, 3.6), (2.4, 2.0), (3.8, 1.6)):
+            swing = plan_observed(terrain, [tx, side*ty])
+            if swing['status'] in ('ready', 'partial') and swing.get('path_xy'):
+                return {**swing, 'status': 'u_turn', 'turn_direction': word, 'required_turn_deg': round(angle, 1),
+                        'reason': f'Destination is {abs(angle):.0f}° to the {word}, behind the camera. Swing {word} through measured free ground, then keep turning toward it.'}
+        return {'status': 'turn_required', 'turn_direction': word, 'required_turn_deg': round(angle, 1), 'path_xy': [],
+                'reason': f'Destination is {abs(angle):.0f}° to the {word}. No measured room to swing out in front, so turn in place {word}; the ground behind is outside this camera view.'}
     free = terrain['free']
     rc = np.column_stack(np.nonzero(free))
     if not len(rc):
@@ -424,7 +433,7 @@ def compute(frame_id, goal=None):
     result = plan_observed(terrain, target)
     projection = project_path(frame, terrain, result['path_xy']) if result['path_xy'] else {'segments': [], 'ribbons': []}
     projection['obstacles'] = project_obstacles(frame, terrain)
-    if result['status'] in ('ready', 'partial') and not projection['segments']:
+    if result['status'] in ('ready', 'partial', 'u_turn') and not projection['segments']:
         result['status'] = 'out_of_view'
         result['reason'] = 'Computed ground route is occluded or outside stereo-confirmed camera pixels.'
     return {**empty, **result, **projection, 'settings': asdict(DEFAULT),

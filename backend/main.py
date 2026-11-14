@@ -1,4 +1,5 @@
 import asyncio
+import threading
 import io
 import json
 import math
@@ -61,6 +62,7 @@ MAX_GLOBAL_MISSIONS = 6
 async def lifespan(app):
     global http
     data.load_regions()
+    threading.Thread(target=_warm_default_scenario, daemon=True).start()
     http = httpx.AsyncClient(timeout=35, follow_redirects=True, limits=httpx.Limits(max_connections=8))
     yield
     await http.aclose()
@@ -347,6 +349,63 @@ async def frame_local_navigation(frame_id: str, goal_lat: float|None=None, goal_
 
 
 orbital_results={}
+scenario_local_cache={}
+scenario_local_pending={}
+scenario_local_guard=threading.Lock()
+
+
+def _scenario_local(scenario_id, goal):
+    """Local stereo routes for every frame of a replay, computed once on this server and kept in memory."""
+    key=(scenario_id,None if goal is None else (round(goal['lat'],7),round(goal['lon'],7)))
+    with scenario_local_guard:
+        if key in scenario_local_cache: return scenario_local_cache[key]
+        event=scenario_local_pending.get(key)
+        owner=event is None
+        if owner:
+            event=threading.Event(); scenario_local_pending[key]=event
+    if not owner:
+        event.wait(); return scenario_local_cache.get(key)
+    try:
+        began=time.perf_counter()
+        result=replay.compute(scenario_id,None,goal)
+        frames={}
+        for st in result['steps']:
+            if st['frame_id'] in frames: continue
+            try:
+                frames[st['frame_id']]=local_navigation.compute(st['frame_id'],result['goal'])
+            except (OSError,ValueError,KeyError) as exc:
+                frames[st['frame_id']]={'frame_id':st['frame_id'],'status':'unavailable','reason':f'Local stereo/model inputs unavailable ({type(exc).__name__}).','segments':[],'ribbons':[],'is_ground_projection':True}
+        payload={'scenario':scenario_id,'goal':result['goal'],'frames':frames,'compute_ms':round((time.perf_counter()-began)*1000,1),
+                 'computed_at':datetime.now(timezone.utc).isoformat(timespec='seconds'),
+                 'note':'Computed on this server from the archived stereo products and kept in memory for smooth playback.'}
+        with scenario_local_guard:
+            scenario_local_cache[key]=payload
+            while len(scenario_local_cache)>6: scenario_local_cache.pop(next(iter(scenario_local_cache)))
+        return payload
+    finally:
+        with scenario_local_guard:
+            scenario_local_pending.pop(key,None)
+        event.set()
+
+
+def _warm_default_scenario():
+    try:
+        first=next(iter(replay.scenarios()),None)
+        if first: _scenario_local(first['id'],None)
+    except Exception:
+        pass
+
+
+@app.get('/api/scenarios/{scenario_id}/local-navigation')
+async def scenario_local_navigation(scenario_id: str, goal_lat: float|None=None, goal_lon: float|None=None):
+    if not any(s['id']==scenario_id for s in replay.scenarios()): reject('unknown_scenario','Unknown scenario.',404)
+    if (goal_lat is None)!=(goal_lon is None): reject('incomplete_goal','Both goal coordinates are required.')
+    goal=None if goal_lat is None else {'lat':goal_lat,'lon':goal_lon}
+    if goal and (not math.isfinite(goal_lat) or not math.isfinite(goal_lon)): reject('invalid_goal','Use finite coordinates.')
+    try:
+        return await asyncio.to_thread(_scenario_local,scenario_id,goal)
+    except ValueError as exc:
+        reject(str(exc),'Pick a destination inside the scenario planning area.')
 
 
 @app.post("/api/regions/{region_id}/orbital-analysis")

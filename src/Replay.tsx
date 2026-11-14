@@ -5,6 +5,7 @@ import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,scheme,terrain} from './Glob
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario,LocalNavigation} from './types';
 import {ARCHIVE_FILMS} from './ArchiveFilm';
+import RouteOverlay,{TurnCue} from './RouteOverlay';
 
 const EVENT_TEXT:Record<string,string>={off_route:'Off route · route updated',u_turn:'Make a U-turn · route behind the rover',obstacle:'Obstacle ahead · route updated',no_alternative:'No alternative route found'};
 let replayRequest=0;
@@ -16,7 +17,13 @@ export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
  try{
   const q=goal?`?goal_lat=${goal.lat}&goal_lon=${goal.lon}`:'';
   const r=await api<ReplayResult>(`/api/scenarios/${id}/replay${q}`);
-  if(request===replayRequest)useMission.getState().set({replay:r,replayStep:0,busy:false,replayView:'navcam',replayImageReady:null,frameId:r.steps[0]?.frame_id??s.frameId});
+  if(request!==replayRequest)return;
+  useMission.getState().set({replay:r,replayStep:0,busy:false,replayView:'navcam',replayImageReady:null,localBatch:null,frameId:r.steps[0]?.frame_id??s.frameId});
+  // Preload every real camera frame so playback never waits on the network.
+  const seen=new Set<string>();r.steps.forEach((step,i)=>{if(seen.has(step.frame_id))return;seen.add(step.frame_id);window.setTimeout(()=>{const img=new Image();img.src=`/api/frames/${step.frame_id}/display`;},i*40);});
+  // All local stereo routes for this replay, computed once on the server.
+  const key=`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`;
+  void fetch(`/api/scenarios/${id}/local-navigation${q}`).then(res=>res.ok?res.json():null).then(batch=>{if(batch&&request===replayRequest)useMission.getState().set({localBatch:{key,frames:batch.frames}});}).catch(()=>{});
  }catch(error){if(request===replayRequest)useMission.getState().set({busy:false,error:error instanceof Error?error.message:String(error)});}
 }
 
@@ -58,6 +65,9 @@ export function ReplayView(){
  const r=s.replay,st=r?.steps[Math.min(s.replayStep,(r?.steps.length??1)-1)];
  useEffect(()=>{
   if(!st||s.replayView!=='navcam'||s.archiveVideo)return;
+  const batchKey=r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'';
+  const cached=s.localBatch?.key===batchKey?s.localBatch.frames[st.frame_id]:undefined;
+  if(cached){useMission.getState().set({localNavigation:{...cached,goal_key:batchKey}});return;}
   const controller=new AbortController(),frameId=st.frame_id;
   useMission.getState().set({localNavigation:null});
   void (async()=>{
@@ -75,9 +85,9 @@ export function ReplayView(){
    }catch(error){if(!controller.signal.aborted)useMission.getState().set({localNavigation:{goal_key:r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'',frame_id:frameId,status:'unavailable',reason:error instanceof Error?error.message:'Local processing unavailable.',segments:[],ribbons:[],is_ground_projection:true}});}
   })();
   return()=>controller.abort();
- },[st?.frame_id,r,s.replayView,s.archiveVideo]);
+ },[st?.frame_id,r,s.replayView,s.archiveVideo,s.localBatch]);
  const local=s.localNavigation?.frame_id===st?.frame_id&&s.localNavigation?.goal_key===(r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'')?s.localNavigation:null;
- const instruction=s.replayView==='3d'?st?.guidance?.instruction:local?(local.status==='ready'?'Local route verified':local.status==='partial'?'Observed segment only':local.status==='turn_required'?'Make a U-turn':'No verified local route'):'Analysing local terrain…';
+ const instruction=s.replayView==='3d'?st?.guidance?.instruction:local?(local.status==='ready'?'Local route verified':local.status==='partial'?'Follow the route':local.status==='u_turn'?`U-turn ${local.turn_direction}: swing out, then head back`:local.status==='turn_required'?`Turn in place ${local.turn_direction} ${Math.abs(local.required_turn_deg??0).toFixed(0)}°`:'No measured safe corridor'):'Analysing local terrain…';
  return <section className="replay-view" aria-label="Rover view">
   <div className="replay-view-tabs" role="tablist">
    <button role="tab" aria-selected={s.replayView==='navcam'} className={s.replayView==='navcam'?'active':''} onClick={()=>s.set({replayView:'navcam'})}><Video size={14}/>Real camera</button>
@@ -148,13 +158,14 @@ function NavcamFrame(){
    <div className="camera-overlay-controls" role="group" aria-label="Camera route display"><button aria-pressed={cameraOverlay==='guidance'} onClick={()=>set({cameraOverlay:'guidance'})}>Centre guide</button><button aria-pressed={cameraOverlay==='projection'} onClick={()=>set({cameraOverlay:'projection'})}>Ground projection</button></div>
   </div>
   <div className="camera-image-area"><div className="navcam-stage"><img ref={image} key={st.frame_id} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>set({replayImageReady:st.frame_id})}/>
-   {loaded&&hasRoute&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Collision-checked stereo ground route projected through the calibrated camera">{(local!.corridor_edges??[]).map((line,i)=><polyline key={`c${i}`} className="corridor-edge" points={line.map(p=>`${p[0]},${p[1]}`).join(' ')}/>)}{local!.ribbons.map((polygon,i)=><polygon key={i} points={polygon.map(p=>`${p[0]},${p[1]}`).join(' ')} fill="#3ce1ff" fillOpacity={cameraOverlay==='guidance'?.9:.35} stroke="#3ce1ff" strokeWidth="0.0006"/>)}</svg>}
+   {loaded&&hasRoute&&<RouteOverlay local={local!} faint={cameraOverlay==='projection'}/>}
    {loaded&&local&&(local.obstacles?.length??0)>0&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Obstacle cells measured by stereo">{local.obstacles!.map((p,i)=><rect key={i} x={p[0]-.0025} y={p[1]-.0025} width=".005" height=".005" fill="#ff5a4a" fillOpacity=".85"/>)}</svg>}
    {!loaded&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
    {loaded&&!local&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Analysing segmentation and stereo terrain…</div>}
-   {loaded&&local&&!hasRoute&&<div className="offscreen-guidance"><RotateCcw size={26}/><strong>{local.status==='insufficient_geometry'?'Stereo coverage insufficient':local.status==='turn_required'?'U-turn: destination is behind the rover':'No verified local route'}</strong><span>{local.reason}</span></div>}
+   {loaded&&local&&!hasRoute&&local.status==='turn_required'&&<TurnCue direction={local.turn_direction??'left'} degrees={Math.abs(local.required_turn_deg??180)}/>}
+   {loaded&&local&&!hasRoute&&<div className={`offscreen-guidance ${local.status==='turn_required'?'turn':''}`}>{local.status==='turn_required'?(local.turn_direction==='right'?<RotateCw size={26}/>:<RotateCcw size={26}/>):<RotateCcw size={26}/>}<strong>{local.status==='insufficient_geometry'?'Too little measured ground':local.status==='turn_required'?`Turn in place ${local.turn_direction} ${Math.abs(local.required_turn_deg??0).toFixed(0)}°`:'No measured safe corridor'}</strong><span>{local.reason}</span></div>}
   </div></div>
-  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>Measured stereo terrain + segmentation · A* for a 2.8 m wide rover corridor · calibrated PDS camera projection. Red: measured obstacles. Dashed: rover width.{local?.corridor_observed_fraction!==undefined?` Corridor measured: ${Math.round(local.corridor_observed_fraction*100)}%.`:''}</div>
+  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>Route: A* on measured stereo terrain for a 2.8 m wide rover, projected with the PDS camera model. The link from the rover to the first visible route point is drawn in the image (that ground is under the rover or outside stereo). Red: measured obstacles. Dashed: rover width.{local?.corridor_observed_fraction!==undefined?` Corridor measured: ${Math.round(local.corridor_observed_fraction*100)}%.`:''}</div>
  </div>;
 }
 
