@@ -5,4 +5,4 @@ pillow>=11,<13
 onnxruntime>=1.20,<2
 httpx>=0.28,<1
 scipy>=1.14,<2
-lerc>=0.1,<1
+lerc>=4.0,<5
