@@ -129,8 +129,8 @@ async def create_mission(request: MissionRequest):
                       "antimeridian_not_supported":"Waypoints may not straddle the 180 degree meridian.",
                       "span_too_large":f"Waypoints must lie within {int(MAX_SPAN_KM)} km of each other."}
             reject(str(exc),messages.get(str(exc),"Global DEM could not be prepared."))
-        except OSError:
-            reject("dem_unavailable","Global DEM tile service is temporarily unavailable.",502)
+        except Exception as exc:
+            reject("dem_unavailable",f"Global DEM could not be prepared ({type(exc).__name__}: {str(exc)[:160]}).",502)
     elif request.region_id in data.regions:
         region = data.regions[request.region_id]
     else:
