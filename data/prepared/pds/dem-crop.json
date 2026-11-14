@@ -1,0 +1,45 @@
+{
+  "source_lid": "urn:nasa:pds:msl_places:data_maps:msl_orbital_dem",
+  "version": "42.0",
+  "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/msl_places/data_maps/msl_orbital_dem.img",
+  "label_url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_maps/msl_orbital_dem.xml",
+  "label_sha256": "e54efee1e91a8a5f8877789843c452fda33c9f4f17e3ca5fbf949be1cc7ac809",
+  "range_sha256": "e1cabe25193a8235dc1962487916df62f93932af86671fe284945a2963e61464",
+  "source_byte_range": [
+    8197056,
+    22002623
+  ],
+  "source_image_shape": [
+    14331,
+    6741
+  ],
+  "source_pixel_window": {
+    "row": 302,
+    "column": 5915,
+    "height": 512,
+    "width": 512
+  },
+  "pixel_resolution_m": 1.0,
+  "upper_left_easting_m": 8146952.49279,
+  "upper_left_northing_m": -271815.07519,
+  "array": "dem-crop.npy",
+  "valid_mask": "dem-crop-valid.npy",
+  "height_reference": "Gale PLACES orbital DEM areoid elevation, meters",
+  "axis_order": [
+    "southward_row",
+    "eastward_column"
+  ],
+  "projection": "Equirectangular",
+  "sphere_radius_m": 3396190.0,
+  "center_longitude_deg": 0.0,
+  "standard_parallel_deg": 0.0,
+  "latitude_type": "planetocentric",
+  "special_constants": {},
+  "nodata_policy": "Preserve declared special constants, nonfinite values and abs(value)>=1e6 as NaN; no hole filling",
+  "valid_fraction": 1.0,
+  "minimum_elevation_m": -4525.68701171875,
+  "maximum_elevation_m": -4500.1943359375,
+  "zero_count": 0,
+  "registration_verified": false,
+  "note": "Native1m included PLACES DEM; metadata alignment only, independent control residuals still unmeasured"
+}

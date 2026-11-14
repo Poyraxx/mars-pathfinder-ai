@@ -1,0 +1,28 @@
+{
+  "source_lid": "urn:nasa:pds:msl_places:data_maps:msl_orbital_map",
+  "version": "42.0",
+  "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/msl_places/data_maps/msl_orbital_map.img",
+  "label_url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_maps/msl_orbital_map.xml",
+  "label_sha256": "aeee1005e7606833fd8d1c4d99d48dbbc9053a6ba80547728c77651f5d212560",
+  "range_sha256": "43f9b0fa8ac2d71847f16bcdf25c00229dfafd3ed44b2cb9a1324c66099840ed",
+  "source_byte_range": [
+    56562080,
+    63463839
+  ],
+  "source_image_shape": [
+    57320,
+    26960
+  ],
+  "source_pixel_window": {
+    "row": 2096,
+    "column": 24540,
+    "height": 256,
+    "width": 256
+  },
+  "pixel_resolution_m": 0.25,
+  "upper_left_easting_m": 8147173.0,
+  "upper_left_northing_m": -272038.0,
+  "image": "orbital-crop.png",
+  "purpose": "Actual HiRISE PLACES base-map context for independent registration checks; residuals not yet measured",
+  "registration_verified": false
+}

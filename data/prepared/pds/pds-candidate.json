@@ -1,0 +1,833 @@
+{
+  "schema_version": "1.0",
+  "body": "Mars",
+  "source": "NASA PDS MSL NAVCAM RDR and MSL PLACES",
+  "attribution": "NASA/JPL-Caltech; MSL NAVCAM and PLACES teams",
+  "orbital_projection": {
+    "pixel_type": "unsigned_integer",
+    "center_longitude": "0",
+    "x_scale": "0.25",
+    "coord_sys_definition": "+X is North, +Y is East, +Z is Down",
+    "description": "25cm MSLICE basemap",
+    "upper_left_easting_m": "8126248",
+    "lower_right_easting_m": "8171248",
+    "origin_sample": "0",
+    "pixel_depth": "8",
+    "samples": "180000",
+    "ellipsoid_radius": "3396190",
+    "center_latitude": "0",
+    "latitude_type": "planetocentric",
+    "lower_right_northing_m": "-311164",
+    "z_scale": "1.0",
+    "filename": "MSL_Gale_MSLICE_HIRISE_Mosaic_25cm.tif",
+    "origin_line": "0",
+    "y_scale": "0.25",
+    "pixel_definitions": "Line/samp of (0,0) is the upper-left corner of the upper-left pixel",
+    "upper_left_northing_m": "-241164",
+    "formula": "line = line_origin - x/x_scale; samp = samp_origin + y/y_scale;",
+    "projection": "Equirectangular",
+    "lines": "280000",
+    "projection_units": "meters"
+  },
+  "document_sources": [
+    {
+      "url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_localizations/localized_pos_demv2.csv",
+      "sha256": "a7b908fe3f9442c3c3552de3eeedae3d18ef105f5350fc53c1d0bcf5afe35d60",
+      "bytes": 129538
+    },
+    {
+      "url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_localizations/localized_interp_demv2.csv",
+      "sha256": "706ae080b30b6d631f5421d1147a6797f6a0b252c5fd5c164f33cedf01d2cd6d",
+      "bytes": 11721740
+    },
+    {
+      "url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_localizations/view_metadata.csv",
+      "sha256": "469a3174c098aa95e32c0cf9851dfae5843928675b6f98f14f712d00eb69ff67",
+      "bytes": 551
+    },
+    {
+      "url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_orbital/orbital_1_metadata.csv",
+      "sha256": "4dc6bfdb625844b15c0d1d917d89a9205900bf5c56ee659a670d07ea46611696",
+      "bytes": 753
+    },
+    {
+      "url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_orbital/orbital_origin_global.csv",
+      "sha256": "49638bbeaf82608f4c14535c9ec6b19d59b0c5646a0b06a9aad43ebd69200a9b",
+      "bytes": 2729
+    }
+  ],
+  "registration_verified": false,
+  "frames": [
+    {
+      "id": "NLA_402556045XYZ_D0043480TRAV00022M1",
+      "number": 1,
+      "mission": "MSL",
+      "instrument": "NAV_LEFT_A",
+      "sol": 57,
+      "acquired_at": "2012-10-03T17:10:22.737Z",
+      "site": 4,
+      "drive": 3480,
+      "pose": 2,
+      "reference_image_product_id": "NLA_402556045RAD_D0043480TRAV00022M1",
+      "reference_image": "NLA_402556045XYZ_D0043480TRAV00022M1/reference.png",
+      "xyz_file": "NLA_402556045XYZ_D0043480TRAV00022M1/xyz.npy",
+      "xye_file": "NLA_402556045XYZ_D0043480TRAV00022M1/xye.npy",
+      "valid_file": "NLA_402556045XYZ_D0043480TRAV00022M1/valid.npy",
+      "shape": [
+        256,
+        256
+      ],
+      "valid_pixel_fraction": 0.6303253173828125,
+      "display_transform": {
+        "method": "percentile_stretch_1_99",
+        "dn_low": 1080.35,
+        "dn_high": 4161.6500000000015,
+        "scientific_radiance": false
+      },
+      "products": [
+        {
+          "product_id": "NLA_402556045RAD_D0043480TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556045RAD_D0043480TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556045RAD_D0043480TRAV00022M1.IMG",
+          "image_sha256": "23b99789c7fe6e91b8b8e2309ba66d8b08bf62d1f9c5a055e704c2901c7886c3",
+          "label_sha256": "f8e651dab0683f2f65bfb943af16f256abf9c84914f6fedbf3336e256a537177",
+          "layout": {
+            "filename": "NLA_402556045RAD_D0043480TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              1,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">i2",
+            "offset_bytes": 41472,
+            "record_bytes": 512,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        },
+        {
+          "product_id": "NLA_402556045XYZ_D0043480TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556045XYZ_D0043480TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556045XYZ_D0043480TRAV00022M1.IMG",
+          "image_sha256": "f673fcc20c326b1fb7a2dd178cc204f0f26867090908a34d86f90c9725f39f9a",
+          "label_sha256": "a8a7cc3ba2bce5aa8b67413e17abb634f983a22f3e90ae413487bedc849285e7",
+          "layout": {
+            "filename": "NLA_402556045XYZ_D0043480TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              3,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">f4",
+            "offset_bytes": 44032,
+            "record_bytes": 1024,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        },
+        {
+          "product_id": "NLA_402556045XYE_D0043480TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556045XYE_D0043480TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556045XYE_D0043480TRAV00022M1.IMG",
+          "image_sha256": "b2d18ff86523b65df980ab2566cbec6c5a0a545e7f9cad36d88ecd06ff2a4cf9",
+          "label_sha256": "564da5ab817443f4ca56a7e220fa915de913533c6c76cae304da65a7d22afa8f",
+          "layout": {
+            "filename": "NLA_402556045XYE_D0043480TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              3,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">f4",
+            "offset_bytes": 43008,
+            "record_bytes": 1024,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        }
+      ],
+      "frame": {
+        "name": "SITE_FRAME",
+        "index": 4,
+        "axes": [
+          "north",
+          "east",
+          "down"
+        ],
+        "units": "m"
+      },
+      "places": {
+        "view": "localized_interp_demv2",
+        "row": {
+          "frame": "ROVER",
+          "site": "4",
+          "drive": "3480",
+          "pose": "-1",
+          "landing_x": "-32.582",
+          "landing_y": "398.201",
+          "landing_z": "16.000",
+          "northing": "-272071.850",
+          "easting": "8147209.424",
+          "planetocentric_latitude": "-4.590016674",
+          "planetodetic_latitude": "-4.644294170",
+          "longitude": "137.448350889",
+          "elevation": "-4517.000",
+          "map_pixel_line": "2231.40",
+          "map_pixel_sample": "24685.70",
+          "dem_pixel_line": "558.77",
+          "dem_pixel_sample": "6171.93",
+          "roll": "-1.457",
+          "pitch": "0.432",
+          "yaw": "-109.903",
+          "quat_s": "0.574255600",
+          "quat_v1": "-0.004214209",
+          "quat_v2": "0.012576276",
+          "quat_v3": "-0.818568650",
+          "sclk": "402556016",
+          "sol": "57"
+        },
+        "site_row": {
+          "frame": "SITE",
+          "site": "4",
+          "drive": "-1",
+          "pose": "-1",
+          "landing_x": "-38.781",
+          "landing_y": "74.736",
+          "landing_z": "1.837",
+          "northing": "-272078.049",
+          "easting": "8146885.959",
+          "planetocentric_latitude": "-4.590121255",
+          "planetodetic_latitude": "-4.644399977",
+          "longitude": "137.442893838",
+          "elevation": "-4502.837",
+          "map_pixel_line": "2256.20",
+          "map_pixel_sample": "23391.84",
+          "dem_pixel_line": "564.97",
+          "dem_pixel_sample": "5848.47",
+          "roll": "0.000",
+          "pitch": "-0.000",
+          "yaw": "0.000",
+          "quat_s": "1.000000000",
+          "quat_v1": "0.000000000",
+          "quat_v2": "0.000000000",
+          "quat_v3": "0.000000000",
+          "sclk": "400070892",
+          "sol": "29"
+        },
+        "site_origin_projected_m": {
+          "northing": -272078.049,
+          "easting": 8146885.959,
+          "areoid_elevation": -4502.837
+        },
+        "site_orientation_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "telemetry_rover_origin_in_site_m": [
+          6.07327,
+          330.8,
+          14.4297
+        ],
+        "corrected_rover_origin_global_ned_m": [
+          -272071.85,
+          8147209.424,
+          4517.0
+        ],
+        "archive_site_to_global_ned_rotation": [
+          [
+            0.9999999999999681,
+            2.526987274345041e-07,
+            -1.6190425677688096e-08
+          ],
+          [
+            -2.5269872680222815e-07,
+            0.9999999999999674,
+            3.271074147376775e-08
+          ],
+          [
+            1.6190433946093216e-08,
+            -3.2710737386704104e-08,
+            0.9999999999999993
+          ]
+        ],
+        "archive_site_to_global_ned_translation_m": [
+          -272077.9233533591,
+          8146878.6240010625,
+          4502.5703107223835
+        ],
+        "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+        "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+        "site_origin_latitude_deg": -4.5901212552459105,
+        "site_origin_longitude_deg": 137.44289383841607,
+        "correction_note": "Corrected rover origin replaces telemetry rover anchor, removing accumulated translation drift in archive Site XYZ. Do not add the localized Site origin directly.",
+        "accuracy_note": "PLACES SIS section4.4.1.2 gives expected0.5m localized_pos accuracy relative to included base map. This is not a verified bound for interpolated in-drive frames or an independently registered HiRISE DTM."
+      },
+      "coordinate_chain_available": true,
+      "registration_verified": false,
+      "enabled_for_map_update": false,
+      "registration_status": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed.",
+      "xye_note": "MSL_CAMERA_SIS section5.2.1.4: three axis-aligned estimated range-error components in meters forming an error ellipsoid; not a localization bound, covariance, confidence interval or total error budget."
+    },
+    {
+      "id": "NLA_402556100XYZ_D0043486TRAV00022M1",
+      "number": 2,
+      "mission": "MSL",
+      "instrument": "NAV_LEFT_A",
+      "sol": 57,
+      "acquired_at": "2012-10-03T17:11:18.582Z",
+      "site": 4,
+      "drive": 3486,
+      "pose": 4,
+      "reference_image_product_id": "NLA_402556100RAD_D0043486TRAV00022M1",
+      "reference_image": "NLA_402556100XYZ_D0043486TRAV00022M1/reference.png",
+      "xyz_file": "NLA_402556100XYZ_D0043486TRAV00022M1/xyz.npy",
+      "xye_file": "NLA_402556100XYZ_D0043486TRAV00022M1/xye.npy",
+      "valid_file": "NLA_402556100XYZ_D0043486TRAV00022M1/valid.npy",
+      "shape": [
+        256,
+        256
+      ],
+      "valid_pixel_fraction": 0.6512603759765625,
+      "display_transform": {
+        "method": "percentile_stretch_1_99",
+        "dn_low": 883.0,
+        "dn_high": 4265.6500000000015,
+        "scientific_radiance": false
+      },
+      "products": [
+        {
+          "product_id": "NLA_402556100RAD_D0043486TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556100RAD_D0043486TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556100RAD_D0043486TRAV00022M1.IMG",
+          "image_sha256": "61fd60f99a3b7672970e04738ce6e6e43804ad921c0b4ca3f36006162e30920c",
+          "label_sha256": "d653047501c74a8e171b173fbb688b9e1ee0b662c05ed2669b1d5686dbadcb9f",
+          "layout": {
+            "filename": "NLA_402556100RAD_D0043486TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              1,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">i2",
+            "offset_bytes": 41472,
+            "record_bytes": 512,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        },
+        {
+          "product_id": "NLA_402556100XYZ_D0043486TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556100XYZ_D0043486TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556100XYZ_D0043486TRAV00022M1.IMG",
+          "image_sha256": "70bf00c446e00d69e47c1ea41ecf2350cb5447aa072e331b24efdd4401b53e8d",
+          "label_sha256": "d42dc3a6eca268b4924afd2e46fe451f9b89c81f50ad5579cf32a5096ebe9aeb",
+          "layout": {
+            "filename": "NLA_402556100XYZ_D0043486TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              3,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">f4",
+            "offset_bytes": 44032,
+            "record_bytes": 1024,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        },
+        {
+          "product_id": "NLA_402556100XYE_D0043486TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556100XYE_D0043486TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556100XYE_D0043486TRAV00022M1.IMG",
+          "image_sha256": "430acf359e203b41497689be5768f450a63443d81050e2c7307668fedca37c5c",
+          "label_sha256": "14148e92871c2b25a5b04e8d67eab24e52fde1ee4d2233beee198b64c109388c",
+          "layout": {
+            "filename": "NLA_402556100XYE_D0043486TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              3,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">f4",
+            "offset_bytes": 43008,
+            "record_bytes": 1024,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        }
+      ],
+      "frame": {
+        "name": "SITE_FRAME",
+        "index": 4,
+        "axes": [
+          "north",
+          "east",
+          "down"
+        ],
+        "units": "m"
+      },
+      "places": {
+        "view": "localized_interp_demv2",
+        "row": {
+          "frame": "ROVER",
+          "site": "4",
+          "drive": "3486",
+          "pose": "-1",
+          "landing_x": "-32.832",
+          "landing_y": "397.111",
+          "landing_z": "15.998",
+          "northing": "-272072.100",
+          "easting": "8147208.334",
+          "planetocentric_latitude": "-4.590020900",
+          "planetodetic_latitude": "-4.644298445",
+          "longitude": "137.448332492",
+          "elevation": "-4516.998",
+          "map_pixel_line": "2232.40",
+          "map_pixel_sample": "24681.33",
+          "dem_pixel_line": "559.03",
+          "dem_pixel_sample": "6170.84",
+          "roll": "-1.541",
+          "pitch": "2.062",
+          "yaw": "-109.091",
+          "quat_s": "0.580104770",
+          "quat_v1": "0.006859668",
+          "quat_v2": "0.021386525",
+          "quat_v3": "-0.814232200",
+          "sclk": "402556099",
+          "sol": "57"
+        },
+        "site_row": {
+          "frame": "SITE",
+          "site": "4",
+          "drive": "-1",
+          "pose": "-1",
+          "landing_x": "-38.781",
+          "landing_y": "74.736",
+          "landing_z": "1.837",
+          "northing": "-272078.049",
+          "easting": "8146885.959",
+          "planetocentric_latitude": "-4.590121255",
+          "planetodetic_latitude": "-4.644399977",
+          "longitude": "137.442893838",
+          "elevation": "-4502.837",
+          "map_pixel_line": "2256.20",
+          "map_pixel_sample": "23391.84",
+          "dem_pixel_line": "564.97",
+          "dem_pixel_sample": "5848.47",
+          "roll": "0.000",
+          "pitch": "-0.000",
+          "yaw": "0.000",
+          "quat_s": "1.000000000",
+          "quat_v1": "0.000000000",
+          "quat_v2": "0.000000000",
+          "quat_v3": "0.000000000",
+          "sclk": "400070892",
+          "sol": "29"
+        },
+        "site_origin_projected_m": {
+          "northing": -272078.049,
+          "easting": 8146885.959,
+          "areoid_elevation": -4502.837
+        },
+        "site_orientation_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "telemetry_rover_origin_in_site_m": [
+          5.73842,
+          329.849,
+          14.3992
+        ],
+        "corrected_rover_origin_global_ned_m": [
+          -272072.1,
+          8147208.334,
+          4516.998
+        ],
+        "archive_site_to_global_ned_rotation": [
+          [
+            0.9999999999998153,
+            6.061601738944516e-07,
+            4.4843824728635567e-08
+          ],
+          [
+            -6.061601723591784e-07,
+            0.9999999999998157,
+            -3.299204085654653e-08
+          ],
+          [
+            -4.4843844733846864e-08,
+            3.299201368269604e-08,
+            0.9999999999999983
+          ]
+        ],
+        "archive_site_to_global_ned_translation_m": [
+          -272077.838620587,
+          8146878.485003953,
+          4502.59878937495
+        ],
+        "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+        "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+        "site_origin_latitude_deg": -4.5901212552459105,
+        "site_origin_longitude_deg": 137.44289383841607,
+        "correction_note": "Corrected rover origin replaces telemetry rover anchor, removing accumulated translation drift in archive Site XYZ. Do not add the localized Site origin directly.",
+        "accuracy_note": "PLACES SIS section4.4.1.2 gives expected0.5m localized_pos accuracy relative to included base map. This is not a verified bound for interpolated in-drive frames or an independently registered HiRISE DTM."
+      },
+      "coordinate_chain_available": true,
+      "registration_verified": false,
+      "enabled_for_map_update": false,
+      "registration_status": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed.",
+      "xye_note": "MSL_CAMERA_SIS section5.2.1.4: three axis-aligned estimated range-error components in meters forming an error ellipsoid; not a localization bound, covariance, confidence interval or total error budget."
+    },
+    {
+      "id": "NLA_402556155XYZ_D0043492TRAV00022M1",
+      "number": 3,
+      "mission": "MSL",
+      "instrument": "NAV_LEFT_A",
+      "sol": 57,
+      "acquired_at": "2012-10-03T17:12:13.616Z",
+      "site": 4,
+      "drive": 3492,
+      "pose": 4,
+      "reference_image_product_id": "NLA_402556155RAD_D0043492TRAV00022M1",
+      "reference_image": "NLA_402556155XYZ_D0043492TRAV00022M1/reference.png",
+      "xyz_file": "NLA_402556155XYZ_D0043492TRAV00022M1/xyz.npy",
+      "xye_file": "NLA_402556155XYZ_D0043492TRAV00022M1/xye.npy",
+      "valid_file": "NLA_402556155XYZ_D0043492TRAV00022M1/valid.npy",
+      "shape": [
+        256,
+        256
+      ],
+      "valid_pixel_fraction": 0.6556549072265625,
+      "display_transform": {
+        "method": "percentile_stretch_1_99",
+        "dn_low": 929.0,
+        "dn_high": 4243.0,
+        "scientific_radiance": false
+      },
+      "products": [
+        {
+          "product_id": "NLA_402556155RAD_D0043492TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556155RAD_D0043492TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556155RAD_D0043492TRAV00022M1.IMG",
+          "image_sha256": "d337bfd20864b50dd09dd302bda14a5896a27586d63d6229a40276178dc4ed47",
+          "label_sha256": "64f26a61a7ea6f4a4d088b71fd88e2941d3e9f7132058fc1b9734a8875ccdc7e",
+          "layout": {
+            "filename": "NLA_402556155RAD_D0043492TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              1,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">i2",
+            "offset_bytes": 41472,
+            "record_bytes": 512,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        },
+        {
+          "product_id": "NLA_402556155XYZ_D0043492TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556155XYZ_D0043492TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556155XYZ_D0043492TRAV00022M1.IMG",
+          "image_sha256": "ae5ed8f68d3c4d7b988ef9218873a0d8de0bdae0653f2f3c33bd3f313610fffd",
+          "label_sha256": "31f114c8ec2b493db9244c194036c58466c03c9d447ee05427f34e58b0b0fbb1",
+          "layout": {
+            "filename": "NLA_402556155XYZ_D0043492TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              3,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">f4",
+            "offset_bytes": 44032,
+            "record_bytes": 1024,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        },
+        {
+          "product_id": "NLA_402556155XYE_D0043492TRAV00022M1",
+          "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556155XYE_D0043492TRAV00022M1.LBL",
+          "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLNAV_1XXX/DATA_V1/SOL00057/NLA_402556155XYE_D0043492TRAV00022M1.IMG",
+          "image_sha256": "4eac5c23290fcc0a733db7313c9e4016b613eccad3040fca5584d9379c34c98f",
+          "label_sha256": "94a4d03dab2be48db396cdb64b4a06be7d8c024e13b370e9472c91de8ff9f83c",
+          "layout": {
+            "filename": "NLA_402556155XYE_D0043492TRAV00022M1.IMG",
+            "shape_bands_lines_samples": [
+              3,
+              256,
+              256
+            ],
+            "dtype_on_disk": ">f4",
+            "offset_bytes": 43008,
+            "record_bytes": 1024,
+            "scaling_factor": 1.0,
+            "offset": 0.0,
+            "band_storage": "BAND_SEQUENTIAL"
+          }
+        }
+      ],
+      "frame": {
+        "name": "SITE_FRAME",
+        "index": 4,
+        "axes": [
+          "north",
+          "east",
+          "down"
+        ],
+        "units": "m"
+      },
+      "places": {
+        "view": "localized_interp_demv2",
+        "row": {
+          "frame": "ROVER",
+          "site": "4",
+          "drive": "3492",
+          "pose": "-1",
+          "landing_x": "-32.881",
+          "landing_y": "396.890",
+          "landing_z": "16.002",
+          "northing": "-272072.149",
+          "easting": "8147208.113",
+          "planetocentric_latitude": "-4.590021725",
+          "planetodetic_latitude": "-4.644299280",
+          "longitude": "137.448328771",
+          "elevation": "-4517.002",
+          "map_pixel_line": "2232.60",
+          "map_pixel_sample": "24680.45",
+          "dem_pixel_line": "559.07",
+          "dem_pixel_sample": "6170.62",
+          "roll": "-1.544",
+          "pitch": "3.205",
+          "yaw": "-108.888",
+          "quat_s": "0.581522100",
+          "quat_v1": "0.014914696",
+          "quat_v2": "0.027217517",
+          "quat_v3": "-0.812938400",
+          "sclk": "402556155",
+          "sol": "57"
+        },
+        "site_row": {
+          "frame": "SITE",
+          "site": "4",
+          "drive": "-1",
+          "pose": "-1",
+          "landing_x": "-38.781",
+          "landing_y": "74.736",
+          "landing_z": "1.837",
+          "northing": "-272078.049",
+          "easting": "8146885.959",
+          "planetocentric_latitude": "-4.590121255",
+          "planetodetic_latitude": "-4.644399977",
+          "longitude": "137.442893838",
+          "elevation": "-4502.837",
+          "map_pixel_line": "2256.20",
+          "map_pixel_sample": "23391.84",
+          "dem_pixel_line": "564.97",
+          "dem_pixel_sample": "5848.47",
+          "roll": "0.000",
+          "pitch": "-0.000",
+          "yaw": "0.000",
+          "quat_s": "1.000000000",
+          "quat_v1": "0.000000000",
+          "quat_v2": "0.000000000",
+          "quat_v3": "0.000000000",
+          "sclk": "400070892",
+          "sol": "29"
+        },
+        "site_origin_projected_m": {
+          "northing": -272078.049,
+          "easting": 8146885.959,
+          "areoid_elevation": -4502.837
+        },
+        "site_orientation_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "telemetry_rover_origin_in_site_m": [
+          5.67219,
+          329.657,
+          14.3975
+        ],
+        "corrected_rover_origin_global_ned_m": [
+          -272072.149,
+          8147208.113,
+          4517.002
+        ],
+        "archive_site_to_global_ned_rotation": [
+          [
+            0.999999999999954,
+            3.0190526505486313e-07,
+            3.276352365747091e-08
+          ],
+          [
+            -3.0190526494865346e-07,
+            0.9999999999999545,
+            1.7692196638592915e-09
+          ],
+          [
+            -3.276352310237976e-08,
+            -1.7692295472746892e-09,
+            0.9999999999999996
+          ]
+        ],
+        "archive_site_to_global_ned_translation_m": [
+          -272077.82128999685,
+          8146878.456001687,
+          4502.60450076908
+        ],
+        "transform": "global_NED = rotation @ archived_SITE_XYZ + translation; H=-global_NED[2]",
+        "angular_conversion": "lat_deg=N/R*180/pi; lon_deg=E/R*180/pi",
+        "site_origin_latitude_deg": -4.5901212552459105,
+        "site_origin_longitude_deg": 137.44289383841607,
+        "correction_note": "Corrected rover origin replaces telemetry rover anchor, removing accumulated translation drift in archive Site XYZ. Do not add the localized Site origin directly.",
+        "accuracy_note": "PLACES SIS section4.4.1.2 gives expected0.5m localized_pos accuracy relative to included base map. This is not a verified bound for interpolated in-drive frames or an independently registered HiRISE DTM."
+      },
+      "coordinate_chain_available": true,
+      "registration_verified": false,
+      "enabled_for_map_update": false,
+      "registration_status": "Independent image/orbital control-point residuals have not been measured. No horizontal error bound is claimed.",
+      "xye_note": "MSL_CAMERA_SIS section5.2.1.4: three axis-aligned estimated range-error components in meters forming an error ellipsoid; not a localization bound, covariance, confidence interval or total error budget."
+    }
+  ],
+  "orbital_crop": {
+    "source_lid": "urn:nasa:pds:msl_places:data_maps:msl_orbital_map",
+    "version": "42.0",
+    "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/msl_places/data_maps/msl_orbital_map.img",
+    "label_url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_maps/msl_orbital_map.xml",
+    "label_sha256": "aeee1005e7606833fd8d1c4d99d48dbbc9053a6ba80547728c77651f5d212560",
+    "range_sha256": "43f9b0fa8ac2d71847f16bcdf25c00229dfafd3ed44b2cb9a1324c66099840ed",
+    "source_byte_range": [
+      56562080,
+      63463839
+    ],
+    "source_image_shape": [
+      57320,
+      26960
+    ],
+    "source_pixel_window": {
+      "row": 2096,
+      "column": 24540,
+      "height": 256,
+      "width": 256
+    },
+    "pixel_resolution_m": 0.25,
+    "upper_left_easting_m": 8147173.0,
+    "upper_left_northing_m": -272038.0,
+    "image": "orbital-crop.png",
+    "purpose": "Actual HiRISE PLACES base-map context for independent registration checks; residuals not yet measured",
+    "registration_verified": false
+  },
+  "dem_crop": {
+    "source_lid": "urn:nasa:pds:msl_places:data_maps:msl_orbital_dem",
+    "version": "42.0",
+    "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/msl_places/data_maps/msl_orbital_dem.img",
+    "label_url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_maps/msl_orbital_dem.xml",
+    "label_sha256": "e54efee1e91a8a5f8877789843c452fda33c9f4f17e3ca5fbf949be1cc7ac809",
+    "range_sha256": "e1cabe25193a8235dc1962487916df62f93932af86671fe284945a2963e61464",
+    "source_byte_range": [
+      8197056,
+      22002623
+    ],
+    "source_image_shape": [
+      14331,
+      6741
+    ],
+    "source_pixel_window": {
+      "row": 302,
+      "column": 5915,
+      "height": 512,
+      "width": 512
+    },
+    "pixel_resolution_m": 1.0,
+    "upper_left_easting_m": 8146952.49279,
+    "upper_left_northing_m": -271815.07519,
+    "array": "dem-crop.npy",
+    "valid_mask": "dem-crop-valid.npy",
+    "height_reference": "Gale PLACES orbital DEM areoid elevation, meters",
+    "axis_order": [
+      "southward_row",
+      "eastward_column"
+    ],
+    "projection": "Equirectangular",
+    "sphere_radius_m": 3396190.0,
+    "center_longitude_deg": 0.0,
+    "standard_parallel_deg": 0.0,
+    "latitude_type": "planetocentric",
+    "special_constants": {},
+    "nodata_policy": "Preserve declared special constants, nonfinite values and abs(value)>=1e6 as NaN; no hole filling",
+    "valid_fraction": 1.0,
+    "minimum_elevation_m": -4525.68701171875,
+    "maximum_elevation_m": -4500.1943359375,
+    "zero_count": 0,
+    "registration_verified": false,
+    "note": "Native1m included PLACES DEM; metadata alignment only, independent control residuals still unmeasured"
+  },
+  "region_ortho": {
+    "source_lid": "urn:nasa:pds:msl_places:data_maps:msl_orbital_map",
+    "version": "42.0",
+    "attribution": "NASA/JPL-Caltech; MRO HiRISE and MSL PLACES teams",
+    "image_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/msl_places/data_maps/msl_orbital_map.img",
+    "label_url": "https://planetarydata.jpl.nasa.gov/w10n/msl/msl_places/data_maps/msl_orbital_map.xml",
+    "label_sha256": "aeee1005e7606833fd8d1c4d99d48dbbc9053a6ba80547728c77651f5d212560",
+    "range_sha256": "f57cc9c65599ae1b2c9352a4de97c4a642ff399721a2345f72cc259dcc1f4493",
+    "png_sha256": "86bebcfb896a0989dca67b6a0fe5b032afbbe1fe0f0adc8afcf7cdb1e2e7c6da",
+    "source_byte_range": [
+      32513760,
+      87727839
+    ],
+    "source_image_shape": [
+      57320,
+      26960
+    ],
+    "source_pixel_window": {
+      "row": 1204,
+      "column": 23658,
+      "height": 2048,
+      "width": 2048
+    },
+    "pixel_resolution_m": 0.25,
+    "upper_left_easting_m": 8146952.5,
+    "upper_left_northing_m": -271815.0,
+    "lower_right_easting_m": 8147464.5,
+    "lower_right_northing_m": -272327.0,
+    "requested_dem_upper_left_m": {
+      "easting": 8146952.49279,
+      "northing": -271815.07519
+    },
+    "native_pixel_rounding_offset_m": {
+      "easting": 0.007210000418126583,
+      "northing": 0.07519000000320375
+    },
+    "render_rectangle_degrees_west_south_east_north": [
+      137.44401642533393,
+      -4.594321209195943,
+      137.45265417502128,
+      -4.585683459508588
+    ],
+    "image": "region-ortho.png",
+    "projection": "Equirectangular",
+    "sphere_radius_m": 3396190.0,
+    "latitude_type": "planetocentric",
+    "center_longitude_deg": 0.0,
+    "standard_parallel_deg": 0.0,
+    "zero_pixel_fraction": 4.76837158203125e-07,
+    "display_processing": "None; source8bit values preserved",
+    "registration_verified": false,
+    "note": "True PLACES included25cm HiRISE imagery. Bounds rounded to nearest native image pixel; independent camera/orbital registration residuals remain unmeasured."
+  }
+}
