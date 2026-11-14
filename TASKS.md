@@ -92,6 +92,34 @@ Kabul: açık evidence + metre cinsinden bağımsız residual + gerçek geometri
 güncellemesi. Metadata tutarlılığı veya gözle güzel hizalama tek başına yeterli değil.
 Bu tamamlanana kadar projenin ana füzyon hedefi tamamlandı deneme.
 
+## 14 Kasım 2026 — ikinci tur (kullanıcı isteği: daha çok görsel, tüm Mars, uydu görüntü işleme, demo)
+
+- [x] Yerel git uzak geçmişe bağlandı (`main` → `origin/main`), commit kimliği yalnız bu repo için
+  `Poyraxx <156310194+Poyraxx@users.noreply.github.com>`. Co-authored-by yok.
+- [x] 27 yeni gerçek Sol 57 Navcam RAD/XYZ/XYE karesi (`scripts/prepare_navcam_set.py`): sürüş dizisi
+  6 kare + Rocknest panoraması 24 kare. Geometri 256×256 (blok-merkez örnek), tam çözünürlük görüntü ayrı.
+- [x] Aynı önceden sabitlenmiş kayıt testi 30 karede: 13 kabul (sürüş 4, panorama NCAM00445 9; kayma
+  0–0.75 m, p ≤ 0.005), 2 ret (kayma 2.5–8 m, p 0.29–0.80), 15 ölçülemedi (bölge içinde yoğun zemin
+  yok). Ölçülemeyen/reddedilen kareler gösterilir ama haritaya yazmaz, rota çizilmez.
+- [x] Rota kamera görüntüsünde: `backend/camera_route.py` — her rota örneği en yakın ölçülmüş stereo
+  zemin pikseline (tolerans ≤ hata sınırı/2, min 0.35 m); kapanma/görüş dışı = boşluk. Eski rota kesikli.
+  "Plan in this view": başlangıç = PLACES rover konumu, hedef = görüntü merkezindeki ölçülmüş zemin noktası.
+  Kare 2'de: rota 8.24 m (kayaların içinden) → kamera güncellemesinden sonra 9.41 m (kayaların yanından).
+- [x] Video benzeri oynatma: sürüş/panorama dizilerinde kare kare oynat/duraklat.
+- [x] Tüm Mars kaba planlama: `backend/global_dem.py` — MOLA/HRSC 200 m LERC karoları canlı çekilir,
+  ≤384² ızgara (≥163 m hücre). Jezero 5.9 km, Olympus Mons 89.6 km, Valles Marineris 229 km test edildi.
+  Kaya/engel bilgisi yok; |enlem| ≤ 80°, ≤ 800 km.
+- [x] 2055 IAU adı (USGS Gazetteer) küre etiketleri + arama + tür/çap kartı.
+- [x] Öğrenilmiş Orbital model: MobileNetV3-Small, HiRISE landmark v3.2 (Zenodo 4002935, CC BY 4.0),
+  resmî kaynak-görüntü ayrımı. Test (1793 orijinal): doğruluk 92.9%, macro-F1 69.5%; spider recall 0
+  (42 örnek), impact ejecta 57% (7 örnek). CTX'e aktarım kontrolü: 131 IAU kraterinin 65.6%'sı "crater",
+  3 çap kaydırılmış pencerelerde 8.4%. Rota koridoru boyunca CTX (~5 m) pencerelerinde canlı çalışır;
+  bağlam bilgisi, tehlike haritası değil, rota maliyetine girmez.
+- [x] AI4Mars v2 seti: train 2000 (820 büyük-kaya içeren, yalnız train'de tercihli), val 400, test 400
+  (yansız). Yeniden eğitim 12 epoch (en iyi val epoch 6). Aynı 400 test görüntüsünde v1→v2: mIoU
+  59.6→64.7%, big-rock IoU 0.06→0.20, recall 14→36%, precision 10→32% (val recall 84%). v2 yayında;
+  büyük kaya hâlâ güvenilmez ve haritaya yazmaz. v1 model yedeği: `%LOCALAPPDATA%/mars-pathfinder/training/v1-backup/`.
+
 ## P1 — Surface modelini iyileştir
 
 - [ ] Önce training/validation sınıf dağılımını ölç. Held-out testte yalnız543

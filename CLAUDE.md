@@ -64,6 +64,9 @@ Kamera–harita eşleştirmesi görüntü korelasyonu ile ölçüldü (3 kare, 0
 harita engelleri stereo basamak yüksekliğinden geliyor, model haritaya yazmıyor. Kullanıcı
 proje bitene kadar karar yetkisini Claude'a verdi; GitHub'a Claude'u yazar/katkıcı/coauthor
 olarak ekleme (kullanıcı ayrıca vurguladı). Sıradaki: model iyileştirme (P1), mobil QA, teslim.
+İkinci tur (aynı gün): 30 Navcam karesi (13 kayıtlı), kamera görüntüsünde rota, tüm Mars kaba planlama,
+2055 IAU adı, öğrenilmiş HiRISE/CTX orbital model, AI4Mars v2 yeniden eğitim. Ayrıntı TASKS.md.
+Yerel git artık çalışıyor (kullanıcı git kurdu); commit kimliği repo-yerel Poyraxx noreply.
 
 ## İlk devam noktası (Codex devri; tarihî)
 

@@ -9,7 +9,16 @@ Research prototype for the Martian Map challenge. **Not certified for human EVA 
 - NASA Mars Trek optical, MOLA visualization and THEMIS infrared layers.
 - A real 512×512 native **1 m** HiRISE/PLACES DEM and **25 cm** ortho crop at Gale/Rocknest.
 - Distance and terrain-aware A*, route profiles, waypoints, comparisons and JSON reports.
-- Three matched Sol57 PDS Navcam RAD, XYZ and XYE products; corrected PLACES rover transforms.
+- **Planning anywhere on Mars** (coarse): the server fetches the real MOLA/HRSC 200 m blended DEM
+  tiles for the waypoints, builds a ≤384×384 grid (≥163 m cells) and runs the same A* live. This is
+  regional context; cells are hundreds of metres wide and contain no rock-level information.
+- **2055 IAU-approved feature names** (USGS Gazetteer of Planetary Nomenclature) on the globe, with
+  type and diameter, searchable; labels appear by feature size.
+- **Route drawn inside the rover camera image**: each route sample is placed at the image position of
+  the nearest measured stereo ground pixel (via the registered transform); occluded or out-of-view
+  ground leaves gaps. The previous route is shown dashed after a camera-driven replan.
+- 30 matched Sol 57 PDS Navcam RAD/XYZ/XYE products (drive sequence + Rocknest panorama), playable
+  as a frame sequence; corrected PLACES rover transforms. 13 pass the registration test (see below).
 - Real LR-ASPP/MobileNetV3 Surface training, ONNX CPU inference, live SSE algorithm events.
 - Camera/orbital registration measured by image correlation against the 25 cm HiRISE ortho
   (`scripts/register_image_correlation.py`): all three frames match at the archived placement with a
@@ -42,7 +51,7 @@ On this Windows workspace, `scripts/start.ps1` uses the prepared local runtime.
 python -m pip install -r requirements-dev.txt
 python scripts/prepare_pds.py --frames 3 --ortho-crop --dem-crop --region-ortho
 python -m scripts.assemble_data
-python scripts/fetch_training.py --count 400
+python scripts/fetch_training.py --count 2000 --eval-count 400 --bigrock-train-fraction 0.6 --group-cap 24
 python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
 python scripts/train_surface.py --epochs 10
 python -m pytest tests -q
@@ -55,8 +64,10 @@ application uses ONNX Runtime CPU and does not include PyTorch or GDAL.
 The AI4Mars reader validates HTTP Range responses and downloads only selected original-publisher
 ZIP members. Splits use three-sol acquisition blocks, with adjacent demo observations excluded.
 The held-out test subset uses crowdsourced labels, **not expert gold labels**. See model-card.json
-for the actual subset sizes, measured metrics and known limitations. The held-out ONNX test
-reached 55.8% mIoU but **0% big-rock recall**; hazard detection remains unvalidated.
+for the actual subset sizes, measured metrics and known limitations. The current model (v2: 2000
+train images, big-rock-rich images preferred in train only) reaches 64.7% mIoU on an unbiased
+400-image held-out test; big-rock IoU 0.20, recall 36%, precision 32% (v1 on the same images: 59.6%
+mIoU, big-rock recall 14%). Big-rock detection remains unreliable and never writes the map.
 
 ## Scientific limits
 
@@ -66,16 +77,22 @@ brightness is not current temperature. Big-rock scores are not occupancy probabi
 
 Selected camera positions are interpolated archive localizations. Using Site4 alone caused about
 7.3m horizontal drift; the supplied transformations correct the rover anchor. Image-correlation
-residuals are 0.35–0.75 m; the planner uses max shift + 0.5 m (0.85–1.25 m). This is an empirical
-research tolerance, not a confidence interval. The three frames overlap (3–11 m range) and are not
-independent; PLACES localizations were themselves made against the HiRISE base map. Manual
+residuals of the 13 accepted frames are 0–0.75 m; the planner uses max shift + 0.5 m (0.75–1.25 m).
+This is an empirical research tolerance, not a confidence interval. Two panorama frames failed
+(2.5–8 m, p ≥ 0.29) and 15 had too little dense ground inside the HiRISE region to measure; they are
+shown but never update the map. Frames overlap and are not independent; PLACES localizations were themselves made against the HiRISE base map. Manual
 control points were not usable: rocks here are 10–40 cm, 1–2 HiRISE pixels. Stereo-vs-DEM
 elevations differ around1.1m, so absolute vertical agreement is not claimed; DEM-shape matching
 was uninformative on this flat terrain (0.4–0.6 m relief). Stereo obstacles can miss low or
 distant rocks; they are not a hazard-safety guarantee.
 
-The Orbital component currently performs deterministic DEM analysis. A second trained orbital
-model, real EVA consumables, D*Lite and arbitrary-photo localization are not implemented.
+Orbital: route costs remain deterministic DEM calculations. A learned orbital classifier
+(MobileNetV3-Small, HiRISE labeled landmarks v3.2, Wagstaff et al., CC BY 4.0, published split by
+source image) reaches 92.9% accuracy / 69.5% macro-F1 on 1793 held-out originals, with 0% spider and
+57% impact-ejecta recall. It runs live on CTX (~5 m) windows along any route; on 131 IAU-named craters
+in CTX it says "crater" 65.6% of the time versus 8.4% three diameters away. It is landmark context,
+not a hazard map, and does not change route costs. Real EVA consumables, D*Lite and arbitrary-photo
+localization are not implemented.
 
 ## Deploy
 
