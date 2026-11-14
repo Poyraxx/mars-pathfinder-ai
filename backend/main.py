@@ -337,18 +337,29 @@ async def frame_local_navigation(frame_id: str, goal_lat: float|None=None, goal_
         reject('invalid_goal','Use finite Mars latitude/longitude coordinates.')
     if not any(f['id']==frame_id for f in data.frame_catalog()):
         reject('unknown_frame','Unknown reference frame.',404)
+    goal=None if goal_lat is None else {'lat':goal_lat,'lon':goal_lon}
+    key=(frame_id,None if goal is None else (round(goal_lat,7),round(goal_lon,7)))
+    if key in frame_local_cache: return frame_local_cache[key]
+    # A frame already computed for a whole replay is served from that batch, never re-scanned.
+    for payload in list(scenario_local_cache.values()):
+        g=payload['goal']
+        if key[1] is not None and (round(g['lat'],7),round(g['lon'],7))==key[1] and frame_id in payload['frames']:
+            return payload['frames'][frame_id]
     if local_navigation_lock.locked():
         reject('queue_full','Local stereo processing is active; retry shortly.',429)
     async with local_navigation_lock:
-        goal=None if goal_lat is None else {'lat':goal_lat,'lon':goal_lon}
         try:
-            return await asyncio.to_thread(local_navigation.compute,frame_id,goal)
+            result=await asyncio.to_thread(local_navigation.compute,frame_id,goal)
+            frame_local_cache[key]=result
+            while len(frame_local_cache)>600: frame_local_cache.pop(next(iter(frame_local_cache)))
+            return result
         except (OSError,ValueError,KeyError) as exc:
             return {'frame_id':frame_id,'status':'unavailable','reason':f'Local stereo/model inputs unavailable ({type(exc).__name__}); no route asserted.',
                     'segments':[],'ribbons':[],'is_ground_projection':True}
 
 
 orbital_results={}
+frame_local_cache={}
 scenario_local_cache={}
 scenario_local_pending={}
 scenario_local_guard=threading.Lock()

@@ -178,8 +178,12 @@ def render_keyframes(result):
         # Same route payload as the in-app map; only the cartographic projection changes.
         def mp(p):
             x,y=map_point(p);return x,y+(my-ymain)
-        trail=[mp(p) for p in result['trail'][:index+1]]
-        if len(trail)>1:d.line(trail,fill=WHITE,width=3)
+        # Actual driven path (PLACES drive log), red; straight pose-to-pose only where no log exists.
+        trail=[]
+        for j,s_ in enumerate(result['steps'][:index+1]):
+            pts=[{'lat':q[0],'lon':q[1]} for q in s_.get('driven') or []] or [result['trail'][j]]
+            trail+=[mp(p) for p in pts]
+        if len(trail)>1:d.line(trail,fill='#2a0805',width=7,joint='curve');d.line(trail,fill='#ff4a3d',width=4,joint='curve')
         route=[mp(st['rover']),*[mp(p) for p in st['route']]]
         if len(route)>1:
             d.line(route,fill='#07131a',width=10,joint='curve');d.line(route,fill=CYAN,width=5,joint='curve')
@@ -203,7 +207,9 @@ def render_keyframes(result):
             label='No measured safe corridor'
         d.text((xcam+27,cy+22),label,font=font(23,True),fill=CYAN if local['ribbons'] and local['status']!='u_turn' else AMBER)
         motion=st['motion'];details=motion['label']
-        if motion['distance_m'] is not None:
+        if motion.get('detail'):
+            details=motion['label']
+        elif motion['distance_m'] is not None:
             details+=f" / {motion['distance_m']:.1f} m / {motion['heading_change_deg']:+.1f} deg"
         d.text((xcam+27,cy+56),'Recorded: '+details,font=font(17),fill=WHITE)
         d.text((xcam+27,cy+81),f"Sol {st['sol']} / {st['time'][:19].replace('T',' ')} UTC",font=font(13),fill=MUTED)

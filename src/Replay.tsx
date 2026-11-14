@@ -28,9 +28,12 @@ export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
   const seen=new Set<string>();r.steps.forEach((step,i)=>{if(seen.has(step.frame_id))return;seen.add(step.frame_id);window.setTimeout(()=>{const img=new Image();img.src=`/api/frames/${step.frame_id}/display`;},i*40);});
   // All local stereo routes for this replay, computed once on the server.
   const key=`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`;
-  void fetch(`/api/scenarios/${id}/local-navigation${q}`).then(res=>res.ok?res.json():null).then(batch=>{if(batch&&request===replayRequest)useMission.getState().set({localBatch:{key,frames:batch.frames}});}).catch(()=>{});
+  void fetch(`/api/scenarios/${id}/local-navigation${q}`).then(res=>res.ok?res.json():null).then(batch=>{if(!batch)return;for(const [frame,local] of Object.entries(batch.frames as Record<string,LocalNavigation>))localSeen.set(`${key}|${frame}`,local);if(request===replayRequest)useMission.getState().set({localBatch:{key,frames:batch.frames}});}).catch(()=>{});
  }catch(error){if(request===replayRequest)useMission.getState().set({busy:false,busyNote:null,error:error instanceof Error?error.message:String(error)});}
 }
+
+/** Local routes already computed in this browser session, by goal + frame: going back never re-scans a frame. */
+const localSeen=new Map<string,LocalNavigation>();
 
 /** Sidebar content for Replay mode: ready-made scenarios built from real archived drives. */
 export function ReplayPanel(){
@@ -71,7 +74,7 @@ export function ReplayView(){
  useEffect(()=>{
   if(!st||s.replayView!=='navcam'||s.archiveVideo)return;
   const batchKey=r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'';
-  const cached=s.localBatch?.key===batchKey?s.localBatch.frames[st.frame_id]:undefined;
+  const cached=localSeen.get(`${batchKey}|${st.frame_id}`)??(s.localBatch?.key===batchKey?s.localBatch.frames[st.frame_id]:undefined);
   if(cached){useMission.getState().set({localNavigation:{...cached,goal_key:batchKey}});return;}
   const controller=new AbortController(),frameId=st.frame_id;
   useMission.getState().set({localNavigation:null});
@@ -86,6 +89,7 @@ export function ReplayView(){
     }
     if(!result?.ok)throw new Error('Local processing unavailable; no route asserted.');
     const local=await result.json() as LocalNavigation;
+    localSeen.set(`${query}|${frameId}`,local);
     if(!controller.signal.aborted)useMission.getState().set({localNavigation:{...local,goal_key:query}});
    }catch(error){if(!controller.signal.aborted)useMission.getState().set({localNavigation:{goal_key:r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'',frame_id:frameId,status:'unavailable',reason:error instanceof Error?error.message:'Local processing unavailable.',segments:[],ribbons:[],is_ground_projection:true}});}
   })();
@@ -161,7 +165,7 @@ function NavcamFrame(){
  const MotionIcon=motion?.kind.includes('right')?RotateCw:motion?.kind.includes('left')?RotateCcw:motion?.kind==='reverse'?ArrowDown:motion?.kind==='forward'?ArrowUp:Minus;
  return <div className="navcam">
   <div className="camera-tools">
-   <div className="recorded-motion" aria-label="Recorded rover motion"><MotionIcon size={17}/><span><small>Recorded motion</small><strong>{motion?.label??'Loading pose change…'}</strong>{motion?.distance_m!=null&&<small>Since previous frame · {motion.distance_m.toFixed(1)} m · {(motion.heading_change_deg??0)>0?'+':''}{motion.heading_change_deg?.toFixed(1)}°</small>}</span></div>
+   <div className="recorded-motion" aria-label="Recorded rover motion"><MotionIcon size={17}/><span><small>Recorded motion</small><strong>{motion?.label??'Loading pose change…'}</strong>{motion?.detail?<small className="motion-detail" title={`${motion.detail} · ${motion.drive_steps??0} logged drive steps (NASA PLACES)`}>{motion.detail}</small>:motion?.distance_m!=null&&<small>Since previous frame · {motion.distance_m.toFixed(1)} m · {(motion.heading_change_deg??0)>0?'+':''}{motion.heading_change_deg?.toFixed(1)}°</small>}</span></div>
    <div className="camera-overlay-controls" role="group" aria-label="Camera route display"><button aria-pressed={cameraOverlay==='guidance'} onClick={()=>set({cameraOverlay:'guidance'})}>Centre guide</button><button aria-pressed={cameraOverlay==='projection'} onClick={()=>set({cameraOverlay:'projection'})}>Ground projection</button></div>
   </div>
   <div className="camera-image-area"><div className="navcam-stage">{held&&!loaded&&<img className="held-frame" src={`/api/frames/${held}/display`} alt=""/>}<img ref={image} key={st.frame_id} className={held&&!loaded?'incoming-frame':undefined} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>{setHeld(st.frame_id);set({replayImageReady:st.frame_id});}}/>

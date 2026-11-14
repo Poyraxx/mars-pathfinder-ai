@@ -27,7 +27,7 @@ from .camera_route import project_route
 from .coordinates import cell_to_point
 from .navigation import cost_grid, inflate_obstacles, plan_legs
 from .perception import localize_obstacles
-from .guidance import navigation_guide, pose_change
+from .guidance import drive_motion, navigation_guide, pose_change
 
 R = 3396190.0
 DEVIATION_M = 2.0
@@ -40,6 +40,35 @@ def scenarios() -> list[dict]:
     path = data.DATA_DIR / "scenarios.json"
     return json.loads(path.read_text("utf-8")) if path.exists() else []
 
+
+
+_drive_rows = None
+
+
+def _drive_path():
+    """Dense PLACES drive poses [(site, drive, pose, n, e, yaw, sol, sclk)], or [] when not prepared."""
+    global _drive_rows
+    if _drive_rows is None:
+        path = data.DATA_DIR / "places-drive-path.json"
+        _drive_rows = json.loads(path.read_text("utf-8"))["rows"] if path.is_file() else []
+    return _drive_rows
+
+
+def _frame_key(f):
+    row = f["places"]["row"]
+    return (int(row["site"]), int(row["drive"]))
+
+
+def _driven_between(prev_frame, frame, prev_ned, ned, prev_yaw, yaw):
+    """Actual drive steps from the previous acquisition pose to this one: [(n, e, yaw), ...]."""
+    rows = _drive_path()
+    if prev_frame is None or not rows:
+        return None
+    a, b = _frame_key(prev_frame), _frame_key(frame)
+    if b < a:
+        return None
+    mid = [(r[3], r[4], r[5]) for r in rows if a < (r[0], r[1]) < b]
+    return [(float(prev_ned[0]), float(prev_ned[1]), float(prev_yaw)), *mid, (float(ned[0]), float(ned[1]), float(yaw))]
 
 def _xy(ned, meta):
     # Gale meta uses standard parallel 0 and central lon 0: x = east metres, y = north metres.
@@ -167,13 +196,16 @@ def compute(scenario_id: str, profile: dict | None = None, goal: dict | None = N
         projection = project_route(f, meta, remaining_cells, tol)
         projection = {k2: projection[k2] for k2 in ("segments", "visible_route_m", "tolerance_m", "method")} | {"placement": "image-verified" if verified else "archived PLACES pose, not independently verified"}
         guide = navigation_guide(p, yaw, [_centre(c, meta) for c in remaining_cells], remaining)
-        motion = pose_change(_xy(poses[k-1], meta) if k else None, yaws[k-1] if k else None, p, yaw)
+        driven = _driven_between(frames[k-1] if k else None, f, poses[k-1] if k else None, ned, yaws[k-1] if k else None, yaw)
+        # Motion from the dense drive log when available (exact manoeuvres); otherwise the two-pose comparison.
+        motion = drive_motion(driven) if driven else pose_change(_xy(poses[k-1], meta) if k else None, yaws[k-1] if k else None, p, yaw)
         lat, lon = math.degrees(ned[0] / R), (math.degrees(ned[1] / R) + 180) % 360 - 180
         steps.append({"step": k, "frame_id": f["id"], "sol": f["sol"], "time": f["acquired_at"], "rover": {"lat": lat, "lon": lon, "yaw_deg": round(yaw, 1)},
                       "registered": bool(f["registration"].get("verified")), "event": event, "deviation_m": round(dev, 2), "deviation_before_replan_m":round(deviation_before,2),
                       "remaining_m": round(remaining, 1), "route_version": version, "hazard_pixels": hazards,"turn_to_route_deg":round(turn_to_route,1),
                       "route": [cell_to_point(*remaining_cells[i], meta) for i in idx], "camera_route": projection,
-                      "guidance": guide, "motion": motion})
+                      "guidance": guide, "motion": motion,
+                      "driven": [[round(math.degrees(q[0] / R), 8), round((math.degrees(q[1] / R) + 180) % 360 - 180, 8)] for q in driven] if driven else []})
     goal_out = {"lat": math.degrees(goal_xy[1] / R), "lon": (math.degrees(goal_xy[0] / R) + 180) % 360 - 180, "custom": goal is not None}
     result = {"scenario": {k: sc[k] for k in ("id", "title", "subtitle", "story", "references", "note", "camera", "sols")}, "goal": goal_out,
               "steps": steps, "events": events, "parameters": {"deviation_m": DEVIATION_M, "u_turn_deg": UTURN_DEG, **profile},

@@ -214,8 +214,12 @@ export default function Globe(){
   const step=()=>replay.steps[Math.min(stepRef.current,replay.steps.length-1)];
   const deg=(ps:{lat:number;lon:number}[])=>C.Cartesian3.fromDegreesArray(ps.flatMap(p=>[p.lon,p.lat]),MARS);
   const roverPos=()=>{const st=step();return C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,0,MARS);};
-  v.entities.add({id:'replay-trail-all',polyline:{positions:deg(replay.trail),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8}),clampToGround:true}});
-  v.entities.add({id:'replay-trail',polyline:{positions:new C.CallbackProperty(()=>{const done=replay.trail.slice(0,stepRef.current+1);return deg(done.length>1?done:[done[0],done[0]]);},false),width:3,material:C.Color.fromCssColorString('#f4efe6'),clampToGround:true}});
+  // Actual driven path: every logged PLACES drive step between acquisitions (forward, reverse, turns),
+  // falling back to the straight pose-to-pose line where no drive log exists.
+  const driven=replay.steps.map((st,i)=>st.driven?.length?st.driven.map(([lat,lon])=>({lat,lon})):i?[replay.trail[i-1],replay.trail[i]]:[replay.trail[0]]);
+  const upTo=(k:number)=>driven.slice(0,k+1).flat();
+  v.entities.add({id:'replay-trail-all',polyline:{positions:deg(upTo(driven.length-1)),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8}),clampToGround:true}});
+  v.entities.add({id:'replay-trail',polyline:{positions:new C.CallbackProperty(()=>{const done=upTo(stepRef.current);return deg(done.length>1?done:[done[0],done[0]]);},false),width:4,material:new C.PolylineOutlineMaterialProperty({color:C.Color.fromCssColorString('#ff4a3d'),outlineColor:C.Color.fromCssColorString('#2a0805'),outlineWidth:1}),clampToGround:true}});
   const routeColour=new C.CallbackProperty(()=>C.Color.fromCssColorString(step().event==='u_turn'?'#f2a65a':'#3ce1ff'),false);
   v.entities.add({id:'replay-route',polyline:{positions:new C.CallbackProperty(()=>{const st=step();return deg([st.rover,...(st.route.length?st.route:[st.rover])]);},false),width:6,material:new C.PolylineGlowMaterialProperty({glowPower:.22,color:routeColour}),clampToGround:true}});
   v.entities.add({id:'replay-goal',position:C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,0,MARS),point:{pixelSize:12,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 11px sans-serif',fillColor:C.Color.fromCssColorString('#f2a65a'),pixelOffset:new C.Cartesian2(0,-20),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
