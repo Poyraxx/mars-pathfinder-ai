@@ -61,3 +61,19 @@ def test_taper_is_distributed_through_the_middle_instead_of_pinching_at_the_end(
     for i in range(join):
         j=min(join,np.searchsorted(arc,arc[i]+.05))
         assert w[i]/w[j]<2.8
+
+
+def test_uturn_swing_tapers_without_inventing_a_visible_return_route():
+    frame=fixture();frame.update(segments=[],manoeuvre=True)
+    result=overlay_geometries([frame])[0];stroke=result['strokes'][0]
+    assert result['hasLocal'] and len(result['strokes'])==1
+    assert stroke['width'][-1]<stroke['width'][0]/8
+    assert stroke['planned']==[] and result['end']==[.5,.61]
+
+
+def test_short_near_destination_keeps_unverified_map_context():
+    frame={'segments':[[[.4,.8,0.],[.45,.65,.5],[.5,.5,1.2]]],'planningLink':True}
+    result=overlay_geometries([frame])[0]
+    assert not result['hasLocal'] and result['strokes']
+    assert result['end']==[.5,.5] and result['strokes'][0]['centre'][0]==[.5,.985]
+    assert result['strokes'][0]['planned']==result['strokes'][0]['centre']

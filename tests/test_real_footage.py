@@ -126,3 +126,21 @@ def test_guidance_origin_and_left_right_steering_are_not_ground_projection():
     assert right['points'][-1][0]>.5 and left['points'][-1][0]<.5
     assert np.allclose(np.array(right['points'])[:,0],1-np.array(left['points'])[:,0])
     assert reverse['kind']=='u_turn'
+
+
+def test_sol150_goal_stays_on_ground_when_the_arm_moves_at_the_same_rover_pose():
+    # The user's three screenshots. Previously the nearest unfiltered XYZ
+    # return lifted the flag onto the raised arm as it moved between exposures.
+    data.load_regions()
+    result=replay.compute('hazcam-extended-traverse')
+    from backend.camera_visibility import visibility
+    catalogue={f['id']:f for f in data.frame_catalog()}
+    for i in (139,140,141):
+        step=result['steps'][i];p=step['camera_route'];uv=p['destination']
+        assert p['destination_visibility']=='visible' and uv is not None
+        assert .50<uv[0]<.55 and .38<uv[1]<.44
+        excluded,_=visibility(catalogue[step['frame_id']])
+        rr,cc=(np.array(uv)[::-1]*excluded.shape).astype(int)
+        assert not excluded[rr,cc]
+    goals=np.array([result['steps'][i]['camera_route']['destination'] for i in (139,140,141)])
+    assert np.ptp(goals[:,1])<.003

@@ -10,6 +10,8 @@ Requires imageio-ffmpeg only at authoring time; exported films need no encoder o
 from __future__ import annotations
 
 import argparse
+import base64
+import io
 import hashlib
 import json
 import math
@@ -113,6 +115,7 @@ def render_keyframes(result):
     geometry=overlay_geometries([{'ribbons':locals_by_frame[st['frame_id']]['ribbons'],
                                  'groundM':locals_by_frame[st['frame_id']].get('ribbon_s_m'),
                                  'localLength':locals_by_frame[st['frame_id']].get('length_m',0),'planningLink':True,
+                                 'manoeuvre':locals_by_frame[st['frame_id']]['status']=='u_turn',
                                  'segments':(st.get('camera_route') or {}).get('segments') or []}
                                 for st in result['steps']])
     for index,st in enumerate(result['steps']):
@@ -150,6 +153,17 @@ def render_keyframes(result):
         has_plan=any(stroke['planned'] for stroke in ribbon['strokes'])
         arrived=st['remaining_m']<=1
         if end:d.ellipse((end[0]-9,end[1]-9,end[0]+9,end[1]+9),fill='#1c6b7a');d.ellipse((end[0]-5,end[1]-5,end[0]+5,end[1]+5),fill='#f2fdff',outline=CYAN,width=2)
+        for ring in local.get('distant_candidates',[]):
+            if ring.get('kind')!='large_raised_region':d.line([P(q) for q in ring['ring']]+[P(ring['ring'][0])],fill='#ffb23d',width=2)
+        for q in local.get('tracked_obstacles',[]):x,y=P(q);d.rectangle((x-2,y-2,x+2,y+2),fill='#ffb23d')
+        if not arrived and local['status'] in ('turn_required','out_of_view') and local.get('turn_direction'):draw_turn_cue(d,xcam,cy,size,local['turn_direction'])
+        for p in local.get('obstacles',[]):
+            ox,oy=xcam+p[0]*size,cy+p[1]*size;d.rectangle((ox-2,oy-2,ox+2,oy+2),fill='#ff5a4a')
+        visible_mask=(st.get('camera_route') or {}).get('visibility_mask')
+        if visible_mask:
+            alpha=Image.open(io.BytesIO(base64.b64decode(visible_mask.split(',',1)[1]))).getchannel('A').resize((size,size),Image.Resampling.NEAREST)
+            painted=canvas.crop((xcam,cy,xcam+size,cy+size))
+            canvas.paste(Image.composite(painted,camera,alpha),(xcam,cy));d=ImageDraw.Draw(canvas)
         destination=(st.get('camera_route') or {}).get('destination')
         if destination is not None:
             gx,gy=P(destination)
@@ -158,11 +172,6 @@ def render_keyframes(result):
             d.polygon([(gx,gy-40),(gx+24,gy-33),(gx,gy-22)],fill=AMBER,outline='#fff3df')
             right=gx<xcam+size-130
             d.text((gx+30 if right else gx-8,gy-30),'Destination',font=font(16,True),fill='#fff3df',stroke_width=2,stroke_fill='#111b22',anchor='la' if right else 'ra')
-        for ring in local.get('distant_candidates',[]):d.line([P(q) for q in ring['ring']]+[P(ring['ring'][0])],fill='#ffb23d',width=2)
-        for q in local.get('tracked_obstacles',[]):x,y=P(q);d.rectangle((x-2,y-2,x+2,y+2),fill='#ffb23d')
-        if not arrived and local['status'] in ('turn_required','out_of_view') and local.get('turn_direction'):draw_turn_cue(d,xcam,cy,size,local['turn_direction'])
-        for p in local.get('obstacles',[]):
-            ox,oy=xcam+p[0]*size,cy+p[1]*size;d.rectangle((ox-2,oy-2,ox+2,oy+2),fill='#ff5a4a')
         # Same route payload as the in-app map; only the cartographic projection changes.
         def mp(p):
             x,y=map_point(p);return x,y+(my-ymain)
@@ -195,10 +204,12 @@ def render_keyframes(result):
             label=f"Turn in place {local.get('turn_direction','')} {turn:.0f} deg"
         elif local['status']=='out_of_view' and local.get('turn_direction'):
             label=f"Swing {local['turn_direction']} beside the rover"
+        elif local.get('failure_kind')=='clearance_conflict':
+            label='Map plan / clearance unverified' if has_plan else 'Nearby rocks / clearance unverified'
         elif has_plan:
             label='Map plan / local passage blocked' if local['status']=='no_path' else 'Map plan / local ground unverified'
         else:
-            label='No measured safe corridor'
+            label='Local route not verified'
         d.text((xcam+27,cy+22),label,font=font(23,True),fill=CYAN if local['ribbons'] and local['status']!='u_turn' else AMBER)
         motion=st['motion'];details=motion['label']
         if motion.get('detail'):
@@ -207,12 +218,6 @@ def render_keyframes(result):
             details+=f" / {motion['distance_m']:.1f} m / {motion['heading_change_deg']:+.1f} deg"
         d.text((xcam+27,cy+56),'Recorded: '+details,font=font(17),fill=WHITE)
         d.text((xcam+27,cy+81),f"Sol {st['sol']} / {st['time'][:19].replace('T',' ')} UTC",font=font(13),fill=MUTED)
-        if not local['ribbons'] and local['status']!='turn_required' and not arrived and not has_plan:
-            import textwrap
-            box=(xcam+36,cy+230,xcam+size-36,cy+366)
-            d.rounded_rectangle(box,radius=7,fill='#10252f')
-            lines=textwrap.wrap(local['reason'],width=58)
-            d.multiline_text((box[0]+16,box[1]+18),'\n'.join(lines),font=font(18),fill=WHITE,spacing=7)
         d.text((WIDTH-61,my+20),'N',font=font(20,True),fill=WHITE)
         d.text((30,866),'Accelerated archive timelapse. Recorded rover motion; calculated route does not control the rover.',font=font(16),fill=MUTED)
         d.text((30,886),'Near: A* on measured stereo for a 2.8 m rover. Dashed centre: unverified map plan. Red: measured obstacles; orange: remembered rocks / distant candidates.',font=font(12),fill=MUTED)

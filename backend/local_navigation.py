@@ -340,7 +340,10 @@ def plan_observed(terrain, target_xy, *, waypoint=False):
     # Four-connectivity also respects A*'s no-diagonal-corner-cutting rule.
     labels, _ = ndimage.label(free)
     if labels[start] == 0:
-        return {'status': 'no_path', 'reason': 'The rover footprint is not connected to measured free ground.', 'path_xy': []}
+        conflict=bool(terrain['blocked'][start] or terrain['clearance'][start]<terrain['settings']['half_width_m_body']+terrain['settings']['clearance_m']+terrain['cell_m']/math.sqrt(2))
+        return {'status': 'no_path', 'failure_kind': 'clearance_conflict' if conflict else 'unobserved_connection',
+                'reason': ('Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified.'
+                           if conflict else 'A connection from the rover footprint to measured ground is not established.'), 'path_xy': []}
     rc = np.column_stack(np.nonzero(labels == labels[start]))
     points = _centres(rc, terrain)
     goal_rc = _cell(target, terrain)[0]

@@ -1,5 +1,11 @@
 # Current continuation — 15 November 2026
 
+Newest follow-up: [HAZCAM_OCCLUSION_FIXES.md](HAZCAM_OCCLUSION_FIXES.md). Equipment
+is excluded before destination height selection and image drawing; short map
+context survives, U-turn swing paint tapers, and clearance failure keeps an
+explicit readout/caption rather than covering the camera. No safety thresholds
+or model weights were relaxed.
+
 Latest follow-up: [REPLAY_VISUAL_FIXES.md](REPLAY_VISUAL_FIXES.md). Full-approach
 paint taper, an explicitly projected destination flag, and persistent replay
 entities/DEM heights replace the abrupt taper and zoom/stationary-frame flicker.

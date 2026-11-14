@@ -117,7 +117,18 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):
 
 /** Projected map context, distinct from the collision-checked local corridor. */
 export function mapRoute(segments:number[][][],fromM=2){
- const visible=segments.map(seg=>seg.filter(p=>p.length>=3&&p.every(Number.isFinite)&&p[2]>=fromM))
+ const extent=Math.max(0,...segments.flatMap(seg=>seg.map(p=>p[2]??0)));
+ // A goal close to the front wheels can have less than two metres of projected
+ // remaining path. Keep its actual visible ground rather than dropping it all.
+ const closeGoal=fromM<=2&&extent>0&&extent<fromM;
+ const threshold=closeGoal?extent*.5:fromM;
+ const visible=segments.map(seg=>{
+  const valid=seg.filter(p=>p.length>=3&&p.every(Number.isFinite));
+  const clipped=valid.filter(p=>p[2]>=threshold);
+  // Retain a two-point final fragment on sparse short plans. Earlier body-side
+  // points must not pull the centre guide backwards into a hook at the rover.
+  return closeGoal&&clipped.length===1&&valid.at(-1)?.[2]===extent?valid.slice(-2):clipped;
+ })
   .filter(s=>s.length>=2).map(seg=>seg.map((p,i)=>{
    if(i===0||i===seg.length-1)return p;
    const half=Math.max(1.5,p[2]*.06);let x=0,y=0,n=0;
@@ -149,7 +160,7 @@ function outlineTrack(centre:P[],width:number[],planned:P[]):RibbonStroke{
 /** One tapering outline across the near/map handoff. The planned continuation
  * remains marked separately; joining display geometry does not validate terrain.
  * True camera exits/occlusions remain separate strips, never invented ground. */
-export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefined,segments:number[][][],localLength=0,planningLink=false):NavigationRibbon{
+export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefined,segments:number[][][],localLength=0,planningLink=false,manoeuvre=false):NavigationRibbon{
  const near=groundArrow(ribbons,groundM,false),plan=mapRoute(segments,near?Math.max(2,localLength+.5):2);
  let visible=plan.visible,attachNear=false;
  if(near&&visible.length){
@@ -183,11 +194,11 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
   }
   attachNear=true;
  }
- if(near&&visible.length&&dist(near.tip,visible[0][0] as P)<.45){
+ if(near&&(manoeuvre||(visible.length&&dist(near.tip,visible[0][0] as P)<.45))){
   // Spread the paint taper over the whole visible approach. A fixed short
   // end-window pinched a broad middle into a needle just before the map join.
   // This changes paint only; the measured centre and clearance stay unchanged.
-  const target=Math.min(w.at(-1)!, .0012+.004*visible[0][0][1]**2);
+  const target=Math.min(w.at(-1)!, .0012+.004*(visible[0]?.[0][1]??near.tip[1])**2);
   const arc=[0];for(let i=1;i<c.length;i++)arc.push(arc[i-1]+dist(c[i-1],c[i]));
   const total=arc.at(-1)||1;
   for(let i=0;i<c.length;i++){

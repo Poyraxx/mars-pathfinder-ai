@@ -17,6 +17,7 @@ from scipy.ndimage import map_coordinates
 
 from .data import DATA_DIR, regions
 from .camera_model import site_points_to_pixels
+from .camera_visibility import visibility
 
 R = 3396190.0
 
@@ -29,9 +30,13 @@ def _xy(ned: np.ndarray, meta: dict) -> np.ndarray:
     return np.column_stack([x, y])
 
 
-def ground_pixels(frame: dict, meta: dict):
+def ground_pixels(frame: dict, meta: dict, excluded=None):
     xyz = np.load(DATA_DIR / frame["xyz_path"]).astype(np.float64)
     valid = np.isfinite(xyz).all(-1) & (xyz != 0).any(-1)
+    if excluded is not None:
+        if excluded.shape != xyz.shape[:2]:
+            raise ValueError('Camera visibility and stereo grids differ')
+        valid &= ~excluded
     p = frame["places"]
     rot = np.array(p["archive_site_to_global_ned_rotation"]); tr = np.array(p["archive_site_to_global_ned_translation_m"])
     rows, cols = np.nonzero(valid)
@@ -40,7 +45,13 @@ def ground_pixels(frame: dict, meta: dict):
 
 
 def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float, destination_xy=None) -> dict:
-    ground, rows, cols, shape, ned = ground_pixels(frame, meta)
+    excluded,visibility_mask=visibility(frame)
+    ground, rows, cols, shape, ned = ground_pixels(frame, meta, excluded)
+    if not len(ground):
+        return {'frame_id':frame['id'],'segments':[],'destination':None,'destination_visibility':'unverified',
+                'visibility_mask':visibility_mask,'tolerance_m':tolerance_m,'visible_route_m':0.,
+                'visible_along_range_m':None,'route_length_m':0.,'camera_ground_range_m':None,
+                'method':'No observed terrain remains outside the image non-terrain mask; no projection asserted'}
     tree = cKDTree(ground)
     cell = meta["cell_m"]
     centres = np.array([[meta["west_m"] + (c + .5) * cell, meta["north_m"] - (r + .5) * cell] for r, c in route_cells], dtype=np.float64)
@@ -65,6 +76,7 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
     hit = dist <= tolerance_m
     model = frame.get('camera_model')
     projected = None
+    destination_visibility='unverified'
     if model and model.get('validation',{}).get('accepted'):
         # Keep vertical support in the measured stereo datum (the orbital DEM
         # has a documented vertical offset), but retain the planned horizontal
@@ -97,10 +109,15 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
         projected = site_points_to_pixels(archive, model)
         height, width = model['native_shape']
         hit &= np.isfinite(projected).all(-1) & (projected[:,0]>=0) & (projected[:,0]<width) & (projected[:,1]>=0) & (projected[:,1]<height)
+        destination_visibility='out_of_view' if not hit[-1] else 'terrain_occluded'
         # A nearer measured surface at the projected pixel occludes the route.
         uv = np.nan_to_num(projected)
         rr = np.clip((uv[:,1]/height*shape[0]).astype(int),0,shape[0]-1)
         cc = np.clip((uv[:,0]/width*shape[1]).astype(int),0,shape[1]-1)
+        if excluded is not None:
+            if hit[-1] and excluded[rr[-1],cc[-1]]:
+                destination_visibility='nonterrain_occluded'
+            hit &= ~excluded[rr,cc]
         native_xyz = np.load(DATA_DIR/frame['xyz_path'])
         observed = native_xyz[rr,cc]
         camera_in_site = np.asarray(model['C']) @ np.asarray(model['rover_to_site_rotation']).T + np.asarray(model['rover_origin_in_site_m'])
@@ -133,8 +150,11 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
     visible = sorted({round(p[2], 1) for s in segments for p in s})
     destination = ([round(float(projected[-1, 0])/width, 5), round(float(projected[-1, 1])/height, 5)]
                    if destination_xy is not None and projected is not None and bool(hit[-1]) else None)
+    if destination is not None:
+        destination_visibility='visible'
     return {"frame_id": frame["id"], "segments": segments, "tolerance_m": tolerance_m,
             "destination": destination,
+            "destination_visibility": destination_visibility, "visibility_mask": visibility_mask,
             "visible_route_m": round(sum(s[-1][2] - s[0][2] for s in segments), 2),
             "visible_along_range_m": [visible[0], visible[-1]] if visible else None,
             "route_length_m": round(total, 2),
