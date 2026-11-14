@@ -68,6 +68,8 @@ GROUND_WINDOW_M = 2.0
 GROUND_PERCENTILE = 20
 MAX_STEREO_ERROR_M = 0.10
 MIN_COMPONENT_PX = 6
+MAX_FOOTPRINT_M = 3.0  # discrete-obstacle detector: wider raised areas are terrain shape or stereo artefacts
+MAX_FOOTPRINT_AREA_M2 = 2.0
 
 
 def stereo_hazards(xyz: np.ndarray, xye: np.ndarray, step_m: float) -> dict:
@@ -75,7 +77,9 @@ def stereo_hazards(xyz: np.ndarray, xye: np.ndarray, step_m: float) -> dict:
 
     xyz is SITE-frame north/east/down in metres. Local ground is the 20th percentile of
     per-cell minimum heights within a 2 m window. Only pixels whose XYE range-error norm is
-    <= 0.10 m are used. No learned class is involved.
+    <= 0.10 m are used. Components wider than MAX_FOOTPRINT_M on the ground are dropped:
+    this is a discrete-obstacle (rock) detector, not a slope or ledge detector. No learned
+    class is involved.
     """
     from scipy import ndimage
     valid = np.isfinite(xyz).all(-1) & (xyz != 0).any(-1)
@@ -107,7 +111,14 @@ def stereo_hazards(xyz: np.ndarray, xye: np.ndarray, step_m: float) -> dict:
     if count == 0:
         return {**empty, "max_step_m": max_step}
     sizes = ndimage.sum(hazard, labels, range(1, count + 1))
-    keep_ids = np.where(sizes >= MIN_COMPONENT_PX)[0] + 1
+    keep_ids = []
+    for cid in np.where(sizes >= MIN_COMPONENT_PX)[0] + 1:
+        pts = xyz[labels == cid][:, :2].astype(np.float64)
+        extent = float(np.max(np.percentile(pts, 97, axis=0) - np.percentile(pts, 3, axis=0)))
+        area = len(np.unique(np.floor(pts / 0.1).astype(np.int64), axis=0)) * 0.01
+        if extent <= MAX_FOOTPRINT_M and area <= MAX_FOOTPRINT_AREA_M2:
+            keep_ids.append(cid)
+    keep_ids = np.array(keep_ids, dtype=int)
     keep = np.isin(labels, keep_ids)
     return {"mask": keep, "components": int(len(keep_ids)), "max_step_m": max_step, "usable_pixels": empty["usable_pixels"]}
 

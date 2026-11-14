@@ -23,6 +23,7 @@ from .global_dem import GlobalRegion
 from .camera_route import project_route, view_mission
 from . import orbital
 from . import features
+from . import replay
 from .navigation import cost_grid, plan_legs, metrics, inflate_obstacles
 from .perception import infer, localize_obstacles, hazard_overlay
 from .schemas import MissionRequest, ObservationRequest, PlanRequest
@@ -360,6 +361,29 @@ async def mission_orbital_analysis(mission_id: str, mode: str="surface"):
 def orbital_png(region_id: str):
     if region_id not in orbital_results: reject("not_processed","Run the orbital analysis first.",404)
     return Response(orbital_results[region_id],media_type="image/png")
+
+
+@app.get("/api/scenarios")
+def list_scenarios():
+    out=[]
+    for sc in replay.scenarios():
+        frames={f["id"]:f for f in data.frame_catalog()}
+        fs=[frames[i] for i in sc["frames"] if i in frames]
+        out.append({k:sc[k] for k in ("id","title","subtitle","story","references","note","camera","sols","region_id")}|
+                   {"frame_count":len(fs),"registered_frames":sum(bool(f["registration"].get("verified")) for f in fs),"first_frame":fs[0]["id"] if fs else None})
+    return out
+
+
+@app.get("/api/scenarios/{scenario_id}/replay")
+async def scenario_replay(scenario_id: str, goal_lat: float|None=None, goal_lon: float|None=None):
+    if not any(s["id"]==scenario_id for s in replay.scenarios()): reject("unknown_scenario","Unknown scenario.",404)
+    goal=None if goal_lat is None or goal_lon is None else {"lat":goal_lat,"lon":goal_lon}
+    if compute_lock.locked(): reject("queue_full","Another computation is active. Retry shortly.",429)
+    async with compute_lock:
+        try:
+            return await asyncio.to_thread(replay.compute,scenario_id,None,goal)
+        except ValueError as exc:
+            reject(str(exc),"Pick a destination inside the scenario's 1 m planning area.")
 
 
 @app.get("/api/nomenclature")

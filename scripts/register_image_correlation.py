@@ -137,7 +137,9 @@ def evaluate(frame, ortho, res, e0, n0):
 
 
 def main():
-    parser = argparse.ArgumentParser(); parser.add_argument("--write", action="store_true"); args = parser.parse_args()
+    parser = argparse.ArgumentParser(); parser.add_argument("--write", action="store_true")
+    parser.add_argument("--only-new", action="store_true", help="measure only frames without stored evidence")
+    args = parser.parse_args()
     frames_path = DATA / "frames.json"
     frames = json.loads(frames_path.read_text("utf-8"))
     ortho_meta = json.loads((DATA / "pds/region-ortho.json").read_text("utf-8"))
@@ -146,6 +148,8 @@ def main():
     res = ortho_meta["pixel_resolution_m"]; e0 = ortho_meta["upper_left_easting_m"]; n0 = ortho_meta["upper_left_northing_m"]
     summary = []
     for frame in frames:
+        if args.only_new and frame.get("registration", {}).get("evidence"):
+            continue
         trials, mask_px = evaluate(frame, ortho, res, e0, n0)
         ok = bool(trials) and all(t["empirical_p"] <= P_MAX and t["best_shift_m"] <= SHIFT_MAX_M for t in trials)
         bound = (max(t["best_shift_m"] for t in trials) + QUANTIZATION_MARGIN_M) if trials else None

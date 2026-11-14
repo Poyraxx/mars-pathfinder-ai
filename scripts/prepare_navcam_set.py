@@ -31,6 +31,13 @@ DRIVE = ["402556045", "402556100", "402556155", "402556263", "402556366", "40255
 PANORAMA_SEQUENCES = ("NCAM00445", "NCAM00446")
 
 
+def drive_products(listing: str, sequence: str) -> list[tuple[str, str]]:
+    """Mid-drive (TRAV) Navcam left frames with RAD, XYZ and XYE, in acquisition order."""
+    rad = sorted(set(re.findall(r'href="(NLA_\d+RAD_[DF]\d{7}TRAV[^"/]+)\.LBL"', listing)))
+    xyz = set(re.findall(r'href="(NLA_\d+XYZ_[DF][^"/]+)\.LBL"', listing)); xye = set(re.findall(r'href="(NLA_\d+XYE_[DF][^"/]+)\.LBL"', listing))
+    return [(sequence, r.replace("RAD_", "XYZ_")) for r in rad if r.replace("RAD_", "XYZ_") in xyz and r.replace("RAD_", "XYE_") in xye]
+
+
 def products(listing: str) -> list[tuple[str, str]]:
     rad = sorted(set(re.findall(r'href="(NLA_\d+RAD_[DF][^"/]+)\.LBL"', listing)))
     xyz = set(re.findall(r'href="(NLA_\d+XYZ_[DF][^"/]+)\.LBL"', listing))
@@ -53,7 +60,10 @@ def block_centre(a: np.ndarray, k: int) -> np.ndarray:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(); parser.add_argument("--limit", type=int, default=0); args = parser.parse_args()
+    parser = argparse.ArgumentParser(); parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--drive-sols", type=int, nargs="*", default=[], help="add mid-drive TRAV frames from these sols")
+    parser.add_argument("--sequence", default="approach")
+    args = parser.parse_args()
     cache = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "mars-pathfinder" / "raw" / "pds"
     listing = P.fetch(P.BASE, cache / "sol57-directory.html").decode("utf-8", errors="replace")
     docs = {n: (cache / Path(n).name).read_text("utf-8-sig") for n in
@@ -63,10 +73,16 @@ def main() -> None:
     frames_path = DATA / "frames.json"
     frames = json.loads(frames_path.read_text("utf-8"))
     existing = {f["id"] for f in frames}
-    chosen = products(listing)
+    chosen = products(listing) if not args.drive_sols else []
+    bases = {}
+    for sol in args.drive_sols:
+        base = P.BASE.replace("SOL00057", f"SOL{sol:05d}")
+        lst = P.fetch(base, cache / f"sol{sol}-directory.html").decode("utf-8", errors="replace")
+        for item in drive_products(lst, args.sequence):
+            bases[item[1]] = (base, sol); chosen.append(item)
     if args.limit:
         chosen = chosen[:args.limit]
-    order = {"drive": 0, "panorama": 0}
+    order = {"drive": 0, "panorama": 0, args.sequence: 0}
     for sequence, xyz_id in chosen:
         order[sequence] += 1
         if xyz_id in existing:
@@ -75,12 +91,13 @@ def main() -> None:
                     f["sequence"] = sequence; f["sequence_index"] = order[sequence]
             continue
         arrays, labels, prods = {}, {}, []
+        base, sol = bases.get(xyz_id, (P.BASE, 57))
         for kind in ["RAD", "XYZ", "XYE"]:
             pid = xyz_id.replace("XYZ_", kind + "_")
-            lb = P.fetch(P.BASE + pid + ".LBL", cache / (pid + ".LBL")); ib = P.fetch(P.BASE + pid + ".IMG", cache / (pid + ".IMG"))
+            lb = P.fetch(base + pid + ".LBL", cache / (pid + ".LBL")); ib = P.fetch(base + pid + ".IMG", cache / (pid + ".IMG"))
             values, layout = P.decode_pds(lb, ib)
             arrays[kind] = values; labels[kind] = lb.decode("ascii")
-            prods.append({"product_id": pid, "label_url": P.BASE + pid + ".LBL", "image_url": P.BASE + pid + ".IMG",
+            prods.append({"product_id": pid, "label_url": base + pid + ".LBL", "image_url": base + pid + ".IMG",
                           "image_sha256": P.sha(ib), "label_sha256": P.sha(lb), "layout": layout})
         if arrays["RAD"].shape[1:] != arrays["XYZ"].shape[1:] or arrays["XYZ"].shape != arrays["XYE"].shape:
             raise ValueError(f"{xyz_id}: pixel correspondence mismatch")
@@ -130,7 +147,7 @@ def main() -> None:
         az = re.search(r"INSTRUMENT_AZIMUTH\s*=\s*([-\d.]+)", lab); el = re.search(r"INSTRUMENT_ELEVATION\s*=\s*([-\d.]+)", lab)
         rel = lambda p: str(p.relative_to(DATA)).replace("\\", "/")
         frames.append({
-            "id": xyz_id, "number": len(frames) + 1, "mission": "MSL", "instrument": "NAV_LEFT_A", "sol": 57,
+            "id": xyz_id, "number": len(frames) + 1, "mission": "MSL", "instrument": "NAV_LEFT_A", "sol": sol,
             "acquired_at": P.field(lab, "START_TIME") + "Z", "site": site, "drive": motion[1], "pose": motion[2],
             "sequence": sequence, "sequence_index": order[sequence],
             "instrument_azimuth_deg": float(az.group(1)) if az else None, "instrument_elevation_deg": float(el.group(1)) if el else None,

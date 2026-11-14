@@ -5,11 +5,24 @@ import 'cesium/Build/Cesium/Widgets/widgets.css';
 import {useMission} from './store';
 
 // Mars 2000 sphere used by the open MOLA/HRSC service and NASA Trek.
-const MARS=new C.Ellipsoid(3396190,3396190,3396190);
-const scheme=new C.GeographicTilingScheme({ellipsoid:MARS});
+export const MARS=new C.Ellipsoid(3396190,3396190,3396190);
+export const scheme=new C.GeographicTilingScheme({ellipsoid:MARS});
 const terrainTiles=new Map<string,Promise<ReturnType<typeof Lerc.decode>>>();
 let localDEM:{values:Float32Array;meta:{north_m:number;west_m:number;cell_m:number;shape:number[]}}|null=null;
-function terrain(){
+export const ROVER_MODEL='https://assets.science.nasa.gov/content/dam/science/psd/mars/resources/gltf_files/24584_Curiosity_static.glb';
+let localDEMPromise:Promise<void>|null=null;
+export function ensureLocalDEM(){
+ if(!localDEMPromise)localDEMPromise=fetch('/api/regions/gale').then(r=>r.ok?r.json():null).then(async meta=>{if(!meta)return;const response=await fetch('/api/regions/gale/heightmap');if(!response.ok)return;localDEM={values:new Float32Array(await response.arrayBuffer()),meta};}).catch(()=>{});
+ return localDEMPromise;
+}
+export function demHeightAt(lat:number,lon:number):number|null{
+ if(!localDEM)return null;
+ const m=localDEM.meta,gx=(3396190*C.Math.toRadians(lon)-m.west_m)/m.cell_m-.5,gy=(m.north_m-3396190*C.Math.toRadians(lat))/m.cell_m-.5;
+ const w=m.shape[1],h=m.shape[0];if(gx<0||gy<0||gx>=w-1||gy>=h-1)return null;
+ const i=Math.floor(gx),j=Math.floor(gy),ax=gx-i,ay=gy-j,v=localDEM.values;
+ return (v[j*w+i]*(1-ax)+v[j*w+i+1]*ax)*(1-ay)+(v[(j+1)*w+i]*(1-ax)+v[(j+1)*w+i+1]*ax)*ay;
+}
+export function terrain(){
  return new C.CustomHeightmapTerrainProvider({width:65,height:65,tilingScheme:scheme,
   credit:'NASA / USGS / ESA / DLR / FU Berlin · MOLA/HRSC DEM · Esri hosting',
   callback:async(x,y,level)=>{
@@ -45,17 +58,14 @@ const typeColor:Record<string,string>={Mons:'#f0c58d',Tholus:'#f0c58d',Patera:'#
 export default function Globe(){
  const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
- const {region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital}=useMission();
+ const {region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep}=useMission();
  useEffect(()=>{
   if(!mount.current)return;
   C.Ellipsoid.default=MARS;
   const viewer=new C.Viewer(mount.current,{animation:false,timeline:false,baseLayerPicker:false,geocoder:false,sceneModePicker:false,homeButton:false,fullscreenButton:false,navigationHelpButton:false,selectionIndicator:false,infoBox:false,baseLayer:false,
    terrainProvider:terrain(),globe:new C.Globe(MARS),skyAtmosphere:false,requestRenderMode:true,maximumRenderTimeChange:Infinity,contextOptions:{webgl:{alpha:true}}});
   viewerRef.current=viewer;
-  fetch('/api/regions/gale').then(r=>r.ok?r.json():null).then(async meta=>{
-   if(!meta)return;const response=await fetch('/api/regions/gale/heightmap');if(!response.ok)return;
-   localDEM={values:new Float32Array(await response.arrayBuffer()),meta};if(!viewer.isDestroyed())viewer.scene.globe.tileCacheSize=80;
-  }).catch(()=>{});
+  void ensureLocalDEM();
   viewer.scene.backgroundColor=C.Color.fromCssColorString('#070b10');
   viewer.scene.globe.baseColor=C.Color.fromCssColorString('#9a5940');
   viewer.scene.globe.enableLighting=false;
@@ -111,7 +121,7 @@ export default function Globe(){
  },[region,view,exploreTarget]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
-  for(const e of [...v.entities.values])if(!String(e.id).startsWith('orbital-'))v.entities.remove(e);
+  for(const e of [...v.entities.values])if(!String(e.id).startsWith('orbital-')&&!String(e.id).startsWith('replay-'))v.entities.remove(e);
   const coverage=region?.bounds??mission?.region?.bounds;
   if(coverage){const [w,s,e,n]=coverage;v.entities.add({id:'coverage',rectangle:{coordinates:C.Rectangle.fromDegrees(w,s,e,n),material:C.Color.fromCssColorString('#6faeab').withAlpha(.045),outline:true,outlineColor:C.Color.fromCssColorString('#64b9b0'),height:0,classificationType:C.ClassificationType.BOTH}});}
   for(const [id,p,color]of [['start',start,'#75dbc1'],['goal',goal,'#f4b06f'],...stops.map((p,i)=>[`stop-${i}`,p,'#b7b4ed'])] as [string,{lat:number;lon:number}|null,string][]){if(p)v.entities.add({id,position:C.Cartesian3.fromDegrees(p.lon,p.lat,0,MARS),point:{pixelSize:10,color:C.Color.fromCssColorString(color),outlineColor:C.Color.fromCssColorString('#111b22'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:id==='start'?'START':id==='goal'?'DESTINATION':`SCIENCE ${id.split('-')[1]}`,font:'10px sans-serif',pixelOffset:new C.Cartesian2(0,-23),fillColor:C.Color.fromCssColorString(color),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});}
@@ -125,11 +135,12 @@ export default function Globe(){
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   if(orthoRef.current){v.imageryLayers.remove(orthoRef.current);orthoRef.current=null;}
-  if(region?.ortho_bounds&&layer==='viking'){
-   const [w,s,e,n]=region.ortho_bounds;
-   C.SingleTileImageryProvider.fromUrl(`/api/regions/${region.id}/ortho.png`,{rectangle:C.Rectangle.fromDegrees(w,s,e,n),ellipsoid:MARS,credit:'NASA/JPL-Caltech/USGS/UArizona · HiRISE PLACES 25cm ortho'}).then(provider=>{if(!v.isDestroyed()){orthoRef.current=v.imageryLayers.addImageryProvider(provider);v.scene.requestRender();}}).catch(()=>setStatus('REGIONAL IMAGERY UNAVAILABLE'));
+  const oregion=region??(mode==='replay'?useMission.getState().catalog?.regions[0]??null:null);
+  if(oregion?.ortho_bounds&&layer==='viking'){
+   const [w,s,e,n]=oregion.ortho_bounds;
+   C.SingleTileImageryProvider.fromUrl(`/api/regions/${oregion.id}/ortho.png`,{rectangle:C.Rectangle.fromDegrees(w,s,e,n),ellipsoid:MARS,credit:'NASA/JPL-Caltech/USGS/UArizona · HiRISE PLACES 25cm ortho'}).then(provider=>{if(!v.isDestroyed()){orthoRef.current=v.imageryLayers.addImageryProvider(provider);v.scene.requestRender();}}).catch(()=>setStatus('REGIONAL IMAGERY UNAVAILABLE'));
   }
- },[region,layer]);
+ },[region,layer,mode]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   if(riskRef.current){v.imageryLayers.remove(riskRef.current);riskRef.current=null;}
@@ -145,5 +156,27 @@ export default function Globe(){
    ...(w.class!=='other'?{position:C.Cartesian3.fromDegrees(w.lon,w.lat,0,MARS),label:{text:`${w.class.replaceAll('_',' ')} ${(w.score*100).toFixed(0)}%`,font:'10px sans-serif',fillColor:C.Color.fromCssColorString(colours[w.class]),pixelOffset:new C.Cartesian2(0,-12),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}}:{})});});
   v.scene.requestRender();
  },[orbital,mission?.id]);
+ useEffect(()=>{
+  const v=viewerRef.current;if(!v)return;
+  for(const e of [...v.entities.values])if(String(e.id).startsWith('replay-'))v.entities.remove(e);
+  if(mode!=='replay'||!replay){v.scene.requestRender();return;}
+  const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];
+  const done=replay.trail.slice(0,replayStep+1);
+  v.entities.add({id:'replay-trail-all',polyline:{positions:C.Cartesian3.fromDegreesArray(replay.trail.flatMap(p=>[p.lon,p.lat]),MARS),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8}),clampToGround:true}});
+  if(done.length>1)v.entities.add({id:'replay-trail',polyline:{positions:C.Cartesian3.fromDegreesArray(done.flatMap(p=>[p.lon,p.lat]),MARS),width:3,material:C.Color.fromCssColorString('#f4efe6'),clampToGround:true}});
+  if(st.route.length>1)v.entities.add({id:'replay-route',polyline:{positions:C.Cartesian3.fromDegreesArray([st.rover.lon,st.rover.lat,...st.route.flatMap(p=>[p.lon,p.lat])],MARS),width:6,material:new C.PolylineGlowMaterialProperty({glowPower:.22,color:C.Color.fromCssColorString(st.event==='u_turn'?'#f2a65a':'#3ce1ff')}),clampToGround:true}});
+  v.entities.add({id:'replay-goal',position:C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,0,MARS),point:{pixelSize:12,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 11px sans-serif',fillColor:C.Color.fromCssColorString('#f2a65a'),pixelOffset:new C.Cartesian2(0,-20),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
+  const pos=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,0,MARS);
+  v.entities.add({id:'replay-rover',position:pos,orientation:C.Transforms.headingPitchRollQuaternion(pos,new C.HeadingPitchRoll(C.Math.toRadians(st.rover.yaw_deg-90),0,0),MARS) as unknown as C.Quaternion,
+   model:{uri:ROVER_MODEL,minimumPixelSize:56,maximumScale:400,heightReference:C.HeightReference.CLAMP_TO_GROUND},
+   point:{pixelSize:9,color:C.Color.WHITE,outlineColor:C.Color.fromCssColorString('#3ce1ff'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
+  v.scene.requestRender();
+ },[mode,replay,replayStep]);
+ useEffect(()=>{
+  const v=viewerRef.current;if(!v||mode!=='replay'||!replay)return;
+  const lats=[...replay.trail.map(p=>p.lat),replay.goal.lat],lons=[...replay.trail.map(p=>p.lon),replay.goal.lon];
+  const clat=(Math.min(...lats)+Math.max(...lats))/2,clon=(Math.min(...lons)+Math.max(...lons))/2;
+  v.camera.flyTo({destination:C.Cartesian3.fromDegrees(clon,clat-.00042,-4517+60,MARS),orientation:{heading:0,pitch:C.Math.toRadians(-55),roll:0},duration:1.6});
+ },[mode,replay]);
  return <div className={`globe-wrap ${pick?'picking':''}`}><div className="globe-canvas" ref={mount}/><div className="globe-vignette"/><div className="globe-source"><span className="status-dot"/>{status}<span className="source-divider">/</span>{renderer}</div>{pick&&<div className="pick-prompt">Select {pick==='stop'?'a science waypoint':`the ${pick} point`} on the terrain <button onClick={()=>useMission.getState().set({pick:null})}>Cancel</button></div>}</div>;
 }
