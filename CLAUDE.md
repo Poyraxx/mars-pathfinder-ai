@@ -12,7 +12,12 @@ for rocks. UI, global 3D map, recorded motion and other modules preserved. Detai
   Fresh test (3 scenes): 7/20 rocks found (35 %), hardware as obstacle 0.002 %.
   Previous runtime (v3 big_rock) on the same scenes: 0/36 and 0/20, hardware-as-rock 9 % / 4 %.
 - Appearance only proposes; stereo relief vs nearby measured ground decides occupancy.
-- The 3 test scenes are now consumed. Next real improvement = more reviewed scenes + a NEW holdout.
+- The 3 test scenes are now consumed. Dataset v6 (+10 reviewed scenes, superpixel tool) trained a
+  challenger v13: better on discrete rocks/hardware but failed the pre-declared IoU gate on the new
+  test_v6 (block terrain), so v11 stays. v11 on independent test_v6: 20/32 rocks (62 %). test_v6 is
+  consumed too; next = more raised-block scenes + a new holdout.
+- Speed: default replays are computed during the Docker build (sealed by input hash, labelled as
+  build-time); A* and route sampling were sped up with identical outputs. Render: ~1 s instead of minutes.
 - NVIDIA-derived weights: non-commercial research/evaluation only (LICENSES/NVIDIA-SegFormer.txt).
 
 ---

@@ -112,6 +112,29 @@ consequences on the 142-frame replay: the open-sand frame now shifts ~0.95 m rig
 body clear of a stereo-confirmed rock cluster (test updated to check clearance, not straightness);
 U-turn side swings that start beside the rover, outside the camera view, are shown as a turn cue.
 
+## Dataset v6 and the v13 challenger (not promoted)
+
+Ten more native Hazcam scenes were reviewed with `scripts/label_superpixels.py`: deterministic SLIC
+superpixels are numbered on the image and each is classified by eye; rocks smaller than a superpixel
+are traced as polygons on a 64 px coordinate grid. Roles were fixed before any prediction
+(`operational-v6-review-protocol.json`): 7 training scenes (Sol 2900, 3100, 3300, 3503, 4101, 4250,
+4650) and a new independent test_v6 (Sol 2400, 2700, 4450). Labels:
+`data/annotations/hazcam-operational-v6-superpixels.json`.
+
+- v12 (v11 + v6 data, low LR): no epoch beat v11 on validation; discarded.
+- v13 (v10 + v6 data, v11 recipe): validation objective 0.559 > 0.552, so it was frozen together with a
+  promotion gate declared before the test: object recall >= v11 and obstacle IoU >= v11 - 0.01.
+
+| test_v6 (32 rocks) | v11 (production) | v13 |
+|---|---|---|
+| Rocks found | 20/32 (62 %) | 23/32 (72 %) |
+| Obstacle IoU / precision / recall | 0.42 / 0.68 / 0.52 | 0.32 / 0.69 / 0.38 |
+| Hardware as obstacle | 1.4 % | 0.6 % |
+| Ground as obstacle | 3.8 % | 2.4 % |
+
+v13 failed the IoU gate (Sol 2700's large raised blocks), so v11 stays. test_v6 is now consumed. The
+clearest next gain is more labelled raised-block terrain plus a new holdout.
+
 ## Native pixels and actual geometry
 
 The former network read the256×256 reference thumbnail and enlarged it. It now
