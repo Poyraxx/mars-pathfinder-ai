@@ -22,6 +22,7 @@ from .events import EventLog
 from .global_dem import GlobalRegion, MAX_SPAN_KM
 from .camera_route import project_route, view_mission
 from . import orbital
+from . import features
 from .navigation import cost_grid, plan_legs, metrics, inflate_obstacles
 from .perception import infer, localize_obstacles, hazard_overlay
 from .schemas import MissionRequest, ObservationRequest, PlanRequest
@@ -80,7 +81,11 @@ def region_of(mission):
 def route_result(mission,mode):
     region = region_of(mission)
     request = mission["request"]
-    cost = cost_grid(region.analysis,mode,request["profile"]["max_slope_deg"], mission["blocked"] if mode=="surface" else None)
+    blocked = mission["blocked"] if mode=="surface" else None
+    avoid = mission.get("_avoid")
+    if avoid is not None and mode!="distance":
+        blocked = avoid if blocked is None else (blocked | avoid)
+    cost = cost_grid(region.analysis,mode,request["profile"]["max_slope_deg"], blocked)
     points = [point_to_cell(p,region.meta) for p in [request["start"],*request["stops"],request["goal"]]]
     began = time.perf_counter()
     try:
@@ -90,9 +95,10 @@ def route_result(mission,mode):
     stats = metrics(path,region.elevation,region.analysis["slope"],region.meta["cell_m"],request["profile"]["speed_m_s"])
     # Retain all path cells for validation; decimate only the visualization payload.
     draw_indices = np.unique(np.linspace(0,len(path)-1,min(len(path),400)).astype(int))
+    drawn=[cell_to_point(*path[i],region.meta) for i in draw_indices]
     return {"mode":mode,"status":"ready","map_version":mission["map_version"],
             "planning_ms":round((time.perf_counter()-began)*1000,1),"cost":round(total,2),
-            **stats,"points":[cell_to_point(*path[i],region.meta) for i in draw_indices],
+            **stats,"points":drawn,"features":features.along_route(drawn),
             "cells":[list(p) for p in path]}
 
 
@@ -139,6 +145,15 @@ async def create_mission(request: MissionRequest):
         row,col = point_to_cell(p,region.meta)
         if not (0<=row<region.elevation.shape[0] and 0<=col<region.elevation.shape[1]) or not region.analysis["valid"][row,col]:
             reject("outside_coverage","A waypoint lies outside valid DEM coverage. Pick inside the outlined planning area.")
+    avoid=None; avoided=[]
+    if request.avoid_features:
+        try:
+            avoid,avoided=features.avoid_mask(region.meta,region.elevation.shape,request.avoid_features)
+        except KeyError as exc:
+            reject("unknown_feature",f"No IAU-named feature called {exc.args[0]!r}.")
+        for p in points:
+            row,col=point_to_cell(p,region.meta)
+            if avoid[row,col]: reject("waypoint_in_avoided_feature","A waypoint lies inside a feature you asked to avoid.")
     if len(missions)>=64: reject("queue_full","Session capacity reached. Retry after server restart.",503)
     global_ids=[k for k,v in missions.items() if v.get("_region") is not None]
     while len(global_ids)>=MAX_GLOBAL_MISSIONS:
@@ -147,6 +162,9 @@ async def create_mission(request: MissionRequest):
     missions[mid] = {"id":mid,"request":request.model_dump(),"map_version":0,"routes":[],"observations":[],
                      "blocked":np.zeros(region.elevation.shape,dtype=bool),"processed":set(),"state":"created",
                      "region":{k:v for k,v in region.meta.items() if k!="shape"}|{"shape":list(region.elevation.shape)}}
+    if avoid is not None:
+        missions[mid]["_avoid"]=avoid; missions[mid]["avoided_features"]=avoided
+        events.append(mid,"features.avoided","Avoiding "+", ".join(f"{a['name']} ({a['type']}, {a['diameter_km']:.0f} km)" for a in avoided)+" · circular IAU footprint",map_version=0)
     if request.region_id=="global":
         missions[mid]["_region"]=region
         events.append(mid,"mission.created",f"Mission created · global coarse DEM {region.meta['cell_m']:.0f} m cells (level {region.meta['source_level']})",map_version=0)
@@ -245,7 +263,7 @@ async def observe(mission_id: str,payload: ObservationRequest):
 
 
 def public_state(m):
-    return {k:v for k,v in m.items() if k not in ("blocked","processed","_region")}
+    return {k:v for k,v in m.items() if k not in ("blocked","processed","_region","_avoid")}
 
 
 @app.get("/api/missions/{mission_id}/state")

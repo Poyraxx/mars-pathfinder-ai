@@ -44,3 +44,12 @@ html,body,#root{height:100%;overflow:hidden}.app{min-height:0}*{scrollbar-width:
 .orbital-chip{padding:2px 7px;border-radius:10px;border:1px solid #2c3b42;color:#d8e0e1;font-size:10.5px;text-transform:capitalize}
 .orbital-chip.c-crater{border-color:#f0c58d}.orbital-chip.c-dark_dune{border-color:#785cc8}.orbital-chip.c-slope_streak{border-color:#5ac8e6}.orbital-chip.c-bright_dune{border-color:#fae696}.orbital-chip.c-impact_ejecta{border-color:#ee785a}.orbital-chip.c-swiss_cheese{border-color:#96dca0}.orbital-chip.c-spider{border-color:#dc78c8}
 .orbital-result small{color:#8a9aa0;font-size:10.5px;line-height:1.4}
+.avoid-list{display:flex;flex-wrap:wrap;align-items:center;gap:5px;margin:10px 0 0;font-size:10px;color:var(--muted);letter-spacing:.5px}
+.avoid-list button{display:inline-flex;align-items:center;gap:4px;padding:3px 7px;border:1px solid #6b4a37;border-radius:10px;color:#e7b98f;font-size:11px;background:#1a1410}
+.route-features{margin-top:12px;display:grid;gap:5px}
+.route-feature{position:relative;display:grid;gap:2px;padding:7px 52px 7px 9px;border:1px solid #26343b;border-radius:4px;background:#0e171c;font-size:11.5px;color:#d8e0e1}
+.route-feature.crosses{border-left:2px solid var(--amber)}
+.route-feature b{font-weight:600;color:#9fb3b8;font-size:10px;letter-spacing:.4px;text-transform:uppercase}
+.route-feature small{color:var(--muted);font-size:10.5px}
+.route-feature button{position:absolute;right:6px;top:50%;transform:translateY(-50%);padding:3px 7px;border:1px solid #3a4b52;border-radius:4px;color:#e7b98f;font-size:10.5px;background:#121c22}
+.avoid-button{justify-self:start;margin-top:4px;padding:4px 8px;border:1px solid #6b4a37;border-radius:4px;color:#e7b98f;font-size:11px;background:#1a1410}

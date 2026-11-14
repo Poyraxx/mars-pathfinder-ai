@@ -28,6 +28,7 @@ class MissionRequest(Contract):
     goal: MarsPoint
     stops: list[MarsPoint] = Field(default_factory=list, max_length=3)
     profile: Profile = Field(default_factory=Profile)
+    avoid_features: list[str] = Field(default_factory=list, max_length=10)
 
 
 class ObservationRequest(Contract):

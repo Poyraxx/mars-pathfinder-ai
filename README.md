@@ -12,6 +12,11 @@ Research prototype for the Martian Map challenge. **Not certified for human EVA 
 - **Planning anywhere on Mars** (coarse): the server fetches the real MOLA/HRSC 200 m blended DEM
   tiles for the waypoints, builds a ≤384×384 grid (≥163 m cells) and runs the same A* live. This is
   regional context; cells are hundreds of metres wide and contain no rock-level information.
+- **Feature-aware routes**: every route lists the IAU-named features it crosses or passes near, and any
+  named feature can be avoided (blocked as a circle of its published diameter for the terrain-aware
+  routes; the distance baseline stays unconstrained). Example: a 454 km Tharsis traverse climbs 8.8 km
+  over Pavonis Mons; avoiding it gives 577 km with 3.9 km of ascent. Circular footprints are an
+  approximation of real outlines.
 - **2055 IAU-approved feature names** (USGS Gazetteer of Planetary Nomenclature) on the globe, with
   type and diameter, searchable; labels appear by feature size.
 - **Route drawn inside the rover camera image**: each route sample is placed at the image position of

@@ -110,6 +110,10 @@ Bu tamamlanana kadar projenin ana füzyon hedefi tamamlandı deneme.
   ≤384² ızgara (≥163 m hücre). Jezero 5.9 km, Olympus Mons 89.6 km, Valles Marineris 229 km test edildi.
   Kaya/engel bilgisi yok; |enlem| ≤ 80°, ≤ 800 km.
 - [x] 2055 IAU adı (USGS Gazetteer) küre etiketleri + arama + tür/çap kartı.
+- [x] Küresel planlama varsayılan (Gale seçmeden kürede başlangıç/hedef). Rota üzerinde/yakınında adlı
+  yer şekilleri listesi; "Avoid" ile seçilen yer şekli IAU çapı kadar daire olarak terrain/surface
+  rotalarına kapatılır (`backend/features.py`). Tharsis testi: 454 km / 8.8 km tırmanış (Pavonis Mons
+  üstünden) → kaçınma ile 577 km / 3.9 km.
 - [x] Öğrenilmiş Orbital model: MobileNetV3-Small, HiRISE landmark v3.2 (Zenodo 4002935, CC BY 4.0),
   resmî kaynak-görüntü ayrımı. Test (1793 orijinal): doğruluk 92.9%, macro-F1 69.5%; spider recall 0
   (42 örnek), impact ejecta 57% (7 örnek). CTX'e aktarım kontrolü: 131 IAU kraterinin 65.6%'sı "crater",

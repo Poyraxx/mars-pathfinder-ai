@@ -86,3 +86,29 @@ def test_camera_route_is_drawn_only_through_measured_pixels():
     for seg in projection["segments"]:
         for u, v, _ in seg:
             assert valid[int(v * xyz.shape[0]), int(u * xyz.shape[1])]
+
+
+def test_avoided_feature_is_blocked_and_reported(monkeypatch):
+    if not (data.DATA_DIR / "global" / "nomenclature.json").exists():
+        pytest.skip("nomenclature not prepared")
+    _plane_tiles(monkeypatch, grade=0)
+    from backend import features
+    pav = features.find("Pavonis Mons")
+    with TestClient(app) as client:
+        body = {"region_id": "global", "start": {"lat": pav["lat"], "lon": pav["lon"] - 4}, "goal": {"lat": pav["lat"], "lon": pav["lon"] + 4}}
+        ids = []
+        for avoid in ([], ["Pavonis Mons"]):
+            r = client.post("/api/missions", json={**body, "avoid_features": avoid}); assert r.status_code == 201
+            mid = r.json()["id"]; ids.append(mid)
+            client.post(f"/api/missions/{mid}/plan", json={"expected_map_version": 0})
+            for _ in range(400):
+                if missions[mid]["state"] in ("ready", "error"):
+                    break
+                time.sleep(.05)
+        plain = next(r for r in missions[ids[0]]["routes"] if r["mode"] == "terrain")
+        avoided = next(r for r in missions[ids[1]]["routes"] if r["mode"] == "terrain")
+        assert any(f["name"] == "Pavonis Mons" and f["relation"] == "crosses" for f in plain["features"])
+        assert not any(f["name"] == "Pavonis Mons" and f["relation"] == "crosses" for f in avoided["features"])
+        assert avoided["distance_m"] > plain["distance_m"]
+        bad = client.post("/api/missions", json={**body, "avoid_features": ["Not A Real Feature"]})
+        assert bad.status_code == 422
