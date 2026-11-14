@@ -72,6 +72,7 @@ def main():
     parser.add_argument("--extra",type=Path,help="extra manifest (e.g. stereo pseudo-labels); its train entries are added")
     parser.add_argument("--repeat",type=int,default=1,help="oversample extra train entries")
     parser.add_argument("--lr-scale",type=float,default=1.)
+    parser.add_argument("--select",choices=["miou","miou_rock"],default="miou",help="validation metric for checkpoint selection")
     parser.add_argument("--tag",help="write the candidate model to TRAINING/<tag>/ instead of publishing it")
     args=parser.parse_args()
     random.seed(42);np.random.seed(42);torch.manual_seed(42)
@@ -126,8 +127,9 @@ def main():
         row={"epoch":epoch+1,"train_loss":running/max(batches,1),"validation":val,"elapsed_s":time.perf_counter()-began};history.append(row)
         (out_dir/'history.json' if args.tag else TRAINING/'history.json').write_text(json.dumps(history,indent=2),'utf-8')
         print(json.dumps(row),flush=True)
-        if val["miou"]>best:
-            best=val["miou"];torch.save(model.state_dict(),checkpoint)
+        metric=val["miou"] if args.select=="miou" else (val["miou"]+(val["class_iou"]["big_rock"] or 0))/2
+        if metric>best:
+            best=metric;torch.save(model.state_dict(),checkpoint)
         if time.perf_counter()-began>args.minutes*60:break
     model.load_state_dict(torch.load(checkpoint,map_location=device,weights_only=True))
     progress=json.loads((TRAINING/'run.json').read_text('utf-8')) if args.export_only and (TRAINING/'run.json').exists() else {"epochs_completed":len(history),"elapsed_training_s":time.perf_counter()-began}

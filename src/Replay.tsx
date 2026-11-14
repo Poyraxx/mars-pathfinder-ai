@@ -142,6 +142,8 @@ function FirstPerson(){
 function NavcamFrame(){
  const {replay,replayStep,replayImageReady,set,catalog,cameraOverlay,localNavigation}=useMission();
  const image=useRef<HTMLImageElement>(null);
+ // Keep the last decoded frame on screen while the next one downloads (no blank/spinner flashes during playback).
+ const [held,setHeld]=useState<string|null>(null);
  const st=replay!.steps[Math.min(replayStep,replay!.steps.length-1)];
  // A cached image can finish before a fresh replay response clears readiness.
  // The same frame's DOM image then stays mounted and will not fire load again.
@@ -157,10 +159,10 @@ function NavcamFrame(){
    <div className="recorded-motion" aria-label="Recorded rover motion"><MotionIcon size={17}/><span><small>Recorded motion</small><strong>{motion?.label??'Loading pose change…'}</strong>{motion?.distance_m!=null&&<small>Since previous frame · {motion.distance_m.toFixed(1)} m · {(motion.heading_change_deg??0)>0?'+':''}{motion.heading_change_deg?.toFixed(1)}°</small>}</span></div>
    <div className="camera-overlay-controls" role="group" aria-label="Camera route display"><button aria-pressed={cameraOverlay==='guidance'} onClick={()=>set({cameraOverlay:'guidance'})}>Centre guide</button><button aria-pressed={cameraOverlay==='projection'} onClick={()=>set({cameraOverlay:'projection'})}>Ground projection</button></div>
   </div>
-  <div className="camera-image-area"><div className="navcam-stage"><img ref={image} key={st.frame_id} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>set({replayImageReady:st.frame_id})}/>
+  <div className="camera-image-area"><div className="navcam-stage">{held&&!loaded&&<img className="held-frame" src={`/api/frames/${held}/display`} alt=""/>}<img ref={image} key={st.frame_id} className={held&&!loaded?'incoming-frame':undefined} src={`/api/frames/${st.frame_id}/display`} alt={`Real Curiosity ${frame?.instrument?.includes('HAZCAM')?'front Hazcam':'Navcam'} frame, sol ${st.sol}`} onLoad={()=>{setHeld(st.frame_id);set({replayImageReady:st.frame_id});}}/>
    {loaded&&hasRoute&&<RouteOverlay local={local!} faint={cameraOverlay==='projection'}/>}
    {loaded&&local&&(local.obstacles?.length??0)>0&&<svg className="camera-route" viewBox="0 0 1 1" preserveAspectRatio="none" aria-label="Obstacle cells measured by stereo">{local.obstacles!.map((p,i)=><rect key={i} x={p[0]-.0025} y={p[1]-.0025} width=".005" height=".005" fill="#ff5a4a" fillOpacity=".85"/>)}</svg>}
-   {!loaded&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
+   {!loaded&&!held&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Loading real camera frame…</div>}
    {loaded&&!local&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Analysing segmentation and stereo terrain…</div>}
    {loaded&&local&&!hasRoute&&local.status==='turn_required'&&<TurnCue direction={local.turn_direction??'left'} degrees={Math.abs(local.required_turn_deg??180)}/>}
    {loaded&&local&&!hasRoute&&<div className={`offscreen-guidance ${local.status==='turn_required'?'turn':''}`}>{local.status==='turn_required'?(local.turn_direction==='right'?<RotateCw size={26}/>:<RotateCcw size={26}/>):<RotateCcw size={26}/>}<strong>{local.status==='insufficient_geometry'?'Too little measured ground':local.status==='turn_required'?`Turn in place ${local.turn_direction} ${Math.abs(local.required_turn_deg??0).toFixed(0)}°`:'No measured safe corridor'}</strong><span>{local.reason}</span></div>}

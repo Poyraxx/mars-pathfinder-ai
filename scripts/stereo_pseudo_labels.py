@@ -42,6 +42,7 @@ CELL, WINDOW_M, MAX_ERR, MAX_RANGE = .10, 1.5, .10, 4.5
 ROCK_RELIEF, ROCK_PEAK, ROCK_MAX_WIDTH, FLAT = .10, .15, 1.2, .04
 ROCK_MAX_PEAK = .6
 HELD_OUT_FRACTION = .25
+FLAT_CORRECTION = True
 ROCK_PEAK = .10  # relaxed: every candidate is reviewed by eye
 # Visual review of every stereo candidate (rock vs. rover arm/hardware/shadow edge):
 # {frame_id: [accepted candidate keys]}. Without it, all geometric candidates are used.
@@ -114,7 +115,7 @@ def label_frame(frame):
     confident = flat & (conf >= .8) & (mask != 3)
     label[confident] = mask[confident]
     false_rock = flat & (mask == 3)
-    if false_rock.any():
+    if false_rock.any() and FLAT_CORRECTION:
         probs = _probs(source, (w, h))
         alt = probs[:3].argmax(0).astype(np.uint8)
         label[false_rock] = alt[false_rock]
@@ -160,8 +161,15 @@ def _probs(source, size):
 
 
 def main():
+    global FLAT_CORRECTION
+    import argparse
+    ap = argparse.ArgumentParser(); ap.add_argument("--no-flat-correction", action="store_true",
+        help="leave model rock calls on measured-flat ground unlabelled instead of relabelling them")
+    ap.add_argument("--name", default="manifest-pseudo.json"); args = ap.parse_args()
+    FLAT_CORRECTION = not args.no_flat_correction
     data.load_regions()
-    OUT.mkdir(parents=True, exist_ok=True)
+    out = OUT if FLAT_CORRECTION else OUT.with_name("pseudo-nocorr")
+    out.mkdir(parents=True, exist_ok=True)
     entries, totals, all_candidates = [], {}, {}
     for frame in data.frame_catalog():
         if not frame.get("xyz_path"):
@@ -171,7 +179,7 @@ def main():
             continue
         label, stats, candidates = result
         all_candidates[frame["id"]] = candidates
-        path = OUT / f"{frame['id']}.png"
+        path = out / f"{frame['id']}.png"
         Image.fromarray(label).save(path)
         split = "pseudo_test" if held_out(frame["sol"]) else "train"
         entries.append({"stem": frame["id"], "image": str(data.DATA_DIR / frame["image_path"]), "label": str(path),
@@ -180,13 +188,13 @@ def main():
         for k, v in stats.items():
             totals.setdefault(split, {}).setdefault(k, 0); totals[split][k] += v
     manifest = {"source": "MSL PDS XYZ/XYE stereo products (prepared frames)", "kind": "stereo pseudo-labels",
-                "review": "every candidate visually reviewed; accepted list in data/training/pseudo-rock-review.json" if REVIEW is not None else "none", "rule": {"cell_m": CELL, "ground_window_m": WINDOW_M, "max_stereo_error_m": MAX_ERR, "max_range_m": MAX_RANGE,
+                "flat_ground_rock_correction": FLAT_CORRECTION, "review": "every candidate visually reviewed; accepted list in data/training/pseudo-rock-review.json" if REVIEW is not None else "none", "rule": {"cell_m": CELL, "ground_window_m": WINDOW_M, "max_stereo_error_m": MAX_ERR, "max_range_m": MAX_RANGE,
                          "rock_relief_m": ROCK_RELIEF, "rock_max_peak_m": ROCK_MAX_PEAK, "rock_peak_m": ROCK_PEAK, "rock_max_width_m": ROCK_MAX_WIDTH, "flat_m": FLAT,
                          "texture_classes": "current model, conf >= 0.8 on measured-flat ground"},
                 "split": f"by sol, sha256 hash, {HELD_OUT_FRACTION:.0%} of sols held out as pseudo_test",
                 "totals": totals, "entries": entries}
     (TRAINING / "pseudo-candidates.json").write_text(json.dumps(all_candidates), "utf-8")
-    (TRAINING / "manifest-pseudo.json").write_text(json.dumps(manifest, indent=2), "utf-8")
+    (TRAINING / args.name).write_text(json.dumps(manifest, indent=2), "utf-8")
     print(json.dumps({"frames": len(entries), "by_split": {s: sum(e["split"] == s for e in entries) for s in ("train", "pseudo_test")}, "totals": totals}, indent=2))
 
 
