@@ -2,6 +2,13 @@
 
 ## Güncel kullanıcı isteği — önce bunu esas al
 
+**En son (Claude, 14 Kasım gece):** Kullanıcının 5 isteği tamamlandı (ayrıntı TASKS.md son bölüm):
+rota roverin ayağından bağlı çıkar; hedef arkadaysa U salınımı veya yerinde dönüş oku; oynatma
+önbellekli ve kesintisiz; Explore/Plan'da ×12 abartılmış MOLA kabartma + DEM yüksekliğinde rota;
+model v3 (test mIoU 0.665, big_rock IoU 0.213). Stereo sözde-etiket ince ayarı denendi, kaya
+skorunu düşürdüğü için kullanılmadı (negatif sonuç README'de). v2 yedeği:
+%LOCALAPPDATA%\mars-pathfinder	rainingackup-v2.
+
 **En son (Claude, 14 Kasım akşam):** Kullanıcının "GTA minimap çizgisi değil, gerçek engelden
 kaçan, zemine oturan AR rota" isteği `backend/local_navigation.py` ile tamamlandı. Stereo XYZ
 (hata ≤0.10 m, ~4 m'ye kadar güvenilir) → 10 cm zemin ızgarası; engel = ≥0.25 m basamak, 0.2 m

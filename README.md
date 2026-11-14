@@ -86,6 +86,11 @@ planner registration for them. See [NASA_FOOTAGE.md](NASA_FOOTAGE.md).
   routes; the distance baseline stays unconstrained). Example: a 454 km Tharsis traverse climbs 8.8 km
   over Pavonis Mons; avoiding it gives 577 km with 3.9 km of ascent. Circular footprints are an
   approximation of real outlines.
+- **Relief view (Explore / Plan)**: an Imagery ⇄ Relief switch turns on the MOLA colour shaded relief
+  with Cesium vertical exaggeration ×12, so volcanoes rise and craters and canyons sink, and tilts the
+  camera obliquely. A planned route is drawn at its own MOLA/HRSC profile height × 12 (+1.8 km lift) so
+  it follows the exaggerated terrain instead of being buried; the legend states the colour scale and
+  that the route is the lowest slope + roughness cost on the same 200 m terrain.
 - **2055 IAU-approved feature names** (USGS Gazetteer of Planetary Nomenclature) on the globe, with
   type and diameter, searchable; labels appear by feature size.
 - **Route drawn inside the rover camera image**: each route sample is placed at the image position of
@@ -138,10 +143,21 @@ application uses ONNX Runtime CPU and does not include PyTorch or GDAL.
 The AI4Mars reader validates HTTP Range responses and downloads only selected original-publisher
 ZIP members. Splits use three-sol acquisition blocks, with adjacent demo observations excluded.
 The held-out test subset uses crowdsourced labels, **not expert gold labels**. See model-card.json
-for the actual subset sizes, measured metrics and known limitations. The current model (v2: 2000
-train images, big-rock-rich images preferred in train only) reaches 64.7% mIoU on an unbiased
-400-image held-out test; big-rock IoU 0.20, recall 36%, precision 32% (v1 on the same images: 59.6%
-mIoU, big-rock recall 14%). Big-rock detection remains unreliable and never writes the map.
+for the actual subset sizes, measured metrics and known limitations. The current model (v3) continues
+v2 (2000 train images, big-rock-rich images preferred in train only) for one more selected epoch at
+0.3× learning rate, chosen on validation (mIoU + big-rock IoU). On the same unbiased 400-image held-out
+test: **66.5% mIoU**, big-rock IoU 0.21, recall 43%, precision 30% (v2: 64.7% mIoU, big-rock IoU 0.20,
+recall 36%; v1: 59.6% mIoU, recall 14%). All four classes improved.
+
+**Stereo self-labelling experiment (negative result, kept for transparency).** 303 raised, grounded
+stereo components on our 207 MSL Hazcam/Navcam frames were shown as numbered crops and each was
+visually classified by the AI coding assistant used on this project: 141 accepted as loose rocks; the
+rover's own arm turret, wheels, deck and mast, layered bedrock slabs and ambiguous bumps rejected
+(`scripts/stereo_pseudo_labels.py`, `data/training/pseudo-rock-review.json`; sol-split, 25% held out).
+Fine-tuning with these labels raised overall mIoU (67.0–67.8%) but **lowered big-rock IoU to
+0.14–0.15** on the human-labelled test and on held-out sols, so the published model does not use them.
+A same-settings control without them is the published v3.
+Big-rock detection remains unreliable and never writes the map.
 
 ## Scientific limits
 

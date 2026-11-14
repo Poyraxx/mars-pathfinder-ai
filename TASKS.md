@@ -288,3 +288,19 @@ orijinal filmlerden ayrı seçilir. Backend uyanırken de özgün filmler açıl
   batıya dönük park dönemi). Üç demo MP4 yeni katmanlarla yeniden üretildi.
 - Sınırlar: Hazcam stereo ~4 m'ye kadar güvenilir; 0.25 m basamak eşiği araştırma parametresi; segmentasyon
   Hazcam'de doğrulanmadı (yalnız maliyet, geometri onaylamadıkça engel değil); harita güncellenmez.
+
+## Kullanıcı geri bildirimi turu (14 Kasım gece, Claude) — tamamlandı
+
+- [x] Kamera rotası roverin ayağından (alt-orta) başlar: kübik Bézier bağlantı, ilk ölçülmüş zemin
+  şeridine teğet; şerit + ok tek parça. Aynı mantık MP4 dışa aktarımında (tek maske, dikişsiz).
+- [x] "Hedef arkada" artık hata değil: ölçülmüş serbest zeminde sağa/sola salınım (u_turn) planlanır;
+  mümkün değilse yerinde dönüş oku (turn_required) gösterilir.
+- [x] Oynatma: 142 karelik rota toplu hesaplanıp sunucuda önbelleğe alınır (açılışta ısınır, Render'da
+  ~0.7 s), görüntüler önden yüklenir; yeni kare inene kadar önceki kare ekranda kalır, "Loading" yanıp sönmez.
+- [x] Explore/Plan: Imagery ⇄ Relief düğmesi; MOLA renkli gölgeli kabartma, ×12 dikey abartma, eğik
+  kamera; rota kendi DEM profili yüksekliğinde çizilir; lejant ve rota açıklaması; mobil kompakt lejant.
+- [x] Plan modunda harita panelinin 320 px'e sıkışması (detay paneli ortaya yerleşiyordu) düzeltildi.
+- [x] Model v3 yayında: AI4Mars test mIoU 0.647→0.665, big_rock IoU 0.203→0.213, recall 0.36→0.43.
+- [x] Stereo sözde-etiket deneyi (303 aday, 141 görsel olarak onaylı kaya) **negatif sonuç**: kaya
+  IoU'yu 0.14–0.15'e düşürdü, yayınlanan modelde kullanılmadı; README ve model-card'da belgelendi.
+- Açık: daha çok insan etiketli big_rock verisi (AI4Mars tam set) kaya sınıfını asıl iyileştirecek yol.

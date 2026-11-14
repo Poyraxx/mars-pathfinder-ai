@@ -1,7 +1,7 @@
 {
   "ready": true,
   "name": "LR-ASPP \u00b7 MobileNetV3",
-  "status": "Fine-tuned on real AI4Mars v0.6 MSL/Navcam subset",
+  "status": "Fine-tuned on real AI4Mars v0.6 MSL/Navcam subset (v3: continued from v2)",
   "classes": [
     "soil",
     "bedrock",
@@ -12,13 +12,13 @@
   "threshold": 0.7,
   "threshold_note": "Conservative display threshold; not calibrated as occupancy probability",
   "training_size": 384,
-  "epochs_completed": 12,
+  "epochs_completed": 6,
   "training_device": "cuda",
-  "elapsed_training_s": 1294.9,
+  "elapsed_training_s": 592.3,
   "optimizer": "AdamW",
   "learning_rates": {
-    "backbone": 0.0001,
-    "head": 0.001
+    "backbone": 3e-05,
+    "head": 0.0003
   },
   "loss": "weighted CE + Dice",
   "batch_size": 2,
@@ -34,161 +34,193 @@
   "dataset_url": "https://zenodo.org/records/15995036",
   "dataset_license": "CC-BY-4.0",
   "metrics": {
-    "miou": 0.6466920687321585,
+    "miou": 0.6654941626204942,
     "class_iou": {
-      "soil": 0.9086652440419588,
-      "bedrock": 0.8328854157453981,
-      "sand": 0.6420518849669156,
-      "big_rock": 0.20316573017436135
+      "soil": 0.9218337926338266,
+      "bedrock": 0.8502543970393298,
+      "sand": 0.6772395265304374,
+      "big_rock": 0.21264893427838324
     },
     "precision": {
-      "soil": 0.9801354445628249,
-      "bedrock": 0.9118447332254812,
-      "sand": 0.6604012713792128,
-      "big_rock": 0.3176784945993071
+      "soil": 0.9824026704762536,
+      "bedrock": 0.9239688907707095,
+      "sand": 0.6973551214030935,
+      "big_rock": 0.29605460943993495
     },
     "recall": {
-      "soil": 0.9257132325475912,
-      "bedrock": 0.9058238395090797,
-      "sand": 0.9585194551175088,
-      "big_rock": 0.3604573484069887
+      "soil": 0.9373110351186372,
+      "bedrock": 0.9142179545380623,
+      "sand": 0.9591471978670131,
+      "big_rock": 0.4301387461459404
     },
     "f1": {
-      "soil": 0.9521473153853723,
-      "bedrock": 0.9088243144830525,
-      "sand": 0.7820116901846275,
-      "big_rock": 0.3377186119570058
+      "soil": 0.9593272801915672,
+      "bedrock": 0.9190675600067297,
+      "sand": 0.8075644722389594,
+      "big_rock": 0.35071804916882277
     },
     "confusion_matrix": [
       [
-        16559997,
-        263577,
-        1054300,
-        11032
+        16767469,
+        224792,
+        883421,
+        13224
       ],
       [
-        278967,
-        3258396,
-        43300,
-        16500
+        241165,
+        3288591,
+        44548,
+        22859
       ],
       [
-        44654,
-        45719,
-        2148391,
-        2600
+        47122,
+        40721,
+        2149798,
+        3723
       ],
       [
-        12003,
-        5719,
-        7169,
-        14029
+        12061,
+        5097,
+        5021,
+        16741
       ]
     ]
   },
   "pytorch_test_384": {
-    "miou": 0.673054139532454,
+    "miou": 0.6943418263836109,
     "class_iou": {
-      "soil": 0.9294340493246377,
-      "bedrock": 0.8509511274447825,
-      "sand": 0.7127111935455662,
-      "big_rock": 0.19912018781482915
+      "soil": 0.9409657489937143,
+      "bedrock": 0.8627671142059807,
+      "sand": 0.7508539876304022,
+      "big_rock": 0.2227804547043462
     },
     "precision": {
-      "soil": 0.9836266515318357,
-      "bedrock": 0.9185429086772142,
-      "sand": 0.7353325944666674,
-      "big_rock": 0.25746367628422384
+      "soil": 0.9847417216741259,
+      "bedrock": 0.9284065855393343,
+      "sand": 0.7779354431036732,
+      "big_rock": 0.2656211692790481
     },
     "recall": {
-      "soil": 0.9440395341498201,
-      "bedrock": 0.9204078664533063,
-      "sand": 0.9586220003163304,
-      "big_rock": 0.4677160295534854
+      "soil": 0.9548879995338115,
+      "bedrock": 0.9242596556092728,
+      "sand": 0.9556911463696751,
+      "big_rock": 0.5800585358889245
     },
     "f1": {
-      "soil": 0.9634266065222272,
-      "bedrock": 0.9194744418989723,
-      "sand": 0.8322607994055885,
-      "big_rock": 0.332110475393944
+      "soil": 0.9695851145045236,
+      "bedrock": 0.9263284794178279,
+      "sand": 0.8577002913265251,
+      "big_rock": 0.3643834080717489
     },
     "confusion_matrix": [
       [
-        24332602,
-        357017,
-        1056951,
-        28412
+        24612221,
+        309231,
+        817985,
+        35545
       ],
       [
-        321220,
-        4771711,
-        47369,
-        44044
+        285238,
+        4791680,
+        57048,
+        50378
       ],
       [
-        71386,
-        59169,
-        3097115,
-        3129
+        84330,
+        54883,
+        3087646,
+        3940
       ],
       [
-        12432,
-        6973,
-        10421,
-        26208
+        11791,
+        5393,
+        6347,
+        32503
       ]
     ]
   },
   "onnx_parity_pixel_agreement": [
     1.0,
-    1.0,
-    0.999951171875
+    0.99998046875,
+    0.999970703125
   ],
   "local_cpu_latency_ms": {
-    "p50": 20.743999997648643,
-    "p95": 24.801430004663413,
+    "p50": 21.391099999164,
+    "p95": 23.20311999465048,
     "threads": 1,
     "note": "Local CPU measurement; not Render Free benchmark"
   },
-  "model_sha256": "55775c31d632e8d89fd485c772a33e9ebe74fc5eb1e85c7789e8b2835b1cca44",
+  "model_sha256": "b3b7813cdfe2868a69ef593069acd0781b04c67d0b17a3fa0ee7918aee353cb9",
   "limitations": [
     "Test is a held-out crowdsourced-label subset, not an expert gold benchmark.",
     "Small preliminary subset; no generalization or human-safety guarantee",
     "Only4 NAV classes; no small-stone class",
     "RAD archive frames have different photometric processing from training EDR images",
-    "Camera-orbital registration is measured separately by image correlation; this card covers segmentation only",
-    "Big-rock recall is 36% on the held-out test (84% on validation): the class remains unreliable and never writes the map."
+    "Camera-orbital registration is measured separately by image correlation; this card covers segmentation only"
   ],
-  "comparison_same_test": {
-    "images": 400,
-    "protocol": "Both ONNX models on the v2 manifest's unbiased 400-image held-out test, 320 px, ignore 255",
-    "results": {
-      "v1_previous": {
-        "miou": 0.5963,
-        "class_iou": {
-          "soil": 0.9128,
-          "bedrock": 0.798,
-          "sand": 0.612,
-          "big_rock": 0.0623
-        },
-        "big_rock_precision": 0.1008,
-        "big_rock_recall": 0.1405,
-        "big_rock_f1": 0.1174
-      },
-      "v2_published": {
+  "fine_tune": {
+    "initialised_from": "v2 (12 epochs, test mIoU 0.6467)",
+    "epochs_run": 6,
+    "selected_epoch": 1,
+    "selection": "validation (mIoU + big_rock IoU)/2, rule fixed before comparing test results",
+    "validation_selection_scores": {
+      "v2": 0.5177,
+      "v3_pseudo": 0.5184,
+      "v3b_pseudo": 0.5173,
+      "v3_control": 0.5199
+    }
+  },
+  "pseudo_label_experiment": {
+    "what": "303 stereo rock candidates on 207 MSL Hazcam/Navcam frames, each visually reviewed by the AI coding assistant; 141 accepted (rover arm/wheels/deck, bedrock slabs and ambiguous bumps rejected). Labels: data/training/pseudo-rock-review.json, scripts/stereo_pseudo_labels.py",
+    "result": "Negative. Adding them (x4 oversampled) raised AI4Mars mIoU but lowered big_rock IoU on the human-labelled test set and on held-out sols; the published model does not use them.",
+    "ai4mars_test_400": {
+      "backup-v2": {
         "miou": 0.6467,
-        "class_iou": {
-          "soil": 0.9087,
-          "bedrock": 0.8329,
-          "sand": 0.6421,
-          "big_rock": 0.2032
-        },
+        "big_rock_iou": 0.2032,
         "big_rock_precision": 0.3177,
-        "big_rock_recall": 0.3605,
-        "big_rock_f1": 0.3377
+        "big_rock_recall": 0.3605
+      },
+      "v3-pseudo": {
+        "miou": 0.6696,
+        "big_rock_iou": 0.1364,
+        "big_rock_precision": 0.2286,
+        "big_rock_recall": 0.2529
+      },
+      "v3b-pseudo": {
+        "miou": 0.6778,
+        "big_rock_iou": 0.1506,
+        "big_rock_precision": 0.2533,
+        "big_rock_recall": 0.2706
+      },
+      "v3-control": {
+        "miou": 0.6655,
+        "big_rock_iou": 0.2126,
+        "big_rock_precision": 0.2961,
+        "big_rock_recall": 0.4301
       }
     },
-    "decision": "v2 published: higher mIoU and big-rock IoU/precision/recall than v1 on identical images"
-  },
-  "train_sampling": "2000 train images, 820 containing >=200 big_rock pixels preferred (train only); validation/test unbiased"
+    "held_out_pseudo_rocks_60_frames": {
+      "backup-v2": {
+        "big_rock_iou": 0.0419,
+        "big_rock_precision": 1.0,
+        "big_rock_recall": 0.0419
+      },
+      "v3-pseudo": {
+        "big_rock_iou": 0.0179,
+        "big_rock_precision": 0.1094,
+        "big_rock_recall": 0.0209
+      },
+      "v3b-pseudo": {
+        "big_rock_iou": 0.0178,
+        "big_rock_precision": 0.1071,
+        "big_rock_recall": 0.0209
+      },
+      "v3-control": {
+        "big_rock_iou": 0.0815,
+        "big_rock_precision": 0.4461,
+        "big_rock_recall": 0.0907
+      }
+    },
+    "note": "Held-out pseudo-test texture classes come from v2 itself, so only its big_rock columns are informative; only 632 rock pixels."
+  }
 }
