@@ -20,6 +20,46 @@ def test_missing_registration_bound_still_rejects_even_if_flag_true():
     assert result["accepted"] is False
 
 
+def _plane_with_block(error=0.02):
+    # Geometry fixture for the algorithm only (not presented as Mars data):
+    # flat ground 6x6 m at 2.5 cm spacing in SITE north/east/down, one 0.3 m tall 0.5 m block.
+    n,e=np.meshgrid(np.arange(240)*.025,np.arange(240)*.025,indexing='ij')
+    down=np.zeros_like(n)
+    block=(np.abs(n-3)<.25)&(np.abs(e-3)<.25)
+    down[block]=-.3
+    xyz=np.stack([n,e,down],-1).astype(np.float32)
+    xye=np.full(xyz.shape,error/np.sqrt(3),dtype=np.float32)
+    return xyz,xye,block
+
+
+def test_stereo_hazards_find_measured_step_only():
+    from backend.perception import stereo_hazards
+    xyz,xye,block=_plane_with_block()
+    found=stereo_hazards(xyz,xye,.15)
+    assert found['components']==1
+    assert found['mask'][block].mean()>.9 and not found['mask'][~block].any()
+    assert stereo_hazards(xyz,xye,.4)['mask'].sum()==0
+
+
+def test_stereo_hazards_ignore_points_with_large_stereo_error():
+    from backend.perception import stereo_hazards
+    xyz,xye,_=_plane_with_block(error=.5)
+    assert stereo_hazards(xyz,xye,.15)['mask'].sum()==0
+
+
+def test_learned_big_rock_class_never_writes_obstacles():
+    path=data.DATA_DIR/'frames.json'
+    if not path.exists():pytest.skip('Real PDS catalogue not prepared')
+    frame=next((f for f in json.loads(path.read_text('utf-8')) if f['registration'].get('verified')),None)
+    if frame is None:pytest.skip('No registered frame')
+    xyz=np.load(data.DATA_DIR/frame['xyz_path'])
+    everything_big_rock=np.full(xyz.shape[:2],3)
+    meta=json.loads((data.DATA_DIR/'gale'/'metadata.json').read_text('utf-8'))
+    tall=localize_obstacles(frame,everything_big_rock,np.ones(xyz.shape[:2]),meta,step_m=1.0)
+    assert tall['accepted'] is True and len(tall['points_rc'])==0
+    assert tall['obstacle_source']=='stereo_geometry' and tall['model_big_rock_pixels_not_used']>0
+
+
 def test_api_region_validation_and_actual_planner():
     with TestClient(app) as client:
         assert client.get('/healthz').status_code==200
@@ -55,7 +95,30 @@ def test_pds_corrected_affine_reproduces_localized_anchor():
         p=frame['places']
         result=np.array(p['archive_site_to_global_ned_rotation'])@np.array(p['telemetry_rover_origin_in_site_m'])+np.array(p['archive_site_to_global_ned_translation_m'])
         assert np.allclose(result,p['corrected_rover_origin_global_ned_m'],atol=1e-6,rtol=0)
-        assert frame['registration']['verified'] is False
+
+
+def test_verified_registration_requires_stored_passing_evidence():
+    import hashlib
+    path=data.DATA_DIR/'frames.json'
+    if not path.exists():pytest.skip('Real PDS catalogue not prepared')
+    for frame in json.loads(path.read_text('utf-8')):
+        reg=frame['registration']
+        if not reg.get('verified'):
+            continue
+        evidence_path=data.DATA_DIR/reg['evidence']
+        assert evidence_path.exists()
+        assert hashlib.sha256(evidence_path.read_bytes()).hexdigest()==reg['evidence_sha256']
+        evidence=json.loads(evidence_path.read_text('utf-8'))
+        assert evidence['verified'] is True and evidence['frame_id']==frame['id']
+        rules=evidence['acceptance']
+        assert len(evidence['trials'])>=4
+        for trial in evidence['trials']:
+            assert trial['empirical_p']<=rules['empirical_p_max']
+            assert trial['best_shift_m']<=rules['best_shift_max_m']
+            assert trial['null_n']>=1000
+        assert 0<reg['horizontal_error_bound_m']<=2
+        assert reg['horizontal_error_bound_m']>=max(t['best_shift_m'] for t in evidence['trials'])
+        assert hashlib.sha256((data.DATA_DIR/frame['xyz_path']).read_bytes()).hexdigest()==evidence['inputs_sha256']['xyz_npy']
 
 
 def test_compute_slot_is_reserved_before_background_task_starts(monkeypatch):
