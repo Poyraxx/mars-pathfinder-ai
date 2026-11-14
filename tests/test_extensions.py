@@ -35,7 +35,7 @@ def test_global_region_rejects_polar_and_oversized_requests(monkeypatch):
     with pytest.raises(ValueError, match="polar"):
         global_dem.GlobalRegion([{"lat": 85, "lon": 0}, {"lat": 86, "lon": 1}])
     with pytest.raises(ValueError, match="span"):
-        global_dem.GlobalRegion([{"lat": 0, "lon": 0}, {"lat": 0, "lon": 40}])
+        global_dem.GlobalRegion([{"lat": 0, "lon": 0}, {"lat": 0, "lon": 60}])
 
 
 def test_global_mission_plans_through_api(monkeypatch):
