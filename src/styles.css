@@ -297,6 +297,7 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .relief-switch button.active{background:var(--surface-3);color:var(--text)}
 .relief-legend{position:absolute;right:14px;bottom:44px;z-index:3;width:250px;display:grid;gap:6px;padding:12px 14px;border:1px solid var(--line-strong);border-radius:var(--radius);background:#0c1319ee;font-size:12px}
 .relief-legend small{color:var(--text-2);line-height:1.4}
+.heat-bar{background:linear-gradient(90deg,#000004 0%,#280b54 16%,#65156e 33%,#9f2a63 50%,#d44842 67%,#f57d15 83%,#fac127 94%,#fcffa4 100%)!important}
 .relief-bar{height:10px;border-radius:5px;background:linear-gradient(90deg,#24124f 0%,#2448c4 14%,#21a6cf 28%,#3cb85a 40%,#d9d94a 55%,#e6923a 68%,#c63b2c 82%,#f7f1ec 100%)}
 .relief-ticks{display:flex;justify-content:space-between;color:var(--muted);font-variant-numeric:tabular-nums}
 @media(min-width:981px){.app.has-details>.stage{grid-column:2}.app.has-details>.details{grid-column:3}}

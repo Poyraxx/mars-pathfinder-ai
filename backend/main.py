@@ -44,7 +44,7 @@ OVERLAYS = {
          "legend":"Low (dark/blue) = loose dust that heats and cools fast; high (bright/red) = rock and coarse sand that keep heat",
          "source":"MGS TES thermal inertia (Putzig et al. 2005)","url":"https://doi.org/10.1016/j.icarus.2004.08.017"},
  "night_ir":{"name":"Night temperature (IR)","layer":"THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018","ext":"png","max_level":9,"kind":"measurement","resolution_m":100,
-         "legend":"THEMIS night-time infrared brightness: bright = warmer at night (rock), dark = colder (dust). Relative, not degrees",
+         "legend":"THEMIS night-time infrared, shown as a heat scale: yellow/orange = stays warm at night (rock, coarse sand), purple/black = cools fast (fine dust). Relative, not degrees",
          "source":"Mars Odyssey THEMIS night IR mosaic (Edwards et al. 2011)","url":"https://doi.org/10.1029/2010JE003755"},
 }
 SOURCES = [
@@ -611,7 +611,38 @@ def region_ortho(region_id:str):
     return FileResponse(path)
 
 
-async def tile_response(key,url,media):
+HEAT_STOPS=[(0,(0,0,4)),(40,(40,11,84)),(85,(101,21,110)),(128,(159,42,99)),(170,(212,72,66)),(212,(245,125,21)),(240,(250,193,39)),(255,(252,255,164))]
+
+
+def heat_lut():
+    lut=[]
+    for v in range(256):
+        for (a,ca),(b,cb) in zip(HEAT_STOPS,HEAT_STOPS[1:]):
+            if a<=v<=b:
+                t=(v-a)/(b-a) if b>a else 0
+                lut.append(tuple(round(ca[i]+(cb[i]-ca[i])*t) for i in range(3))); break
+    return lut
+
+
+HEAT_STRETCH=(75,172)
+HEAT_LUT=[heat_lut()[min(255,max(0,round((g-HEAT_STRETCH[0])*255/(HEAT_STRETCH[1]-HEAT_STRETCH[0]))))] for g in range(256)]
+
+
+def heat_colour(payload):
+    """Map single-band infrared brightness to a heat palette (dark = cooler, bright = warmer). Relative, not degrees.
+
+    One fixed stretch for every tile (2nd-98th percentile of the global THEMIS mosaics, grey 75-172), so tiles join without seams.
+    """
+    img=Image.open(io.BytesIO(payload))
+    alpha=img.getchannel("A") if img.mode in ("LA","RGBA") else None
+    grey=np.asarray(img.convert("L"))
+    rgb=np.asarray(HEAT_LUT,dtype=np.uint8)[grey]
+    out=Image.fromarray(rgb,"RGB")
+    if alpha is not None: out.putalpha(alpha)
+    buf=io.BytesIO(); out.save(buf,"PNG",optimize=False); return buf.getvalue()
+
+
+async def tile_response(key,url,media,transform=None):
     if key in tile_cache: return Response(tile_cache[key],media_type=media,headers={"Cache-Control":"public,max-age=86400"})
     try:
         async with http.stream("GET",url) as result:
@@ -623,6 +654,9 @@ async def tile_response(key,url,media):
                 chunks.append(chunk)
         payload=b"".join(chunks)
     except httpx.HTTPError: reject("tile_unavailable","Scientific tile service is temporarily unavailable.",502)
+    if transform:
+        try: payload=transform(payload)
+        except Exception: reject("tile_unreadable","Scientific tile could not be decoded.",502)
     tile_cache[key]=payload
     while len(tile_cache)>128 or sum(map(len,tile_cache.values()))>32*1024*1024: tile_cache.popitem(last=False)
     return Response(payload,media_type=media,headers={"Cache-Control":"public,max-age=86400"})
@@ -634,7 +668,8 @@ async def imagery_tile(layer:str,z:int,y:int,x:int):
         reject("invalid_tile","Invalid planetary tile.",404)
     l=LAYERS[layer]
     url=f"https://trek.nasa.gov/tiles/Mars/EQ/{l['layer']}/1.0.0/default/default028mm/{z}/{y}/{x}.{l['ext']}"
-    return await tile_response(f"{layer}/{z}/{y}/{x}",url,"image/png" if l["ext"]=="png" else "image/jpeg")
+    heat=layer=="themis"
+    return await tile_response(f"{layer}/{z}/{y}/{x}",url,"image/png" if heat or l["ext"]=="png" else "image/jpeg",heat_colour if heat else None)
 
 
 @app.get("/api/overlays/{layer}/{z}/{y}/{x}")
@@ -643,7 +678,7 @@ async def overlay_tile(layer:str,z:int,y:int,x:int):
         reject("invalid_tile","Invalid overlay tile.",404)
     l=OVERLAYS[layer]
     url=f"https://trek.nasa.gov/tiles/Mars/EQ/{l['layer']}/1.0.0/default/default028mm/{z}/{y}/{x}.{l['ext']}"
-    return await tile_response(f"overlay/{layer}/{z}/{y}/{x}",url,"image/png")
+    return await tile_response(f"overlay/{layer}/{z}/{y}/{x}",url,"image/png",heat_colour if layer=="night_ir" else None)
 
 
 @app.get("/api/geology/overlay.png")
