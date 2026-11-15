@@ -1,5 +1,14 @@
 # Live demo annotation and navigation refinement v12
 
+**Release retracted:** the v24 candidate below failed actual real-image fixture
+checks: it missed visible rocks in FLA_402284021 and proposed a corridor over
+their image area. Weak flat-ground labels included flat-topped rock surfaces.
+The original v11 weights and model card are restored, and the original tests
+are not weakened. Candidate metrics below are retained as diagnostic history,
+not a successful current release. See `release-retraction.json` in the v13
+research results. Further source review of original detections/weak-ground
+conflicts is in progress on all181 demo frames.
+
 Scope: the four existing Live GPS Test scenarios, 181 distinct source frames
 (142 native 1024×1024 Hazcam, 39 native 256×256 Navcam). No UI, layout,
 global terrain model or rover planning policy changes are part of this work.

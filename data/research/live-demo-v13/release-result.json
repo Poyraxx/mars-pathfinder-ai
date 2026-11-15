@@ -20,18 +20,21 @@
     "route_changes_reviewed": true,
     "no_unresolved_route_regression": true,
     "global_terrain_original": true,
-    "source_overlay_semantics_acceptable": true,
+    "source_overlay_semantics_acceptable": false,
     "stage1_manual_regions_retained": true,
     "navcam_false_hardware_mean_at_most0_001": true,
     "navcam_false_hardware_worst_frame_at_most0_01": true,
     "clear_flat_false_rock_at_most0_01": true,
-    "clear_flat_false_rock_reduction_at_least80pct": true
+    "clear_flat_false_rock_reduction_at_least80pct": true,
+    "real_image_regression_tests_passed": false
   },
-  "all_gates_passed": true,
-  "installed": true,
+  "all_gates_passed": false,
+  "installed": false,
   "zero_reviewed_false_alarms_achieved": false,
   "reviewed_false_alarm_pixels_remaining": 21290,
   "mean_per_frame_label_coverage": 0.19696859496733102,
   "no_full_image_zero_error_or_generalization_claim": true,
-  "manual_masks_not_used_at_runtime": true
+  "manual_masks_not_used_at_runtime": true,
+  "retracted": true,
+  "reason": "Actual real-image tests and paired source inspection exposed missed visible foreground rocks in FLA_402284021; the proposed partial corridor crosses that rock area. Weak flat-ground labels had included flat-topped rock surfaces, so aggregate partial-label improvement was misleading. Original v11 restored; original tests remain unchanged."
 }
