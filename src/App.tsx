@@ -1,4 +1,4 @@
-import {useEffect,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import {Activity,ArrowDownToLine,ArrowUpRight,Crosshair,Eye,Flag,Globe2,Info,Layers3,LoaderCircle,MapPin,Mountain,Orbit,Plus,Radar,Route as RouteIcon,ScanLine,Video,X,ZoomIn} from 'lucide-react';
 import {Area,AreaChart,ResponsiveContainer,Tooltip,XAxis,YAxis} from 'recharts';
 import CameraView from './CameraView';
@@ -15,6 +15,23 @@ const famous=['Olympus Mons','Valles Marineris','Jezero','Gale','Hellas Planitia
 function App(){
  const s=useMission();
  const [connected,setConnected]=useState(false),[booting,setBooting]=useState(false),[layerMenu,setLayerMenu]=useState(false),[tab,setTab]=useState<'profile'|'compare'|'log'>('profile');
+ const sourcesRef=useRef<HTMLElement>(null);
+ const analysisToggleRef=useRef<HTMLButtonElement>(null);
+ useEffect(()=>{
+  if(!s.showSources)return;
+  const previous=document.activeElement as HTMLElement|null,dialog=sourcesRef.current;
+  dialog?.querySelector<HTMLElement>('button')?.focus();
+  const onKey=(event:KeyboardEvent)=>{
+   if(event.key==='Escape'){s.set({showSources:false});return;}
+   if(event.key!=='Tab'||!dialog)return;
+   const controls=[...dialog.querySelectorAll<HTMLElement>('button,a[href],input,select,[tabindex="0"]')].filter(el=>el.getClientRects().length>0);
+   const first=controls[0],last=controls[controls.length-1];
+   if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
+   else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
+  };
+  document.addEventListener('keydown',onKey);
+  return()=>{document.removeEventListener('keydown',onKey);previous?.focus();};
+ },[s.showSources]);
  async function load(){setBooting(true);try{const catalog=await api<Catalog>('/api/catalog');s.set({catalog,error:null,frameId:s.frameId||catalog.frames[0]?.id||''});setConnected(true);}catch(error){s.set({error:String(error)});setConnected(false);}finally{setBooting(false);}}
  useEffect(()=>{void load();},[]);
  useEffect(()=>{
@@ -57,6 +74,7 @@ function App(){
  const mm=s.catalog?.model.metrics as {miou?:number;recall?:Record<string,number>;precision?:Record<string,number>}|null|undefined;
  const showDetails=s.mode==='plan'&&s.showAI;
  return <div className={`app mode-${s.mode} ${showDetails?'has-details':''} ${s.mode!=='explore'?'has-bottom':''}`}>
+  <a className="skip-link" href="#mission-workspace">Skip to workspace</a>
   <header className="topbar">
    <a className="brand" href="/" aria-label="Mars Pathfinder home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 20H3Z" fill="none" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="14" r="2.2" fill="currentColor"/></svg><span>Pathfinder</span></a>
    <nav className="modes" aria-label="Mode">{([['plan','Plan a route',RouteIcon],['replay','Live GPS Test',Radar],['explore','Explore',Globe2]] as const).map(([id,label,Icon])=><button key={id} className={s.mode===id?'active':''} aria-current={s.mode===id?'page':undefined} onClick={()=>setMode(id)}><Icon size={15}/>{label}</button>)}</nav>
@@ -66,7 +84,7 @@ function App(){
    </div>
   </header>
 
-  <aside className="sidebar">
+  <aside className="sidebar" aria-label={s.mode==='plan'?'Route setup':s.mode==='replay'?'Test drive selection':'Mars places'}>
    {s.mode==='explore'&&<div className="panel-section">
     <h2 className="panel-title">Explore Mars</h2>
     <label className="search"><MapPin size={15}/><input list="mars-features" placeholder={`Search ${s.features.length||''} named places`} aria-label="Search named Mars features" onChange={e=>{const f=s.features.find(x=>x.name.toLowerCase()===e.target.value.toLowerCase());if(f)flyTo(f.name);}}/></label>
@@ -91,6 +109,7 @@ function App(){
     <button className="link-button" disabled={s.stops.length>=3||busy} onClick={()=>s.set({pick:'stop'})}><Plus size={14}/>Add a stop ({s.stops.length}/3)</button>
     {s.avoid.length>0&&<div className="chips"><span>Avoiding</span>{s.avoid.map(n=><button key={n} className="chip" onClick={()=>s.set({avoid:s.avoid.filter(x=>x!==n),mission:null})}>{n}<X size={11}/></button>)}</div>}
     <button className="primary-button" disabled={!s.start||!s.goal||busy||!connected} onClick={plan}>{busy?<LoaderCircle className="spin" size={16}/>:<RouteIcon size={16}/>}{busy?'Calculating…':'Calculate route'}</button>
+    {!active&&<p className="setup-hint"><MapPin size={16}/><span>{s.pick?'Select a location on the map. Drag to rotate; scroll to zoom.':!s.start?'Choose Start, then select a point on the map.':!s.goal?'Choose Destination, then select a second point.':'Your points are set. Calculate to compare routes.'}</span></p>}
     {active&&<div className="route-summary">
      <div className="metric-row"><div><small>Distance</small><strong>{distance(active.distance_m)}</strong></div><div><small>Climb</small><strong>{distance(active.ascent_m)}</strong></div><div><small>Max slope</small><strong>{active.max_slope_deg?.toFixed(1)}°</strong></div></div>
      <select aria-label="Route type" value={s.activeRoute} onChange={e=>s.set({activeRoute:e.target.value})}>{Object.entries(routeNames).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select>
@@ -101,7 +120,7 @@ function App(){
    {s.mode==='replay'&&<ReplayPanel/>}
   </aside>
 
-  <main className={`stage ${s.mode==='replay'?'split':''}`}>
+  <main id="mission-workspace" tabIndex={-1} className={`stage ${s.mode==='replay'?'split':''}`}>
    <>
    {s.mode==='replay'&&<ReplayView/>}
    <div className="map-area">
@@ -116,7 +135,7 @@ function App(){
      <button onClick={()=>s.set({view:'orbital',exploreTarget:{lat:17,lon:42,alt:10000000},feature:null})} aria-label="Whole planet"><Globe2 size={17}/></button>
      {s.mode==='replay'&&<button onClick={()=>{s.set({followRover:false});window.dispatchEvent(new Event('replay-fit'));}} aria-label="Fit rover and route" title="Fit whole drive"><Crosshair size={17}/></button>}
      {s.mode==='replay'&&<button className={s.followRover?'active':''} aria-pressed={s.followRover} onClick={()=>{const on=!s.followRover;s.set({followRover:on});if(on)window.dispatchEvent(new Event('replay-rover'));}} aria-label="Zoom to rover and follow it" title="Zoom to rover and follow it"><ZoomIn size={17}/></button>}
-     {s.mode==='plan'&&<button className={s.showAI?'active':''} onClick={()=>s.set({showAI:!s.showAI})} aria-label="Route analysis panel" aria-expanded={s.showAI}><Radar size={17}/></button>}
+     {s.mode==='plan'&&<button ref={analysisToggleRef} className={s.showAI?'active':''} onClick={()=>s.set({showAI:!s.showAI})} aria-label="Route analysis panel" aria-controls="route-analysis" aria-expanded={s.showAI}><Radar size={17}/></button>}
     </div>
     {cameraView&&<CameraView dual={s.view==='dual'}/>}
    </div></>
@@ -124,7 +143,8 @@ function App(){
    {!connected&&<div className="service-overlay"><Radar size={26}/><h2>{booting?'Waking the server':'Server unavailable'}</h2><p>The free server sleeps when idle and needs about a minute to wake.</p><button className="primary-button" onClick={load} disabled={booting}>{booting?<LoaderCircle className="spin" size={15}/>:<Activity size={15}/>}Try again</button></div>}
   </main>
 
-  {showDetails&&<aside className="details">
+  {showDetails&&<aside id="route-analysis" className="details" aria-label="Route analysis">
+   <div className="details-header"><strong>Route analysis</strong><button aria-label="Close route analysis" onClick={()=>{s.set({showAI:false});analysisToggleRef.current?.focus();}}><X size={16}/></button></div>
    <section><h3><Orbit size={15}/>From orbit</h3>
     <dl><div><dt>Terrain</dt><dd>{s.region?'HiRISE 1 m DTM':s.mission?.region?`MOLA/HRSC · ${Math.round(s.mission.region.cell_m)} m grid`:'MOLA/HRSC 200 m'}</dd></div><div><dt>Route cost</dt><dd>Slope + roughness (deterministic)</dd></div><div><dt>Landmark model</dt><dd>{s.catalog?.orbital_model?.ready?`HiRISE · test F1 ${(s.catalog.orbital_model.test!.macro_f1*100).toFixed(0)}%`:'Not installed'}</dd></div></dl>
     {s.catalog?.orbital_model?.ready&&<button className="ghost-button" disabled={!active||busy} onClick={orbitalAnalysis}><Orbit size={14}/>Classify the route from orbit</button>}
@@ -146,7 +166,7 @@ function App(){
     :<ol className="log">{s.events.map(e=><li key={e.sequence_id}><time>{new Date(e.timestamp).toLocaleTimeString('en-GB')}</time><span>{e.message}</span>{e.map_version!==undefined&&<small>map v{e.map_version}</small>}</li>)}{!s.events.length&&<p className="empty">Decisions appear here as the server computes them.</p>}</ol>}</div>
   </section>}
 
-  {s.showSources&&<div className="modal-backdrop" onClick={()=>s.set({showSources:false})}><section className="sources-modal" role="dialog" aria-modal="true" aria-label="Sources and limits" onClick={e=>e.stopPropagation()}>
+  {s.showSources&&<div className="modal-backdrop" onClick={()=>s.set({showSources:false})}><section ref={sourcesRef} className="sources-modal" role="dialog" aria-modal="true" aria-label="Sources and limits" onClick={e=>e.stopPropagation()}>
    <button className="modal-close" aria-label="Close" onClick={()=>s.set({showSources:false})}><X size={18}/></button>
    <h2>Sources and limits</h2>
    <p>Every number in this app is computed on the server from archived NASA, USGS and ESA data. Rover images are historical, not a live feed.</p>

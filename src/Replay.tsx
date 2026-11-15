@@ -1,6 +1,6 @@
 import {useEffect,useRef,useState} from 'react';
 import * as C from 'cesium';
-import {ArrowUp,ArrowDown,ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,RotateCw,SkipBack,SkipForward,Video,Box,Minus} from 'lucide-react';
+import {ArrowUp,ArrowDown,ArrowUpRight,Check,ChevronDown,Flag,LoaderCircle,MapPin,Pause,Play,RotateCcw,RotateCw,SkipBack,SkipForward,Video,Box,Minus} from 'lucide-react';
 import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,martianOrtho,scheme,terrain,replayGroundLine,localDEMMinimum} from './Globe';
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario,LocalNavigation} from './types';
@@ -58,26 +58,29 @@ export function ReplayPanel(){
  useEffect(()=>{if(!s.replay)return;for(const step of s.replay.steps.slice(s.replayStep,s.replayStep+3)){const img=new Image();img.src=`/api/frames/${step.frame_id}/display`;}},[s.replay,s.replayStep]);
  useEffect(()=>{const onGoal=(e:Event)=>{const id=useMission.getState().replay?.scenario.id;if(id)void loadReplay(id,(e as CustomEvent).detail);};window.addEventListener('replay-goal',onGoal);return()=>window.removeEventListener('replay-goal',onGoal);},[]);
  const current=s.replay?.scenario.id??selected;
- return <div className="panel-section">
+ return <div className="panel-section replay-panel">
   <h2 className="panel-title">Live GPS Test</h2>
   <p className="panel-lede">AI-guided routes on real NASA rover images.</p>
-  <p className="fine-print">Our AI identifies terrain and rocks. Calibrated stereo measurements check local clearance, while NASA's archived rover positions place each image on the map.</p>
-  <p className="fine-print">Choose a test drive, set a destination and inspect the guidance. GPS-style location follows recorded Mars acquisitions; the route and its clearance checks are calculated by Pathfinder.</p>
-  <h3 className="replay-section-title">Choose a test drive</h3>
-  <div className="scenario-list">{s.scenarios.map(sc=><button key={sc.id} className={`scenario ${current===sc.id?'active':''}`} onClick={()=>{setSelected(sc.id);void loadReplay(sc.id);}} disabled={s.busy}>
+  <details className="disclosure test-explainer"><summary>How this test works<ChevronDown size={15}/></summary><div className="disclosure-body">
+   <p>Our AI identifies terrain and rocks. Calibrated stereo measurements check local clearance, while NASA's archived rover positions place each image on the map.</p>
+   <p>Choose a test drive, set a destination and inspect the guidance. GPS-style location follows recorded Mars acquisitions; the route and its clearance checks are calculated by Pathfinder.</p>
+  </div></details>
+  <div className="section-heading"><h3 className="replay-section-title">Choose a test drive</h3><span>{s.scenarios.length || '—'} drives</span></div>
+  <div className="scenario-list">{!s.scenarios.length&&<div className="scenario-loading" role="status"><LoaderCircle className="spin" size={16}/>Loading NASA test drives…</div>}{s.scenarios.map(sc=><button key={sc.id} className={`scenario ${current===sc.id?'active':''}`} aria-pressed={current===sc.id} onClick={()=>{setSelected(sc.id);void loadReplay(sc.id);}} disabled={s.busy}>
    {sc.first_frame&&<img src={`/api/frames/${sc.first_frame}/image`} alt=""/>}
-   <span><strong>{sc.title}</strong><small>{sc.subtitle}</small><small>{sc.frame_count} real archive frames</small></span>
+   <span><strong>{sc.title}</strong><small>{sc.subtitle}</small><small className="scenario-meta">{sc.frame_count} archive frames{current===sc.id&&<Check size={13} aria-label="Selected drive"/>}</small></span>
   </button>)}</div>
   {s.replay&&<div className="scenario-detail">
-   <p>{s.replay.scenario.story}</p>
+   <details className="disclosure"><summary>About this drive<ChevronDown size={15}/></summary><div className="disclosure-body"><p>{s.replay.scenario.story}</p></div></details>
    <div className="button-row">
     <button className="ghost-button" onClick={()=>s.set({replayGoalPick:true,pick:'goal'})} disabled={s.busy}><Flag size={14}/>{s.replayGoalPick?'Click the map…':'Set a new destination'}</button>
     {s.replay.goal.custom&&<button className="ghost-button" onClick={()=>void loadReplay(s.replay!.scenario.id)} disabled={s.busy}><RotateCcw size={14}/>Real destination</button>}
    </div>
    {s.replay.scenario.demo_available&&<a className="ghost-button demo-download" href={`/api/scenarios/${s.replay.scenario.id}/demo.mp4`} download><Video size={14}/>Download test video</a>}
-   <h3>Sources</h3>
+   <details className="disclosure"><summary>Sources & calculation<ChevronDown size={15}/></summary><div className="disclosure-body">
    <ul className="reference-list">{s.replay.scenario.references.map(r=><li key={r.url}><a href={r.url} target="_blank" rel="noreferrer">{r.label}<ArrowUpRight size={12}/></a></li>)}</ul>
    <p className="fine-print">{s.replay.scenario.note} {s.replay.computed_at_build?`Computed during this deployment's build (${s.replay.computed_at_build.slice(0,16).replace('T',' ')} UTC) in ${Math.round(s.replay.compute_ms)} ms by the same code; a custom destination is computed live`:`Computed live in ${Math.round(s.replay.compute_ms)} ms`} · re-plan when off route by more than {s.replay.parameters.deviation_m} m.</p>
+   </div></details>
   </div>}
  </div>;
 }
@@ -120,7 +123,10 @@ export function ReplayView(){
   {!r?<div className="replay-empty"><MapPin size={22}/><p>Choose a test drive to start.</p></div>:s.replayView==='3d'?<FirstPerson/>:<NavcamFrame/>}
   {s.busy&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>{s.busyNote??'Calculating the shared route…'}</div>}
   {st?.event&&<div className={`replay-toast ${st.event}`} role="status">{EVENT_TEXT[st.event]}<small>{(st.deviation_before_replan_m??st.deviation_m).toFixed(1)} m before update · route v{st.route_version}</small></div>}
-  {r&&st&&<div className="replay-readout">{instruction&&<><small>Route guidance</small><strong className="route-instruction">{instruction}</strong></>}<span><b>{st.remaining_m.toFixed(1)} m</b> to destination</span><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span><span>{st.deviation_m.toFixed(1)} m off route</span></div>}
+  {r&&st&&<div className="replay-readout" aria-label="Route guidance" data-tone={s.replayView==='navcam'&&local&&!['ready','partial'].includes(local.status)&&st.remaining_m>1?'attention':'normal'}>
+   <div className="guidance-instruction"><small>Route guidance</small><strong className="route-instruction">{instruction}</strong><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span></div>
+   <div className="guidance-distance"><span><b>{st.remaining_m.toFixed(1)}</b> m</span><small>to destination</small><span>{st.deviation_m.toFixed(1)} m off route</span></div>
+  </div>}
  </section>;
 }
 
@@ -205,7 +211,11 @@ function NavcamFrame(){
    {loaded&&!local&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>Analysing segmentation and stereo terrain…</div>}
    {loaded&&local&&!hasRoute&&!arrived&&(local.status==='turn_required'||(local.status==='out_of_view'&&!!local.turn_direction))&&<TurnCue direction={local.turn_direction??'left'} degrees={Math.abs(local.required_turn_deg??180)}/>}
   </div></div>
-  <div className="view-caption">Real archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}<br/>Route: A* on measured stereo terrain for a 2.8 m wide rover, projected with the PDS camera model. The link from the rover to the first visible route point is drawn in the image (that ground is under the rover or outside stereo). The dashed-centre continuation is the projected map plan, with unverified local clearance; hidden stretches are dotted, ending in a dot. Red: measured obstacles. Orange: earlier stereo-confirmed rocks, retained while unseen or remeasured as raised ground{local?.tracking?.remembered_cells_used?` (${local.tracking.remembered_cells_used} cells)`:''}; orange rings: distant stereo rock candidates (4–12 m, steering cost only). Dashed: rover width.{local?.corridor_observed_fraction!==undefined?` Corridor measured: ${Math.round(local.corridor_observed_fraction*100)}%.`:''}{loaded&&local&&!hasRoute&&!arrived&&<><br/>Local verification: {local.reason}</>}{st.camera_route?.destination_visibility==='nonterrain_occluded'&&<> Destination obscured by equipment or unverified image pixels.</>}</div>
+  <div className="camera-evidence"><span>Archived {frame?.instrument?.includes('HAZCAM')?'Front Hazcam':'Navcam'} · {st.time.slice(0,10)}</span><details className="disclosure geometry-details"><summary>Geometry & limits<ChevronDown size={13}/></summary><div className="disclosure-body">
+   <p>Route: A* on measured stereo terrain for a 2.8 m wide rover, projected with the PDS camera model. The link from the rover to the first visible route point is drawn in the image (that ground is under the rover or outside stereo). The dashed-centre continuation is the projected map plan, with unverified local clearance; hidden stretches are dotted, ending in a dot.</p>
+   <p>Red: measured obstacles. Orange: earlier stereo-confirmed rocks, retained while unseen or remeasured as raised ground{local?.tracking?.remembered_cells_used?` (${local.tracking.remembered_cells_used} cells)`:''}; orange rings: distant stereo rock candidates (4–12 m, steering cost only). Dashed: rover width.{local?.corridor_observed_fraction!==undefined?` Corridor measured: ${Math.round(local.corridor_observed_fraction*100)}%.`:''}</p>
+   {loaded&&local&&!hasRoute&&!arrived&&<p className="verification-note">Local verification: {local.reason}</p>}{st.camera_route?.destination_visibility==='nonterrain_occluded'&&<p>Destination obscured by equipment or unverified image pixels.</p>}
+  </div></details></div>
  </div>;
 }
 
