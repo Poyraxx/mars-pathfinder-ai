@@ -182,6 +182,10 @@ def direct_line(region, points, max_slope):
 LABEL = {"over": "Shortest path up the slope", "balanced": "Balanced route", "around": "Detour on gentle ground"}
 
 
+def _deg(value):
+    return f"{math.floor(float(value) + 0.5)}°"
+
+
 def _m(metres):
     return f"{metres / 1000:.1f} km" if metres >= 1000 else f"{metres:.0f} m"
 
@@ -200,28 +204,28 @@ def explain(direct, chosen, options, profile):
     best = options[chosen]
     lines = []
     if direct["too_steep_m"] > 0:
-        lines.append(f"The straight line crosses {_m(direct['too_steep_m'])} of ground steeper than {limit:.0f}° "
-                     f"(up to {direct['max_slope_deg']:.0f}°). That is too steep for a {profile['label'].lower()}, so the planner never enters it.")
+        lines.append(f"The straight line crosses {_m(direct['too_steep_m'])} of ground steeper than {_deg(limit)} "
+                     f"(up to {_deg(direct['max_slope_deg'])}). That is too steep for a {profile['label'].lower()}, so the planner never enters it.")
     else:
-        lines.append(f"The straight line stays under the {limit:.0f}° limit (steepest {direct['max_slope_deg']:.0f}°).")
+        lines.append(f"The straight line stays under the {_deg(limit)} limit (steepest {_deg(direct['max_slope_deg'])}).")
     if direct["rise_m"] >= 2.0:
         lines.append(f"A rise about {_m(direct['rise_m'])} high stands on the straight line, {_m(direct['rise_at_m'])} along it.")
     over, around = options.get("over"), options.get("around")
     fastest = min(options, key=lambda k: options[k]["time_min"])
     if over and around and abs(over["distance_m"] - around["distance_m"]) <= 1 and direct["rise_m"] >= 2.0:
-        lines.append(f"The rise is gentle enough (steepest {over['max_slope_deg']:.0f}° on the way) that going straight over costs nothing extra; a detour would only add distance.")
+        lines.append(f"The rise is gentle enough (steepest {_deg(over['max_slope_deg'])} on the way) that going straight over costs nothing extra; a detour would only add distance.")
     if over and around and abs(over["distance_m"] - around["distance_m"]) > 1:
         diff = abs(over["time_min"] - around["time_min"])
         verdict = (f"Going around would take {_t(diff)} longer, so climbing is the better choice." if over["time_min"] <= around["time_min"]
                    else f"Climbing would take {_t(diff)} longer, so going around is the better choice.")
         lines.append(f"Shortest path up the slope: {_opt(over)}. Detour on gentle ground: {_opt(around)}. {verdict}")
     elif over and not around:
-        lines.append(f"There is no way round on gentle ground (under {limit / 2:.0f}°), so the route has to climb.")
-    if fastest != chosen:
-        gap = best["time_min"] - options[fastest]["time_min"]
-        lines.append(f"{LABEL[fastest]} would be {_t(gap)} faster but reaches {options[fastest]['max_slope_deg']:.0f}°; "
-                     f"for that small a difference the gentler ground (max {best['max_slope_deg']:.0f}°) is preferred.")
-    lines.append(f"Chosen: {LABEL[chosen].lower()} — {_opt(best)}. Steepest step on it: {best['max_slope_deg']:.0f}°, inside the {limit:.0f}° limit.")
+        lines.append(f"There is no way round on gentle ground (under {_deg(limit / 2)}), so the route has to climb.")
+    gap = best["time_min"] - options[fastest]["time_min"]
+    if fastest != chosen and gap >= 0.05:
+        lines.append(f"{LABEL[fastest]} would be {_t(gap)} faster but reaches {_deg(options[fastest]['max_slope_deg'])}; "
+                     f"for that small a difference the gentler ground (max {_deg(best['max_slope_deg'])}) is preferred.")
+    lines.append(f"Chosen: {LABEL[chosen].lower()} — {_opt(best)}. Steepest step on it: {_deg(best['max_slope_deg'])}, inside the {_deg(limit)} limit.")
     return lines
 
 

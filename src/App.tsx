@@ -67,6 +67,7 @@ function App(){
   const overview=mode==='explore'||(mode==='plan'&&s.mode==='replay'&&!s.region);
   s.set({mode,pick:null,replayGoalPick:false,view:mode==='replay'||overview?'orbital':s.view,
    ...(mode==='replay'||mode==='explore'?{region:null}:{}),
+   ...(mode==='replay'?{layer:'viking'}:s.mode==='replay'&&(mode==='explore'||!s.region)?{relief:true,layer:'mola'}:{}),
    ...(overview?{feature:null,exploreTarget:{lat:17,lon:42,alt:10000000}}:{})});
  };
  const openGale=()=>{const r=s.catalog?.regions[0];if(r){s.selectRegion(r);s.set({mode:'plan'});}};
@@ -104,7 +105,7 @@ function App(){
    {s.mode==='plan'&&<div className="panel-section">
     <h2 className="panel-title">Plan a route</h2>
     <p className="panel-lede">{s.region?'Gale · Rocknest: 1 m HiRISE terrain with rover cameras.':'Anywhere on Mars: live MOLA/HRSC 200 m terrain. Regional context only, no rock-level hazards.'}</p>
-    <div className="segmented" role="group" aria-label="Terrain data"><button className={!s.region?'active':''} onClick={()=>s.set({region:null,planMode:'global',start:null,goal:null,stops:[],mission:null,view:'orbital'})}>Anywhere</button><button className={s.region?'active':''} onClick={openGale}>Gale 1 m</button></div>
+    <div className="segmented" role="group" aria-label="Terrain data"><button className={!s.region?'active':''} onClick={()=>s.set({region:null,planMode:'global',start:null,goal:null,stops:[],mission:null,view:'orbital',relief:true,layer:'mola'})}>Anywhere</button><button className={s.region?'active':''} onClick={openGale}>Gale 1 m</button></div>
     <div className="waypoints">
      <button className={`waypoint ${s.pick==='start'?'picking':''}`} disabled={busy} onClick={()=>s.set({pick:s.pick==='start'?null:'start'})}><i className="dot start"/><span><strong>{s.pick==='start'?'Click the map…':'Start'}</strong><small>{coord(s.start)}</small></span><Crosshair size={15}/></button>
      {s.stops.map((p,i)=><div className="waypoint stop" key={i}><i className="dot stop"/><span><strong>{s.stopNames[i]??`Stop ${i+1}`}</strong><small>{coord(p)}</small></span><button aria-label={`Remove stop ${i+1}`} onClick={()=>s.set({stops:s.stops.filter((_,j)=>i!==j),stopWork:s.stopWork.filter((_,j)=>i!==j),stopNames:s.stopNames.filter((_,j)=>i!==j),mission:null})}><X size={14}/></button></div>)}
@@ -138,7 +139,7 @@ function App(){
     {s.mode==='replay'&&<span className="map-label">Map · real rover track</span>}
     <OverlaySwitch/>
     {s.mode!=='replay'&&<div className="relief-switch" role="group" aria-label="Map style"><button className={!s.relief?'active':''} aria-pressed={!s.relief} onClick={()=>s.set({relief:false,layer:'viking'})}>Imagery</button><button className={s.relief?'active':''} aria-pressed={s.relief} onClick={()=>s.set({relief:true,layer:'mola'})}><Mountain size={14}/>Relief</button><span className="key-hint" title="Arrow keys: up/down tilt the view, left/right turn it; hold Shift for bigger steps">↑↓ tilt · ←→ turn</span></div>}
-    {s.relief&&s.mode!=='replay'&&<div className="relief-legend"><strong>Elevation · MOLA/HRSC</strong><div className="relief-bar"/><div className="relief-ticks"><span>−8 km</span><span>0</span><span>+10 km</span><span>+21 km</span></div><small>Heights exaggerated ×12 so mountains rise and craters sink. Colour = MOLA elevation; light and shadow computed from the same DEM (sun from the north-west).</small>{s.mission?.routes.some(r=>r.status==='ready')&&<p className="relief-route"><i/>Route: lowest slope + roughness cost on the same 200 m MOLA/HRSC terrain. Steep slopes cost more, so it picks gentler ways down and up.</p>}</div>}
+    {s.relief&&s.mode!=='replay'&&<div className="relief-legend"><strong>Elevation · MOLA/HRSC</strong><div className="relief-bar"/><div className="relief-ticks"><span>−8 km</span><span>0</span><span>+10 km</span><span>+21 km</span></div><small>Heights exaggerated ×12 so mountains rise and craters sink. Colour = MOLA elevation; light and shadow computed from the same DEM (sun from the north-west).</small>{s.mission?.routes.some(r=>r.status==='ready')&&<p className="relief-route"><i/>Route: the fastest walkable choice (climb over or go around) on the same MOLA/HRSC terrain; ground steeper than the slope limit is never entered.</p>}</div>}
     <div className="map-tools">
      <div className="layer-control"><button className={layerMenu?'active':''} onClick={()=>setLayerMenu(!layerMenu)} aria-label="Map layers" aria-expanded={layerMenu}><Layers3 size={17}/></button>{layerMenu&&<div className="layer-popover">{s.catalog?.layers.map(l=><button key={l.id} onClick={()=>s.set(l.id==='mola'?{layer:l.id,relief:true}:{layer:l.id})} className={s.layer===l.id?'selected':''}><strong>{l.name}</strong><small>{l.kind} · {l.resolution_m} m/px</small></button>)}<label className="check"><input type="checkbox" checked={s.showRisk} disabled={!s.region} onChange={e=>s.set({showRisk:e.target.checked})}/>Slope overlay (Gale)</label><p>Thermal mosaic brightness is not current temperature.</p></div>}</div>
      <button onClick={()=>s.set({view:'orbital',exploreTarget:{lat:17,lon:42,alt:10000000},feature:null})} aria-label="Whole planet"><Globe2 size={17}/></button>
@@ -155,7 +156,7 @@ function App(){
   {showDetails&&<aside id="route-analysis" className="details" aria-label="Route analysis">
    <div className="details-header"><strong>Route analysis</strong><button aria-label="Close route analysis" onClick={()=>{s.set({showAI:false});analysisToggleRef.current?.focus();}}><X size={16}/></button></div>
    <section><h3><Orbit size={15}/>From orbit</h3>
-    <dl><div><dt>Terrain</dt><dd>{s.region?'HiRISE 1 m DTM':s.mission?.region?`MOLA/HRSC · ${Math.round(s.mission.region.cell_m)} m grid`:'MOLA/HRSC 200 m'}</dd></div><div><dt>Route cost</dt><dd>Slope + roughness (deterministic)</dd></div><div><dt>Landmark model</dt><dd>{s.catalog?.orbital_model?.ready?`HiRISE · test F1 ${(s.catalog.orbital_model.test!.macro_f1*100).toFixed(0)}%`:'Not installed'}</dd></div></dl>
+    <dl><div><dt>Terrain</dt><dd>{s.region?'HiRISE 1 m DTM':s.mission?.region?`MOLA/HRSC · ${Math.round(s.mission.region.cell_m)} m grid`:'MOLA/HRSC 200 m'}</dd></div><div><dt>Route cost</dt><dd>Walking time + hard slope limit (deterministic)</dd></div><div><dt>Landmark model</dt><dd>{s.catalog?.orbital_model?.ready?`HiRISE · test F1 ${(s.catalog.orbital_model.test!.macro_f1*100).toFixed(0)}%`:'Not installed'}</dd></div></dl>
     {s.catalog?.orbital_model?.ready&&<button className="ghost-button" disabled={!active||busy} onClick={orbitalAnalysis}><Orbit size={14}/>Classify the route from orbit</button>}
     {s.orbital&&s.orbital.mission_id===s.mission?.id&&<div className="orbital-result"><small>{s.orbital.windows.length} CTX windows · {s.orbital.window_m.toFixed(0)} m · {s.orbital.elapsed_ms.toFixed(0)} ms</small><div className="chips">{Object.entries(s.orbital.class_counts).filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).map(([k,n])=><span key={k} className={`chip c-${k}`}>{k.replaceAll('_',' ')} {n}</span>)}</div><p className="fine-print">Landmark context only; trained on HiRISE, applied to CTX. Does not change route costs.</p></div>}
    </section>
@@ -194,7 +195,7 @@ function DecisionCard({decision}:{decision?:RouteDecision|null}){
   <h4>Why this route</h4>
   <ul>{decision.reasons.map((r,i)=><li key={i}>{r}</li>)}</ul>
   <table className="compare"><thead><tr><th>Option</th><th>Distance</th><th>Climb</th><th>Steepest</th><th>Walking time</th></tr></thead><tbody>
-   {decision.options.map(o=><tr key={o.name} className={o.name===decision.chosen?'selected':''}><td>{o.label}{o.name===decision.chosen?' · chosen':''}</td><td>{distance(o.distance_m)}</td><td>{distance(o.climb_m)}</td><td>{o.max_slope_deg.toFixed(0)}°</td><td>{o.time_min>=90?`${(o.time_min/60).toFixed(1)} h`:`${o.time_min.toFixed(1)} min`}</td></tr>)}
+   {decision.options.map(o=><tr key={o.name} className={o.name===decision.chosen?'selected':''}><td>{o.label}{o.name===decision.chosen?' · chosen':''}</td><td>{distance(o.distance_m)}</td><td>{distance(o.climb_m)}</td><td>{Math.round(o.max_slope_deg)}°</td><td>{o.time_min>=90?`${(o.time_min/60).toFixed(1)} h`:`${o.time_min.toFixed(1)} min`}</td></tr>)}
   </tbody></table>
   <p className="fine-print">Every option stays under the {decision.limit_deg.toFixed(0)}° slope limit; steeper ground is never entered. Times use {decision.time_basis}; the fastest is chosen unless a gentler option is within a few seconds.</p>
  </section>;
