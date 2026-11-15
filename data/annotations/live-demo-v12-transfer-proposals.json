@@ -1,0 +1,4308 @@
+{
+  "version": 12,
+  "method": "Manual visible native-anchor cores; local normalized template correlation; forward/backward consistency; all165 native transfer crops visually reviewed. Accepted interiors only; not exact silhouettes or metric size labels.",
+  "anchor_index": 132,
+  "coordinate_shape": [
+    512,
+    512
+  ],
+  "rows": [
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        181.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9881585014596366,
+      "reverse_correlation": 0.9881585014596408,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        196.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9849175668433031,
+      "reverse_correlation": 0.984917566843309,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        207.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9763233134324085,
+      "reverse_correlation": 0.9763233134324366,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        205.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9818170604236832,
+      "reverse_correlation": 0.9818170604236837,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        215.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.983200074023398,
+      "reverse_correlation": 0.9832000740234023,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        219.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.985593261229451,
+      "reverse_correlation": 0.9855932612294448,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        224.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9810554639705672,
+      "reverse_correlation": 0.9810554639705872,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        240.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9849610469367301,
+      "reverse_correlation": 0.9849610469367351,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        260.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9925656516323323,
+      "reverse_correlation": 0.9925656516323356,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        266.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9826954495683017,
+      "reverse_correlation": 0.9826954495683075,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        257.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9908250194863911,
+      "reverse_correlation": 0.9908250194863825,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        241.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9830538170943034,
+      "reverse_correlation": 0.9830538170943413,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        231.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.996159322762221,
+      "reverse_correlation": 0.9961593227622167,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        325.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9873554603870776,
+      "reverse_correlation": 0.987355460387066,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 131,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        234.0,
+        402.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9872248052911944,
+      "reverse_correlation": 0.9872248052911935,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "20e472e06199e984c0f1413fa188788952f6d90d14a5edb7104a7b418f6a924f",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        180.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000027,
+      "reverse_correlation": 1.0000000000000027,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        195.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000082,
+      "reverse_correlation": 1.0000000000000082,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        206.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000124,
+      "reverse_correlation": 1.0000000000000124,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        204.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000047,
+      "reverse_correlation": 1.0000000000000047,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        214.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000064,
+      "reverse_correlation": 1.0000000000000064,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        218.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9999999999999972,
+      "reverse_correlation": 0.9999999999999972,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        223.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000147,
+      "reverse_correlation": 1.0000000000000147,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        239.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000058,
+      "reverse_correlation": 1.0000000000000058,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        259.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000022,
+      "reverse_correlation": 1.0000000000000022,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        265.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000122,
+      "reverse_correlation": 1.0000000000000122,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        256.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9999999999999998,
+      "reverse_correlation": 0.9999999999999998,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        240.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000113,
+      "reverse_correlation": 1.0000000000000113,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        230.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000053,
+      "reverse_correlation": 1.0000000000000053,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        324.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000016,
+      "reverse_correlation": 1.0000000000000016,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 132,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        234.0,
+        401.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 1.0000000000000377,
+      "reverse_correlation": 1.0000000000000377,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "a1cab7dcfe5f712f0a05d665a416d2668654e85d977bbf55e4e469aca4495b97",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        180.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9433851015347259,
+      "reverse_correlation": 0.9433851015347273,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        195.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9223138650225571,
+      "reverse_correlation": 0.9223138650225639,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        206.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8916261600238926,
+      "reverse_correlation": 0.8916261600239015,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        204.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9165016991662385,
+      "reverse_correlation": 0.9165016991662354,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        214.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9123099912520102,
+      "reverse_correlation": 0.9123099912520202,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        218.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9119893039490298,
+      "reverse_correlation": 0.9119893039490293,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        223.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8941311244860658,
+      "reverse_correlation": 0.8941311244860846,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        239.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9253826421811178,
+      "reverse_correlation": 0.9253826421811145,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        259.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9647979652314701,
+      "reverse_correlation": 0.9647979652314758,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        265.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8902602118123051,
+      "reverse_correlation": 0.8902602118123163,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        256.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9157179794810457,
+      "reverse_correlation": 0.9157179794810422,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        240.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.5996892502571456,
+      "reverse_correlation": 0.5996892502571569,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        301.0,
+        230.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 1.0,
+      "normalized_correlation": 0.7301956160750388,
+      "reverse_correlation": 0.7519712277904851,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        324.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9607784660099412,
+      "reverse_correlation": 0.9607784660099242,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 133,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        254.0,
+        381.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 43.08131845707603,
+      "normalized_correlation": 0.4054263888353125,
+      "reverse_correlation": 0.5374695716951868,
+      "eligible_for_manual_review": false,
+      "manual_accepted": false,
+      "source_pixel_sha256": "15a7b6ba2bfa5eb56021f6221ea7595802cb35c3a421d7d411ec49856b691eaf",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        180.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9765425464652739,
+      "reverse_correlation": 0.9765425464652725,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        195.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9682480930388878,
+      "reverse_correlation": 0.9682480930388933,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        206.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9588935942617847,
+      "reverse_correlation": 0.9588935942618418,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        204.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9663027472920893,
+      "reverse_correlation": 0.9663027472920851,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        214.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9633801693323776,
+      "reverse_correlation": 0.9633801693323837,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        218.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9652275288155026,
+      "reverse_correlation": 0.9652275288155042,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        223.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9560944250440508,
+      "reverse_correlation": 0.9560944250440683,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        239.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9675247157631843,
+      "reverse_correlation": 0.9675247157631851,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        259.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9841754457824108,
+      "reverse_correlation": 0.9841754457824123,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        265.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9420208678391166,
+      "reverse_correlation": 0.9420208678391169,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        256.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7164933278012378,
+      "reverse_correlation": 0.7164933278012336,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        242.0,
+        259.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 27.586228448267445,
+      "normalized_correlation": 0.37083073032692615,
+      "reverse_correlation": 0.7992929248015056,
+      "eligible_for_manual_review": false,
+      "manual_accepted": false,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        292.0,
+        235.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 9.433981132056603,
+      "normalized_correlation": 0.746415827326541,
+      "reverse_correlation": 0.9154453434649747,
+      "eligible_for_manual_review": false,
+      "manual_accepted": false,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        324.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9848505499582578,
+      "reverse_correlation": 0.9848505499582727,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 134,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        248.0,
+        417.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 21.2602916254693,
+      "normalized_correlation": 0.43741557143106413,
+      "reverse_correlation": 0.8754528716298514,
+      "eligible_for_manual_review": false,
+      "manual_accepted": false,
+      "source_pixel_sha256": "b1ad7c520668f282c75680aa224f80f2466dc93fc5de3fd27a3b95ef6a2977c4",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        180.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9617072441617754,
+      "reverse_correlation": 0.9617072441617854,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        195.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.944080464700845,
+      "reverse_correlation": 0.9440804647008518,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        206.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9581057832765608,
+      "reverse_correlation": 0.9581057832765819,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        203.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9519282138759024,
+      "reverse_correlation": 0.9519282138758907,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        213.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9460003347020634,
+      "reverse_correlation": 0.9460003347020667,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        217.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8896401942595755,
+      "reverse_correlation": 0.8896401942595675,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        222.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9525660207988744,
+      "reverse_correlation": 0.952566020798879,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        238.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9588283295778195,
+      "reverse_correlation": 0.958828329577812,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        258.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9836216969678067,
+      "reverse_correlation": 0.9836216969678079,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        265.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6650527804464426,
+      "reverse_correlation": 0.6650527804464473,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        255.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6791892057408679,
+      "reverse_correlation": 0.6791892057408664,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        240.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 1.0,
+      "normalized_correlation": 0.5028858352095362,
+      "reverse_correlation": 0.5122334497145937,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        230.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.761097015760142,
+      "reverse_correlation": 0.7610970157601488,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        323.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.968954992736972,
+      "reverse_correlation": 0.968954992736965,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 135,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        234.0,
+        400.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9562284849485858,
+      "reverse_correlation": 0.9562284849485783,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "d240d795b10d844083bb984b570192e11e0c6fa0f00d8d10500b85ec25184100",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        180.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9649700725782996,
+      "reverse_correlation": 0.964970072578306,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        195.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9496405919785726,
+      "reverse_correlation": 0.9496405919785771,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        206.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9646205951569863,
+      "reverse_correlation": 0.9646205951570134,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        204.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9562279118578679,
+      "reverse_correlation": 0.9562279118578639,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        213.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.94986377041433,
+      "reverse_correlation": 0.9498637704143286,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        217.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8601184916457072,
+      "reverse_correlation": 0.8601184916457028,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        222.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9555855644166068,
+      "reverse_correlation": 0.9555855644166199,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        238.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.960727389883026,
+      "reverse_correlation": 0.9607273898830218,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        258.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9781121073757255,
+      "reverse_correlation": 0.978112107375729,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        265.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7319403980837259,
+      "reverse_correlation": 0.7319403980837303,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        255.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7115334623446078,
+      "reverse_correlation": 0.7115334623446027,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        240.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 1.0,
+      "normalized_correlation": 0.5502199509375647,
+      "reverse_correlation": 0.5632559680822354,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        230.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7980463375634396,
+      "reverse_correlation": 0.7980463375634373,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        323.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9711686774587851,
+      "reverse_correlation": 0.9711686774587709,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 136,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        234.0,
+        400.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9602612104901191,
+      "reverse_correlation": 0.9602612104901634,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "ffd174148fdc9a3382d7b5119b91263d082eca25cff047215ef1996da71ed289",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        186.0,
+        179.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8865308528170632,
+      "reverse_correlation": 0.886530852817065,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        194.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8498942635050403,
+      "reverse_correlation": 0.8498942635050436,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        132.0,
+        205.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8308769740941054,
+      "reverse_correlation": 0.8308769740941088,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        155.0,
+        203.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8699931777012149,
+      "reverse_correlation": 0.8699931777012159,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        213.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.850460814504657,
+      "reverse_correlation": 0.8504608145046589,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        217.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.5968038690175224,
+      "reverse_correlation": 0.596803869017521,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        222.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8576194035598099,
+      "reverse_correlation": 0.8576194035598261,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        238.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8992169079980512,
+      "reverse_correlation": 0.8992169079980502,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        198.0,
+        258.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 1.0,
+      "normalized_correlation": 0.9615612493748386,
+      "reverse_correlation": 0.9631487206765424,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        264.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8879099384497677,
+      "reverse_correlation": 0.8879099384497826,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        255.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.920595692426605,
+      "reverse_correlation": 0.9205956924265921,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        239.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.28797147516537314,
+      "reverse_correlation": 0.28797147516537724,
+      "eligible_for_manual_review": false,
+      "manual_accepted": false,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        229.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.719277496643147,
+      "reverse_correlation": 0.7192774966431477,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        323.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9396465225977784,
+      "reverse_correlation": 0.939646522597762,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 137,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        234.0,
+        400.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8805003053494721,
+      "reverse_correlation": 0.8805003053494305,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "80a72c9f904d455d76622bcb06434598f784e28244fe8031ed7650495c456574",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        180.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9155515611581568,
+      "reverse_correlation": 0.9155515611581564,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        194.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8827307069003543,
+      "reverse_correlation": 0.8827307069003645,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        206.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 1.4142135623730951,
+      "normalized_correlation": 0.8863862287261639,
+      "reverse_correlation": 0.8909703397926968,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        203.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9083650709780253,
+      "reverse_correlation": 0.9083650709780209,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        213.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8601227985375927,
+      "reverse_correlation": 0.8601227985375997,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        217.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.5532757666215515,
+      "reverse_correlation": 0.5532757666215502,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        222.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9063034293389571,
+      "reverse_correlation": 0.9063034293389857,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        238.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.929555864121415,
+      "reverse_correlation": 0.9295558641214176,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        198.0,
+        258.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 1.0,
+      "normalized_correlation": 0.9721101180025358,
+      "reverse_correlation": 0.9741882742859816,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        264.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7998498744257195,
+      "reverse_correlation": 0.7998498744257216,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        255.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 1.0,
+      "normalized_correlation": 0.434542638964973,
+      "reverse_correlation": 0.4428611450428009,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        281.0,
+        230.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 21.02379604162864,
+      "normalized_correlation": 0.3848773789571793,
+      "reverse_correlation": 0.6386350487976462,
+      "eligible_for_manual_review": false,
+      "manual_accepted": false,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        229.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.8151327035917791,
+      "reverse_correlation": 0.815132703591783,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        323.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9539956714197598,
+      "reverse_correlation": 0.9539956714197618,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 138,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        254.0,
+        382.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6225306194426824,
+      "reverse_correlation": 0.6225306194427048,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "922d3a4d89ed86667bd8cb2e81efe347f77dd4fa433d767ff5ffb395b1b318f1",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        186.0,
+        179.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9314871305543936,
+      "reverse_correlation": 0.9314871305543984,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        194.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.916259712728666,
+      "reverse_correlation": 0.9162597127286723,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        132.0,
+        205.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.899505478565984,
+      "reverse_correlation": 0.8995054785660108,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        203.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9297360505817239,
+      "reverse_correlation": 0.9297360505817314,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        213.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9282585551546815,
+      "reverse_correlation": 0.9282585551546939,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        217.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9419363482639718,
+      "reverse_correlation": 0.9419363482639781,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        222.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9288817615244904,
+      "reverse_correlation": 0.9288817615245017,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        238.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9460164513589123,
+      "reverse_correlation": 0.9460164513589083,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        258.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.978840327218833,
+      "reverse_correlation": 0.9788403272188356,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        264.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9250108439825357,
+      "reverse_correlation": 0.9250108439825412,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        255.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.5506497232938335,
+      "reverse_correlation": 0.5506497232938291,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        239.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.3661864662079502,
+      "reverse_correlation": 0.36618646620795525,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        230.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6283336701483041,
+      "reverse_correlation": 0.6283336701483075,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        323.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9646681268283438,
+      "reverse_correlation": 0.964668126828354,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 139,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        251.0,
+        389.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6317151349057099,
+      "reverse_correlation": 0.6317151349057258,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "18cd2a432e547f653475ff1686586dd270b7d4bcaf870f8d2a07bf78471af9b5",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        179.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9530702914128807,
+      "reverse_correlation": 0.9530702914128847,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        194.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9475655371345252,
+      "reverse_correlation": 0.9475655371345336,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        205.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9444033752058928,
+      "reverse_correlation": 0.9444033752059088,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        203.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9591283935964108,
+      "reverse_correlation": 0.9591283935964124,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        213.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9571414735376319,
+      "reverse_correlation": 0.9571414735376367,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        217.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9251869919480016,
+      "reverse_correlation": 0.9251869919479994,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        222.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9604763018426112,
+      "reverse_correlation": 0.9604763018426288,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        238.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9675439253627439,
+      "reverse_correlation": 0.9675439253627437,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        258.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.987785992064066,
+      "reverse_correlation": 0.987785992064069,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        264.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6201547569147431,
+      "reverse_correlation": 0.6201547569147486,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        255.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6628520401129457,
+      "reverse_correlation": 0.6628520401129445,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        239.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.4291832162083584,
+      "reverse_correlation": 0.4291832162083631,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        229.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7158814872066206,
+      "reverse_correlation": 0.715881487206628,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        323.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9765760537559451,
+      "reverse_correlation": 0.9765760537559385,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 140,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        234.0,
+        400.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7896943066888356,
+      "reverse_correlation": 0.7896943066888358,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "18e489871d7ff159cee7881047f7b8b54845bcdd5ae491832403c71b2a5b238d",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 0,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        185.0,
+        179.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        185,
+        180
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9537728851638818,
+      "reverse_correlation": 0.9537728851638858,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 1,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        189.0,
+        194.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        189,
+        195
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9482775405252981,
+      "reverse_correlation": 0.9482775405253049,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 2,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        131.0,
+        205.0
+      ],
+      "radius": [
+        4,
+        5
+      ],
+      "anchor_center": [
+        131,
+        206
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9474862380552609,
+      "reverse_correlation": 0.9474862380552642,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 3,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        154.0,
+        203.0
+      ],
+      "radius": [
+        5,
+        5
+      ],
+      "anchor_center": [
+        154,
+        204
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9605760569291156,
+      "reverse_correlation": 0.9605760569291191,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 4,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        190.0,
+        213.0
+      ],
+      "radius": [
+        6,
+        6
+      ],
+      "anchor_center": [
+        190,
+        214
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9577095807414688,
+      "reverse_correlation": 0.9577095807414764,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 5,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        209.0,
+        217.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        209,
+        218
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9101379465081391,
+      "reverse_correlation": 0.9101379465081348,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 6,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        161.0,
+        222.0
+      ],
+      "radius": [
+        4,
+        4
+      ],
+      "anchor_center": [
+        161,
+        223
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9619723830969729,
+      "reverse_correlation": 0.9619723830969726,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 7,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        159.0,
+        238.0
+      ],
+      "radius": [
+        5,
+        4
+      ],
+      "anchor_center": [
+        159,
+        239
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9679704922899961,
+      "reverse_correlation": 0.9679704922899909,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 8,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        197.0,
+        258.0
+      ],
+      "radius": [
+        11,
+        6
+      ],
+      "anchor_center": [
+        197,
+        259
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9877176518684009,
+      "reverse_correlation": 0.9877176518684045,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 9,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        225.0,
+        264.0
+      ],
+      "radius": [
+        4,
+        6
+      ],
+      "anchor_center": [
+        225,
+        265
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6609473407716013,
+      "reverse_correlation": 0.660947340771607,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 10,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        246.0,
+        255.0
+      ],
+      "radius": [
+        7,
+        4
+      ],
+      "anchor_center": [
+        246,
+        256
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.6844429031169003,
+      "reverse_correlation": 0.6844429031168938,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 11,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        262.0,
+        239.0
+      ],
+      "radius": [
+        3,
+        3
+      ],
+      "anchor_center": [
+        262,
+        240
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.49860990684321976,
+      "reverse_correlation": 0.49860990684322465,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 12,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        300.0,
+        229.0
+      ],
+      "radius": [
+        17,
+        8
+      ],
+      "anchor_center": [
+        300,
+        230
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.7541065946532369,
+      "reverse_correlation": 0.7541065946532424,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 13,
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        396.0,
+        323.0
+      ],
+      "radius": [
+        5,
+        6
+      ],
+      "anchor_center": [
+        396,
+        324
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9765491299787505,
+      "reverse_correlation": 0.9765491299787507,
+      "eligible_for_manual_review": true,
+      "manual_accepted": true,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Native crop inspected: clear rock face interior."
+    },
+    {
+      "frame_index": 141,
+      "anchor_index": 132,
+      "point": 14,
+      "class_id": 4,
+      "shape": "ellipse",
+      "center": [
+        234.0,
+        400.0
+      ],
+      "radius": [
+        7,
+        9
+      ],
+      "anchor_center": [
+        234,
+        401
+      ],
+      "forward_backward_error_px512": 0.0,
+      "normalized_correlation": 0.9660831977627253,
+      "reverse_correlation": 0.966083197762746,
+      "eligible_for_manual_review": true,
+      "manual_accepted": false,
+      "source_pixel_sha256": "b8976a0b630358a10d2e595392627e7eea625f8c762b25939b45349a6b531e87",
+      "manual_reason": "Inconsistent transfer, uncertain small foreground placement, or tool occlusion; keep unknown."
+    }
+  ],
+  "native_crop_pages_viewed": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "accepted_regions": 149
+}

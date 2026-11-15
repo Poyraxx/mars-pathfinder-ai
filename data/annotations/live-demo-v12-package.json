@@ -1,0 +1,11 @@
+{
+  "version": 12,
+  "frames": 181,
+  "masks": 543,
+  "archive_sha256": "f863c5303fd4acf777506ef245bdc312c5d9952f90e4647a875bc389a0eb3ee8",
+  "portable_manifest_sha256": "3c011357d078412dc8c6ad33fd2c1bbe44b354700a29c3422ac3dabd1008507b",
+  "local_manifest_sha256": "45eb3135d30aa6010042e0085b5d027200f87b14e2eeaa0a495e98c76adbdeb4",
+  "all_archive_members_verified": true,
+  "archive_bytes": 2441634,
+  "purpose": "Training/review labels only. The inference backend never reads this archive."
+}

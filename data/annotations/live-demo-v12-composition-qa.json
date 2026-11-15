@@ -1,0 +1,17 @@
+{
+  "version": 12,
+  "final_composition_contact_sheets_viewed": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "unique_frame_contexts": 181,
+  "source_native_pixels_preserved": true,
+  "final_review_included": [
+    "All final label compositions in context",
+    "Native small-rock reference cluster and changing tool occlusion in frames131 through141",
+    "Jake polygons and varied arm poses",
+    "Native256px Navcam, with nearest-neighbour inspection zoom only"
+  ],
+  "ground_labels": "Stereo-derived weak supervision, not exhaustive expert truth or certified traversability",
+  "manual_labels": "Conservative source-visible interiors; uncertain boundaries and unreviewed pixels remain unknown255",
+  "scope_limit": "All181 contexts reviewed does not mean every rock silhouette or every pixel labelled",
+  "not_independent_test": true,
+  "authoritative_masks": "live-demo-v12-masks.zip and live-demo-v12-manifest.json.gz"
+}

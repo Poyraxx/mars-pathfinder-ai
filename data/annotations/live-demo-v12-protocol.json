@@ -1,0 +1,42 @@
+{
+  "version": 12,
+  "scope": "Every181 unique source in the four Live GPS Test scenarios. All sources are allowed for fitting and model selection, at the user's explicit request.",
+  "evaluation_population": "Demo fit/conformance only. Never call this held-out accuracy, generalization or zero real-world error.",
+  "data": "Actual prepared camera pixels, aligned PDS XYZ/XYE, individually adjudicated geometry candidates, source-checked manual interiors and reviewed stationary-scene template transfers. No semantic model predictions used as labels. Unknown and uncertain boundaries255.",
+  "class4": "Other visible rock with unverified physical size, retained in semantic labels and ignored255 in four-class navigation. Ground0 is the original ground/small-stone composite, not a definite negative for all-rock appearance.",
+  "model": "Start from original v11 navigation checkpoint. Fine-tune only its separate navigation encoder and four-class head. Global terrain model file and weights stay unchanged. No frame-ID lookup or manual-mask substitution at inference.",
+  "training": {
+    "epochs": 12,
+    "nominal_samples_per_epoch": 1086,
+    "seed": 2026,
+    "input_size": 512,
+    "head_lr": 0.0001,
+    "navigation_encoder_lr": 0.00001,
+    "batch_size": 2,
+    "accumulation": 4,
+    "crops": "Full frame or moderate384/640/1024 context crops. No128-to512 enlargement. Native256px Navcam remains256px source content.",
+    "loss": "Pixel provenance weighting; CE class weights[1,3,1.5,1],0.35 Dice,0.75 ground-as-rock,0.75 hardware-as-rock,0.5 ground-as-hardware,1.0 rock recall,0.5 hardware recall.",
+    "selection": "Maximum demo score among epochs retaining all baseline-found manual rock-region proxies and at most0.02 obstacle pixel recall loss. Initial checkpoint eligible. Also save best unconstrained score for diagnosis, never automatic promotion."
+  },
+  "policy": {
+    "inference": "whole512",
+    "obstacle_threshold": 0.7,
+    "hardware_threshold": 0.8,
+    "hardware_margin_native_px": 3,
+    "region_hit": "At least10% of the final reviewed class1 core within a region bbox, with minimum3native pixels. Regions are annotation proxies, not a count of unique physical objects."
+  },
+  "release_gates": {
+    "all181_sources_reviewed_and_hash_checked": true,
+    "all_baseline_found_manual_regions_retained": true,
+    "obstacle_pixel_recall_max_absolute_drop": 0.02,
+    "ground_as_obstacle_relative_reduction_min": 0.2,
+    "hardware_as_obstacle_relative_reduction_min": 0.3,
+    "ground_as_hardware_no_increase": true,
+    "cpu_peak_mib_max": 450,
+    "onnx_argmax_agreement_min": 0.999,
+    "no_manual_mask_override_at_runtime": true,
+    "default_demo_local_route_regression_check": true
+  },
+  "zero_error_goal": "Try to eliminate reviewed demo false alarms while preserving rock detections. Report exact remaining errors and annotation coverage; partial masks and weak geometry cannot prove zero error over full images or driving safety.",
+  "rollback": "Keep original navigation ONNX and checkpoint, historical datasets and all previous result records immutable. Do not deploy a failed candidate."
+}

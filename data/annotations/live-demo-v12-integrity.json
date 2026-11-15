@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "manifest_sha256": "45eb3135d30aa6010042e0085b5d027200f87b14e2eeaa0a495e98c76adbdeb4",
+  "unique_demo_frames": 181,
+  "hazcam_frames": 142,
+  "navcam_frames": 39,
+  "scenario_frame_set_exact": true,
+  "all_source_contexts_reviewed": true,
+  "manual_crop_regions_viewed": 426,
+  "template_crop_regions_viewed": 165,
+  "template_regions_accepted": 149,
+  "geometry_components_individually_adjudicated": 242,
+  "positive_annotation_regions": 316,
+  "not_unique_physical_object_count": true,
+  "label_pixel_counts": {
+    "0": 18577560,
+    "1": 237238,
+    "2": 7089707,
+    "3": 774594
+  },
+  "mean_per_frame_label_coverage": 0.19696859496733102,
+  "minimum_per_frame_label_coverage": 0.08557415008544922,
+  "all181_used_for_demo_fitting_not_independent_test": true,
+  "class4_not_automatic_obstacle": true,
+  "production_navigation_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "original_production_sha_expected": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "no_model_predictions_used_in_this_audit": true
+}
