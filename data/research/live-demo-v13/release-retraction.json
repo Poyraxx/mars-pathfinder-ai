@@ -1,0 +1,8 @@
+{
+  "rejected_candidate_sha256": "5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd",
+  "restored_original_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "original_weights_and_card_restored": true,
+  "original_fixture_tests_not_weakened": true,
+  "reason": "Actual real-image tests and paired source inspection exposed missed visible foreground rocks in FLA_402284021; the proposed partial corridor crosses that rock area. Weak flat-ground labels had included flat-topped rock surfaces, so aggregate partial-label improvement was misleading. Original v11 restored; original tests remain unchanged.",
+  "next_work": "Manually review original-model detection/weak-ground conflicts across all181 demo frames; correct visible rock positives and uncertainty before retraining from original weights."
+}
