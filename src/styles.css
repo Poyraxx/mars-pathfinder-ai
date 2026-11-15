@@ -541,3 +541,9 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .science-details summary::before{content:'';width:6px;height:6px;border-right:1.5px solid var(--text-2);border-bottom:1.5px solid var(--text-2);transform:rotate(-45deg);transition:transform .15s}
 .science-details[open] summary::before{transform:rotate(45deg)}
 .science-details[open] summary{margin-bottom:8px}
+.decisions{display:grid;gap:14px;align-content:start}
+.decision-card{display:grid;gap:10px;padding:14px 16px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface-2)}
+.decision-card h4{margin:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.decision-card ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:13px;line-height:1.45;color:var(--text)}
+.decision-card .compare tr.selected td{color:var(--accent)}
+.key-hint{font-size:11px;color:var(--muted);padding:0 10px;white-space:nowrap}

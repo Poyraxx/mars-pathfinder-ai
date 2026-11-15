@@ -75,7 +75,7 @@ def eva_summary(region, mission, route_mode="terrain"):
     cm = region.meta["cell_m"]
 
     def leg(points):
-        path, _ = plan_legs(cost, points, cm)
+        path, _, _ = walk_route(region, points, profile, cost)
         dist = sum(math.hypot(b[0] - a[0], b[1] - a[1]) for a, b in zip(path, path[1:])) * cm
         return path, dist, path_time_s(path, region.elevation, cm, profile)
 
@@ -105,6 +105,133 @@ def eva_summary(region, mission, route_mode="terrain"):
             "total_min": round(total_s / 60, 1), "budget_min": budget_min, "reserve_min": round(reserve_s / 60, 1),
             "reserve_fraction": round(reserve_s / (budget_min * 60), 3), "stop_marginal": marginal,
             "note": "Time budget is an adjustable planning figure, not a suit consumables model. Walking speed uses Tobler's slope penalty."}
+
+
+def profile_of(request_profile):
+    return {**PROFILES.get(request_profile.get("kind", "astronaut"), PROFILES["astronaut"]), **request_profile}
+
+
+def _path_stats(path, region, profile):
+    cm = region.meta["cell_m"]
+    cells = np.array(path)
+    heights = region.elevation[tuple(cells.T)]
+    distance = float(np.hypot(*np.diff(cells, axis=0).T).sum() * cm) if len(path) > 1 else 0.0
+    return {"distance_m": round(distance, 1), "time_min": round(path_time_s(path, region.elevation, cm, profile) / 60, 2),
+            "climb_m": round(float(np.maximum(np.diff(heights), 0).sum()), 1),
+            "max_slope_deg": round(float(region.analysis["slope"][tuple(cells.T)].max()), 1)}
+
+
+def walk_route(region, points, profile, base_cost):
+    """Fastest walkable route among three strategies, all inside the profile's hard slope limit.
+
+    over: shortest walkable line, climbs whatever is not too steep.
+    balanced: the terrain cost (slope and roughness penalty).
+    around: keeps to gentle ground (half the slope limit), detours round hills.
+    Walking time uses Tobler's slope penalty; the fastest strategy is chosen.
+    """
+    valid = np.isfinite(base_cost)
+    rough = np.minimum(region.analysis["roughness"] * 2, 2)
+    max_slope = float(profile["max_slope_deg"])
+    strategies = {"over": np.where(valid, 1 + .25 * rough, np.inf), "balanced": base_cost,
+                  "around": np.where(valid & (region.analysis["slope"] <= max_slope / 2), base_cost, np.inf)}
+    options = {}
+    for name, cost in strategies.items():
+        try:
+            path, _ = plan_legs(cost, points, region.meta["cell_m"])
+        except (ValueError, TimeoutError):
+            continue
+        options[name] = {"path": path, **_path_stats(path, region, profile)}
+    if not options:
+        raise ValueError("no_path")
+    if profile.get("slope_speed") != "tobler":
+        chosen = "balanced" if "balanced" in options else next(iter(options))
+    else:
+        fastest = min(options[k]["time_min"] for k in options)
+        close = [k for k in options if options[k]["time_min"] <= fastest + max(.25, .03 * fastest)]
+        chosen = min(close, key=lambda k: (options[k]["max_slope_deg"], options[k]["time_min"]))
+    return options[chosen]["path"], chosen, options
+
+
+def direct_line(region, points, max_slope):
+    """What a straight line between the waypoints would cross: too-steep ground and the biggest rise."""
+    cm = region.meta["cell_m"]
+    slope, elevation = region.analysis["slope"], region.elevation
+    steep_m, worst, hill, hill_at, total = 0.0, 0.0, 0.0, 0.0, 0.0
+    for a, b in zip(points, points[1:]):
+        n = int(max(abs(b[0] - a[0]), abs(b[1] - a[1]))) + 1
+        rr = np.rint(np.linspace(a[0], b[0], n)).astype(int)
+        cc = np.rint(np.linspace(a[1], b[1], n)).astype(int)
+        length = math.hypot(b[0] - a[0], b[1] - a[1]) * cm
+        step = length / max(n - 1, 1)
+        s = slope[rr, cc]
+        bad = ~np.isfinite(s) | (s > max_slope)
+        steep_m += float(bad.sum() * step)
+        if np.isfinite(s).any():
+            worst = max(worst, float(np.nanmax(s)))
+        h = elevation[rr, cc].astype(float)
+        if np.isfinite(h).all() and n > 2:
+            rise = h - np.linspace(h[0], h[-1], n)
+            i = int(np.argmax(rise))
+            if rise[i] > hill:
+                hill, hill_at = float(rise[i]), total + i * step
+        total += length
+    return {"distance_m": round(total, 1), "too_steep_m": round(steep_m, 1), "max_slope_deg": round(worst, 1),
+            "rise_m": round(hill, 1), "rise_at_m": round(hill_at, 1)}
+
+
+LABEL = {"over": "Shortest path up the slope", "balanced": "Balanced route", "around": "Detour on gentle ground"}
+
+
+def _m(metres):
+    return f"{metres / 1000:.1f} km" if metres >= 1000 else f"{metres:.0f} m"
+
+
+def _t(minutes):
+    return f"{minutes / 60:.1f} h" if minutes >= 90 else f"{minutes:.1f} min"
+
+
+def _opt(o):
+    return f"{_m(o['distance_m'])}, {_m(o['climb_m'])} up, {_t(o['time_min'])}"
+
+
+def explain(direct, chosen, options, profile):
+    """Plain-language reasons for the chosen route, from the numbers above."""
+    limit = float(profile["max_slope_deg"])
+    best = options[chosen]
+    lines = []
+    if direct["too_steep_m"] > 0:
+        lines.append(f"The straight line crosses {_m(direct['too_steep_m'])} of ground steeper than {limit:.0f}° "
+                     f"(up to {direct['max_slope_deg']:.0f}°). That is too steep for a {profile['label'].lower()}, so the planner never enters it.")
+    else:
+        lines.append(f"The straight line stays under the {limit:.0f}° limit (steepest {direct['max_slope_deg']:.0f}°).")
+    if direct["rise_m"] >= 2.0:
+        lines.append(f"A rise about {_m(direct['rise_m'])} high stands on the straight line, {_m(direct['rise_at_m'])} along it.")
+    over, around = options.get("over"), options.get("around")
+    fastest = min(options, key=lambda k: options[k]["time_min"])
+    if over and around and abs(over["distance_m"] - around["distance_m"]) <= 1 and direct["rise_m"] >= 2.0:
+        lines.append(f"The rise is gentle enough (steepest {over['max_slope_deg']:.0f}° on the way) that going straight over costs nothing extra; a detour would only add distance.")
+    if over and around and abs(over["distance_m"] - around["distance_m"]) > 1:
+        diff = abs(over["time_min"] - around["time_min"])
+        verdict = (f"Going around would take {_t(diff)} longer, so climbing is the better choice." if over["time_min"] <= around["time_min"]
+                   else f"Climbing would take {_t(diff)} longer, so going around is the better choice.")
+        lines.append(f"Shortest path up the slope: {_opt(over)}. Detour on gentle ground: {_opt(around)}. {verdict}")
+    elif over and not around:
+        lines.append(f"There is no way round on gentle ground (under {limit / 2:.0f}°), so the route has to climb.")
+    if fastest != chosen:
+        gap = best["time_min"] - options[fastest]["time_min"]
+        lines.append(f"{LABEL[fastest]} would be {_t(gap)} faster but reaches {options[fastest]['max_slope_deg']:.0f}°; "
+                     f"for that small a difference the gentler ground (max {best['max_slope_deg']:.0f}°) is preferred.")
+    lines.append(f"Chosen: {LABEL[chosen].lower()} — {_opt(best)}. Steepest step on it: {best['max_slope_deg']:.0f}°, inside the {limit:.0f}° limit.")
+    return lines
+
+
+def route_decision(region, points, profile, base_cost):
+    path, chosen, options = walk_route(region, points, profile, base_cost)
+    direct = direct_line(region, points, float(profile["max_slope_deg"]))
+    return path, {"chosen": chosen, "direct": direct, "limit_deg": float(profile["max_slope_deg"]),
+                  "time_basis": "Tobler hiking speed" if profile.get("slope_speed") == "tobler" else "constant speed",
+                  "options": [{"name": k, "label": LABEL[k], **{kk: vv for kk, vv in v.items() if kk != "path"}} for k, v in options.items()],
+                  "reasons": explain(direct, chosen, options, profile)}
 
 
 def _point(region, rc):

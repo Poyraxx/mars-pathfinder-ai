@@ -127,6 +127,25 @@ function obliqueOver(v:C.Viewer,lat:number,lon:number,height:number){
  v.camera.flyTo({destination:C.Cartesian3.fromRadians(lon,lat-alt*1.05/3396190,alt*1.15,MARS),orientation:{heading:0,pitch:C.Math.toRadians(-45),roll:0},duration:1.4});
 }
 
+export function tiltView(v:C.Viewer,tilt:boolean,degrees:number):boolean{
+ const canvas=v.scene.canvas,mid=new C.Cartesian2(canvas.clientWidth/2,canvas.clientHeight/2);
+ const ray=v.camera.getPickRay(mid);
+ const centre=(ray&&v.scene.globe.pick(ray,v.scene))||v.camera.pickEllipsoid(mid,MARS);
+ if(!centre)return false;
+ const angle=C.Math.toRadians(Math.abs(degrees));
+ v.camera.lookAtTransform(C.Transforms.eastNorthUpToFixedFrame(centre,MARS));
+ const pitch=()=>{v.camera.lookAtTransform(C.Matrix4.IDENTITY);const p=v.camera.pitch;v.camera.lookAtTransform(C.Transforms.eastNorthUpToFixedFrame(centre,MARS));return p;};
+ if(tilt){
+
+  if(degrees>0)v.camera.rotateUp(angle);else v.camera.rotateDown(angle);
+  const after=pitch();
+  if(after>C.Math.toRadians(-4)||after<C.Math.toRadians(-89.5)){if(degrees>0)v.camera.rotateDown(angle);else v.camera.rotateUp(angle);}
+ }else if(degrees>0)v.camera.rotateLeft(angle);else v.camera.rotateRight(angle);
+ v.camera.lookAtTransform(C.Matrix4.IDENTITY);
+ v.scene.requestRender();
+ return true;
+}
+
 const RELIEF_X=12;
 function reliefHeights(route:{points:{lat:number;lon:number}[];profile?:{distance_m:number;elevation_m:number}[]}):number[]|null{
  const prof=route.profile;if(!prof?.length)return null;
@@ -188,7 +207,15 @@ export default function Globe(){
   if(token){C.Ion.defaultAccessToken=token;C.Cesium3DTileset.fromIonAssetId(3644333,{ellipsoid:MARS}).then(tileset=>{
    if(viewer.isDestroyed())return;viewer.scene.primitives.add(tileset);tilesetRef.current=tileset;viewer.scene.globe.show=false;setRenderer('CESIUM MARS · GLOBAL 3D TILES');
   }).catch(()=>setRenderer('MOLA / HRSC · ION UNAVAILABLE'));}
-  return()=>{load();error();handler.destroy();viewer.destroy();viewerRef.current=null;};
+  const onKey=(e:KeyboardEvent)=>{
+   const target=e.target as HTMLElement|null;
+   if(e.altKey||e.ctrlKey||e.metaKey||(target&&(target.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))))return;
+   const move=({ArrowUp:['tilt',1],ArrowDown:['tilt',-1],ArrowLeft:['turn',1],ArrowRight:['turn',-1]} as Record<string,[string,number]>)[e.key];
+   if(!move||viewer.isDestroyed())return;
+   if(tiltView(viewer,move[0]==='tilt',move[1]*(e.shiftKey?10:4)))e.preventDefault();
+  };
+  window.addEventListener('keydown',onKey);
+  return()=>{window.removeEventListener('keydown',onKey);load();error();handler.destroy();viewer.destroy();viewerRef.current=null;};
  },[]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
@@ -334,13 +361,6 @@ export default function Globe(){
   (v.scene as unknown as {verticalExaggeration:number}).verticalExaggeration=relief&&mode!=='replay'?RELIEF_X:1;
   if(shadeRef.current){v.imageryLayers.remove(shadeRef.current);shadeRef.current=null;}
   if(relief&&mode!=='replay'){shadeRef.current=v.imageryLayers.addImageryProvider(new ReliefShadeProvider() as unknown as C.ImageryProvider,1);}
-  if(relief&&mode!=='replay'){
-   const canvas=v.scene.canvas,centre=v.camera.pickEllipsoid(new C.Cartesian2(canvas.clientWidth/2,canvas.clientHeight/2),MARS);
-   if(centre){
-    const c=MARS.cartesianToCartographic(centre);
-    obliqueOver(v,c.latitude,c.longitude,MARS.cartesianToCartographic(v.camera.position).height);
-   }
-  }
   v.scene.requestRender();
  },[relief,mode]);
  return <div className={`globe-wrap ${pick?'picking':''}`}><div className="globe-canvas" ref={mount}/><div className="globe-vignette"/><div className="globe-source"><span className="status-dot"/>{status}<span className="source-divider">/</span>{renderer}</div>{pick&&<div className="pick-prompt">Select {pick==='stop'?'a science waypoint':`the ${pick} point`} on the terrain <button onClick={()=>useMission.getState().set({pick:null})}>Cancel</button></div>}</div>;

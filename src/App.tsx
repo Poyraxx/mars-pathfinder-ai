@@ -6,11 +6,11 @@ import Globe from './Globe';
 import {ReplayPanel,ReplayTimeline,ReplayView} from './Replay';
 import {EnvironmentPanel,EvaControls,EvaPanel,GeologyAlong,OverlaySwitch,ProfilePicker,ScienceTargets} from './Marswalk';
 import {api,useMission} from './store';
-import type {Catalog,Event,Mission,OrbitalResult,Point} from './types';
+import type {Catalog,Event,Mission,OrbitalResult,Point,RouteDecision} from './types';
 
 const coord=(p:Point|null)=>p?`${Math.abs(p.lat).toFixed(4)}° ${p.lat<0?'S':'N'} · ${Math.abs(p.lon).toFixed(4)}° ${p.lon<0?'W':'E'}`:'Not set';
 const distance=(n:number|undefined)=>n===undefined?'—':n>=1000?`${(n/1000).toFixed(n>=100000?0:1)} km`:`${n.toFixed(0)} m`;
-const routeNames:Record<string,string>={distance:'Shortest distance',terrain:'Terrain-aware',surface:'Terrain + camera'};
+const routeNames:Record<string,string>={distance:'Straight reference (ignores slope)',terrain:'Terrain-aware',surface:'Terrain + camera'};
 const famous=['Olympus Mons','Valles Marineris','Jezero','Gale','Hellas Planitia','Elysium Mons'];
 
 function App(){
@@ -137,10 +137,10 @@ function App(){
     {s.mode==='explore'&&!s.feature&&<div className="intro"><h1>Explore Mars, plan a route, test rover guidance.</h1><p>Real NASA and USGS data: 200 m global terrain, 2055 named places, and Curiosity's own camera frames.</p></div>}
     {s.mode==='replay'&&<span className="map-label">Map · real rover track</span>}
     <OverlaySwitch/>
-    {s.mode!=='replay'&&<div className="relief-switch" role="group" aria-label="Map style"><button className={!s.relief?'active':''} aria-pressed={!s.relief} onClick={()=>s.set({relief:false,layer:'viking'})}>Imagery</button><button className={s.relief?'active':''} aria-pressed={s.relief} onClick={()=>s.set({relief:true,layer:'mola'})}><Mountain size={14}/>Relief</button></div>}
+    {s.mode!=='replay'&&<div className="relief-switch" role="group" aria-label="Map style"><button className={!s.relief?'active':''} aria-pressed={!s.relief} onClick={()=>s.set({relief:false,layer:'viking'})}>Imagery</button><button className={s.relief?'active':''} aria-pressed={s.relief} onClick={()=>s.set({relief:true,layer:'mola'})}><Mountain size={14}/>Relief</button><span className="key-hint" title="Arrow keys: up/down tilt the view, left/right turn it; hold Shift for bigger steps">↑↓ tilt · ←→ turn</span></div>}
     {s.relief&&s.mode!=='replay'&&<div className="relief-legend"><strong>Elevation · MOLA/HRSC</strong><div className="relief-bar"/><div className="relief-ticks"><span>−8 km</span><span>0</span><span>+10 km</span><span>+21 km</span></div><small>Heights exaggerated ×12 so mountains rise and craters sink. Colour = MOLA elevation; light and shadow computed from the same DEM (sun from the north-west).</small>{s.mission?.routes.some(r=>r.status==='ready')&&<p className="relief-route"><i/>Route: lowest slope + roughness cost on the same 200 m MOLA/HRSC terrain. Steep slopes cost more, so it picks gentler ways down and up.</p>}</div>}
     <div className="map-tools">
-     <div className="layer-control"><button className={layerMenu?'active':''} onClick={()=>setLayerMenu(!layerMenu)} aria-label="Map layers" aria-expanded={layerMenu}><Layers3 size={17}/></button>{layerMenu&&<div className="layer-popover">{s.catalog?.layers.map(l=><button key={l.id} onClick={()=>s.set({layer:l.id})} className={s.layer===l.id?'selected':''}><strong>{l.name}</strong><small>{l.kind} · {l.resolution_m} m/px</small></button>)}<label className="check"><input type="checkbox" checked={s.showRisk} disabled={!s.region} onChange={e=>s.set({showRisk:e.target.checked})}/>Slope overlay (Gale)</label><p>Thermal mosaic brightness is not current temperature.</p></div>}</div>
+     <div className="layer-control"><button className={layerMenu?'active':''} onClick={()=>setLayerMenu(!layerMenu)} aria-label="Map layers" aria-expanded={layerMenu}><Layers3 size={17}/></button>{layerMenu&&<div className="layer-popover">{s.catalog?.layers.map(l=><button key={l.id} onClick={()=>s.set(l.id==='mola'?{layer:l.id,relief:true}:{layer:l.id})} className={s.layer===l.id?'selected':''}><strong>{l.name}</strong><small>{l.kind} · {l.resolution_m} m/px</small></button>)}<label className="check"><input type="checkbox" checked={s.showRisk} disabled={!s.region} onChange={e=>s.set({showRisk:e.target.checked})}/>Slope overlay (Gale)</label><p>Thermal mosaic brightness is not current temperature.</p></div>}</div>
      <button onClick={()=>s.set({view:'orbital',exploreTarget:{lat:17,lon:42,alt:10000000},feature:null})} aria-label="Whole planet"><Globe2 size={17}/></button>
      {s.mode==='replay'&&<button onClick={()=>{s.set({followRover:false});window.dispatchEvent(new Event('replay-fit'));}} aria-label="Fit rover and route" title="Fit whole drive"><Crosshair size={17}/></button>}
      {s.mode==='replay'&&<button className={s.followRover?'active':''} aria-pressed={s.followRover} onClick={()=>{const on=!s.followRover;s.set({followRover:on});if(on)window.dispatchEvent(new Event('replay-rover'));}} aria-label="Zoom to rover and follow it" title="Zoom to rover and follow it"><ZoomIn size={17}/></button>}
@@ -172,7 +172,7 @@ function App(){
    <div className="tabs" role="tablist">{([['eva','Round trip'],['environment','Conditions'],['profile','Elevation'],['compare','Compare routes'],['log',`Decisions (${s.events.length})`]] as const).map(([id,label])=><button key={id} role="tab" aria-selected={tab===id} className={tab===id?'active':''} onClick={()=>setTab(id)}>{label}</button>)}<button className="text-button" onClick={download} disabled={!s.mission}><ArrowDownToLine size={14}/>Report</button></div>
    <div className="analysis-body">{tab==='eva'?<EvaPanel/>:tab==='environment'?<EnvironmentPanel/>:tab==='profile'?(active?.profile?<ResponsiveContainer width="100%" height="100%"><AreaChart data={active.profile} margin={{top:8,right:16,bottom:0,left:0}}><defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#5fd4c4" stopOpacity={.28}/><stop offset="100%" stopColor="#5fd4c4" stopOpacity={0}/></linearGradient></defs><XAxis dataKey="distance_m" type="number" tick={{fontSize:11,fill:'#8796a0'}} tickFormatter={v=>distance(v)} axisLine={false} tickLine={false}/><YAxis domain={['dataMin-1','dataMax+1']} width={56} tick={{fontSize:11,fill:'#8796a0'}} tickFormatter={v=>`${Number(v).toFixed(0)} m`} axisLine={false} tickLine={false}/><Tooltip contentStyle={{background:'#111a21',border:'1px solid #26343d',borderRadius:8,fontSize:12}} labelFormatter={v=>`${distance(Number(v))} along route`} formatter={v=>[`${Number(v).toFixed(1)} m`,'Elevation']}/><Area type="linear" dataKey="elevation_m" stroke="#5fd4c4" fill="url(#fill)" strokeWidth={2} isAnimationActive={false}/></AreaChart></ResponsiveContainer>:<p className="empty">Set a start and destination, then calculate to see the elevation profile.</p>)
     :tab==='compare'?<table className="compare"><thead><tr><th>Route</th><th>Distance</th><th>Climb</th><th>Max slope</th><th>Compute</th></tr></thead><tbody>{s.mission?.routes.map(r=><tr key={r.mode} className={r.mode===s.activeRoute?'selected':''} onClick={()=>s.set({activeRoute:r.mode})}><td>{routeNames[r.mode]}</td><td>{r.status==='ready'?distance(r.distance_m):r.status.replaceAll('_',' ')}</td><td>{distance(r.ascent_m)}</td><td>{r.max_slope_deg!==undefined?`${r.max_slope_deg}°`:'—'}</td><td>{r.planning_ms!==undefined?`${r.planning_ms} ms`:'—'}</td></tr>)}</tbody></table>
-    :<ol className="log">{s.events.map(e=><li key={e.sequence_id}><time>{new Date(e.timestamp).toLocaleTimeString('en-GB')}</time><span>{e.message}</span>{e.map_version!==undefined&&<small>map v{e.map_version}</small>}</li>)}{!s.events.length&&<p className="empty">Decisions appear here as the server computes them.</p>}</ol>}</div>
+    :<div className="decisions"><DecisionCard decision={(active??s.mission?.routes.find(r=>r.mode==='surface'))?.decision}/><ol className="log">{s.events.map(e=><li key={e.sequence_id}><time>{new Date(e.timestamp).toLocaleTimeString('en-GB')}</time><span>{e.message}</span>{e.map_version!==undefined&&<small>map v{e.map_version}</small>}</li>)}{!s.events.length&&<p className="empty">Decisions appear here as the server computes them.</p>}</ol></div>}</div>
   </section>}
 
   {s.showSources&&<div className="modal-backdrop" onClick={()=>s.set({showSources:false})}><section ref={sourcesRef} className="sources-modal" role="dialog" aria-modal="true" aria-label="Sources and limits" onClick={e=>e.stopPropagation()}>
@@ -187,3 +187,15 @@ function App(){
  </div>;
 }
 export default App;
+
+function DecisionCard({decision}:{decision?:RouteDecision|null}){
+ if(!decision)return null;
+ return <section className="decision-card" aria-label="Why this route">
+  <h4>Why this route</h4>
+  <ul>{decision.reasons.map((r,i)=><li key={i}>{r}</li>)}</ul>
+  <table className="compare"><thead><tr><th>Option</th><th>Distance</th><th>Climb</th><th>Steepest</th><th>Walking time</th></tr></thead><tbody>
+   {decision.options.map(o=><tr key={o.name} className={o.name===decision.chosen?'selected':''}><td>{o.label}{o.name===decision.chosen?' · chosen':''}</td><td>{distance(o.distance_m)}</td><td>{distance(o.climb_m)}</td><td>{o.max_slope_deg.toFixed(0)}°</td><td>{o.time_min>=90?`${(o.time_min/60).toFixed(1)} h`:`${o.time_min.toFixed(1)} min`}</td></tr>)}
+  </tbody></table>
+  <p className="fine-print">Every option stays under the {decision.limit_deg.toFixed(0)}° slope limit; steeper ground is never entered. Times use {decision.time_basis}; the fastest is chosen unless a gentler option is within a few seconds.</p>
+ </section>;
+}

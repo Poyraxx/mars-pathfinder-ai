@@ -2,6 +2,7 @@
 import time
 from datetime import datetime, timezone
 
+import numpy as np
 import pytest
 from fastapi.testclient import TestClient
 
@@ -60,3 +61,57 @@ def test_overlays_and_targets_are_published_with_sources():
         assert c.get('/api/overlays/unknown/0/0/0').status_code == 404
         targets = c.get('/api/science-targets').json()
         assert all(t['sources'] and t['position_source'] for t in targets['gale'] + targets['global'])
+
+
+def _region(elevation, cell_m=1.0):
+    from types import SimpleNamespace
+    from backend.navigation import terrain_analysis
+    return SimpleNamespace(elevation=elevation, analysis=terrain_analysis(elevation, cell_m), meta={"cell_m": cell_m})
+
+
+def _decide(elevation, start, goal, kind="astronaut"):
+    from backend import marswalk
+    from backend.navigation import cost_grid
+    region = _region(elevation)
+    profile = marswalk.profile_of({"kind": kind, "max_slope_deg": marswalk.PROFILES[kind]["max_slope_deg"]})
+    cost = cost_grid(region.analysis, "terrain", profile["max_slope_deg"])
+    path, decision = marswalk.route_decision(region, [start, goal], profile, cost)
+    return region, path, decision
+
+
+def test_low_hill_is_climbed_when_going_around_takes_longer():
+    yy, xx = np.mgrid[0:120, 0:120]
+    hill = 3.0 * np.exp(-((yy - 60) ** 2 + (xx - 60) ** 2) / (2 * 25.0 ** 2))
+    region, path, d = _decide(hill, (60, 5), (60, 115))
+    chosen = next(o for o in d["options"] if o["name"] == d["chosen"])
+    assert all(o["time_min"] >= chosen["time_min"] for o in d["options"])
+    assert chosen["climb_m"] > 1
+    assert any("climbing is the better choice" in r or "has to climb" in r or "Chosen" in r for r in d["reasons"])
+
+
+def test_steep_wall_is_never_crossed_and_reason_says_so():
+    elevation = np.zeros((120, 120))
+    elevation[:, 55:65] = np.linspace(0, 20, 10)[None, :]
+    elevation[:, 65:] = 20
+    elevation[100:, 20:100] = np.linspace(0, 20, 80)[None, :]
+    elevation[100:, 100:] = 20
+    region, path, d = _decide(elevation, (20, 10), (20, 110))
+    slopes = region.analysis["slope"][tuple(np.array(path).T)]
+    assert slopes.max() <= d["limit_deg"] + 1e-6
+    assert d["direct"]["too_steep_m"] > 0
+    assert "too steep" in d["reasons"][0]
+
+
+def test_big_hill_is_walked_around_when_climbing_is_slower():
+    yy, xx = np.mgrid[0:160, 0:160]
+    hill = 40.0 * np.exp(-((yy - 80) ** 2 + (xx - 80) ** 2) / (2 * 22.0 ** 2))
+    region, path, d = _decide(hill, (80, 4), (80, 156))
+    over = next(o for o in d["options"] if o["name"] == "over")
+    chosen = next(o for o in d["options"] if o["name"] == d["chosen"])
+    assert chosen["time_min"] <= over["time_min"]
+    assert chosen["climb_m"] < 40
+    assert slopes_ok(region, path, d)
+
+
+def slopes_ok(region, path, d):
+    return region.analysis["slope"][tuple(np.array(path).T)].max() <= d["limit_deg"] + 1e-6

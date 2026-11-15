@@ -108,8 +108,13 @@ def route_result(mission,mode):
     cost = cost_grid(region.analysis,mode,request["profile"]["max_slope_deg"], blocked)
     points = [point_to_cell(p,region.meta) for p in [request["start"],*request["stops"],request["goal"]]]
     began = time.perf_counter()
+    decision = None
     try:
-        path,total = plan_legs(cost,points,region.meta["cell_m"])
+        if mode=="distance":
+            path,total = plan_legs(cost,points,region.meta["cell_m"])
+        else:
+            path,decision = marswalk.route_decision(region,points,marswalk.profile_of(request["profile"]),cost)
+            total = float(sum(cost[tuple(np.array(path).T)]))
     except (ValueError,TimeoutError) as exc:
         return {"mode":mode,"status":str(exc),"points":[],"map_version":mission["map_version"]}
     stats = metrics(path,region.elevation,region.analysis["slope"],region.meta["cell_m"],request["profile"]["speed_m_s"])
@@ -118,7 +123,7 @@ def route_result(mission,mode):
     return {"mode":mode,"status":"ready","map_version":mission["map_version"],
             "planning_ms":round((time.perf_counter()-began)*1000,1),"cost":round(total,2),
             **stats,"points":drawn,"features":features.along_route(drawn),
-            "cells":[list(p) for p in path]}
+            "cells":[list(p) for p in path],"decision":decision}
 
 
 @app.get("/healthz")
@@ -222,6 +227,9 @@ async def plan(mission_id: str, payload: PlanRequest):
                     m["eva"]=await asyncio.to_thread(marswalk.eva_summary,region_of(m),m,eva_mode)
                     if m["eva"].get("status")=="ready":
                         e=m["eva"];events.append(mission_id,"eva.planned",f"EVA · {e['profile']}: out {e['outbound']['time_min']:.0f} min + work {sum(s['work_min'] for s in e['stops']):.0f} min + return {e['return']['time_min']:.0f} min; reserve {e['reserve_min']:.0f} of {e['budget_min']:.0f} min",map_version=version)
+                main_route=next((r for r in routes if r.get("mode")=="surface" and r.get("decision")),None)
+                for reason in (main_route or {}).get("decision",{}).get("reasons",[]):
+                    events.append(mission_id,"route.decision","Route choice · "+reason,map_version=version)
                 if version==m["map_version"]:
                     m["routes"] = routes
                     m["state"] = "ready"
