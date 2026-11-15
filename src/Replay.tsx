@@ -124,11 +124,15 @@ export function ReplayView(){
  </section>;
 }
 
+const FOV_DEG=124,FOV_RANGE_M=6,RM=3396190;
+function offsetLL(lat:number,lon:number,az:number,m:number){const a=C.Math.toRadians(az);return {lat:lat+C.Math.toDegrees(m*Math.cos(a)/RM),lon:lon+C.Math.toDegrees(m*Math.sin(a)/(RM*Math.cos(C.Math.toRadians(lat))))};}
 function FirstPerson(){
- const mount=useRef<HTMLDivElement>(null),viewer=useRef<C.Viewer|null>(null);
- const cameraPose=useRef<{position:C.Cartesian3;yaw:number}|null>(null);
- const {replay,replayStep,catalog}=useMission();
+ const mount=useRef<HTMLDivElement>(null),viewer=useRef<C.Viewer|null>(null),rocks=useRef<C.PointPrimitiveCollection|null>(null),slope=useRef<C.ImageryLayer|null>(null);
+ const cameraPose=useRef<{position:C.Cartesian3;yaw:number}|null>(null),lastRover=useRef<C.Cartesian3|null>(null);
+ const {replay,replayStep,catalog,localBatch}=useMission();
  const [ready,setReady]=useState(false);
+ const [free,setFree]=useState(false);
+ const [show,setShow]=useState({rocks:true,slope:true,fov:true});
  useEffect(()=>{
   let disposed=false,releaseDatum:(()=>void)|undefined;
   void ensureLocalDEM().then(()=>{
@@ -141,13 +145,18 @@ function FirstPerson(){
    v.scene.globe.depthTestAgainstTerrain=true;
    v.scene.globe.maximumScreenSpaceError=1.5;
    (v.camera.frustum as C.PerspectiveFrustum).fov=C.Math.toRadians(70);
-   v.scene.screenSpaceCameraController.enableInputs=false;
+   const ctl=v.scene.screenSpaceCameraController;ctl.minimumZoomDistance=1.5;ctl.maximumZoomDistance=4000;ctl.enableCollisionDetection=false;
    v.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:'/api/tiles/viking/{z}/{y}/{x}',tilingScheme:scheme,maximumLevel:7}));
    const region=catalog?.regions[0];
-   if(region?.ortho_bounds){const [w,so,e,n]=region.ortho_bounds;martianOrtho(`/api/regions/${region.id}/ortho.png`).then(url=>C.SingleTileImageryProvider.fromUrl(url,{rectangle:C.Rectangle.fromDegrees(w,so,e,n),ellipsoid:MARS})).then(p=>{if(!v.isDestroyed()){v.imageryLayers.addImageryProvider(p);v.scene.requestRender();}});}
-   viewer.current=v;setReady(true);
+   if(region?.ortho_bounds){const [w,so,e,n]=region.ortho_bounds;martianOrtho(`/api/regions/${region.id}/ortho.png`).then(url=>C.SingleTileImageryProvider.fromUrl(url,{rectangle:C.Rectangle.fromDegrees(w,so,e,n),ellipsoid:MARS})).then(p=>{if(!v.isDestroyed()){v.imageryLayers.addImageryProvider(p,1);v.scene.requestRender();}});}
+   if(region?.bounds){const [w,so,e,n]=region.bounds;C.SingleTileImageryProvider.fromUrl(`/api/regions/${region.id}/risk.png`,{rectangle:C.Rectangle.fromDegrees(w,so,e,n),ellipsoid:MARS}).then(p=>{if(v.isDestroyed())return;slope.current=v.imageryLayers.addImageryProvider(p);slope.current.alpha=.35;v.scene.requestRender();});}
+   rocks.current=v.scene.primitives.add(new C.PointPrimitiveCollection());
+   v.entities.add({id:'fp-rover',model:{uri:ROVER_MODEL,minimumPixelSize:0}});
+   v.entities.add({id:'fp-fov',polygon:{hierarchy:new C.PolygonHierarchy([]),material:C.Color.fromCssColorString('#3ce1ff').withAlpha(.18),classificationType:C.ClassificationType.TERRAIN}});
+   v.entities.add({id:'fp-fov-edge',polyline:{positions:[],width:2,material:C.Color.fromCssColorString('#3ce1ff').withAlpha(.8),clampToGround:true}});
+   viewer.current=v;setReady(true);if(import.meta.env.DEV)(window as unknown as {__fpViewer:unknown}).__fpViewer=v;
   });
-  return()=>{disposed=true;releaseDatum?.();viewer.current?.destroy();viewer.current=null;};
+  return()=>{disposed=true;releaseDatum?.();viewer.current?.destroy();viewer.current=null;rocks.current=null;slope.current=null;};
  // eslint-disable-next-line react-hooks/exhaustive-deps
  },[]);
  useEffect(()=>{
@@ -161,14 +170,49 @@ function FirstPerson(){
   const gh=demHeightAt(replay.goal.lat,replay.goal.lon)??ground;
   const goal=v.entities.getById('first-person-goal')??v.entities.add({id:'first-person-goal',point:{pixelSize:14,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.WHITE,outlineWidth:2,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 12px sans-serif',fillColor:C.Color.WHITE,outlineColor:C.Color.BLACK,outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(0,-20),disableDepthTestDistance:Infinity}});
   updateReplayPose(goal,C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,gh+1.2,MARS));
-  const position=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+1.9,MARS),previous=cameraPose.current;
-  if(!previous||!C.Cartesian3.equalsEpsilon(previous.position,position,0,.001)||previous.yaw!==st.rover.yaw_deg){
-   v.camera.flyTo({destination:position,orientation:{heading:C.Math.toRadians(st.rover.yaw_deg),pitch:C.Math.toRadians(-14),roll:0},duration:previous?.7:0,easingFunction:C.EasingFunction.LINEAR_NONE});
-   cameraPose.current={position,yaw:st.rover.yaw_deg};
+  const roverPos=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+.05,MARS);
+  const rover=v.entities.getById('fp-rover')!;rover.show=free;
+  updateReplayPose(rover,roverPos,C.Transforms.headingPitchRollQuaternion(roverPos,new C.HeadingPitchRoll(C.Math.toRadians(st.rover.yaw_deg-90),0,0),MARS));
+  const arc=[st.rover,...Array.from({length:25},(_,k)=>offsetLL(st.rover.lat,st.rover.lon,st.rover.yaw_deg-FOV_DEG/2+FOV_DEG*k/24,FOV_RANGE_M)),st.rover];
+  const fov=v.entities.getById('fp-fov')!,edge=v.entities.getById('fp-fov-edge')!;
+  fov.show=show.fov;edge.show=show.fov;
+  fov.polygon!.hierarchy=new C.ConstantProperty(new C.PolygonHierarchy(C.Cartesian3.fromDegreesArray(arc.slice(0,-1).flatMap(p=>[p.lon,p.lat]),MARS)));
+  edge.polyline!.positions=new C.ConstantProperty(C.Cartesian3.fromDegreesArray(arc.flatMap(p=>[p.lon,p.lat]),MARS));
+  const pts=rocks.current;
+  if(pts){pts.removeAll();const local=localBatch?.frames[st.frame_id];
+   if(show.rocks)for(const [lat,lon] of local?.rocks_ll??[]){const h=demHeightAt(lat,lon);if(h===null)continue;pts.add({position:C.Cartesian3.fromDegrees(lon,lat,h+.18,MARS),pixelSize:7,color:C.Color.fromCssColorString('#ff4a3d'),outlineColor:C.Color.fromCssColorString('#2a0805'),outlineWidth:1});}}
+  if(slope.current)slope.current.show=show.slope;
+  const eye=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+1.9,MARS),previous=cameraPose.current;
+  if(!free){
+   v.scene.screenSpaceCameraController.enableInputs=false;
+   if(!previous||!C.Cartesian3.equalsEpsilon(previous.position,eye,0,.001)||previous.yaw!==st.rover.yaw_deg){
+    v.camera.flyTo({destination:eye,orientation:{heading:C.Math.toRadians(st.rover.yaw_deg),pitch:C.Math.toRadians(-14),roll:0},duration:previous?.7:0,easingFunction:C.EasingFunction.LINEAR_NONE});
+    cameraPose.current={position:eye,yaw:st.rover.yaw_deg};
+   }
+  }else{
+   v.scene.screenSpaceCameraController.enableInputs=true;
+   const last=lastRover.current;
+   if(!last||previous){
+    v.camera.flyToBoundingSphere(new C.BoundingSphere(roverPos,3),{offset:new C.HeadingPitchRange(C.Math.toRadians(st.rover.yaw_deg),C.Math.toRadians(-28),16),duration:1.2});
+   }else if(!C.Cartesian3.equalsEpsilon(last,roverPos,0,.001)){
+    const moved=C.Cartesian3.subtract(roverPos,last,new C.Cartesian3());
+    v.camera.setView({destination:C.Cartesian3.add(v.camera.position,moved,new C.Cartesian3()),orientation:{heading:v.camera.heading,pitch:v.camera.pitch,roll:0}});
+   }
+   cameraPose.current=null;
   }
+  lastRover.current=roverPos;
   v.scene.requestRender();
- },[replay,replayStep,ready]);
- return <div className="first-person"><div ref={mount} className="first-person-canvas"/><div className="view-caption">Rendered from HiRISE 1 m DEM and 25 cm orthophoto at the rover's PLACES pose · not a camera image</div></div>;
+ },[replay,replayStep,ready,free,show,localBatch]);
+ const recentre=()=>{const v=viewer.current;if(!v||!replay)return;const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];const pos=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,(demHeightAt(st.rover.lat,st.rover.lon)??-4517)+.05,MARS);v.camera.flyToBoundingSphere(new C.BoundingSphere(pos,3),{offset:new C.HeadingPitchRange(C.Math.toRadians(st.rover.yaw_deg),C.Math.toRadians(-28),16),duration:1});};
+ const toggle=(k:keyof typeof show)=>setShow(o=>({...o,[k]:!o[k]}));
+ const rockCount=replay?localBatch?.frames[replay.steps[Math.min(replayStep,replay.steps.length-1)].frame_id]?.rocks_ll?.length??0:0;
+ return <div className="first-person"><div ref={mount} className="first-person-canvas"/>
+  <div className="fp-controls">
+   <div className="fp-seg" role="group" aria-label="Camera"><button className={free?'active':''} onClick={()=>{lastRover.current=null;setFree(true);}}>Free camera</button><button className={!free?'active':''} onClick={()=>{cameraPose.current=null;setFree(false);}}>Rover eye</button>{free&&<button onClick={recentre}>Centre on rover</button>}</div>
+   <div className="fp-seg" role="group" aria-label="Layers"><button aria-pressed={show.rocks} className={show.rocks?'active':''} onClick={()=>toggle('rocks')}><i className="fp-key rock"/>Rocks ({rockCount})</button><button aria-pressed={show.slope} className={show.slope?'active':''} onClick={()=>toggle('slope')}><i className="fp-key slope"/>Slope from orbit</button><button aria-pressed={show.fov} className={show.fov?'active':''} onClick={()=>toggle('fov')}><i className="fp-key fov"/>Camera view</button></div>
+  </div>
+  <div className="view-caption">{free?'Drag to orbit, scroll to zoom, Ctrl+drag to tilt · ':''}HiRISE 1 m terrain at the rover’s recorded pose · red dots: stereo-confirmed rocks · colour: slope from orbit (red 20°+) · cyan: Hazcam view</div>
+ </div>;
 }
 
 function NavcamFrame(){

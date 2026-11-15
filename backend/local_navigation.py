@@ -713,6 +713,7 @@ def compute(frame_id, goal=None, route=None, remembered=None, preferred_turn=Non
     projection['obstacles'] = project_obstacles(frame, terrain, exclude=tracked_cells)
     projection['tracked_obstacles'] = project_cells(frame, terrain, tracked_cells)
     projection['distant_candidates'] = project_candidates(frame, terrain)
+    projection['rocks_ll'] = [[round(math.degrees(p[0]/3396190.), 8), round(math.degrees(p[1]/3396190.), 8)] for p in confirmed_here[:500]]
     if result['status'] in ('ready', 'partial', 'u_turn') and not projection['segments']:
         result['status'] = 'out_of_view'
         result['reason'] = 'Computed ground route is occluded or outside stereo-confirmed camera pixels.'
