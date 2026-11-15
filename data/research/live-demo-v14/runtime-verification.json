@@ -1,0 +1,17 @@
+{
+  "tests_passed": 56,
+  "test_log_sha256": "caa250c1ab1beffae607bf6bab86a3a703a52dd33884e5be597d019618db1d17",
+  "navigation_model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "global_surface_sha256": "b3b7813cdfe2868a69ef593069acd0781b04c67d0b17a3fa0ee7918aee353cb9",
+  "research_backend_commit": "bd2d34a",
+  "test_files": [
+    "test_local_navigation.py",
+    "test_route_overlay.py",
+    "test_obstacle_marker_occlusion.py",
+    "test_camera_destination.py",
+    "test_perception_native.py"
+  ],
+  "original_tests_not_weakened": true,
+  "scope": "Research worktree backend with original weights; does not validate concurrent main-worktree edits.",
+  "new_model_installed": false
+}

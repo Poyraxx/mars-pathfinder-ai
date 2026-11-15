@@ -1,0 +1,21 @@
+{
+  "version": 14,
+  "all_final_composition_pages_viewed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "source_frames_context_checked": 181,
+  "all_adjusted_core_crops_viewed": true,
+  "reviewed_archive_sha256": "e634068a16e4d92c0c7060a9596ca272a948973243294a14644e4e5cb1826f85",
+  "notes": "Final contact sheets plus individual native-source/manual-core crops inspected. Partial interiors, not exhaustive pixel or object labels; unknown stays unknown."
+}

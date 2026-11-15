@@ -1,0 +1,740 @@
+[
+  {
+    "epoch": 1,
+    "loss": 0.048104862420104484,
+    "demo": {
+      "ground_fp": 7600,
+      "hardware_fp": 2425,
+      "sky_fp": 694,
+      "ground_as_hardware": 32408,
+      "rock_tp": 218367,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.00041508885113400906,
+      "hardware_fp_fraction": 0.0003420016531725272,
+      "ground_as_hardware_fraction": 0.0017700262483619693,
+      "rock_pixel_recall": 0.8352758471642613,
+      "iou": [
+        0.992894920488247,
+        0.7310354876311359,
+        0.9867205595851628,
+        0.9538516449250339
+      ],
+      "confusion_matrix": [
+        [
+          18221549,
+          42661,
+          45123,
+          0
+        ],
+        [
+          32973,
+          225773,
+          2685,
+          0
+        ],
+        [
+          9514,
+          3491,
+          7077492,
+          112
+        ],
+        [
+          121,
+          1257,
+          34325,
+          740269
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 22,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              4.05,
+              0.9500000000000002
+            ],
+            [
+              4.15,
+              0.9500000000000002
+            ]
+          ],
+          "ribbons": 60,
+          "obstacles": 37
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [],
+    "eligible": true,
+    "selected": false,
+    "score": 0.8390152816001579,
+    "elapsed_s": 72.89092419997905
+  },
+  {
+    "epoch": 2,
+    "loss": 0.0451562917863343,
+    "demo": {
+      "ground_fp": 7574,
+      "hardware_fp": 2360,
+      "sky_fp": 651,
+      "ground_as_hardware": 32200,
+      "rock_tp": 218006,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.000413668810327498,
+      "hardware_fp_fraction": 0.00033283459855140793,
+      "ground_as_hardware_fraction": 0.0017586659219098807,
+      "rock_pixel_recall": 0.8338949856749964,
+      "iou": [
+        0.9930998200208913,
+        0.7396321827018305,
+        0.9868004100193745,
+        0.954159069677544
+      ],
+      "confusion_matrix": [
+        [
+          18225497,
+          38913,
+          44923,
+          0
+        ],
+        [
+          33175,
+          225539,
+          2717,
+          0
+        ],
+        [
+          9495,
+          3339,
+          7077672,
+          103
+        ],
+        [
+          127,
+          1251,
+          34095,
+          740499
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 20,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              4.05,
+              0.9500000000000002
+            ],
+            [
+              4.15,
+              0.9500000000000002
+            ]
+          ],
+          "ribbons": 60,
+          "obstacles": 36
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [],
+    "eligible": true,
+    "selected": true,
+    "score": 0.8426868616181639,
+    "elapsed_s": 123.52958569998736
+  },
+  {
+    "epoch": 3,
+    "loss": 0.044596046584951615,
+    "demo": {
+      "ground_fp": 7569,
+      "hardware_fp": 2324,
+      "sky_fp": 636,
+      "ground_as_hardware": 32106,
+      "rock_tp": 218106,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.0004133957255570151,
+      "hardware_fp_fraction": 0.0003277574606074034,
+      "ground_as_hardware_fraction": 0.0017535319282248022,
+      "rock_pixel_recall": 0.8342774957828261,
+      "iou": [
+        0.9930828272357323,
+        0.7388415360645221,
+        0.986856407785292,
+        0.954411622588023
+      ],
+      "confusion_matrix": [
+        [
+          18224919,
+          39563,
+          44851,
+          0
+        ],
+        [
+          32980,
+          225722,
+          2729,
+          0
+        ],
+        [
+          9418,
+          3267,
+          7077821,
+          103
+        ],
+        [
+          131,
+          1247,
+          33899,
+          740695
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 20,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              4.05,
+              0.9500000000000002
+            ],
+            [
+              4.15,
+              0.9500000000000002
+            ]
+          ],
+          "ribbons": 60,
+          "obstacles": 36
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [],
+    "eligible": true,
+    "selected": false,
+    "score": 0.8424320577274647,
+    "elapsed_s": 174.07833749998827
+  },
+  {
+    "epoch": 4,
+    "loss": 0.04509414172119034,
+    "demo": {
+      "ground_fp": 7552,
+      "hardware_fp": 2290,
+      "sky_fp": 620,
+      "ground_as_hardware": 32042,
+      "rock_tp": 218003,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.00041246723733737324,
+      "hardware_fp_fraction": 0.00032296238588251023,
+      "ground_as_hardware_fraction": 0.001750036443162621,
+      "rock_pixel_recall": 0.8338835103717616,
+      "iou": [
+        0.9931890871950284,
+        0.7432453794575227,
+        0.9869000327669988,
+        0.9545428188915704
+      ],
+      "confusion_matrix": [
+        [
+          18226879,
+          37743,
+          44711,
+          0
+        ],
+        [
+          33020,
+          225682,
+          2729,
+          0
+        ],
+        [
+          9374,
+          3237,
+          7077899,
+          99
+        ],
+        [
+          145,
+          1233,
+          33801,
+          740793
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 19,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              4.05,
+              0.9500000000000002
+            ],
+            [
+              4.15,
+              0.9500000000000002
+            ]
+          ],
+          "ribbons": 60,
+          "obstacles": 36
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "134:v14-134:5:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8443745967732891,
+    "elapsed_s": 225.7315540999989
+  },
+  {
+    "epoch": 5,
+    "loss": 0.04445990721967833,
+    "demo": {
+      "ground_fp": 7548,
+      "hardware_fp": 2278,
+      "sky_fp": 616,
+      "ground_as_hardware": 32030,
+      "rock_tp": 218029,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.0004122487695209869,
+      "hardware_fp_fraction": 0.00032127000656784205,
+      "ground_as_hardware_fraction": 0.001749381039713462,
+      "rock_pixel_recall": 0.8339829629997972,
+      "iou": [
+        0.9932068306914786,
+        0.7439544104705622,
+        0.9869294041694612,
+        0.9547079856972587
+      ],
+      "confusion_matrix": [
+        [
+          18227150,
+          37516,
+          44667,
+          0
+        ],
+        [
+          32988,
+          225718,
+          2725,
+          0
+        ],
+        [
+          9349,
+          3225,
+          7077932,
+          103
+        ],
+        [
+          147,
+          1231,
+          33669,
+          740925
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 19,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              4.05,
+              0.9500000000000002
+            ],
+            [
+              4.15,
+              0.9500000000000002
+            ]
+          ],
+          "ribbons": 60,
+          "obstacles": 36
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "134:v14-134:5:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8447265641574354,
+    "elapsed_s": 278.34171599999536
+  },
+  {
+    "epoch": 6,
+    "loss": 0.04459607877475287,
+    "demo": {
+      "ground_fp": 7548,
+      "hardware_fp": 2278,
+      "sky_fp": 616,
+      "ground_as_hardware": 32010,
+      "rock_tp": 218069,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.0004122487695209869,
+      "hardware_fp_fraction": 0.00032127000656784205,
+      "ground_as_hardware_fraction": 0.0017482887006315304,
+      "rock_pixel_recall": 0.8341359670429291,
+      "iou": [
+        0.9931978838684338,
+        0.7435693886760633,
+        0.9869376975666619,
+        0.9547543729665303
+      ],
+      "confusion_matrix": [
+        [
+          18226958,
+          37712,
+          44663,
+          0
+        ],
+        [
+          32968,
+          225738,
+          2725,
+          0
+        ],
+        [
+          9337,
+          3217,
+          7077952,
+          103
+        ],
+        [
+          151,
+          1227,
+          33633,
+          740961
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 19,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              4.05,
+              0.9500000000000002
+            ],
+            [
+              4.15,
+              0.9500000000000002
+            ]
+          ],
+          "ribbons": 60,
+          "obstacles": 36
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "134:v14-134:5:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8445853141536026,
+    "elapsed_s": 329.1585090000008
+  }
+]

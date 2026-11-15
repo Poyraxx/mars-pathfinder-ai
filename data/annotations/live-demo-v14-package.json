@@ -1,0 +1,31 @@
+{
+  "version": 14,
+  "passed": true,
+  "frames": 181,
+  "masks": 543,
+  "all_archive_members_verified": true,
+  "scenario_frame_set_exact": true,
+  "all_source_and_label_hashes_verified": true,
+  "archive_sha256": "e634068a16e4d92c0c7060a9596ca272a948973243294a14644e4e5cb1826f85",
+  "portable_manifest_sha256": "65a11d0214c4a70d5fab3bd633a835d5775cd988b1cdebe440ec62a719612bc3",
+  "local_manifest_sha256": "bd63c15a76732210baba9dd4176f9d41766c732f3b37dd4154b5653b5226e5dd",
+  "archive_bytes": 2483077,
+  "proposal_regions_source_reviewed": 326,
+  "core_crops_reviewed": 332,
+  "core_crops_rejected": 76,
+  "new_accepted_core_regions": 256,
+  "positive_annotation_region_proxies": 513,
+  "not_unique_physical_objects": true,
+  "counts": {
+    "0": 18309333,
+    "1": 261431,
+    "2": 7090609,
+    "3": 775972
+  },
+  "mean_per_frame_label_coverage": 0.19560226419354013,
+  "minimum_per_frame_label_coverage": 0.08571434020996094,
+  "weak_ground_conflict_pixels_withheld": 275308,
+  "teacher_predictions_are_not_positive_ground_truth": true,
+  "population": "All181 demo sources used for fitting/selection; partial labels, no held-out/generalization or whole-image zero-error claim.",
+  "production_reads_these_annotations": false
+}

@@ -1,0 +1,23 @@
+{
+  "epochs": 6,
+  "samples_per_epoch": 724,
+  "seed": 2028,
+  "input_size": 512,
+  "batch": 2,
+  "accumulation": 4,
+  "head_lr": 0.0001,
+  "encoder_lr": 0.0,
+  "encoder_frozen": true,
+  "only_classifier_trainable": true,
+  "batch_norm_running_stats": "frozen",
+  "unknown_distillation": "KL original teacher/student T=2, weight4.0, unknown pixels and teacher-consistent reviewed pixels; not label substitution",
+  "manifest_sha256": "bd63c15a76732210baba9dd4176f9d41766c732f3b37dd4154b5653b5226e5dd",
+  "constraints_sha256": "8da45accae55302ec459f28939f7baaaa671060d3c933fe7db817255cb5639e7",
+  "init_sha256": "fbd85ca0c9b448e47c002713c970d8d42ba73973e7fcfc0a949425f732b6eaef",
+  "trainer_sha256": "ebf336ff16dbd2235310cec57d86790e5019d42473378ed3f92e742f2f89a392",
+  "loss_policy": "weighted CE + class exclusions + teacher anchor + hard negatives on manually reviewed class0 cores; only 1x1 classifier updated",
+  "original_navigation_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "global_surface_sha256": "b3b7813cdfe2868a69ef593069acd0781b04c67d0b17a3fa0ee7918aee353cb9",
+  "selection": "Improve corrected-label objective; preserve ALL original-found manual regions, recall drop<=0.005; Navcam false hardware<=0.0001; pass unchanged real boulder/open/blocked route assertions. Actual ONNX and full suite required before promotion.",
+  "population": "All181 demo sources used for fitting/selection. Sparse annotations, no independent test or zero-error claim."
+}
