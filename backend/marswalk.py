@@ -18,7 +18,7 @@ from . import data
 from .navigation import cost_grid, plan_legs
 
 PROFILES = {
-    "astronaut": {"label": "Walking astronaut", "speed_m_s": 0.8, "max_slope_deg": 25, "clearance_m": 0.5, "obstacle_step_m": 0.30,
+    "astronaut": {"label": "Walking astronaut", "speed_m_s": 0.8, "max_slope_deg": 15, "clearance_m": 0.5, "obstacle_step_m": 0.30,
                   "slope_speed": "tobler", "budget_min": 420,
                   "basis": "Planning assumption. Apollo lunar EVA walking ran roughly 0.5-1 m/s; slope slows walking per Tobler's hiking function. Not validated for a Mars suit."},
     "crew_cart": {"label": "Crew hauling equipment", "speed_m_s": 0.5, "max_slope_deg": 15, "clearance_m": 1.0, "obstacle_step_m": 0.15,
@@ -216,7 +216,7 @@ def explain(direct, chosen, options, profile):
         lines.append(f"The rise is gentle enough (steepest {_deg(over['max_slope_deg'])} on the way) that going straight over costs nothing extra; a detour would only add distance.")
     if over and around and abs(over["distance_m"] - around["distance_m"]) > 1:
         diff = abs(over["time_min"] - around["time_min"])
-        verdict = (f"Going around would take {_t(diff)} longer, so climbing is the better choice." if over["time_min"] <= around["time_min"]
+        verdict = ("Both take about the same time, so the gentler ground is preferred." if diff < 0.05 else f"Going around would take {_t(diff)} longer, so climbing is the better choice." if over["time_min"] <= around["time_min"]
                    else f"Climbing would take {_t(diff)} longer, so going around is the better choice.")
         lines.append(f"Shortest path up the slope: {_opt(over)}. Detour on gentle ground: {_opt(around)}. {verdict}")
     elif over and not around:
