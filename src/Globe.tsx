@@ -184,8 +184,9 @@ export default function Globe(){
   fetch('/api/nomenclature').then(r=>r.ok?r.json():null).then(catalogue=>{
    if(!catalogue||viewer.isDestroyed())return;
    useMission.getState().set({features:catalogue.features});
+   const small=window.innerWidth<700;
    for(const f of catalogue.features as {name:string;type:string;diameter_km:number;lat:number;lon:number}[]){
-    const far=Math.min(17000000,Math.max(120000,f.diameter_km*14000));
+    const far=Math.min(17000000,Math.max(120000,f.diameter_km*14000))*(small?.5:1);
     names.add({position:C.Cartesian3.fromDegrees(f.lon,f.lat,f.type==='Mons'||f.type==='Tholus'?22000:3000,MARS),text:f.diameter_km>=300?f.name.toUpperCase():f.name,
      font:f.diameter_km>=300?'600 11px sans-serif':'10px sans-serif',fillColor:C.Color.fromCssColorString(typeColor[f.type]||'#cdbfae'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,
      distanceDisplayCondition:new C.DistanceDisplayCondition(0,far),scaleByDistance:new C.NearFarScalar(50000,1.05,15000000,.8)});
