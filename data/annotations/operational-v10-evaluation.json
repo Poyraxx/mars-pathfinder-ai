@@ -1,0 +1,3138 @@
+{
+  "production_replaced": false,
+  "decision": "REJECTED for deployment. Preserves all17 baseline-found large objects and finds26/35 vs25/35, but old-task obstacle IoU falls0.27155\u21920.24659 and ground-as-obstacle rises0.16072\u21920.20122. Five-class small-rock labels also confuse many old substantial-obstacle pixels with class4. Keep v11.",
+  "gates": {
+    "object_coverage_not_lower": true,
+    "all_baseline_large_objects_retained": true,
+    "obstacle_iou": false,
+    "hardware_false_positive": true,
+    "ground_false_positive": false,
+    "obstacle_pixel_recall": true
+  },
+  "all_original_task_control_gates_pass": false,
+  "baseline_large_objects": 17,
+  "lost_large_objects": [],
+  "baseline_original_controls": {
+    "split": "test_v9",
+    "images": 8,
+    "model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+    "policy": {
+      "inference_policy": "whole",
+      "navigation_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "hardware_margin_native_px": 3
+    },
+    "manifest_sha256": "63d825618db27796f6959ac23044b242ee37c5836c59df7777b301210a90f125",
+    "raw_head_metrics": {
+      "miou": 0.7059891877234071,
+      "iou": {
+        "ground_or_small_stone": 0.7744880758179166,
+        "substantial_obstacle": 0.27155048065737925,
+        "rover_hardware": 0.8564779573024365,
+        "sky_or_distant_unknown": 0.9214402371158964
+      },
+      "precision": {
+        "ground_or_small_stone": 0.9490288186226042,
+        "substantial_obstacle": 0.2993772378910218,
+        "rover_hardware": 0.9269345167108671,
+        "sky_or_distant_unknown": 0.9899193384616635
+      },
+      "recall": {
+        "ground_or_small_stone": 0.8081025653130824,
+        "substantial_obstacle": 0.7449959150326797,
+        "rover_hardware": 0.9184865994606313,
+        "sky_or_distant_unknown": 0.9301683013395413
+      },
+      "hardware_as_obstacle_fraction": 0.015785029261581034,
+      "ground_as_obstacle_fraction": 0.18842888905374996,
+      "confusion_matrix": [
+        [
+          2875675,
+          670534,
+          12343,
+          0
+        ],
+        [
+          99764,
+          291800,
+          116,
+          0
+        ],
+        [
+          44004,
+          12356,
+          718961,
+          7446
+        ],
+        [
+          10681,
+          0,
+          44213,
+          731196
+        ]
+      ]
+    },
+    "runtime_policy": {
+      "reviewed_obstacle_pixel_recall": 0.7112132352941176,
+      "hardware_as_obstacle_fraction": 0.0067274169708227355,
+      "ground_small_stone_as_obstacle_fraction": 0.1607223949516545,
+      "obstacle_as_self_exclusion_fraction": 8.169934640522875e-05,
+      "object_recall_25pct_coverage": {
+        "found": 25,
+        "total": 35,
+        "recall": 0.7142857142857143
+      }
+    },
+    "inference_ms_median": 196.72115000139456,
+    "per_scene": [
+      {
+        "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+        "sol": 4019,
+        "raw_metrics": {
+          "miou": 0.7681706506117586,
+          "iou": {
+            "ground_or_small_stone": 0.7868031721188744,
+            "substantial_obstacle": 0.38681553992046497,
+            "rover_hardware": 0.9043576114104828,
+            "sky_or_distant_unknown": 0.9947062789972122
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9233158223935153,
+            "substantial_obstacle": 0.4392862105701978,
+            "rover_hardware": 0.9997168198873347,
+            "sky_or_distant_unknown": 0.9949866612976292
+          },
+          "recall": {
+            "ground_or_small_stone": 0.8418125840563276,
+            "substantial_obstacle": 0.7640637273661101,
+            "rover_hardware": 0.9045893388240677,
+            "sky_or_distant_unknown": 0.9997167855156021
+          },
+          "hardware_as_obstacle_fraction": 0.003953328757721346,
+          "ground_as_obstacle_fraction": 0.15818741594367236,
+          "confusion_matrix": [
+            [
+              255379,
+              47989,
+              0,
+              0
+            ],
+            [
+              11714,
+              37935,
+              0,
+              0
+            ],
+            [
+              9496,
+              432,
+              98849,
+              498
+            ],
+            [
+              0,
+              0,
+              28,
+              98837
+            ]
+          ]
+        },
+        "reviewed_objects": 3,
+        "found_objects": 1,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 9422,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              403,
+              295,
+              541,
+              389
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 2355,
+            "coverage": 0.15498938428874734,
+            "found": false,
+            "bbox": [
+              161,
+              415,
+              207,
+              483
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 37872,
+            "coverage": 0.971245247148289,
+            "found": true,
+            "bbox": [
+              613,
+              516,
+              825,
+              797
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+        "sol": 4080,
+        "raw_metrics": {
+          "miou": 0.7172895451562928,
+          "iou": {
+            "ground_or_small_stone": 0.8103952418979576,
+            "substantial_obstacle": 0.27462786699651975,
+            "rover_hardware": 0.8489619939786209,
+            "sky_or_distant_unknown": 0.9351730777520728
+          },
+          "precision": {
+            "ground_or_small_stone": 0.8746893882071696,
+            "substantial_obstacle": 0.5054561731158067,
+            "rover_hardware": 0.8694377000923916,
+            "sky_or_distant_unknown": 0.9978228705911213
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9168400411041098,
+            "substantial_obstacle": 0.37553323242053116,
+            "rover_hardware": 0.9730083920455912,
+            "sky_or_distant_unknown": 0.9370851391628631
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.07365865657608284,
+          "confusion_matrix": [
+            [
+              398819,
+              32041,
+              4133,
+              0
+            ],
+            [
+              54456,
+              32748,
+              0,
+              0
+            ],
+            [
+              1961,
+              0,
+              80929,
+              284
+            ],
+            [
+              719,
+              0,
+              8020,
+              130163
+            ]
+          ]
+        },
+        "reviewed_objects": 7,
+        "found_objects": 3,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 7749,
+            "coverage": 0.7970060652987482,
+            "found": true,
+            "bbox": [
+              302,
+              387,
+              493,
+              443
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 11571,
+            "coverage": 0.9794313369630974,
+            "found": true,
+            "bbox": [
+              403,
+              499,
+              551,
+              612
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 697,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              545,
+              715,
+              576,
+              745
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 27502,
+            "coverage": 0.07668533197585631,
+            "found": false,
+            "bbox": [
+              147,
+              725,
+              373,
+              917
+            ]
+          },
+          {
+            "component_id": 5,
+            "reviewed_pixels": 7990,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              395,
+              791,
+              513,
+              879
+            ]
+          },
+          {
+            "component_id": 6,
+            "reviewed_pixels": 28667,
+            "coverage": 0.14228904315066104,
+            "found": false,
+            "bbox": [
+              509,
+              839,
+              767,
+              1015
+            ]
+          },
+          {
+            "component_id": 7,
+            "reviewed_pixels": 3028,
+            "coverage": 0.2668428005284016,
+            "found": true,
+            "bbox": [
+              818,
+              843,
+              887,
+              907
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+        "sol": 4339,
+        "raw_metrics": {
+          "miou": 0.6297748113802439,
+          "iou": {
+            "ground_or_small_stone": 0.5917037019409062,
+            "substantial_obstacle": 0.16463166379476973,
+            "rover_hardware": 0.8430681043300375,
+            "sky_or_distant_unknown": 0.919695775455262
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9826275107775301,
+            "substantial_obstacle": 0.16598528887377786,
+            "rover_hardware": 0.8973044691153623,
+            "sky_or_distant_unknown": 0.9964951975333289
+          },
+          "recall": {
+            "ground_or_small_stone": 0.5979590118924032,
+            "substantial_obstacle": 0.952802570510532,
+            "rover_hardware": 0.9331014150943396,
+            "sky_or_distant_unknown": 0.9226803594351733
+          },
+          "hardware_as_obstacle_fraction": 0.024351415094339624,
+          "ground_as_obstacle_fraction": 0.39898070841366484,
+          "confusion_matrix": [
+            [
+              298366,
+              199081,
+              1527,
+              0
+            ],
+            [
+              1983,
+              40032,
+              0,
+              0
+            ],
+            [
+              3292,
+              2065,
+              79127,
+              316
+            ],
+            [
+              0,
+              0,
+              7529,
+              89846
+            ]
+          ]
+        },
+        "reviewed_objects": 6,
+        "found_objects": 5,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 727,
+            "coverage": 0.4030261348005502,
+            "found": true,
+            "bbox": [
+              542,
+              245,
+              575,
+              278
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 2135,
+            "coverage": 0.9882903981264637,
+            "found": true,
+            "bbox": [
+              687,
+              329,
+              743,
+              383
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 5741,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              341,
+              439,
+              457,
+              511
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 19904,
+            "coverage": 0.9829682475884244,
+            "found": true,
+            "bbox": [
+              587,
+              473,
+              761,
+              651
+            ]
+          },
+          {
+            "component_id": 5,
+            "reviewed_pixels": 11968,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              775,
+              523,
+              925,
+              631
+            ]
+          },
+          {
+            "component_id": 6,
+            "reviewed_pixels": 1540,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              209,
+              817,
+              257,
+              863
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_789536250RAD_F1120798FHAZ00200M1",
+        "sol": 4416,
+        "raw_metrics": {
+          "miou": 0.5942442002519716,
+          "iou": {
+            "ground_or_small_stone": 0.4742616072834372,
+            "substantial_obstacle": 0.1609505454437218,
+            "rover_hardware": 0.8255400889403468,
+            "sky_or_distant_unknown": 0.9162245593403803
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9645633879755687,
+            "substantial_obstacle": 0.1609505454437218,
+            "rover_hardware": 0.9963267207249169,
+            "sky_or_distant_unknown": 0.9197767701430066
+          },
+          "recall": {
+            "ground_or_small_stone": 0.4826715116210567,
+            "substantial_obstacle": 1.0,
+            "rover_hardware": 0.8280603895761116,
+            "sky_or_distant_unknown": 0.9958025301012331
+          },
+          "hardware_as_obstacle_fraction": 0.053122415583044466,
+          "ground_as_obstacle_fraction": 0.5171918116500416,
+          "confusion_matrix": [
+            [
+              204826,
+              219475,
+              58,
+              0
+            ],
+            [
+              0,
+              43259,
+              0,
+              0
+            ],
+            [
+              7525,
+              6038,
+              94119,
+              5980
+            ],
+            [
+              0,
+              0,
+              289,
+              68562
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 4,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 4988,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              533,
+              427,
+              637,
+              493
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 10023,
+            "coverage": 0.993514915693904,
+            "found": true,
+            "bbox": [
+              659,
+              429,
+              771,
+              553
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 4717,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              399,
+              431,
+              475,
+              509
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 23531,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              323,
+              653,
+              497,
+              843
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+        "sol": 4480,
+        "raw_metrics": {
+          "miou": 0.7800126273090094,
+          "iou": {
+            "ground_or_small_stone": 0.9184774337902923,
+            "substantial_obstacle": 0.5069569120287253,
+            "rover_hardware": 0.8536775330757642,
+            "sky_or_distant_unknown": 0.840938630341256
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9801755733567431,
+            "substantial_obstacle": 0.5178124582147428,
+            "rover_hardware": 0.8594643115082231,
+            "sky_or_distant_unknown": 0.9983493217865601
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9358625386348158,
+            "substantial_obstacle": 0.9602890644372808,
+            "rover_hardware": 0.9921746587579504,
+            "sky_or_distant_unknown": 0.8421095113658148
+          },
+          "hardware_as_obstacle_fraction": 0.0007861073393839777,
+          "ground_as_obstacle_fraction": 0.05275708523233276,
+          "confusion_matrix": [
+            [
+              446617,
+              25177,
+              5431,
+              0
+            ],
+            [
+              1005,
+              27108,
+              116,
+              0
+            ],
+            [
+              453,
+              66,
+              83301,
+              138
+            ],
+            [
+              7575,
+              0,
+              8074,
+              83464
+            ]
+          ]
+        },
+        "reviewed_objects": 6,
+        "found_objects": 6,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 3575,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              297,
+              253,
+              395,
+              309
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 16919,
+            "coverage": 0.9978722146698977,
+            "found": true,
+            "bbox": [
+              431,
+              259,
+              647,
+              371
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 1991,
+            "coverage": 0.891511803114013,
+            "found": true,
+            "bbox": [
+              279,
+              343,
+              333,
+              395
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 2197,
+            "coverage": 0.594446973145198,
+            "found": true,
+            "bbox": [
+              179,
+              409,
+              233,
+              465
+            ]
+          },
+          {
+            "component_id": 5,
+            "reviewed_pixels": 1861,
+            "coverage": 0.831273508866201,
+            "found": true,
+            "bbox": [
+              607,
+              589,
+              659,
+              641
+            ]
+          },
+          {
+            "component_id": 6,
+            "reviewed_pixels": 1686,
+            "coverage": 0.39086595492289444,
+            "found": true,
+            "bbox": [
+              863,
+              825,
+              909,
+              876
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+        "sol": 4584,
+        "raw_metrics": {
+          "miou": 0.6619657089559617,
+          "iou": {
+            "ground_or_small_stone": 0.5577896118469832,
+            "substantial_obstacle": 0.37626984555082077,
+            "rover_hardware": 0.8431439238143449,
+            "sky_or_distant_unknown": 0.8706594546116981
+          },
+          "precision": {
+            "ground_or_small_stone": 0.8720287278451766,
+            "substantial_obstacle": 0.4148034505177362,
+            "rover_hardware": 0.9207653105294982,
+            "sky_or_distant_unknown": 0.9990834391934265
+          },
+          "recall": {
+            "ground_or_small_stone": 0.6075188585303305,
+            "substantial_obstacle": 0.8019974246558543,
+            "rover_hardware": 0.9091040893778517,
+            "sky_or_distant_unknown": 0.8713554449197111
+          },
+          "hardware_as_obstacle_fraction": 0.03202422071553452,
+          "ground_as_obstacle_fraction": 0.3924811414696695,
+          "confusion_matrix": [
+            [
+              222683,
+              143862,
+              0,
+              0
+            ],
+            [
+              25833,
+              104635,
+              0,
+              0
+            ],
+            [
+              6846,
+              3755,
+              106597,
+              57
+            ],
+            [
+              0,
+              0,
+              9173,
+              62132
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 3,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 9322,
+            "coverage": 0.9639562325681185,
+            "found": true,
+            "bbox": [
+              565,
+              331,
+              685,
+              439
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 12331,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              353,
+              369,
+              501,
+              479
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 96770,
+            "coverage": 0.8577451689573214,
+            "found": true,
+            "bbox": [
+              443,
+              525,
+              787,
+              897
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 12045,
+            "coverage": 0.8685761726857617,
+            "found": true,
+            "bbox": [
+              317,
+              845,
+              485,
+              957
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_813313241RAD_F1191554FHAZ00302M1",
+        "sol": 4684,
+        "raw_metrics": {
+          "miou": 0.8250388924163373,
+          "iou": {
+            "ground_or_small_stone": 0.9706766959774152,
+            "substantial_obstacle": 0.6476099222825509,
+            "rover_hardware": 0.7850228095350281,
+            "sky_or_distant_unknown": 0.896846141870355
+          },
+          "precision": {
+            "ground_or_small_stone": 0.97660833118586,
+            "substantial_obstacle": 0.6764902135231317,
+            "rover_hardware": 0.8749522581877208,
+            "sky_or_distant_unknown": 0.9996255468386107
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9937817180582764,
+            "substantial_obstacle": 0.938155459592844,
+            "rover_hardware": 0.884228936734817,
+            "sky_or_distant_unknown": 0.8971475409836066
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.005608986718906662,
+          "confusion_matrix": [
+            [
+              515407,
+              2909,
+              316,
+              0
+            ],
+            [
+              401,
+              6083,
+              0,
+              0
+            ],
+            [
+              9557,
+              0,
+              73307,
+              41
+            ],
+            [
+              2387,
+              0,
+              10161,
+              109452
+            ]
+          ]
+        },
+        "reviewed_objects": 3,
+        "found_objects": 3,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 1354,
+            "coverage": 0.8626292466765141,
+            "found": true,
+            "bbox": [
+              349,
+              541,
+              399,
+              578
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 4266,
+            "coverage": 0.996952648851383,
+            "found": true,
+            "bbox": [
+              273,
+              577,
+              369,
+              639
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 864,
+            "coverage": 0.4930555555555556,
+            "found": true,
+            "bbox": [
+              505,
+              603,
+              547,
+              631
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_822183562RAD_F1200538FHAZ00401M1",
+        "sol": 4784,
+        "raw_metrics": {
+          "miou": 0.7267938106531998,
+          "iou": {
+            "ground_or_small_stone": 0.9813795056850996,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9377207795171375,
+            "sky_or_distant_unknown": 0.9880749574105622
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9829668548185047,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9826205893887077,
+            "sky_or_distant_unknown": 0.9985147177963813
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9983572080769979,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9535354285396054,
+            "sky_or_distant_unknown": 0.9895293212457766
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              533578,
+              0,
+              878,
+              0
+            ],
+            [
+              4372,
+              0,
+              0,
+              0
+            ],
+            [
+              4874,
+              0,
+              102732,
+              132
+            ],
+            [
+              0,
+              0,
+              939,
+              88740
+            ]
+          ]
+        },
+        "reviewed_objects": 2,
+        "found_objects": 0,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 1922,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              319,
+              707,
+              371,
+              759
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 2450,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              771,
+              911,
+              825,
+              972
+            ]
+          }
+        ]
+      }
+    ],
+    "limitations": "Sparse visual labels on a few separate PDS episodes; not independent expert truth, exhaustive full-image precision, flight qualification, or proof of zero misses. Physical route blockage additionally needs measured stereo size/relief."
+  },
+  "candidate_original_controls": {
+    "split": "test_v9",
+    "images": 8,
+    "model_sha256": "bc5288181846c067258c98f77c8d0957b8dc4aae4db2c0f16e35ad398adbc0cb",
+    "policy": {
+      "inference_policy": "whole",
+      "navigation_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "hardware_margin_native_px": 3
+    },
+    "manifest_sha256": "63d825618db27796f6959ac23044b242ee37c5836c59df7777b301210a90f125",
+    "raw_head_metrics": {
+      "miou": 0.6842498500314764,
+      "iou": {
+        "ground_or_small_stone": 0.7205393997236164,
+        "substantial_obstacle": 0.2465915087782526,
+        "rover_hardware": 0.8417001826350946,
+        "sky_or_distant_unknown": 0.9281683089889421
+      },
+      "precision": {
+        "ground_or_small_stone": 0.9651475267997243,
+        "substantial_obstacle": 0.26472485648873023,
+        "rover_hardware": 0.8552930554426809,
+        "sky_or_distant_unknown": 0.9960083396460955
+      },
+      "recall": {
+        "ground_or_small_stone": 0.7397882621920376,
+        "substantial_obstacle": 0.7826056985294118,
+        "rover_hardware": 0.9814683041058195,
+        "sky_or_distant_unknown": 0.9316337823913292
+      },
+      "hardware_as_obstacle_fraction": 0.01036834715822205,
+      "ground_as_obstacle_fraction": 0.23697166712752826,
+      "confusion_matrix": [
+        [
+          2632575,
+          843276,
+          82701,
+          0
+        ],
+        [
+          83773,
+          306531,
+          1376,
+          0
+        ],
+        [
+          3455,
+          8116,
+          768261,
+          2935
+        ],
+        [
+          7837,
+          0,
+          45905,
+          732348
+        ]
+      ]
+    },
+    "runtime_policy": {
+      "reviewed_obstacle_pixel_recall": 0.7375408496732027,
+      "hardware_as_obstacle_fraction": 0.004664223197963123,
+      "ground_small_stone_as_obstacle_fraction": 0.20122398099002067,
+      "obstacle_as_self_exclusion_fraction": 0.0029360702614379085,
+      "object_recall_25pct_coverage": {
+        "found": 26,
+        "total": 35,
+        "recall": 0.7428571428571429
+      }
+    },
+    "inference_ms_median": 301.65990000386955,
+    "per_scene": [
+      {
+        "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+        "sol": 4019,
+        "raw_metrics": {
+          "miou": 0.7014494474699051,
+          "iou": {
+            "ground_or_small_stone": 0.6320625523166872,
+            "substantial_obstacle": 0.29491889011959677,
+            "rover_hardware": 0.8820667057902973,
+            "sky_or_distant_unknown": 0.9967496416530394
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9589565674357952,
+            "substantial_obstacle": 0.3114699480254098,
+            "rover_hardware": 0.8897247434885557,
+            "sky_or_distant_unknown": 0.997968568396584
+          },
+          "recall": {
+            "ground_or_small_stone": 0.649636744811582,
+            "substantial_obstacle": 0.8473282442748091,
+            "rover_hardware": 0.9903363074811256,
+            "sky_or_distant_unknown": 0.9987761088352805
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.3065484823712455,
+          "confusion_matrix": [
+            [
+              197079,
+              92997,
+              13292,
+              0
+            ],
+            [
+              7580,
+              42069,
+              0,
+              0
+            ],
+            [
+              855,
+              0,
+              108219,
+              201
+            ],
+            [
+              0,
+              0,
+              121,
+              98744
+            ]
+          ]
+        },
+        "reviewed_objects": 3,
+        "found_objects": 2,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 9422,
+            "coverage": 0.05688813415410741,
+            "found": false,
+            "bbox": [
+              403,
+              295,
+              541,
+              389
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 2355,
+            "coverage": 0.8989384288747346,
+            "found": true,
+            "bbox": [
+              161,
+              415,
+              207,
+              483
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 37872,
+            "coverage": 0.9777672158850866,
+            "found": true,
+            "bbox": [
+              613,
+              516,
+              825,
+              797
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+        "sol": 4080,
+        "raw_metrics": {
+          "miou": 0.6913639380127552,
+          "iou": {
+            "ground_or_small_stone": 0.7801985071632586,
+            "substantial_obstacle": 0.30558734700365603,
+            "rover_hardware": 0.7450397269722404,
+            "sky_or_distant_unknown": 0.934630170911866
+          },
+          "precision": {
+            "ground_or_small_stone": 0.8860455338708958,
+            "substantial_obstacle": 0.4989164990592357,
+            "rover_hardware": 0.7450397269722404,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.867216254054663,
+            "substantial_obstacle": 0.44090867391404065,
+            "rover_hardware": 1.0,
+            "sky_or_distant_unknown": 0.934630170911866
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0887738423376928,
+          "confusion_matrix": [
+            [
+              377233,
+              38616,
+              19144,
+              0
+            ],
+            [
+              48149,
+              38449,
+              606,
+              0
+            ],
+            [
+              0,
+              0,
+              83174,
+              0
+            ],
+            [
+              367,
+              0,
+              8713,
+              129822
+            ]
+          ]
+        },
+        "reviewed_objects": 7,
+        "found_objects": 3,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 7749,
+            "coverage": 0.8290101948638534,
+            "found": true,
+            "bbox": [
+              302,
+              387,
+              493,
+              443
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 11571,
+            "coverage": 0.9936911243626307,
+            "found": true,
+            "bbox": [
+              403,
+              499,
+              551,
+              612
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 697,
+            "coverage": 0.08034433285509325,
+            "found": false,
+            "bbox": [
+              545,
+              715,
+              576,
+              745
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 27502,
+            "coverage": 0.14653479746927497,
+            "found": false,
+            "bbox": [
+              147,
+              725,
+              373,
+              917
+            ]
+          },
+          {
+            "component_id": 5,
+            "reviewed_pixels": 7990,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              395,
+              791,
+              513,
+              879
+            ]
+          },
+          {
+            "component_id": 6,
+            "reviewed_pixels": 28667,
+            "coverage": 0.1286147835490285,
+            "found": false,
+            "bbox": [
+              509,
+              839,
+              767,
+              1015
+            ]
+          },
+          {
+            "component_id": 7,
+            "reviewed_pixels": 3028,
+            "coverage": 0.3394980184940555,
+            "found": true,
+            "bbox": [
+              818,
+              843,
+              887,
+              907
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+        "sol": 4339,
+        "raw_metrics": {
+          "miou": 0.576926397945991,
+          "iou": {
+            "ground_or_small_stone": 0.49134939103871283,
+            "substantial_obstacle": 0.1483570636262797,
+            "rover_hardware": 0.7408946251768034,
+            "sky_or_distant_unknown": 0.9271045119421683
+          },
+          "precision": {
+            "ground_or_small_stone": 0.995052491366152,
+            "substantial_obstacle": 0.14901933565424505,
+            "rover_hardware": 0.7474360117720503,
+            "sky_or_distant_unknown": 0.99987818113358
+          },
+          "recall": {
+            "ground_or_small_stone": 0.49255271817770063,
+            "substantial_obstacle": 0.9709151493514221,
+            "rover_hardware": 0.9883254716981132,
+            "sky_or_distant_unknown": 0.9272092426187419
+          },
+          "hardware_as_obstacle_fraction": 0.011544811320754716,
+          "ground_as_obstacle_fraction": 0.46489596652330584,
+          "confusion_matrix": [
+            [
+              245771,
+              231971,
+              21232,
+              0
+            ],
+            [
+              1222,
+              40793,
+              0,
+              0
+            ],
+            [
+              0,
+              979,
+              83810,
+              11
+            ],
+            [
+              0,
+              0,
+              7088,
+              90287
+            ]
+          ]
+        },
+        "reviewed_objects": 6,
+        "found_objects": 5,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 727,
+            "coverage": 0.797799174690509,
+            "found": true,
+            "bbox": [
+              542,
+              245,
+              575,
+              278
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 2135,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              687,
+              329,
+              743,
+              383
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 5741,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              341,
+              439,
+              457,
+              511
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 19904,
+            "coverage": 0.9981913183279743,
+            "found": true,
+            "bbox": [
+              587,
+              473,
+              761,
+              651
+            ]
+          },
+          {
+            "component_id": 5,
+            "reviewed_pixels": 11968,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              775,
+              523,
+              925,
+              631
+            ]
+          },
+          {
+            "component_id": 6,
+            "reviewed_pixels": 1540,
+            "coverage": 0.02142857142857143,
+            "found": false,
+            "bbox": [
+              209,
+              817,
+              257,
+              863
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_789536250RAD_F1120798FHAZ00200M1",
+        "sol": 4416,
+        "raw_metrics": {
+          "miou": 0.5736486396609325,
+          "iou": {
+            "ground_or_small_stone": 0.3443393561629648,
+            "substantial_obstacle": 0.13416513920807863,
+            "rover_hardware": 0.8635095172643592,
+            "sky_or_distant_unknown": 0.9525805460083271
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9968041756953814,
+            "substantial_obstacle": 0.13416513920807863,
+            "rover_hardware": 0.9419954017974792,
+            "sky_or_distant_unknown": 0.9615954190936914
+          },
+          "recall": {
+            "ground_or_small_stone": 0.34471991874804114,
+            "substantial_obstacle": 1.0,
+            "rover_hardware": 0.9120022522918829,
+            "sky_or_distant_unknown": 0.9902543172938665
+          },
+          "hardware_as_obstacle_fraction": 0.059914483292569196,
+          "ground_as_obstacle_fraction": 0.6418197799504665,
+          "confusion_matrix": [
+            [
+              146285,
+              272362,
+              5712,
+              0
+            ],
+            [
+              0,
+              43259,
+              0,
+              0
+            ],
+            [
+              469,
+              6810,
+              103660,
+              2723
+            ],
+            [
+              0,
+              0,
+              671,
+              68180
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 4,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 4988,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              533,
+              427,
+              637,
+              493
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 10023,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              659,
+              429,
+              771,
+              553
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 4717,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              399,
+              431,
+              475,
+              509
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 23531,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              323,
+              653,
+              497,
+              843
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+        "sol": 4480,
+        "raw_metrics": {
+          "miou": 0.7356464331121342,
+          "iou": {
+            "ground_or_small_stone": 0.8827628366907753,
+            "substantial_obstacle": 0.42882997301158915,
+            "rover_hardware": 0.778370158830238,
+            "sky_or_distant_unknown": 0.8526227639159344
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9839481589760707,
+            "substantial_obstacle": 0.4372784226118207,
+            "rover_hardware": 0.7784423364026669,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.8956613756613757,
+            "substantial_obstacle": 0.9568883063516243,
+            "rover_hardware": 0.999880892827366,
+            "sky_or_distant_unknown": 0.8526227639159344
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.07283985541411284,
+          "confusion_matrix": [
+            [
+              427432,
+              34761,
+              15032,
+              0
+            ],
+            [
+              447,
+              27012,
+              770,
+              0
+            ],
+            [
+              10,
+              0,
+              83948,
+              0
+            ],
+            [
+              6516,
+              0,
+              8091,
+              84506
+            ]
+          ]
+        },
+        "reviewed_objects": 6,
+        "found_objects": 6,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 3575,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              297,
+              253,
+              395,
+              309
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 16919,
+            "coverage": 0.9877061292038537,
+            "found": true,
+            "bbox": [
+              431,
+              259,
+              647,
+              371
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 1991,
+            "coverage": 0.9869412355600201,
+            "found": true,
+            "bbox": [
+              279,
+              343,
+              333,
+              395
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 2197,
+            "coverage": 0.7765134274010014,
+            "found": true,
+            "bbox": [
+              179,
+              409,
+              233,
+              465
+            ]
+          },
+          {
+            "component_id": 5,
+            "reviewed_pixels": 1861,
+            "coverage": 0.8871574422353573,
+            "found": true,
+            "bbox": [
+              607,
+              589,
+              659,
+              641
+            ]
+          },
+          {
+            "component_id": 6,
+            "reviewed_pixels": 1686,
+            "coverage": 0.3036773428232503,
+            "found": true,
+            "bbox": [
+              863,
+              825,
+              909,
+              876
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+        "sol": 4584,
+        "raw_metrics": {
+          "miou": 0.6723958914751205,
+          "iou": {
+            "ground_or_small_stone": 0.5316762678736755,
+            "substantial_obstacle": 0.3743744848445136,
+            "rover_hardware": 0.9154870940882598,
+            "sky_or_distant_unknown": 0.8680457190940327
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9026555241189004,
+            "substantial_obstacle": 0.40498121598077946,
+            "rover_hardware": 0.9206069606154915,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.5640153323602832,
+            "substantial_obstacle": 0.8320354416408621,
+            "rover_hardware": 0.993961877958296,
+            "sky_or_distant_unknown": 0.8680457190940327
+          },
+          "hardware_as_obstacle_fraction": 0.0027887936548548035,
+          "ground_as_obstacle_fraction": 0.4342331773724918,
+          "confusion_matrix": [
+            [
+              206737,
+              159166,
+              642,
+              0
+            ],
+            [
+              21914,
+              108554,
+              0,
+              0
+            ],
+            [
+              381,
+              327,
+              116547,
+              0
+            ],
+            [
+              0,
+              0,
+              9409,
+              61896
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 3,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 9322,
+            "coverage": 0.9921690624329543,
+            "found": true,
+            "bbox": [
+              565,
+              331,
+              685,
+              439
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 12331,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              353,
+              369,
+              501,
+              479
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 96770,
+            "coverage": 0.896331507698667,
+            "found": true,
+            "bbox": [
+              443,
+              525,
+              787,
+              897
+            ]
+          },
+          {
+            "component_id": 4,
+            "reviewed_pixels": 12045,
+            "coverage": 0.8676629306766293,
+            "found": true,
+            "bbox": [
+              317,
+              845,
+              485,
+              957
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_813313241RAD_F1191554FHAZ00302M1",
+        "sol": 4684,
+        "raw_metrics": {
+          "miou": 0.7591129834740468,
+          "iou": {
+            "ground_or_small_stone": 0.964015718419255,
+            "substantial_obstacle": 0.3215668527178559,
+            "rover_hardware": 0.8454021496443221,
+            "sky_or_distant_unknown": 0.9054672131147541
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9949698786829796,
+            "substantial_obstacle": 0.323012425497525,
+            "rover_hardware": 0.8587522943522016,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9687369849912848,
+            "substantial_obstacle": 0.9862739049969155,
+            "rover_hardware": 0.9819431879862494,
+            "sky_or_distant_unknown": 0.9054672131147541
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0258429869348594,
+          "confusion_matrix": [
+            [
+              502418,
+              13403,
+              2811,
+              0
+            ],
+            [
+              89,
+              6395,
+              0,
+              0
+            ],
+            [
+              1497,
+              0,
+              81408,
+              0
+            ],
+            [
+              954,
+              0,
+              10579,
+              110467
+            ]
+          ]
+        },
+        "reviewed_objects": 3,
+        "found_objects": 3,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 1354,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              349,
+              541,
+              399,
+              578
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 4266,
+            "coverage": 1.0,
+            "found": true,
+            "bbox": [
+              273,
+              577,
+              369,
+              639
+            ]
+          },
+          {
+            "component_id": 3,
+            "reviewed_pixels": 864,
+            "coverage": 0.8240740740740741,
+            "found": true,
+            "bbox": [
+              505,
+              603,
+              547,
+              631
+            ]
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_822183562RAD_F1200538FHAZ00401M1",
+        "sol": 4784,
+        "raw_metrics": {
+          "miou": 0.7283141576429387,
+          "iou": {
+            "ground_or_small_stone": 0.9824679865917476,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9445376822163839,
+            "sky_or_distant_unknown": 0.9862509617636236
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9913614794987224,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9465587686238597,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9909515469935786,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9977445283929532,
+            "sky_or_distant_unknown": 0.9862509617636236
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              529620,
+              0,
+              4836,
+              0
+            ],
+            [
+              4372,
+              0,
+              0,
+              0
+            ],
+            [
+              243,
+              0,
+              107495,
+              0
+            ],
+            [
+              0,
+              0,
+              1233,
+              88446
+            ]
+          ]
+        },
+        "reviewed_objects": 2,
+        "found_objects": 0,
+        "objects": [
+          {
+            "component_id": 1,
+            "reviewed_pixels": 1922,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              319,
+              707,
+              371,
+              759
+            ]
+          },
+          {
+            "component_id": 2,
+            "reviewed_pixels": 2450,
+            "coverage": 0.0,
+            "found": false,
+            "bbox": [
+              771,
+              911,
+              825,
+              972
+            ]
+          }
+        ]
+      }
+    ],
+    "limitations": "Sparse visual labels on a few separate PDS episodes; not independent expert truth, exhaustive full-image precision, flight qualification, or proof of zero misses. Physical route blockage additionally needs measured stereo size/relief."
+  },
+  "appearance_validation": {
+    "split": "validation",
+    "images": 5,
+    "model_sha256": "c98d30d74c49f4082f7425bf560e8485594000fd4f3e2e91edd9386fcb4ed780",
+    "metrics": {
+      "miou": 0.543779855029856,
+      "iou": {
+        "ground_or_small_stone": 0.14558472553699284,
+        "substantial_obstacle": 0.6908375365277611,
+        "rover_hardware": 0.936746306338729,
+        "sky_or_distant_unknown": 0.9411793156032001,
+        "small_rock_appearance": 0.004551391142597064
+      },
+      "precision": {
+        "ground_or_small_stone": 0.17039106145251395,
+        "substantial_obstacle": 0.9984198841489431,
+        "rover_hardware": 0.9577299500196521,
+        "sky_or_distant_unknown": 0.9846711135319838,
+        "small_rock_appearance": 0.00456940327566614
+      },
+      "recall": {
+        "ground_or_small_stone": 0.5,
+        "substantial_obstacle": 0.6915936772871745,
+        "rover_hardware": 0.9771453273911943,
+        "sky_or_distant_unknown": 0.9551743652228144,
+        "small_rock_appearance": 0.5358807082945014
+      },
+      "hardware_as_obstacle_fraction": 0.00031853202242237917,
+      "ground_as_obstacle_fraction": 0.004918032786885246,
+      "confusion_matrix": [
+        [
+          305,
+          3,
+          0,
+          0,
+          302
+        ],
+        [
+          52,
+          276125,
+          398,
+          0,
+          122684
+        ],
+        [
+          1244,
+          112,
+          343577,
+          5150,
+          1530
+        ],
+        [
+          142,
+          0,
+          14637,
+          330817,
+          746
+        ],
+        [
+          47,
+          322,
+          129,
+          0,
+          575
+        ]
+      ]
+    },
+    "per_scene": [
+      {
+        "source_id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+        "sol": 3400,
+        "metrics": {
+          "miou": 0.7381424090466648,
+          "iou": {
+            "ground_or_small_stone": 0.4485294117647059,
+            "substantial_obstacle": 0.9896771622160223,
+            "rover_hardware": 0.992984349703184,
+            "sky_or_distant_unknown": 0.9966178957429601,
+            "small_rock_appearance": 0.2629032258064516
+          },
+          "precision": {
+            "ground_or_small_stone": 0.8133333333333334,
+            "substantial_obstacle": 0.9963086305821931,
+            "rover_hardware": 0.992984349703184,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.42010309278350516
+          },
+          "recall": {
+            "ground_or_small_stone": 0.5,
+            "substantial_obstacle": 0.9933194655572446,
+            "rover_hardware": 1.0,
+            "sky_or_distant_unknown": 0.9966178957429601,
+            "small_rock_appearance": 0.41265822784810124
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.02459016393442623,
+          "confusion_matrix": [
+            [
+              61,
+              3,
+              0,
+              0,
+              58
+            ],
+            [
+              0,
+              24831,
+              0,
+              0,
+              167
+            ],
+            [
+              0,
+              0,
+              31280,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              92,
+              27110,
+              0
+            ],
+            [
+              14,
+              89,
+              129,
+              0,
+              163
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 395,
+        "explicit_bare_ground_pixels": 122
+      },
+      {
+        "source_id": "FLB_712554377RAD_F0961844FHAZ00302M1",
+        "sol": 3549,
+        "metrics": {
+          "miou": 0.5356476842329746,
+          "iou": {
+            "ground_or_small_stone": 0.052226027397260275,
+            "substantial_obstacle": 0.8052105422599213,
+            "rover_hardware": 0.8776472135747797,
+            "sky_or_distant_unknown": 0.9310060293723808,
+            "small_rock_appearance": 0.01214860856053115
+          },
+          "precision": {
+            "ground_or_small_stone": 0.052226027397260275,
+            "substantial_obstacle": 0.9992950796559988,
+            "rover_hardware": 0.8967564177232202,
+            "sky_or_distant_unknown": 0.9975647399157741,
+            "small_rock_appearance": 0.01214860856053115
+          },
+          "recall": {
+            "ground_or_small_stone": 1.0,
+            "substantial_obstacle": 0.8056681695904218,
+            "rover_hardware": 0.9762955737105231,
+            "sky_or_distant_unknown": 0.9331268181917108,
+            "small_rock_appearance": 1.0
+          },
+          "hardware_as_obstacle_fraction": 0.0007316180953542251,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              61,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              85056,
+              0,
+              0,
+              20516
+            ],
+            [
+              1107,
+              60,
+              80066,
+              314,
+              463
+            ],
+            [
+              0,
+              0,
+              9218,
+              128625,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              258
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 258,
+        "explicit_bare_ground_pixels": 61
+      },
+      {
+        "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+        "sol": 3601,
+        "metrics": {
+          "miou": 0.7272920518082826,
+          "iou": {
+            "ground_or_small_stone": 0.75,
+            "substantial_obstacle": 0.8864744801512288,
+            "rover_hardware": 0.9999857788901846,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 1.0,
+            "substantial_obstacle": 0.9999893378825034,
+            "rover_hardware": 1.0,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.75,
+            "substantial_obstacle": 0.8864828590062288,
+            "rover_hardware": 0.9999857788901846,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 1.4221109815409995e-05,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              183,
+              0,
+              0,
+              0,
+              61
+            ],
+            [
+              0,
+              93789,
+              0,
+              0,
+              12010
+            ],
+            [
+              0,
+              1,
+              70317,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              23128,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 0,
+        "explicit_bare_ground_pixels": 244
+      },
+      {
+        "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+        "sol": 4151,
+        "metrics": {
+          "miou": 0.4490966770359419,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.44399843112260534,
+            "rover_hardware": 0.8877936057565742,
+            "sky_or_distant_unknown": 0.9120192345967979,
+            "small_rock_appearance": 0.0016721137037318539
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.9960953074945348,
+            "rover_hardware": 0.9408439934695902,
+            "sky_or_distant_unknown": 0.9594947735191638,
+            "small_rock_appearance": 0.0016763546905275075
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.4447725458898643,
+            "rover_hardware": 0.9402804742038084,
+            "sky_or_distant_unknown": 0.9485389704482037,
+            "small_rock_appearance": 0.3979328165374677
+          },
+          "hardware_as_obstacle_fraction": 0.0005266636374901896,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              183
+            ],
+            [
+              52,
+              72449,
+              398,
+              0,
+              89991
+            ],
+            [
+              104,
+              51,
+              91053,
+              4836,
+              792
+            ],
+            [
+              142,
+              0,
+              5327,
+              114556,
+              746
+            ],
+            [
+              0,
+              233,
+              0,
+              0,
+              154
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 387,
+        "explicit_bare_ground_pixels": 183
+      },
+      {
+        "source_id": "FLB_805859469RAD_F1172166FHAZ00200M1",
+        "sol": 4600,
+        "metrics": {
+          "miou": 0.39913445460804564,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9956722730402282,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 1.0,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9956722730402282,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              33,
+              0,
+              70861,
+              0,
+              275
+            ],
+            [
+              0,
+              0,
+              0,
+              37398,
+              0
+            ],
+            [
+              33,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 33,
+        "explicit_bare_ground_pixels": 0
+      }
+    ],
+    "limitations": "Strict sparse appearance labels only: untraced old ground is a composite0-or4 and excluded here. Not exhaustive foreground precision, independent expert labels, new unseen benchmark or physical traversability."
+  },
+  "appearance_consumed_controls": {
+    "split": "consumed_control",
+    "images": 8,
+    "model_sha256": "c98d30d74c49f4082f7425bf560e8485594000fd4f3e2e91edd9386fcb4ed780",
+    "metrics": {
+      "miou": 0.5373660987496442,
+      "iou": {
+        "ground_or_small_stone": 0.018501668183196845,
+        "substantial_obstacle": 0.8048949249749583,
+        "rover_hardware": 0.926421130934469,
+        "sky_or_distant_unknown": 0.9302252780330155,
+        "small_rock_appearance": 0.006787491622581243
+      },
+      "precision": {
+        "ground_or_small_stone": 0.019980347199475924,
+        "substantial_obstacle": 0.9738484461086984,
+        "rover_hardware": 0.9412781944772274,
+        "sky_or_distant_unknown": 0.9960171310859187,
+        "small_rock_appearance": 0.006790687057749372
+      },
+      "recall": {
+        "ground_or_small_stone": 0.2,
+        "substantial_obstacle": 0.8226766748366013,
+        "rover_hardware": 0.9832478885798711,
+        "sky_or_distant_unknown": 0.9336984314773118,
+        "small_rock_appearance": 0.9351669941060904
+      },
+      "hardware_as_obstacle_fraction": 0.010911292887921949,
+      "ground_as_obstacle_fraction": 0.18360655737704917,
+      "confusion_matrix": [
+        [
+          122,
+          112,
+          10,
+          0,
+          366
+        ],
+        [
+          0,
+          322226,
+          1703,
+          0,
+          67751
+        ],
+        [
+          134,
+          8541,
+          769654,
+          2935,
+          1503
+        ],
+        [
+          5817,
+          0,
+          46302,
+          733971,
+          0
+        ],
+        [
+          33,
+          0,
+          0,
+          0,
+          476
+        ]
+      ]
+    },
+    "per_scene": [
+      {
+        "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+        "sol": 4019,
+        "metrics": {
+          "miou": 0.5756062650369885,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.8870400514459115,
+            "rover_hardware": 0.9942416320859916,
+            "sky_or_distant_unknown": 0.9967496416530394,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.9974690409473018,
+            "rover_hardware": 0.9987971388432332,
+            "sky_or_distant_unknown": 0.997968568396584,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.8890410682994623,
+            "rover_hardware": 0.9954335392358727,
+            "sky_or_distant_unknown": 0.9987761088352805,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.9180327868852459,
+          "confusion_matrix": [
+            [
+              0,
+              112,
+              10,
+              0,
+              0
+            ],
+            [
+              0,
+              44140,
+              0,
+              0,
+              5509
+            ],
+            [
+              42,
+              0,
+              108776,
+              201,
+              256
+            ],
+            [
+              0,
+              0,
+              121,
+              98744,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 0,
+        "explicit_bare_ground_pixels": 122
+      },
+      {
+        "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+        "sol": 4080,
+        "metrics": {
+          "miou": 0.4808765968772861,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.5726228154671804,
+            "rover_hardware": 0.8957117318917056,
+            "sky_or_distant_unknown": 0.9360484370275446,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 1.0,
+            "rover_hardware": 0.8957117318917056,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.5726228154671804,
+            "rover_hardware": 1.0,
+            "sky_or_distant_unknown": 0.9360484370275446,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              61
+            ],
+            [
+              0,
+              49935,
+              933,
+              0,
+              36336
+            ],
+            [
+              0,
+              0,
+              83174,
+              0,
+              0
+            ],
+            [
+              132,
+              0,
+              8751,
+              130019,
+              0
+            ],
+            [
+              33,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 33,
+        "explicit_bare_ground_pixels": 61
+      },
+      {
+        "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+        "sol": 4339,
+        "metrics": {
+          "miou": 0.6593630270689638,
+          "iou": {
+            "ground_or_small_stone": 0.5,
+            "substantial_obstacle": 0.9576219937665721,
+            "rover_hardware": 0.9120886296360787,
+            "sky_or_distant_unknown": 0.9271045119421683,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 1.0,
+            "substantial_obstacle": 0.9767739792650234,
+            "rover_hardware": 0.9220224867433827,
+            "sky_or_distant_unknown": 0.99987818113358,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.5,
+            "substantial_obstacle": 0.9799357372367011,
+            "rover_hardware": 0.9883254716981132,
+            "sky_or_distant_unknown": 0.9272092426187419,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.011544811320754716,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              61,
+              0,
+              0,
+              0,
+              61
+            ],
+            [
+              0,
+              41172,
+              0,
+              0,
+              843
+            ],
+            [
+              0,
+              979,
+              83810,
+              11,
+              0
+            ],
+            [
+              0,
+              0,
+              7088,
+              90287,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 0,
+        "explicit_bare_ground_pixels": 122
+      },
+      {
+        "source_id": "FLB_789536250RAD_F1120798FHAZ00200M1",
+        "sol": 4416,
+        "metrics": {
+          "miou": 0.5441883066543313,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.8598831199809176,
+            "rover_hardware": 0.9084778672824119,
+            "sky_or_distant_unknown": 0.9525805460083271,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.8598831199809176,
+            "rover_hardware": 0.9935814042471781,
+            "sky_or_distant_unknown": 0.9615954190936914,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 1.0,
+            "rover_hardware": 0.9138410374619486,
+            "sky_or_distant_unknown": 0.9902543172938665,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.062017208917668175,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              43259,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              7049,
+              103869,
+              2723,
+              21
+            ],
+            [
+              0,
+              0,
+              671,
+              68180,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 0,
+        "explicit_bare_ground_pixels": 0
+      },
+      {
+        "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+        "sol": 4480,
+        "metrics": {
+          "miou": 0.5476536738026676,
+          "iou": {
+            "ground_or_small_stone": 0.011233885819521179,
+            "substantial_obstacle": 0.9633710014524071,
+            "rover_hardware": 0.9014355197182645,
+            "sky_or_distant_unknown": 0.8622279620231453,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 0.011492087415222306,
+            "substantial_obstacle": 1.0,
+            "rover_hardware": 0.9014451984195155,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.3333333333333333,
+            "substantial_obstacle": 0.9633710014524071,
+            "rover_hardware": 0.9999880892827366,
+            "sky_or_distant_unknown": 0.8622279620231453,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              61,
+              0,
+              0,
+              0,
+              122
+            ],
+            [
+              0,
+              27195,
+              770,
+              0,
+              264
+            ],
+            [
+              1,
+              0,
+              83957,
+              0,
+              0
+            ],
+            [
+              5246,
+              0,
+              8409,
+              85458,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 0,
+        "explicit_bare_ground_pixels": 183
+      },
+      {
+        "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+        "sol": 4584,
+        "metrics": {
+          "miou": 0.5260136308042005,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.8404425069284858,
+            "rover_hardware": 0.9215799279984842,
+            "sky_or_distant_unknown": 0.8680457190940327,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.9953614539536145,
+            "rover_hardware": 0.9254082765181544,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.8437471257319803,
+            "rover_hardware": 0.995531107415462,
+            "sky_or_distant_unknown": 0.8680457190940327,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.004375079953946526,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              122
+            ],
+            [
+              0,
+              110082,
+              0,
+              0,
+              20386
+            ],
+            [
+              0,
+              513,
+              116731,
+              0,
+              11
+            ],
+            [
+              0,
+              0,
+              9409,
+              61896,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 0,
+        "explicit_bare_ground_pixels": 122
+      },
+      {
+        "source_id": "FLB_813313241RAD_F1191554FHAZ00302M1",
+        "sol": 4684,
+        "metrics": {
+          "miou": 0.6124056740747188,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.9936767427513881,
+            "rover_hardware": 0.873798449612403,
+            "sky_or_distant_unknown": 0.9093524590163934,
+            "small_rock_appearance": 0.2852007189934092
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 1.0,
+            "rover_hardware": 0.884992744363345,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.2852007189934092
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.9936767427513881,
+            "rover_hardware": 0.9857306555696279,
+            "sky_or_distant_unknown": 0.9093524590163934,
+            "small_rock_appearance": 1.0
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              6443,
+              0,
+              0,
+              41
+            ],
+            [
+              31,
+              0,
+              81722,
+              0,
+              1152
+            ],
+            [
+              439,
+              0,
+              10620,
+              110941,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              476
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 476,
+        "explicit_bare_ground_pixels": 0
+      },
+      {
+        "source_id": "FLB_822183562RAD_F1200538FHAZ00401M1",
+        "sol": 4784,
+        "metrics": {
+          "miou": 0.39476145681758235,
+          "iou": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9875563223242881,
+            "sky_or_distant_unknown": 0.9862509617636236,
+            "small_rock_appearance": 0.0
+          },
+          "precision": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9886722769366456,
+            "sky_or_distant_unknown": 1.0,
+            "small_rock_appearance": 0.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9988583415322356,
+            "sky_or_distant_unknown": 0.9862509617636236,
+            "small_rock_appearance": 0.0
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              4372
+            ],
+            [
+              60,
+              0,
+              107615,
+              0,
+              63
+            ],
+            [
+              0,
+              0,
+              1233,
+              88446,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "explicit_small_rock_pixels": 0,
+        "explicit_bare_ground_pixels": 0
+      }
+    ],
+    "limitations": "Strict sparse appearance labels only: untraced old ground is a composite0-or4 and excluded here. Not exhaustive foreground precision, independent expert labels, new unseen benchmark or physical traversability."
+  },
+  "candidate_training": {
+    "candidate_only": true,
+    "test_evaluated": false,
+    "input_size": 512,
+    "best_epoch": 4,
+    "best_validation": {
+      "miou": 0.5437778004054306,
+      "iou": {
+        "ground_or_small_stone": 0.14558472553699284,
+        "substantial_obstacle": 0.6908806604953716,
+        "rover_hardware": 0.9367142790929738,
+        "sky_or_distant_unknown": 0.9411572251177823,
+        "small_rock_appearance": 0.004552111784031984
+      },
+      "precision": {
+        "ground_or_small_stone": 0.17039106145251395,
+        "substantial_obstacle": 0.9984055592112399,
+        "rover_hardware": 0.9577183284690456,
+        "sky_or_distant_unknown": 0.9846592076007465,
+        "small_rock_appearance": 0.004570129632720538
+      },
+      "recall": {
+        "ground_or_small_stone": 0.5,
+        "substantial_obstacle": 0.6916437700840807,
+        "rover_hardware": 0.9771225751038785,
+        "sky_or_distant_unknown": 0.955162815944933,
+        "small_rock_appearance": 0.5358807082945014
+      },
+      "hardware_as_obstacle_fraction": 0.0003299081660803213,
+      "ground_as_obstacle_fraction": 0.004918032786885246,
+      "confusion_matrix": [
+        [
+          305,
+          3,
+          0,
+          0,
+          302
+        ],
+        [
+          48,
+          276145,
+          398,
+          0,
+          122668
+        ],
+        [
+          1248,
+          116,
+          343569,
+          5154,
+          1526
+        ],
+        [
+          142,
+          0,
+          14641,
+          330813,
+          746
+        ],
+        [
+          47,
+          322,
+          129,
+          0,
+          575
+        ]
+      ],
+      "navigation_four_class": {
+        "miou": 0.7506649082609052,
+        "iou": {
+          "ground_or_small_stone": 0.848335005296194,
+          "substantial_obstacle": 0.4968287170114473,
+          "rover_hardware": 0.7179574807111707,
+          "sky_or_distant_unknown": 0.9395384300248083
+        },
+        "precision": {
+          "ground_or_small_stone": 0.9392164276145123,
+          "substantial_obstacle": 0.6631738921772516,
+          "rover_hardware": 0.732040856463667,
+          "sky_or_distant_unknown": 0.9846331820702569
+        },
+        "recall": {
+          "ground_or_small_stone": 0.897615885795779,
+          "substantial_obstacle": 0.6645110066398002,
+          "rover_hardware": 0.9739031264486808,
+          "sky_or_distant_unknown": 0.9535199311663038
+        },
+        "hardware_as_obstacle_fraction": 0.0003299081660803213,
+        "ground_as_obstacle_fraction": 0.05624158533798797,
+        "confusion_matrix": [
+          [
+            2148791,
+            134636,
+            110460,
+            0
+          ],
+          [
+            133701,
+            265312,
+            246,
+            0
+          ],
+          [
+            3906,
+            116,
+            342437,
+            5154
+          ],
+          [
+            1457,
+            0,
+            14641,
+            330244
+          ]
+        ]
+      }
+    },
+    "epochs_completed": 6,
+    "elapsed_s": 613.5605154999939,
+    "terrain_weights_unchanged": true,
+    "frozen_terrain_state_sha256": "e085101d99d76d483be9535b74cec7928b502dda0a6233dd519910f596fe7b5c",
+    "model_sha256": "06fd8dd5af75648656b4eb0b5f82d5ebe1537587065343ff4866235d193c1fd8"
+  },
+  "candidate_checkpoint_sha256": "9f63117a431010e1feef3bd3a60183bf3b2f09f9537864ea7cb0d4e0e9e026d2",
+  "raw_five_class_export": {
+    "model_sha256": "c98d30d74c49f4082f7425bf560e8485594000fd4f3e2e91edd9386fcb4ed780",
+    "checkpoint_sha256": "9f63117a431010e1feef3bd3a60183bf3b2f09f9537864ea7cb0d4e0e9e026d2",
+    "input_size": 512,
+    "navigation_only": true,
+    "weights_changed": false,
+    "candidate_only": true,
+    "test_evaluated": false
+  },
+  "compatibility_export": {
+    "model_sha256": "bc5288181846c067258c98f77c8d0957b8dc4aae4db2c0f16e35ad398adbc0cb",
+    "source_checkpoint_sha256": "9f63117a431010e1feef3bd3a60183bf3b2f09f9537864ea7cb0d4e0e9e026d2",
+    "candidate_only": true,
+    "input_size": 512,
+    "compatibility": "logsumexp ground0+additional_rock4; original obstacle1/hardware2/sky3 preserved as channels",
+    "production_file_replaced": false
+  },
+  "export_parity": {
+    "model_sha256": "c98d30d74c49f4082f7425bf560e8485594000fd4f3e2e91edd9386fcb4ed780",
+    "passed": true,
+    "checks": [
+      {
+        "source_id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+        "head": "navigation",
+        "pixel_agreement": 1.0,
+        "max_abs_logit_error": 3.0994415283203125e-05
+      },
+      {
+        "source_id": "FLB_712554377RAD_F0961844FHAZ00302M1",
+        "head": "navigation",
+        "pixel_agreement": 0.9999961853027344,
+        "max_abs_logit_error": 1.430511474609375e-05
+      },
+      {
+        "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+        "head": "navigation",
+        "pixel_agreement": 1.0,
+        "max_abs_logit_error": 2.1457672119140625e-05
+      },
+      {
+        "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+        "head": "navigation",
+        "pixel_agreement": 0.9999923706054688,
+        "max_abs_logit_error": 2.002716064453125e-05
+      },
+      {
+        "source_id": "FLB_805859469RAD_F1172166FHAZ00200M1",
+        "head": "navigation",
+        "pixel_agreement": 1.0,
+        "max_abs_logit_error": 1.4781951904296875e-05
+      }
+    ]
+  },
+  "global_terrain_branch_unchanged": true,
+  "opened_controls_not_fresh": true,
+  "next_research": "Keep appearance (all rocks) and measured traversability separate. Consider a size-agnostic auxiliary rock head with the old navigation output frozen, plus more reviewed negative ground and complete object outlines; validate on a new sealed episode set before promotion. Do not train another candidate against the consumed controls and call them a fresh test."
+}

@@ -1,0 +1,700 @@
+{
+  "version": 10,
+  "reviewed_native_crops": true,
+  "method": "Clear bare sandy soil or continuous ground in native crop centres was visually selected from the rejected stone proposals. Sparse interior negatives only; not an assertion that every old ground-labelled pixel is stone-free.",
+  "interiors": [
+    {
+      "proposal_id": "5.0",
+      "source_id": "FLA_402895937RAD_F0050104FHAZ00311M1",
+      "sol": 61,
+      "interior_ellipse_512": [
+        202,
+        318,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "5.2",
+      "source_id": "FLA_402895937RAD_F0050104FHAZ00311M1",
+      "sol": 61,
+      "interior_ellipse_512": [
+        273,
+        350,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "13.0",
+      "source_id": "FLB_557280820RAD_F0652456FHAZ00206M1",
+      "sol": 1800,
+      "interior_ellipse_512": [
+        196,
+        310,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "21.0",
+      "source_id": "FLB_606105107RAD_F0750000FHAZ00206M1",
+      "sol": 2350,
+      "interior_ellipse_512": [
+        203,
+        305,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "21.1",
+      "source_id": "FLB_606105107RAD_F0750000FHAZ00206M1",
+      "sol": 2350,
+      "interior_ellipse_512": [
+        187,
+        311,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "30.1",
+      "source_id": "FLB_646065742RAD_F0810000FHAZ00302M1",
+      "sol": 2800,
+      "interior_ellipse_512": [
+        200,
+        317,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "34.1",
+      "source_id": "FLB_663824339RAD_F0850000FHAZ00302M1",
+      "sol": 3000,
+      "interior_ellipse_512": [
+        186,
+        239,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "35.0",
+      "source_id": "FLB_668253306RAD_F0870696FHAZ00341M1",
+      "sol": 3050,
+      "interior_ellipse_512": [
+        187,
+        297,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "35.4",
+      "source_id": "FLB_668253306RAD_F0870696FHAZ00341M1",
+      "sol": 3050,
+      "interior_ellipse_512": [
+        349,
+        225,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "35.6",
+      "source_id": "FLB_668253306RAD_F0870696FHAZ00341M1",
+      "sol": 3050,
+      "interior_ellipse_512": [
+        190,
+        346,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "37.0",
+      "source_id": "FLB_677128842RAD_F0890000FHAZ00341M1",
+      "sol": 3150,
+      "interior_ellipse_512": [
+        312,
+        325,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "39.3",
+      "source_id": "FLB_686009209RAD_F0910516FHAZ00341M1",
+      "sol": 3250,
+      "interior_ellipse_512": [
+        284,
+        336,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "39.6",
+      "source_id": "FLB_686009209RAD_F0910516FHAZ00341M1",
+      "sol": 3250,
+      "interior_ellipse_512": [
+        339,
+        396,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "40.3",
+      "source_id": "FLB_690444976RAD_F0912132FHAZ00341M1",
+      "sol": 3300,
+      "interior_ellipse_512": [
+        334,
+        176,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "42.0",
+      "source_id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+      "sol": 3400,
+      "interior_ellipse_512": [
+        312,
+        288,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "42.5",
+      "source_id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+      "sol": 3400,
+      "interior_ellipse_512": [
+        172,
+        250,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "45.2",
+      "source_id": "FLB_712554377RAD_F0961844FHAZ00302M1",
+      "sol": 3549,
+      "interior_ellipse_512": [
+        351,
+        405,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "46.0",
+      "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+      "sol": 3601,
+      "interior_ellipse_512": [
+        104,
+        242,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "46.1",
+      "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+      "sol": 3601,
+      "interior_ellipse_512": [
+        326,
+        278,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "46.2",
+      "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+      "sol": 3601,
+      "interior_ellipse_512": [
+        334,
+        389,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "46.4",
+      "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+      "sol": 3601,
+      "interior_ellipse_512": [
+        391,
+        334,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "50.2",
+      "source_id": "FLB_734843011RAD_F1002712FHAZ00200M1",
+      "sol": 3800,
+      "interior_ellipse_512": [
+        205,
+        287,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "50.3",
+      "source_id": "FLB_734843011RAD_F1002712FHAZ00200M1",
+      "sol": 3800,
+      "interior_ellipse_512": [
+        239,
+        306,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "51.4",
+      "source_id": "FLB_739189237RAD_F1011366FHAZ00302M1",
+      "sol": 3849,
+      "interior_ellipse_512": [
+        296,
+        314,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "53.0",
+      "source_id": "FLB_748238322RAD_F1040856FHAZ00302M1",
+      "sol": 3951,
+      "interior_ellipse_512": [
+        369,
+        373,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "53.2",
+      "source_id": "FLB_748238322RAD_F1040856FHAZ00302M1",
+      "sol": 3951,
+      "interior_ellipse_512": [
+        355,
+        362,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "53.3",
+      "source_id": "FLB_748238322RAD_F1040856FHAZ00302M1",
+      "sol": 3951,
+      "interior_ellipse_512": [
+        293,
+        450,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "53.4",
+      "source_id": "FLB_748238322RAD_F1040856FHAZ00302M1",
+      "sol": 3951,
+      "interior_ellipse_512": [
+        305,
+        481,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "54.1",
+      "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+      "sol": 4019,
+      "interior_ellipse_512": [
+        284,
+        333,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "54.2",
+      "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+      "sol": 4019,
+      "interior_ellipse_512": [
+        295,
+        382,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "55.0",
+      "source_id": "FLB_757303129RAD_F1051108FHAZ00200M1",
+      "sol": 4053,
+      "interior_ellipse_512": [
+        183,
+        292,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "56.3",
+      "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+      "sol": 4080,
+      "interior_ellipse_512": [
+        110,
+        349,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "58.2",
+      "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+      "sol": 4151,
+      "interior_ellipse_512": [
+        151,
+        389,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "58.3",
+      "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+      "sol": 4151,
+      "interior_ellipse_512": [
+        127,
+        382,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "58.5",
+      "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+      "sol": 4151,
+      "interior_ellipse_512": [
+        316,
+        281,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "59.3",
+      "source_id": "FLB_768834697RAD_F1071140FHAZ00302M1",
+      "sol": 4183,
+      "interior_ellipse_512": [
+        250,
+        324,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "59.4",
+      "source_id": "FLB_768834697RAD_F1071140FHAZ00302M1",
+      "sol": 4183,
+      "interior_ellipse_512": [
+        164,
+        295,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "60.7",
+      "source_id": "FLB_770343556RAD_F1072484FHAZ00302M1",
+      "sol": 4200,
+      "interior_ellipse_512": [
+        259,
+        380,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "60.9",
+      "source_id": "FLB_770343556RAD_F1072484FHAZ00302M1",
+      "sol": 4200,
+      "interior_ellipse_512": [
+        197,
+        421,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "62.5",
+      "source_id": "FLB_774800218RAD_F1080222FHAZ00200M1",
+      "sol": 4250,
+      "interior_ellipse_512": [
+        228,
+        401,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "65.2",
+      "source_id": "FLB_781455837RAD_F1091290FHAZ00200M1",
+      "sol": 4325,
+      "interior_ellipse_512": [
+        237,
+        440,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "65.3",
+      "source_id": "FLB_781455837RAD_F1091290FHAZ00200M1",
+      "sol": 4325,
+      "interior_ellipse_512": [
+        231,
+        338,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "65.5",
+      "source_id": "FLB_781455837RAD_F1091290FHAZ00200M1",
+      "sol": 4325,
+      "interior_ellipse_512": [
+        312,
+        356,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "66.5",
+      "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+      "sol": 4339,
+      "interior_ellipse_512": [
+        289,
+        459,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "66.6",
+      "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+      "sol": 4339,
+      "interior_ellipse_512": [
+        344,
+        454,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "67.3",
+      "source_id": "FLB_783658054RAD_F1100840FHAZ00200M1",
+      "sol": 4350,
+      "interior_ellipse_512": [
+        335,
+        351,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "67.4",
+      "source_id": "FLB_783658054RAD_F1100840FHAZ00200M1",
+      "sol": 4350,
+      "interior_ellipse_512": [
+        364,
+        328,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "70.5",
+      "source_id": "FLB_790313338RAD_F1121014FHAZ00200M1",
+      "sol": 4425,
+      "interior_ellipse_512": [
+        243,
+        406,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "71.3",
+      "source_id": "FLB_792547535RAD_F1130894FHAZ00302M1",
+      "sol": 4450,
+      "interior_ellipse_512": [
+        262,
+        285,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "71.9",
+      "source_id": "FLB_792547535RAD_F1130894FHAZ00302M1",
+      "sol": 4450,
+      "interior_ellipse_512": [
+        352,
+        238,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "72.4",
+      "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+      "sol": 4480,
+      "interior_ellipse_512": [
+        351,
+        298,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "72.8",
+      "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+      "sol": 4480,
+      "interior_ellipse_512": [
+        180,
+        284,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "72.9",
+      "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+      "sol": 4480,
+      "interior_ellipse_512": [
+        155,
+        280,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "73.1",
+      "source_id": "FLB_796969887RAD_F1142292FHAZ00200M1",
+      "sol": 4500,
+      "interior_ellipse_512": [
+        225,
+        346,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "73.6",
+      "source_id": "FLB_796969887RAD_F1142292FHAZ00200M1",
+      "sol": 4500,
+      "interior_ellipse_512": [
+        424,
+        404,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "74.0",
+      "source_id": "FLB_799211234RAD_F1151770FHAZ00200M1",
+      "sol": 4525,
+      "interior_ellipse_512": [
+        169,
+        225,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "75.2",
+      "source_id": "FLB_801429831RAD_F1161260FHAZ00200M1",
+      "sol": 4550,
+      "interior_ellipse_512": [
+        331,
+        367,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "75.3",
+      "source_id": "FLB_801429831RAD_F1161260FHAZ00200M1",
+      "sol": 4550,
+      "interior_ellipse_512": [
+        335,
+        347,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "75.4",
+      "source_id": "FLB_801429831RAD_F1161260FHAZ00200M1",
+      "sol": 4550,
+      "interior_ellipse_512": [
+        289,
+        299,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "76.0",
+      "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+      "sol": 4584,
+      "interior_ellipse_512": [
+        169,
+        330,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "76.5",
+      "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+      "sol": 4584,
+      "interior_ellipse_512": [
+        150,
+        389,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "85.1",
+      "source_id": "FLB_823427543RAD_F1200574FHAZ00337M1",
+      "sol": 4798,
+      "interior_ellipse_512": [
+        269,
+        368,
+        2,
+        2
+      ]
+    },
+    {
+      "proposal_id": "85.6",
+      "source_id": "FLB_823427543RAD_F1200574FHAZ00337M1",
+      "sol": 4798,
+      "interior_ellipse_512": [
+        205,
+        427,
+        2,
+        2
+      ]
+    }
+  ]
+}

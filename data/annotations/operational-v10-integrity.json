@@ -1,0 +1,43 @@
+{
+  "images_checked": 86,
+  "roles": {
+    "train": 73,
+    "validation": 5,
+    "consumed_control": 8
+  },
+  "small_rock_pixels_by_role": {
+    "train": 6685,
+    "validation": 1073,
+    "consumed_control": 509
+  },
+  "historical_masks_unchanged": true,
+  "all_original_obstacle_hardware_sky_pixels_preserved": true,
+  "source_and_label_sha_checks_passed": true,
+  "cross_split_source_group_rmc_collisions": 0,
+  "manifest_sha256": "fbc16e3d3a19f9c7caecf9b9ff82ad022c512680a63cdb0ca6bc6662c44f4e23",
+  "sparse_labels_not_exhaustive_masks": true,
+  "all_accepted_stone_cores_preserved": 75,
+  "external_terrain_audit": {
+    "entries": 4616,
+    "counts": {
+      "test": 400,
+      "validation": 400,
+      "train": 3816
+    },
+    "empty_review_masks": {
+      "test": 2,
+      "validation": 3,
+      "train": 32
+    },
+    "class_pixel_counts": [
+      889648283,
+      1327172325,
+      338373111,
+      75358252
+    ],
+    "mask_collection_sha256": "8b2ccfc3f4a8829c8a74986b4fcd980ff7d5478107ef47638a4f3ebab7ddcaba",
+    "labels_modified": false,
+    "visual_relabel_claimed": false,
+    "taxonomy": "Publisher terrain labels: bedrock/soil/sand/big_rock; this taxonomy is not the five-class operational hardware/rock-appearance task."
+  }
+}

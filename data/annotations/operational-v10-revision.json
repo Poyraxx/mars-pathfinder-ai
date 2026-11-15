@@ -1,0 +1,2287 @@
+{
+  "stats": {
+    "accepted_interiors": 75,
+    "small_rock_pixels": 8267,
+    "ground_pixels_moved_to_unknown": 273979,
+    "old_unknown_pixels_now_rock": 750,
+    "known_bare_ground_pixels": 3843
+  },
+  "scenes": [
+    {
+      "source_id": "FLA_401492677RAD_F0042100FHAZ00103M1",
+      "sol": 45,
+      "source_sha256": "5b3a20a33925b9cccb9316b874194f37cc64a43362cfdd233bed94c1920fcbbb",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [
+        {
+          "proposal_id": "0.0",
+          "interior_ellipse_512": [
+            248,
+            302,
+            4,
+            3
+          ],
+          "uncertain_roi_native": [
+            464,
+            572,
+            528,
+            636
+          ],
+          "reviewed_core_pixels": 177
+        },
+        {
+          "proposal_id": "0.1",
+          "interior_ellipse_512": [
+            288,
+            355,
+            3,
+            4
+          ],
+          "uncertain_roi_native": [
+            544,
+            678,
+            608,
+            742
+          ],
+          "reviewed_core_pixels": 177
+        },
+        {
+          "proposal_id": "0.3",
+          "interior_ellipse_512": [
+            158,
+            429,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            284,
+            826,
+            348,
+            890
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "0.4",
+          "interior_ellipse_512": [
+            188,
+            397,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            344,
+            762,
+            408,
+            826
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "0.5",
+          "interior_ellipse_512": [
+            211,
+            494,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            390,
+            956,
+            454,
+            1020
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "0.6",
+          "interior_ellipse_512": [
+            332,
+            466,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            632,
+            900,
+            696,
+            964
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "af7ad876b3a83ffb257d6fa812dcdb3fa5741f0d04be007b9a204237cc85c878",
+      "mask_sha256": "5582475c59c3e70e4e7be4568ee3bd71a3d65cba6f9b1df8bbb8f45d5fb2bfad",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_401761250RAD_F0042644FHAZ00304M1",
+      "sol": 48,
+      "source_sha256": "36dc6eb5d36b73dfdf3b96f7d897a64a8f7e303c1ef590f69bd0ccf378703dbb",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 12,
+      "accepted": [
+        {
+          "proposal_id": "1.0",
+          "interior_ellipse_512": [
+            197,
+            275,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            362,
+            518,
+            426,
+            582
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "1.5",
+          "interior_ellipse_512": [
+            242,
+            355,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            452,
+            678,
+            516,
+            742
+          ],
+          "reviewed_core_pixels": 61
+        },
+        {
+          "proposal_id": "1.6",
+          "interior_ellipse_512": [
+            204,
+            366,
+            2,
+            3
+          ],
+          "uncertain_roi_native": [
+            376,
+            700,
+            440,
+            764
+          ],
+          "reviewed_core_pixels": 89
+        },
+        {
+          "proposal_id": "1.7",
+          "interior_ellipse_512": [
+            239,
+            420,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            446,
+            808,
+            510,
+            872
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "fd4fc83afe8b1d6ec4747caf21a6527fbcedc17a7432bcda38fd8fec42388d30",
+      "mask_sha256": "856f8fc82bc17260d9802af69e7268b2889cb6718a0e75db8ad61a563db195a1",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_402284021RAD_F0043232FHAZ00202M1",
+      "sol": 54,
+      "source_sha256": "060ba19b2c9facbcbeb9157359e8f6cef3f44d4d3e57ee40baa7ca66459e1c39",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [],
+      "prior_mask_sha256": "c3c69913630e3965a1dba84755200b5c3237016c0ce2073543e0610450738f2e",
+      "mask_sha256": "c3c69913630e3965a1dba84755200b5c3237016c0ce2073543e0610450738f2e",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_402378017RAD_F0043394FHAZ00304M1",
+      "sol": 55,
+      "source_sha256": "43737bbc9f472844008f2d23106c13751cb25e66e7849bd58a367cadc1c3dee4",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [
+        {
+          "proposal_id": "3.2",
+          "interior_ellipse_512": [
+            225,
+            330,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            418,
+            628,
+            482,
+            692
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "d55e38073c45b566e687aa5b0934a3c4c23016b55ca5549edb1a7a6cc596b749",
+      "mask_sha256": "adc6aa246af57d37e73910b0740918ae0f02216582a8556933060dc33f9d3658",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_402732930RAD_F0050036FHAZ00302M1",
+      "sol": 59,
+      "source_sha256": "d23958d98d5ebc38a208eee2d1eb3c44d64c4c53ca6dbe21c58e5353338c3668",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 14,
+      "accepted": [
+        {
+          "proposal_id": "4.0",
+          "interior_ellipse_512": [
+            97,
+            160,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            162,
+            288,
+            226,
+            352
+          ],
+          "reviewed_core_pixels": 61
+        },
+        {
+          "proposal_id": "4.1",
+          "interior_ellipse_512": [
+            211,
+            302,
+            4,
+            3
+          ],
+          "uncertain_roi_native": [
+            390,
+            572,
+            454,
+            636
+          ],
+          "reviewed_core_pixels": 177
+        },
+        {
+          "proposal_id": "4.4",
+          "interior_ellipse_512": [
+            302,
+            289,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            572,
+            546,
+            636,
+            610
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "4.6",
+          "interior_ellipse_512": [
+            357,
+            376,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            682,
+            720,
+            746,
+            784
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "4.8",
+          "interior_ellipse_512": [
+            374,
+            306,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            716,
+            580,
+            780,
+            644
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "4.13",
+          "interior_ellipse_512": [
+            299,
+            375,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            566,
+            718,
+            630,
+            782
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "dbbec38cf9bfca83b2541286eab4b86620f7560ca7e3ad3fc6607a92110b8ca7",
+      "mask_sha256": "602db478335e196aa9a2636dccb8e34da8f31b93ac1bd6b0499c26bb80aad568",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_402895937RAD_F0050104FHAZ00311M1",
+      "sol": 61,
+      "source_sha256": "9fce0d4390cbb4e0b1117ec521b05f304b9eda951de0c683c1563209481842aa",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 4,
+      "accepted": [],
+      "prior_mask_sha256": "4751da0df88df9aeaa5d0b5414a3e527ade54546924600895605cc5d15647340",
+      "mask_sha256": "4751da0df88df9aeaa5d0b5414a3e527ade54546924600895605cc5d15647340",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_404772660RAD_F0050104FHAZ00206M1",
+      "sol": 82,
+      "source_sha256": "1c6acf443f3e3afa1827c5634957b46c5cdc0529e5209a0107245b5ad9ffbc63",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 9,
+      "accepted": [
+        {
+          "proposal_id": "6.5",
+          "interior_ellipse_512": [
+            337,
+            420,
+            4,
+            4
+          ],
+          "uncertain_roi_native": [
+            642,
+            808,
+            706,
+            872
+          ],
+          "reviewed_core_pixels": 221
+        }
+      ],
+      "prior_mask_sha256": "a77c546863ca8fbe041116b1c0abe42350f89377fbcda3b037ac221bfa6f3b8b",
+      "mask_sha256": "beb0c995b731522cd5841acc573b04942eab4ad41ec68a36ba78a9b259b82bc1",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_405746155RAD_F0050104FHAZ00206M1",
+      "sol": 93,
+      "source_sha256": "319d9614bab353dc0bc6f180b7ec3149c3c6fef9f3f3a6e694018541c2db71b9",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "993eb8ae8694000b284c057ceefb22eee95d6faf4c81c7216678dccbcf7a15f9",
+      "mask_sha256": "993eb8ae8694000b284c057ceefb22eee95d6faf4c81c7216678dccbcf7a15f9",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_406374643RAD_F0050178FHAZ00301M1",
+      "sol": 100,
+      "source_sha256": "52d7d0afaa2cf10c0135c42b70ef521173441fa849efa220b83014807527d1c1",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [
+        {
+          "proposal_id": "8.0",
+          "interior_ellipse_512": [
+            88,
+            366,
+            4,
+            3
+          ],
+          "uncertain_roi_native": [
+            144,
+            700,
+            208,
+            764
+          ],
+          "reviewed_core_pixels": 177
+        },
+        {
+          "proposal_id": "8.1",
+          "interior_ellipse_512": [
+            77,
+            398,
+            4,
+            2
+          ],
+          "uncertain_roi_native": [
+            122,
+            764,
+            186,
+            828
+          ],
+          "reviewed_core_pixels": 121
+        },
+        {
+          "proposal_id": "8.2",
+          "interior_ellipse_512": [
+            95,
+            387,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            158,
+            742,
+            222,
+            806
+          ],
+          "reviewed_core_pixels": 89
+        },
+        {
+          "proposal_id": "8.4",
+          "interior_ellipse_512": [
+            428,
+            300,
+            2,
+            3
+          ],
+          "uncertain_roi_native": [
+            824,
+            568,
+            888,
+            632
+          ],
+          "reviewed_core_pixels": 89
+        },
+        {
+          "proposal_id": "8.6",
+          "interior_ellipse_512": [
+            395,
+            241,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            758,
+            450,
+            822,
+            514
+          ],
+          "reviewed_core_pixels": 89
+        }
+      ],
+      "prior_mask_sha256": "6574ec7ca04f4a286e0c97728f378f8678fe22553cebe5b34a52b9b6df30431e",
+      "mask_sha256": "3c45977e5eea36b5e00ff20a541be09b95d1ef13293e05eb4eb64290845fc6ce",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_407353944RAD_F0050432FHAZ00302M1",
+      "sol": 111,
+      "source_sha256": "8002d376a2aec5b8d52f094c1da4b6f5df27d0f464ad1437fd6f75c48f4aec4d",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [],
+      "prior_mask_sha256": "4f2a23680fbb2dc327f825ac92dc8a0f3f0ee1e303d6efe5db861da194c1ed84",
+      "mask_sha256": "4f2a23680fbb2dc327f825ac92dc8a0f3f0ee1e303d6efe5db861da194c1ed84",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_407879135RAD_F0050432FHAZ00207M1",
+      "sol": 117,
+      "source_sha256": "2650d0b15c9bdd4fc3c55caf24dbaf544f1e4b4bc4c68be084f3e539b9aa3888",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 4,
+      "accepted": [],
+      "prior_mask_sha256": "1133f6b1abd550149298cb3d7353a801dd64e7128c204204a4c4d4dd069c76cf",
+      "mask_sha256": "1133f6b1abd550149298cb3d7353a801dd64e7128c204204a4c4d4dd069c76cf",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_410543155RAD_F0051902FHAZ00317M1",
+      "sol": 147,
+      "source_sha256": "8ae6537d308a73874e062b30abaadca9aaf417ac3fd0fed85b3d693cf2d57995",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 12,
+      "accepted": [
+        {
+          "proposal_id": "11.3",
+          "interior_ellipse_512": [
+            366,
+            295,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            700,
+            558,
+            764,
+            622
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "11.5",
+          "interior_ellipse_512": [
+            348,
+            398,
+            4,
+            3
+          ],
+          "uncertain_roi_native": [
+            664,
+            764,
+            728,
+            828
+          ],
+          "reviewed_core_pixels": 177
+        }
+      ],
+      "prior_mask_sha256": "84188970513424bee3769a12a4dfa2eb9f77a61e4b2187c278fdaf44c2d8dcaf",
+      "mask_sha256": "b371618b16ab48e9cb6a705085ecafcf0b8c30114007871d6fcc666cd14ab4ef",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_539546122RAD_F0602928FHAZ00206M1",
+      "sol": 1600,
+      "source_sha256": "0fc88f13df0c226a30085b9b96ba3bc670ffe84915136c8006ff5abefc5b3827",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 9,
+      "accepted": [
+        {
+          "proposal_id": "12.2",
+          "interior_ellipse_512": [
+            219,
+            352,
+            4,
+            3
+          ],
+          "uncertain_roi_native": [
+            406,
+            672,
+            470,
+            736
+          ],
+          "reviewed_core_pixels": 177
+        },
+        {
+          "proposal_id": "12.7",
+          "interior_ellipse_512": [
+            85,
+            427,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            138,
+            822,
+            202,
+            886
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "a98234d0c431dcee75277d9ec45db67a9ec9d3a13d8b3fb35b22db578c5c5dfa",
+      "mask_sha256": "0d70ef4b89c04f6c54f8209e261cf9841cb459886ce4d3b90721ab8a55f9d526",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_557280820RAD_F0652456FHAZ00206M1",
+      "sol": 1800,
+      "source_sha256": "c4c5bd969e5635e3ea913569678c16932430fcb6fe635a3a3a6b2ddec6286f35",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "fb126fe7971a3633220bcbb55c5d6252eb944b08b967134cdd833e6f747e1fad",
+      "mask_sha256": "fb126fe7971a3633220bcbb55c5d6252eb944b08b967134cdd833e6f747e1fad",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_566171818RAD_F0671016FHAZ00341M1",
+      "sol": 1900,
+      "source_sha256": "bd33f02c376d05bfadb74e35feb2e3835d332fbc64f7e00faf38d129e6ad94cd",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [
+        {
+          "proposal_id": "14.0",
+          "interior_ellipse_512": [
+            144,
+            467,
+            4,
+            4
+          ],
+          "uncertain_roi_native": [
+            256,
+            902,
+            320,
+            966
+          ],
+          "reviewed_core_pixels": 221
+        }
+      ],
+      "prior_mask_sha256": "b84c855d29e7181cbbda8e1401bc61cbcca615d39054572f1a34c39b89f488be",
+      "mask_sha256": "e47271c381b54c62683bd9ac31e5fd142d3d334e576638098229e17f7f3c327f",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_575050318RAD_F0682626FHAZ00206M1",
+      "sol": 2000,
+      "source_sha256": "2bf6c9cb4403735bcf68aa64b922cc9e1f5ea8aa5b4f4fc44415180cd7f2527e",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [
+        {
+          "proposal_id": "15.1",
+          "interior_ellipse_512": [
+            249,
+            367,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            466,
+            702,
+            530,
+            766
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "79eae7941f06f0876a8d21d4c9d85c4e1a721b588e9e36cdc8640ad3838df3d6",
+      "mask_sha256": "b219f718821c18239f5e908345604b6e9ed7945df8c6275474f53db7cf25bac6",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_583921314RAD_F0711586FHAZ00206M1",
+      "sol": 2100,
+      "source_sha256": "6502e1734b51102373c476eb847bce02b0026d54ae3d114f522868732bbb1f93",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 10,
+      "accepted": [
+        {
+          "proposal_id": "16.4",
+          "interior_ellipse_512": [
+            307,
+            424,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            582,
+            816,
+            646,
+            880
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "a0b36dae94be63303a148f72b8c50ecdb859234daa8a37523e4f7fe6ea3af7ac",
+      "mask_sha256": "42aba351fcacaed68a00de599750c643f348652fdffa855169c41e6530792069",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_588376031RAD_F0721316FHAZ00337M1",
+      "sol": 2150,
+      "source_sha256": "99933d168f4447380c705ad3e782f0b997a57c5073bfee997233c91f5ab21b45",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "9acf2b9358cc990ea7f95695835253fb08a254e47f6d77fbe81043b68143ef06",
+      "mask_sha256": "9acf2b9358cc990ea7f95695835253fb08a254e47f6d77fbe81043b68143ef06",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_592704037RAD_F0722464FHAZ00350M1",
+      "sol": 2199,
+      "source_sha256": "8b65202bfede9ea3e403979cc009e81d41da7f9968b1eba1bebacfd124fbe7e3",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "72f2e75562bb95e6ddd87ce2e29137e0147b986e71aa7ce4a6ce37d4aee9f616",
+      "mask_sha256": "72f2e75562bb95e6ddd87ce2e29137e0147b986e71aa7ce4a6ce37d4aee9f616",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_597242582RAD_F0730722FHAZ00302M1",
+      "sol": 2250,
+      "source_sha256": "45a59736d16b41ed152332c920b18ca84d0810affa013b057fc8cb8f68efec46",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [],
+      "prior_mask_sha256": "12f4e24b2fee777ff799d4f840e82e193b322fd70b94b64863f905848826c9ac",
+      "mask_sha256": "12f4e24b2fee777ff799d4f840e82e193b322fd70b94b64863f905848826c9ac",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLA_601668024RAD_F0731944FHAZ00206M1",
+      "sol": 2300,
+      "source_sha256": "6508d2873fb4e08cccba246e1a0f0319a14783cb6d95e3917ccfabab3d019ab5",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 10,
+      "accepted": [
+        {
+          "proposal_id": "20.0",
+          "interior_ellipse_512": [
+            118,
+            240,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            204,
+            448,
+            268,
+            512
+          ],
+          "reviewed_core_pixels": 89
+        },
+        {
+          "proposal_id": "20.1",
+          "interior_ellipse_512": [
+            410,
+            300,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            788,
+            568,
+            852,
+            632
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "45d82c93b509e255c051714dcd5f113c04ed930a7815fe2d0c87e881efbe16b4",
+      "mask_sha256": "210e9cb8a2c3df748e05384a3e53456996ab908019ca91e7a68511f947e92cfa",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_606105107RAD_F0750000FHAZ00206M1",
+      "sol": 2350,
+      "source_sha256": "e1919e8c162720c635cbd579196afaaa2f9598f9f7e78a1761a63160619d0a9e",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "288591e761ef62ebbc50c6d3b0e1b29804c337a0000b2541583f17252ac39523",
+      "mask_sha256": "288591e761ef62ebbc50c6d3b0e1b29804c337a0000b2541583f17252ac39523",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_610554605RAD_F0751398FHAZ00341M1",
+      "sol": 2400,
+      "source_sha256": "75a813b046f34756600aed9b8b5efe9d9019de61c9f7aed3a4a289fdad09f794",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "8b501f6fcbc6f0084713d5971b36d22878a811c8a019086abfc2ba39b2af1dfb",
+      "mask_sha256": "8b501f6fcbc6f0084713d5971b36d22878a811c8a019086abfc2ba39b2af1dfb",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_615003843RAD_F0761384FHAZ00206M1",
+      "sol": 2450,
+      "source_sha256": "865013c8e02409bac35592a318e4bf516e0a70a412e4125e6da8f17262bf3e32",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [],
+      "prior_mask_sha256": "38e9bb00c686af238d49e08d127ff467e48d8a80853a23b1b6be53c08dfa1209",
+      "mask_sha256": "38e9bb00c686af238d49e08d127ff467e48d8a80853a23b1b6be53c08dfa1209",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_619437917RAD_F0763002FHAZ00337M1",
+      "sol": 2500,
+      "source_sha256": "4883ccb914c8d81af44b3f048a862c63521834bde2c597f3240e2c84ccea1e21",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 9,
+      "accepted": [],
+      "prior_mask_sha256": "0a152dfad7bf18ef09cf9d67e87f8fc63ec183c2f75a2f22dfdaba9128e3f7c8",
+      "mask_sha256": "0a152dfad7bf18ef09cf9d67e87f8fc63ec183c2f75a2f22dfdaba9128e3f7c8",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_623872422RAD_F0763002FHAZ00206M1",
+      "sol": 2550,
+      "source_sha256": "63f4141f240991ce7b18b1c88bdcdb3dde1fa530e936e14a963333a957c473ec",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 9,
+      "accepted": [],
+      "prior_mask_sha256": "e895373e19aadf27c6cab938b88f2625d788baec1aeaf9cb3addcbca4e2352bd",
+      "mask_sha256": "e895373e19aadf27c6cab938b88f2625d788baec1aeaf9cb3addcbca4e2352bd",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_628304207RAD_F0772786FHAZ00341M1",
+      "sol": 2600,
+      "source_sha256": "f179cd069b8e6f69224121da5b77abe07969c7dc144d73f5fa739b0779ab2874",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [
+        {
+          "proposal_id": "26.0",
+          "interior_ellipse_512": [
+            397,
+            202,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            762,
+            372,
+            826,
+            436
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "b31d49a971d8a5f726c39d3167384edfd406b533acac1710187526db982a1dbe",
+      "mask_sha256": "08c2515419ed998b572e5c7f5063f065619122c1dd95699e8ac81ee67bed85a1",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_632565162RAD_F0781652FHAZ00341M1",
+      "sol": 2648,
+      "source_sha256": "0796b50a4526028f3013eb2907f29ab77d56b81b29d980981321589bc57828a9",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [
+        {
+          "proposal_id": "27.0",
+          "interior_ellipse_512": [
+            201,
+            346,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            370,
+            660,
+            434,
+            724
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "8802b4aaac4ba982526ac6d1151171d6c1b921f44800d36b2884e5051e5bcf3e",
+      "mask_sha256": "19c7f81181e79e04b489289dc44c73a513a1c24da78d406865ed29c2e49b599f",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_637188095RAD_F0790474FHAZ00206M1",
+      "sol": 2700,
+      "source_sha256": "69e4f173da40838d12bf108c391236552a0aee93fa44927008fe5a188d37b22e",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "c91955698f1d2061748dc24ab376a5c6aaff5b9fcd3990b3238ba705e29d1acd",
+      "mask_sha256": "c91955698f1d2061748dc24ab376a5c6aaff5b9fcd3990b3238ba705e29d1acd",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_641618384RAD_F0792008FHAZ00206M1",
+      "sol": 2750,
+      "source_sha256": "a52c91baefc0e85edeb15234a4e88879846fa973449268a440a09c69e97017fe",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 3,
+      "accepted": [],
+      "prior_mask_sha256": "4303bff2a99fbf9a6b12b2d57416931ad6f20478bfb0c4d5133cfae0f53bdfca",
+      "mask_sha256": "4303bff2a99fbf9a6b12b2d57416931ad6f20478bfb0c4d5133cfae0f53bdfca",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_646065742RAD_F0810000FHAZ00302M1",
+      "sol": 2800,
+      "source_sha256": "a974e79b529a882d6aa77ba53fa34387b6c1eae9e4b719b904dcde4b9ee9677e",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 3,
+      "accepted": [
+        {
+          "proposal_id": "30.0",
+          "interior_ellipse_512": [
+            94,
+            310,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            156,
+            588,
+            220,
+            652
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "3380226776a5d0b9df0b9beeecef98bba05d2a19b85c74fe6d8cb6d0e11d44cf",
+      "mask_sha256": "c4bcdc2b9e398cade052d4bf06022a45d16f85705bdaf4ca623bda008ffebad9",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_650509660RAD_F0822176FHAZ00337M1",
+      "sol": 2850,
+      "source_sha256": "db9a19bd2e9c35befabeff084d6d46531d47bf6e7cf8cb62d9dca6ff2a5d46d2",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "6854ce6810aa04f59919476217bc0f0726b05afe64dfc4d334b1501030326654",
+      "mask_sha256": "6854ce6810aa04f59919476217bc0f0726b05afe64dfc4d334b1501030326654",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_654931291RAD_F0822176FHAZ00341M1",
+      "sol": 2900,
+      "source_sha256": "ae0489f0784c912f8512c50d7f37b0c131dfb178ae95937bc3692d63c7ee1a40",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [
+        {
+          "proposal_id": "32.5",
+          "interior_ellipse_512": [
+            240,
+            365,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            448,
+            698,
+            512,
+            762
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "be2e1dedfdda414fe973ff38cbd6ccec225595b173ce9351c6c7e4414820da2d",
+      "mask_sha256": "5ea7a0a2b90222ac611c7144da6f576ad795e485ba3618bdb85645d9e5832554",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_659373267RAD_F0832382FHAZ00206M1",
+      "sol": 2950,
+      "source_sha256": "99ce82404896cabcce6eae0a65d3c654864dac14bf19c92c8feef443521426f7",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 4,
+      "accepted": [
+        {
+          "proposal_id": "33.1",
+          "interior_ellipse_512": [
+            113,
+            294,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            194,
+            556,
+            258,
+            620
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "5395fb2873637020d80d4faf9d917db411d53c76db3a4c975fa7c85bab677646",
+      "mask_sha256": "310f15288a4877840a2c1b8d0cd5035371ae25901c564faaba8f8ea23939ec87",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_663824339RAD_F0850000FHAZ00302M1",
+      "sol": 3000,
+      "source_sha256": "48facb273ea9ca3ac981d6e21ceb83a4eee4175d7c434795af730936f7d2744d",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [],
+      "prior_mask_sha256": "5052877a36448adae2a94c1d51be11fbbf7fa3fa70ae20e3fde8467765d1692b",
+      "mask_sha256": "5052877a36448adae2a94c1d51be11fbbf7fa3fa70ae20e3fde8467765d1692b",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_668253306RAD_F0870696FHAZ00341M1",
+      "sol": 3050,
+      "source_sha256": "3f6ae53fdc4435d4bed89a757c44f44f55922b5a0d3ca97d39ede06f6902c1e1",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [
+        {
+          "proposal_id": "35.1",
+          "interior_ellipse_512": [
+            251,
+            307,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            470,
+            582,
+            534,
+            646
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "35.3",
+          "interior_ellipse_512": [
+            283,
+            295,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            534,
+            558,
+            598,
+            622
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "2ae3c4bed390518d1d05e89b5b1a61d92aa5945c05394107b69ee21f461e29e1",
+      "mask_sha256": "39cdfa3192207a4adc4fac94611db1c7da73e2862bc745c81942ffaca47e195d",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_672691599RAD_F0872578FHAZ00341M1",
+      "sol": 3100,
+      "source_sha256": "e9609498dd5c1e69e90d3b1cf6c382f3f6db07255e35825a7312aa4957c69b9a",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [
+        {
+          "proposal_id": "36.0",
+          "interior_ellipse_512": [
+            210,
+            356,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            388,
+            680,
+            452,
+            744
+          ],
+          "reviewed_core_pixels": 89
+        }
+      ],
+      "prior_mask_sha256": "e1902f3ba4a5d49b9529240df0be07f060182f3467369c2737a72debc49c747a",
+      "mask_sha256": "acd929a99622b72a206d0ddea58baf090c0d106c2e6598f52fd900fa317f87c5",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_677128842RAD_F0890000FHAZ00341M1",
+      "sol": 3150,
+      "source_sha256": "e46bac7bf73cfd501f47ac47a3dcec06268f3ba4747b9254c8cdc4a5beba6887",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 4,
+      "accepted": [],
+      "prior_mask_sha256": "db965696a61b3830f24a5f8077ce7dcafe50e0f6763005c5f6ee6ff7cd07e6ce",
+      "mask_sha256": "25ff54a634c3208871f7dc0aad7ea3d074c8527822fb897d7c3aab8a291e913a",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_681571205RAD_F0900892FHAZ00341M1",
+      "sol": 3200,
+      "source_sha256": "a746478d39c8dbb97a415a0f27acf995a7e24e74631fbb2bef57ad84f30ba911",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "53f6a31be562c08a8b25c474f38bebd369777523ceb3117e22316fb7ac11a385",
+      "mask_sha256": "53f6a31be562c08a8b25c474f38bebd369777523ceb3117e22316fb7ac11a385",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_686009209RAD_F0910516FHAZ00341M1",
+      "sol": 3250,
+      "source_sha256": "fbbc3beca10a2638102e3525f015d5c3799fc0fe580016950bdf99744d68b8a9",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 10,
+      "accepted": [
+        {
+          "proposal_id": "39.0",
+          "interior_ellipse_512": [
+            250,
+            362,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            468,
+            692,
+            532,
+            756
+          ],
+          "reviewed_core_pixels": 61
+        },
+        {
+          "proposal_id": "39.1",
+          "interior_ellipse_512": [
+            256,
+            348,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            480,
+            664,
+            544,
+            728
+          ],
+          "reviewed_core_pixels": 61
+        },
+        {
+          "proposal_id": "39.2",
+          "interior_ellipse_512": [
+            284,
+            352,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            536,
+            672,
+            600,
+            736
+          ],
+          "reviewed_core_pixels": 61
+        },
+        {
+          "proposal_id": "39.8",
+          "interior_ellipse_512": [
+            312,
+            425,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            592,
+            818,
+            656,
+            882
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "d386a3db6edada4abdcba716374b00a0cda0b14aa7cd8ad534c1af265e64c415",
+      "mask_sha256": "799abea67be49f6a277c2c4accde71bafda4375039c102f19455faab2e75a9dd",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_690444976RAD_F0912132FHAZ00341M1",
+      "sol": 3300,
+      "source_sha256": "13956879be8620a3b38591f5244c52a6595d132e17df9e150b4b3bfec9cea966",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [
+        {
+          "proposal_id": "40.0",
+          "interior_ellipse_512": [
+            284,
+            106,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            536,
+            180,
+            600,
+            244
+          ],
+          "reviewed_core_pixels": 65
+        }
+      ],
+      "prior_mask_sha256": "303d81cd0aebfc7c31c5840cc912e684fa08d8cb7132c0302e98b897db81681f",
+      "mask_sha256": "c6af6d5c202c10031150e101f14d15c510c14392b6393924824e9d9ce4c9e1af",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_694791632RAD_F0921656FHAZ00200M1",
+      "sol": 3349,
+      "source_sha256": "46733010447d33e1f6c67f983b78beba1adcde4d01f8bd753a91186c732f480b",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [
+        {
+          "proposal_id": "41.2",
+          "interior_ellipse_512": [
+            268,
+            292,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            504,
+            552,
+            568,
+            616
+          ],
+          "reviewed_core_pixels": 89
+        }
+      ],
+      "prior_mask_sha256": "c6cfd9ba1830a5b6fb8ed6815af4425eaf6b4e37c729bb33939ed536646b5f97",
+      "mask_sha256": "45b36282e01adf12ba740844c9e312e4b6cff7a285b5715da3f4e796f5b28d39",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+      "sol": 3400,
+      "source_sha256": "94b45446b0f139b2bd6f8a6729f9300cb6c8ae35cf9da12c4519033df1537bd5",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [
+        {
+          "proposal_id": "42.1",
+          "interior_ellipse_512": [
+            436,
+            291,
+            4,
+            3
+          ],
+          "uncertain_roi_native": [
+            840,
+            550,
+            904,
+            614
+          ],
+          "reviewed_core_pixels": 177
+        },
+        {
+          "proposal_id": "42.2",
+          "interior_ellipse_512": [
+            453,
+            315,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            874,
+            598,
+            938,
+            662
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "42.6",
+          "interior_ellipse_512": [
+            273,
+            159,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            514,
+            286,
+            578,
+            350
+          ],
+          "reviewed_core_pixels": 89
+        }
+      ],
+      "prior_mask_sha256": "b397d7ecfc780f5a3f18d69355300c8ab373eb418e09b3f4fb7bb8b93e45722d",
+      "mask_sha256": "29f4ec3114670d13b6f021bc34ee9f74d4d25aa2c18bed652efd8f7ccd163122",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_703677551RAD_F0940964FHAZ00200M1",
+      "sol": 3449,
+      "source_sha256": "f785357b66230f1a054d652739484cfaf214a5f56b2041a41602720e3499172e",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 4,
+      "accepted": [],
+      "prior_mask_sha256": "efbfe8afecf288b50acdfa4940fe29cce9f705e2ecb6750016dd73c4678e16d1",
+      "mask_sha256": "efbfe8afecf288b50acdfa4940fe29cce9f705e2ecb6750016dd73c4678e16d1",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_708484267RAD_F0952934FHAZ00337M1",
+      "sol": 3503,
+      "source_sha256": "ea25c17737fb3e20bb52c7c3158f76263ce263d748238a9dfe4d85e4b89068af",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "9cd32b0173e832609f95771345251cd1a38c98fc267af0acaf98f3358c1a873c",
+      "mask_sha256": "9cd32b0173e832609f95771345251cd1a38c98fc267af0acaf98f3358c1a873c",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_712554377RAD_F0961844FHAZ00302M1",
+      "sol": 3549,
+      "source_sha256": "652f05229db00121e456748fefbe778b1b52a917abdc7786b9df9bd6cadaa648",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 9,
+      "accepted": [
+        {
+          "proposal_id": "45.0",
+          "interior_ellipse_512": [
+            294,
+            438,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            556,
+            844,
+            620,
+            908
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "45.1",
+          "interior_ellipse_512": [
+            305,
+            405,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            578,
+            778,
+            642,
+            842
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "823646b0390264b7d3e1d4cafa3c0d8ee9b9b8775483fc2dd9ab06f8aaf3b467",
+      "mask_sha256": "14d67b03a4fff01dd416f2dd7014c4e77572d8b0d5922440a96406ff55c9ccae",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+      "sol": 3601,
+      "source_sha256": "34676743bc2f82099cbca755746bf0258c4bc0177c67d1b27aa6938a6fa2e946",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "ce1517cec9f614308577bc8e2bd062a79c37ff358c657461f0f16da34ee3a386",
+      "mask_sha256": "ce1517cec9f614308577bc8e2bd062a79c37ff358c657461f0f16da34ee3a386",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_721532936RAD_F0980908FHAZ00200M1",
+      "sol": 3650,
+      "source_sha256": "842893863ea4a60d4df9e2d37efffd256906bbb145e77d4b283eb204b5ab0dc3",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [
+        {
+          "proposal_id": "47.4",
+          "interior_ellipse_512": [
+            333,
+            366,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            634,
+            700,
+            698,
+            764
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "12c7b283875bee914539ac493ccb8848bc714efc76a32c9a2fa688223769b95d",
+      "mask_sha256": "4b57b639de60514c40a54f4abcde62b8482936d0579bdf01c40ae3ec6fa9d490",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_725950544RAD_F0990188FHAZ00200M1",
+      "sol": 3700,
+      "source_sha256": "1427082e8a6c8fbcd7cf3c39d828d95625752a3816395504e321cc09cdfc870b",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "ac4379a9efd5088ce8981910abbdcaa3e12b3dd3a0bcd9d78b3ea054ed972dd5",
+      "mask_sha256": "ac4379a9efd5088ce8981910abbdcaa3e12b3dd3a0bcd9d78b3ea054ed972dd5",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_730401928RAD_F1001084FHAZ00200M1",
+      "sol": 3750,
+      "source_sha256": "85f41c58c3aa996726ebc79843de98335bb8574be0ae19834e9b554da4e90622",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [
+        {
+          "proposal_id": "49.4",
+          "interior_ellipse_512": [
+            224,
+            368,
+            1,
+            1
+          ],
+          "uncertain_roi_native": [
+            416,
+            704,
+            480,
+            768
+          ],
+          "reviewed_core_pixels": 21
+        }
+      ],
+      "prior_mask_sha256": "517eb1fc3298906f7f4cc841708b0cd31d0d29c33337d6b5ffaa860cb668b2ed",
+      "mask_sha256": "2e0c6663dab572b7a6c7c4d618ecabf184fa896fd1b5525fe816a47a63ed1397",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_734843011RAD_F1002712FHAZ00200M1",
+      "sol": 3800,
+      "source_sha256": "fdaab8cd21f81af1b980997108fb47de1e0620e1ab5edb1e9233bc4773f37842",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [
+        {
+          "proposal_id": "50.1",
+          "interior_ellipse_512": [
+            294,
+            163,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            556,
+            294,
+            620,
+            358
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "2c2072bb9f37f17e333255869ff828ff79f4c6a3336f21392416852b0a836785",
+      "mask_sha256": "afc71ba7954b0535cb0e5bfa67bd0091b87d9774219732ce855a05081ba872fd",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_739189237RAD_F1011366FHAZ00302M1",
+      "sol": 3849,
+      "source_sha256": "92871e2fa5b86cd079211919b7daf42a1fb7f9a0f2f88c60e85022e753c4bea2",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [
+        {
+          "proposal_id": "51.1",
+          "interior_ellipse_512": [
+            279,
+            179,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            526,
+            326,
+            590,
+            390
+          ],
+          "reviewed_core_pixels": 89
+        },
+        {
+          "proposal_id": "51.2",
+          "interior_ellipse_512": [
+            162,
+            272,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            292,
+            512,
+            356,
+            576
+          ],
+          "reviewed_core_pixels": 89
+        }
+      ],
+      "prior_mask_sha256": "66bf522df7c9f15443926801a784957e3262fefbe29a68f48c3ff83b94b47c12",
+      "mask_sha256": "9d95d6bed83b50d9e4f38509079ccfe0de7ac389613a17a6fd4eb672365b55ad",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_743727178RAD_F1022428FHAZ00200M1",
+      "sol": 3900,
+      "source_sha256": "cea4c1774686f647cf5b736ca2528688f2181638300d5d8e7f48705d67a8ae9a",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [
+        {
+          "proposal_id": "52.2",
+          "interior_ellipse_512": [
+            358,
+            436,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            684,
+            840,
+            748,
+            904
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "98aeb5b0913924a84aa62a2d42c1fada774362d4c86416df05e52a695034e79c",
+      "mask_sha256": "07305dafb3ec96f97e18046aaed33bda6b8be6dc6491540ac0d854a983710adc",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_748238322RAD_F1040856FHAZ00302M1",
+      "sol": 3951,
+      "source_sha256": "d8f800a0288ec90f62efcf4fabcb1dbfbfc77d353be5d5d97dc3fed4a349f5b5",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [],
+      "prior_mask_sha256": "e99cbc0b635c8fbf9c05d63e84f88ed6a42951f1f6a8f4ca7da850087ab45324",
+      "mask_sha256": "e99cbc0b635c8fbf9c05d63e84f88ed6a42951f1f6a8f4ca7da850087ab45324",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+      "sol": 4019,
+      "source_sha256": "a49e78925ea848ecd390954869d3a10dc8d1ec6cb5765ece69d701c738569560",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "7c6223abfa8f5f1aab6a89a148955264ca4fabbf6d78f2ca8788bd2182bbaf92",
+      "mask_sha256": "7c6223abfa8f5f1aab6a89a148955264ca4fabbf6d78f2ca8788bd2182bbaf92",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_757303129RAD_F1051108FHAZ00200M1",
+      "sol": 4053,
+      "source_sha256": "2127ef4fd1a5d041df5c45facc1d567540080945c8a6e6c475b80c7920b15f94",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [
+        {
+          "proposal_id": "55.3",
+          "interior_ellipse_512": [
+            194,
+            390,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            356,
+            748,
+            420,
+            812
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "cb15a737200517b7dd0cab2ec03a60129bc7618c3705cd2a8b17619b1a0b8961",
+      "mask_sha256": "4796234014257d9d4ff80f03d061aa47225c3194d12e9fb754f8a4dc35ce8401",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+      "sol": 4080,
+      "source_sha256": "ac8d7a6f79f887a9fde739d1e68b094f0d693fd28c4e2fd2ab89956e3570190c",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [
+        {
+          "proposal_id": "56.4",
+          "interior_ellipse_512": [
+            187,
+            354,
+            1,
+            2
+          ],
+          "uncertain_roi_native": [
+            342,
+            676,
+            406,
+            740
+          ],
+          "reviewed_core_pixels": 33
+        }
+      ],
+      "prior_mask_sha256": "fe34afe5e547feb931280721dd76e3fce478b28fa32f90943ae929c6798c01d8",
+      "mask_sha256": "750b8713bd361b7def8eeac283a637de2f086bf1ce2448eed6da8157557aff05",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_761563839RAD_F1060438FHAZ00200M1",
+      "sol": 4101,
+      "source_sha256": "11484b37493dd888087eb4a1ee4631c4311e8515dc38b0ae93fc56caf38af5f4",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "e199d19dc969b66fce05c6ec840389093b7bb88f18d48051d842d7b61e8ad862",
+      "mask_sha256": "e199d19dc969b66fce05c6ec840389093b7bb88f18d48051d842d7b61e8ad862",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+      "sol": 4151,
+      "source_sha256": "1dd10424f43cfca854a2bd4ebbeffd90baf62bb31d2a1802b862044c2562b6a3",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [
+        {
+          "proposal_id": "58.0",
+          "interior_ellipse_512": [
+            359,
+            305,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            686,
+            578,
+            750,
+            642
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "58.1",
+          "interior_ellipse_512": [
+            244,
+            453,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            456,
+            874,
+            520,
+            938
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "58.4",
+          "interior_ellipse_512": [
+            344,
+            282,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            656,
+            532,
+            720,
+            596
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "fb71a3555e0f288088403a1f4ee7458ec6ffddf6c1791d9d8d3d7f473cc610a5",
+      "mask_sha256": "1ff2a4d795164d32c47fed2e6b996cff807805cbc560c4a45b9dd71ba88b1f4f",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_768834697RAD_F1071140FHAZ00302M1",
+      "sol": 4183,
+      "source_sha256": "d3501148cb88c703485bbb5fb365405860da8e583eb94390352970749e6b1fcc",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 10,
+      "accepted": [],
+      "prior_mask_sha256": "e0243b83bc26415b99f0fd93c0f2dddc9888351932c96d2fd8bfb5d8402ef79b",
+      "mask_sha256": "e0243b83bc26415b99f0fd93c0f2dddc9888351932c96d2fd8bfb5d8402ef79b",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_770343556RAD_F1072484FHAZ00302M1",
+      "sol": 4200,
+      "source_sha256": "18a1b318104b8d11f8ad8bca4863ee93b6c2ed00cf0a4bfb96378fd5fcd1af78",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 10,
+      "accepted": [
+        {
+          "proposal_id": "60.8",
+          "interior_ellipse_512": [
+            354,
+            411,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            676,
+            790,
+            740,
+            854
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "5297d2fff771d0d0d67bc30374be02926330a1e1e33976ae44f20ac1a5fe3f49",
+      "mask_sha256": "1cfa33c2acdcae900c9ce727eaaaba849ea135d223c461cece28acdf197888df",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_772668569RAD_F1072496FHAZ00337M1",
+      "sol": 4226,
+      "source_sha256": "8236757ac82d9d6b268626b6f1c4969ef41d4b9b71ad7188d57fcc36594b77ed",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 4,
+      "accepted": [],
+      "prior_mask_sha256": "d8558d2bc1d193f11cf7286d7b02fe5e618e991ccb8a33dd4dd360660762364b",
+      "mask_sha256": "d8558d2bc1d193f11cf7286d7b02fe5e618e991ccb8a33dd4dd360660762364b",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_774800218RAD_F1080222FHAZ00200M1",
+      "sol": 4250,
+      "source_sha256": "90ceed930f1e43f3d830fca8e307aca8ce76b16f6e1530ab619d5663d8b05251",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "d7e0cf0e3fcd82be2123ac9b519f4f519ef3c928eb7ed081f5a79cd49cc10ad6",
+      "mask_sha256": "d7e0cf0e3fcd82be2123ac9b519f4f519ef3c928eb7ed081f5a79cd49cc10ad6",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_777466896RAD_F1080792FHAZ00200M1",
+      "sol": 4280,
+      "source_sha256": "e3da59c529f131279976414ec4824ce79757a8765de630e9170c81586f270c5f",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 3,
+      "accepted": [],
+      "prior_mask_sha256": "b575510e92f3226f5661a4ed588da3c561e194106586fc8b2c6cbbd682bcfdc6",
+      "mask_sha256": "b575510e92f3226f5661a4ed588da3c561e194106586fc8b2c6cbbd682bcfdc6",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_779233842RAD_F1082162FHAZ00200M1",
+      "sol": 4300,
+      "source_sha256": "a9483ca8651643a993e43d3440645635974bfde023e080f3cc8eba9c301ba1e3",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [],
+      "prior_mask_sha256": "2c3681aebc44269081b34bdb566ef26d5c725fe31017b1517a0eefd461e5b0e8",
+      "mask_sha256": "2c3681aebc44269081b34bdb566ef26d5c725fe31017b1517a0eefd461e5b0e8",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_781455837RAD_F1091290FHAZ00200M1",
+      "sol": 4325,
+      "source_sha256": "a9217d129c74b0322eacf94b283e2f7c4396647d3d72ba44f171f3a6e59958d6",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "c24350177e113ee7d5873daf98ecdc08f436d956276d58ca14c6ef60a1fe9942",
+      "mask_sha256": "c24350177e113ee7d5873daf98ecdc08f436d956276d58ca14c6ef60a1fe9942",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+      "sol": 4339,
+      "source_sha256": "0ea74b03825205fe8c21eb43d22c2868764621b692104c8f49f4e0c11b1c18d2",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [],
+      "prior_mask_sha256": "79135c68efa3933fbab03c36b2d28f8d6b15254cd7acd6d518d6d1a8b119acf6",
+      "mask_sha256": "79135c68efa3933fbab03c36b2d28f8d6b15254cd7acd6d518d6d1a8b119acf6",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_783658054RAD_F1100840FHAZ00200M1",
+      "sol": 4350,
+      "source_sha256": "c02e25285c504f5048ca138bee885294bb2756fe931a22085021326aedc94f57",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "d661a8a9009c3f8ebbf6443742b52d0ea0e5a7313c2c864c586a1216cd2d120e",
+      "mask_sha256": "ca99d00e2b6fe266636b9e78807b43aaead98ad81620a7fb5682bb306ca05001",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_787925375RAD_F1120534FHAZ00302M1",
+      "sol": 4398,
+      "source_sha256": "307b369dd576959bc90894a670bad10effc0b5a1c649f8a33efa075194701d2c",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [
+        {
+          "proposal_id": "68.0",
+          "interior_ellipse_512": [
+            98,
+            235,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            164,
+            438,
+            228,
+            502
+          ],
+          "reviewed_core_pixels": 61
+        },
+        {
+          "proposal_id": "68.1",
+          "interior_ellipse_512": [
+            161,
+            208,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            290,
+            384,
+            354,
+            448
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "0a7f04171bbfed27c44c7cff47c73195d4dcec4da738602a5a2d0b298863a967",
+      "mask_sha256": "69660fb9d5e456a2e8438c70dee59e9808df5bfff38b024b448dbd325351ddd8",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_789536250RAD_F1120798FHAZ00200M1",
+      "sol": 4416,
+      "source_sha256": "1666fc2f3c83dff9c01881f557bda88c8e3cefdb9005daaa4095fce4756298dc",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [],
+      "prior_mask_sha256": "78f4828297f5a634009f397bbe1028300927426af7f932a74a852b1e0dc37922",
+      "mask_sha256": "78f4828297f5a634009f397bbe1028300927426af7f932a74a852b1e0dc37922",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_790313338RAD_F1121014FHAZ00200M1",
+      "sol": 4425,
+      "source_sha256": "87e64ce33b4ff0cf2f9ca20ad6ef7d5b2c5458fbc75ec8ffdbb0c90c222b00b2",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "4072455492275edce01b462d5dc38260886d98390ce7aee46e342cd64dbdaa48",
+      "mask_sha256": "4072455492275edce01b462d5dc38260886d98390ce7aee46e342cd64dbdaa48",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_792547535RAD_F1130894FHAZ00302M1",
+      "sol": 4450,
+      "source_sha256": "17dc3378a8a19048ffbc902c88ccfa22df05d40874c30eae49051ddd87ed2401",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 11,
+      "accepted": [],
+      "prior_mask_sha256": "68bedba45dff948a8ade5568b70c553784d03632df6b85a74646695d1a6f9aec",
+      "mask_sha256": "893db11825366488b92c0a8f3c28faf28abda1102b6b7af34fb26472819fe165",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+      "sol": 4480,
+      "source_sha256": "a0a3fb54884627922c79f5ab4381645b0eb4816ab4cae77bb8c135551c61878b",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 10,
+      "accepted": [],
+      "prior_mask_sha256": "62d47e74768e247a8f16bc5a2c214cd0504cef18d302df7e78e2d69736d94861",
+      "mask_sha256": "62d47e74768e247a8f16bc5a2c214cd0504cef18d302df7e78e2d69736d94861",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_796969887RAD_F1142292FHAZ00200M1",
+      "sol": 4500,
+      "source_sha256": "fefb63a8a830bc1a8087f1791ec61e44fa0105036272b66a0150983ff3e2cded",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [
+        {
+          "proposal_id": "73.7",
+          "interior_ellipse_512": [
+            377,
+            245,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            722,
+            458,
+            786,
+            522
+          ],
+          "reviewed_core_pixels": 129
+        }
+      ],
+      "prior_mask_sha256": "8e51b18d36bc24571673a8140e5a87e1d57d5054d785e9d56c6b35189e77fc38",
+      "mask_sha256": "5e02fd860605269b0782013a9c669ca7d9b2d70321e4ad1dd957a1d607ea336f",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_799211234RAD_F1151770FHAZ00200M1",
+      "sol": 4525,
+      "source_sha256": "1509646cb7fdbeea4ef5bc0c0c1a79a7a4c55d3c9cd65a66ca6512203b1d9861",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 7,
+      "accepted": [
+        {
+          "proposal_id": "74.4",
+          "interior_ellipse_512": [
+            280,
+            430,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            528,
+            828,
+            592,
+            892
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "54a1317c2882aaa8d7ab70d0772bbb2a3b89f86dc7ad18f2c5d9bbf151a048f9",
+      "mask_sha256": "e7a23ade8104266514b97713ce36f3bde4c171b562dc321eae91f4eba33396ad",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_801429831RAD_F1161260FHAZ00200M1",
+      "sol": 4550,
+      "source_sha256": "eb69bbc3f8710d3ea54464cfb9d6ca94ea246c0e34a6d88cababb83363e13eb9",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 9,
+      "accepted": [
+        {
+          "proposal_id": "75.1",
+          "interior_ellipse_512": [
+            275,
+            353,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            518,
+            674,
+            582,
+            738
+          ],
+          "reviewed_core_pixels": 61
+        },
+        {
+          "proposal_id": "75.6",
+          "interior_ellipse_512": [
+            183,
+            316,
+            2,
+            2
+          ],
+          "uncertain_roi_native": [
+            334,
+            600,
+            398,
+            664
+          ],
+          "reviewed_core_pixels": 61
+        }
+      ],
+      "prior_mask_sha256": "6fa2ce4837d2bfb51dbf8c97a4e8a4638320f22fee3b7b2a0a63d315ecd6bbd5",
+      "mask_sha256": "53d7c664f197a532de359cd1a330e1d255aa0d2f77c9cb5efe0dbfe3a55460fa",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+      "sol": 4584,
+      "source_sha256": "f7e0ab63b2bff37b859d323b3e06eb40d63c07d5206dd153bce7cb1241ce9a44",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 6,
+      "accepted": [],
+      "prior_mask_sha256": "0ef31eaff70fef23284fe4cacb994b0d1f27fe0de53a171a607ee975979e19bd",
+      "mask_sha256": "0ef31eaff70fef23284fe4cacb994b0d1f27fe0de53a171a607ee975979e19bd",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_805859469RAD_F1172166FHAZ00200M1",
+      "sol": 4600,
+      "source_sha256": "7ada8c9b199840949749fdfc98df3639698303c3cf27403b58cef702703d0e72",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 1,
+      "accepted": [
+        {
+          "proposal_id": "77.0",
+          "interior_ellipse_512": [
+            343,
+            307,
+            2,
+            1
+          ],
+          "uncertain_roi_native": [
+            654,
+            582,
+            718,
+            646
+          ],
+          "reviewed_core_pixels": 33
+        }
+      ],
+      "prior_mask_sha256": "481dcf936ce52dc5e8526027370c26895b2b92c149ecfdaf050b97dc93755605",
+      "mask_sha256": "4abec8495b323dc671539b258ed80881b496f408666a36807ddd3fcd35908355",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_808083489RAD_F1180762FHAZ00302M1",
+      "sol": 4625,
+      "source_sha256": "724fd6827fa196b90137b04e17e94381355d4f822ac36e02665c7bcd2430e632",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [],
+      "prior_mask_sha256": "9db53a3cb9df12d7148fff2f7e75b8b1da49cb377bcbf72a6caac48f1beea700",
+      "mask_sha256": "9db53a3cb9df12d7148fff2f7e75b8b1da49cb377bcbf72a6caac48f1beea700",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_810298119RAD_F1182304FHAZ00302M1",
+      "sol": 4650,
+      "source_sha256": "bcefe4dc23129e369f12b4cda425915bb71151f73b802bc93a11625f51a55bb3",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 5,
+      "accepted": [],
+      "prior_mask_sha256": "bdf6fe9fffb74f139b125c7d30571a750a08025d87e507c7250191d0fa02d33d",
+      "mask_sha256": "bdf6fe9fffb74f139b125c7d30571a750a08025d87e507c7250191d0fa02d33d",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_813313241RAD_F1191554FHAZ00302M1",
+      "sol": 4684,
+      "source_sha256": "7e422e06b81acf9cef03fb3e3154612cfd494570ee53dd1c8ba9e1d315680d53",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 10,
+      "accepted": [
+        {
+          "proposal_id": "80.0",
+          "interior_ellipse_512": [
+            271,
+            277,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            510,
+            522,
+            574,
+            586
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "80.2",
+          "interior_ellipse_512": [
+            289,
+            347,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            546,
+            662,
+            610,
+            726
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "80.6",
+          "interior_ellipse_512": [
+            379,
+            225,
+            3,
+            3
+          ],
+          "uncertain_roi_native": [
+            726,
+            418,
+            790,
+            482
+          ],
+          "reviewed_core_pixels": 129
+        },
+        {
+          "proposal_id": "80.9",
+          "interior_ellipse_512": [
+            208,
+            236,
+            3,
+            2
+          ],
+          "uncertain_roi_native": [
+            384,
+            440,
+            448,
+            504
+          ],
+          "reviewed_core_pixels": 89
+        }
+      ],
+      "prior_mask_sha256": "c70787b17bf8b7a3ee3f63b10fe308a0b86af66fa1e333f07d66e90599987feb",
+      "mask_sha256": "c590008df05819d6a667542ffa893a9eb4091a6b4493d79af0c9b38b1400b08f",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_814657650RAD_F1191722FHAZ00337M1",
+      "sol": 4699,
+      "source_sha256": "67f4886d09802053f9418a1f7181fce996839e7ce5ff75825821cd6ed31e11c0",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 0,
+      "accepted": [],
+      "prior_mask_sha256": "95c1e2e2ffcb4f7b70838fe952a836ec67d9bb0988c1d1b5ff950db1a6aa59fe",
+      "mask_sha256": "95c1e2e2ffcb4f7b70838fe952a836ec67d9bb0988c1d1b5ff950db1a6aa59fe",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_816964361RAD_F1200082FHAZ00337M1",
+      "sol": 4725,
+      "source_sha256": "c48f9dafd4f02aa7b48ed0e90294fbc4672348000ba53db5f88da4fb0d1e9499",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 4,
+      "accepted": [],
+      "prior_mask_sha256": "3c1950961b67ce9f4de71374d5a2c86ccab4cd1487a70a5976a6cef209dff105",
+      "mask_sha256": "3c1950961b67ce9f4de71374d5a2c86ccab4cd1487a70a5976a6cef209dff105",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_819176065RAD_F1200346FHAZ00200M1",
+      "sol": 4750,
+      "source_sha256": "7ee904f66849b87e3ff5e2d30d9b6373e66dd918fc5f62a22ff3542e81ef6021",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [],
+      "prior_mask_sha256": "7e3ca240fdddc13771e0b60639cb997fd5053f3c4c28ed877c9bffc87dbfa882",
+      "mask_sha256": "7e3ca240fdddc13771e0b60639cb997fd5053f3c4c28ed877c9bffc87dbfa882",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_822183562RAD_F1200538FHAZ00401M1",
+      "sol": 4784,
+      "source_sha256": "1ee3da8bd9b13937bb82fb2b134a38447296008f2d1e6e1843af6f52b1488e81",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 8,
+      "accepted": [],
+      "prior_mask_sha256": "94581df4e818fc56dbdbc941dba2397f3116797faec4561753912a1b49f02b4e",
+      "mask_sha256": "94581df4e818fc56dbdbc941dba2397f3116797faec4561753912a1b49f02b4e",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    },
+    {
+      "source_id": "FLB_823427543RAD_F1200574FHAZ00337M1",
+      "sol": 4798,
+      "source_sha256": "7c484e6d90659e5573ec90433cb9a6bcef2b7b0c367c8eb4cb68584553b1f7c6",
+      "reviewed_full_source": true,
+      "native_crop_qa_completed": true,
+      "initial_proposals": 9,
+      "accepted": [
+        {
+          "proposal_id": "85.5",
+          "interior_ellipse_512": [
+            313,
+            329,
+            1,
+            2
+          ],
+          "uncertain_roi_native": [
+            594,
+            626,
+            658,
+            690
+          ],
+          "reviewed_core_pixels": 33
+        }
+      ],
+      "prior_mask_sha256": "aeb989bd949b5f856f7e07bd6d62ea6bd926a4cdf3e2682a8382c3e26481b9ea",
+      "mask_sha256": "24de953254b71d7a95f2dfafabd608f96fa22fd6bfba96d55f7b41d579efd663",
+      "original_large_obstacle_hardware_sky_masks_unchanged": true
+    }
+  ],
+  "manifest_sha256": "fbc16e3d3a19f9c7caecf9b9ff82ad022c512680a63cdb0ca6bc6662c44f4e23",
+  "review_sha256": "a58fc696c3961ce1089c109eaf19443d47c66256b3b773f146501f48656aff69",
+  "native_qa_sha256": "dc7c5910451ba2eef091edc4cd88208e13c44184ced81bb7812dcbe2ac8167e2",
+  "protocol_sha256": "588d78158c8527ac032024f58e434d2693171fba8dabc17d980efb4bcf5721b2"
+}

@@ -1,0 +1,38 @@
+{
+  "model_sha256": "bc5288181846c067258c98f77c8d0957b8dc4aae4db2c0f16e35ad398adbc0cb",
+  "input_shape": [
+    1,
+    3,
+    512,
+    512
+  ],
+  "provider": "CPUExecutionProvider",
+  "peak_working_set_mib": 314.578125,
+  "platform": "win32",
+  "training_stack_imported": false,
+  "routes": [
+    {
+      "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+      "status": "no_path",
+      "elapsed_s": 1.3899881999968784,
+      "path_points": 0,
+      "ribbons": 0
+    },
+    {
+      "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+      "status": "partial",
+      "elapsed_s": 1.1841344999993453,
+      "path_points": 4,
+      "ribbons": 64
+    },
+    {
+      "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+      "status": "no_path",
+      "elapsed_s": 1.127502600007574,
+      "path_points": 0,
+      "ribbons": 0
+    }
+  ],
+  "warmed_scenario": null,
+  "note": "One process, regions and three real local routes. Host allocator and full warmed server caches can differ; this is not a Render memory guarantee."
+}

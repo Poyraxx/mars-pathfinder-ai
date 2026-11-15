@@ -1,0 +1,477 @@
+{
+  "version": 10,
+  "method": "Assistant visual inspection of original native64-pixel crops, nearest-neighbour enlarged with monotonic gamma only for viewing. Magenta ellipse is a proposed sparse interior, not an automatically accepted mask.",
+  "pages": [
+    {
+      "page": 0,
+      "accepted": [
+        "0.0",
+        "0.1",
+        "0.3",
+        "0.4",
+        "0.5",
+        "0.6",
+        "1.0",
+        "1.5",
+        "1.6",
+        "1.7",
+        "3.2",
+        "4.0",
+        "4.1",
+        "4.4"
+      ],
+      "manual_adjustments": {
+        "1.5": [
+          242,
+          355,
+          2,
+          2
+        ],
+        "1.6": [
+          204,
+          366,
+          2,
+          3
+        ],
+        "1.7": [
+          239,
+          420,
+          2,
+          2
+        ],
+        "4.0": [
+          97,
+          160,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 1,
+      "accepted": [
+        "4.6",
+        "4.8",
+        "4.13",
+        "6.5",
+        "8.0",
+        "8.1",
+        "8.2",
+        "8.4",
+        "8.6"
+      ],
+      "manual_adjustments": {
+        "6.0": [
+          122,
+          146,
+          2,
+          1
+        ],
+        "6.1": [
+          163,
+          132,
+          3,
+          1
+        ],
+        "6.2": [
+          227,
+          135,
+          2,
+          1
+        ],
+        "7.0": [
+          122,
+          147,
+          2,
+          1
+        ],
+        "7.1": [
+          163,
+          132,
+          3,
+          1
+        ],
+        "7.2": [
+          369,
+          172,
+          2,
+          1
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 2,
+      "accepted": [
+        "11.3",
+        "11.5",
+        "12.2",
+        "12.7",
+        "14.0"
+      ],
+      "manual_adjustments": {},
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 3,
+      "accepted": [
+        "15.1",
+        "16.4",
+        "20.0",
+        "20.1"
+      ],
+      "manual_adjustments": {
+        "18.3": [
+          398,
+          359,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 4,
+      "accepted": [],
+      "manual_adjustments": {
+        "24.4": [
+          327,
+          379,
+          2,
+          2
+        ],
+        "25.4": [
+          327,
+          379,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 5,
+      "accepted": [
+        "26.0",
+        "27.0",
+        "30.0",
+        "32.5"
+      ],
+      "manual_adjustments": {},
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 6,
+      "accepted": [
+        "33.1",
+        "35.1",
+        "35.3",
+        "36.0",
+        "39.0",
+        "39.1",
+        "39.2"
+      ],
+      "manual_adjustments": {
+        "33.1": [
+          113,
+          294,
+          2,
+          2
+        ],
+        "39.0": [
+          250,
+          362,
+          2,
+          2
+        ],
+        "39.1": [
+          256,
+          348,
+          2,
+          2
+        ],
+        "35.3": [
+          283,
+          295,
+          2,
+          2
+        ],
+        "39.2": [
+          284,
+          352,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 7,
+      "accepted": [
+        "39.8",
+        "40.0",
+        "41.2",
+        "42.1",
+        "42.2",
+        "42.4",
+        "42.6",
+        "45.0",
+        "45.1"
+      ],
+      "manual_adjustments": {
+        "39.8": [
+          312,
+          425,
+          2,
+          2
+        ],
+        "42.4": [
+          421,
+          195,
+          2,
+          1
+        ],
+        "43.1": [
+          345,
+          348,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 8,
+      "accepted": [
+        "47.4",
+        "49.4",
+        "50.1",
+        "51.1",
+        "51.2"
+      ],
+      "manual_adjustments": {
+        "49.4": [
+          224,
+          368,
+          1,
+          1
+        ],
+        "51.0": [
+          269,
+          172,
+          2,
+          1
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 9,
+      "accepted": [
+        "52.2",
+        "55.3",
+        "56.4",
+        "58.0"
+      ],
+      "manual_adjustments": {
+        "52.2": [
+          358,
+          436,
+          2,
+          2
+        ],
+        "56.1": [
+          334,
+          361,
+          2,
+          2
+        ],
+        "56.4": [
+          187,
+          354,
+          1,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 10,
+      "accepted": [
+        "58.1",
+        "58.4",
+        "60.8"
+      ],
+      "manual_adjustments": {
+        "58.6": [
+          270,
+          150,
+          2,
+          1
+        ],
+        "60.3": [
+          155,
+          298,
+          2,
+          2
+        ],
+        "60.4": [
+          173,
+          334,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 11,
+      "accepted": [
+        "68.0",
+        "68.1"
+      ],
+      "manual_adjustments": {
+        "68.0": [
+          98,
+          235,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 12,
+      "accepted": [
+        "73.7",
+        "74.4"
+      ],
+      "manual_adjustments": {
+        "72.3": [
+          337,
+          347,
+          2,
+          2
+        ],
+        "74.4": [
+          280,
+          430,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 13,
+      "accepted": [
+        "75.1",
+        "75.6",
+        "76.2",
+        "77.0",
+        "80.0",
+        "80.2",
+        "80.6",
+        "80.9"
+      ],
+      "manual_adjustments": {
+        "75.6": [
+          183,
+          316,
+          2,
+          2
+        ],
+        "77.0": [
+          343,
+          307,
+          2,
+          1
+        ],
+        "80.5": [
+          346,
+          301,
+          2,
+          2
+        ],
+        "75.1": [
+          275,
+          353,
+          2,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    },
+    {
+      "page": 14,
+      "accepted": [
+        "85.5"
+      ],
+      "manual_adjustments": {
+        "84.3": [
+          338,
+          370,
+          2,
+          2
+        ],
+        "85.2": [
+          331,
+          404,
+          2,
+          2
+        ],
+        "85.8": [
+          263,
+          281,
+          2,
+          2
+        ],
+        "85.5": [
+          313,
+          329,
+          1,
+          2
+        ]
+      },
+      "other_proposals": "Rejected: bare soil, flat/cracked continuous bedrock, shadow, boundary, redundant old obstacle, or visually indeterminate. Never turn these into small-rock positives."
+    }
+  ],
+  "final_native_qa": {
+    "all_accepted_recropped_and_visually_reviewed": true,
+    "removed_after_final_recrop": [
+      "11.9",
+      "16.8",
+      "18.3",
+      "24.4",
+      "25.4",
+      "38.1",
+      "43.1",
+      "51.0",
+      "56.1",
+      "58.6",
+      "59.6",
+      "6.0",
+      "6.1",
+      "6.2",
+      "6.3",
+      "6.4",
+      "60.3",
+      "60.4",
+      "64.4",
+      "64.5",
+      "7.0",
+      "7.1",
+      "7.2",
+      "72.3",
+      "72.6",
+      "80.5",
+      "84.3",
+      "85.0",
+      "85.2",
+      "85.4",
+      "85.8"
+    ],
+    "reason": "Boundary, shadow, tiny ambiguous gravel texture or continuous bedrock; conservative sparse interiors only. Original four-class masks are retained, not corrected from prediction outputs."
+  }
+}

@@ -1,0 +1,233 @@
+{
+  "original_manifest_sha256": "7873703c85787f5267b766e6aace047632909f506096c630e0f650f51ec10601",
+  "clean_manifest_sha256": "946a851fe0e587ab988f204a36a8ec11cc687c0fa1983347042a8467be1c194d",
+  "empty_entries": [
+    {
+      "source_id": "NLA_397586934EDR_F0010008AUT_04096M1",
+      "split": "test",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_426527815EDR_F0070136NCAM00250M1",
+      "split": "test",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_430779037EDR_F0140156NCAM00101M1",
+      "split": "validation",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_430779066EDR_F0140156NCAM00101M1",
+      "split": "validation",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_435329850EDR_F0200000NCAM00203M1",
+      "split": "validation",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_576555346EDR_F0691648NCAM00282M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLA_406558596EDR_F0050388NCAM00409M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_513430269EDR_F0540010NCAM00101M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_625836323EDR_F0771070NCAM00256M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLA_596190384EDR_F0730550NCAM00565M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_608424282EDR_F0751386NCAM00116M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLA_412507281EDR_F0060000NCAM05794M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_566414120EDR_F0671238NCAM00101M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_567238208EDR_F0671762NCAM07753M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_513430346EDR_F0540010NCAM00101M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_589260685EDR_F0721980NCAM00565M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_625836290EDR_F0771070NCAM00256M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_429283722EDR_F0120000NCAM00364M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_578063243EDR_F0692940NCAM00379M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_569627831EDR_F0672478NCAM00279M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_605858122EDR_F0750000NCAM00288M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_568662787EDR_F0672140NCAM00274M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_499672009EDR_F0501116NCAM00564M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_527296091EDR_F0572798NCAM00322M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_625835929EDR_F0771070NCAM00257M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_576555654EDR_F0691648NCAM00312M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_586767096EDR_F0721316NCAM00354M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_444990881EDR_F0260366NCAM00262M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_436483048EDR_F0211572NCAM00203M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLA_412507414EDR_F0060000NCAM05794M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_625479393EDR_F0770910NCAM00250M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_444632793EDR_F0260184NCAM00207M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_521872935EDR_F0552444NCAM00263M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_432748204EDR_F0160148NCAM00323M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRB_579833056EDR_F0701752CCAM01054M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NRA_597242983EDR_F0730722NCAM00354M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    },
+    {
+      "source_id": "NLB_608424359EDR_F0751386NCAM00116M1",
+      "split": "train",
+      "label_sha256": "5ed11e3dfe2f8a33a3cdd51e872a3db1a2fbbdab553aeea946ef9273a9f3e3f3"
+    }
+  ],
+  "excluded_training_ids": [
+    "NRB_576555346EDR_F0691648NCAM00282M1",
+    "NLA_406558596EDR_F0050388NCAM00409M1",
+    "NLB_513430269EDR_F0540010NCAM00101M1",
+    "NLB_625836323EDR_F0771070NCAM00256M1",
+    "NLA_596190384EDR_F0730550NCAM00565M1",
+    "NLB_608424282EDR_F0751386NCAM00116M1",
+    "NLA_412507281EDR_F0060000NCAM05794M1",
+    "NLB_566414120EDR_F0671238NCAM00101M1",
+    "NRB_567238208EDR_F0671762NCAM07753M1",
+    "NLB_513430346EDR_F0540010NCAM00101M1",
+    "NLB_589260685EDR_F0721980NCAM00565M1",
+    "NLB_625836290EDR_F0771070NCAM00256M1",
+    "NLB_429283722EDR_F0120000NCAM00364M1",
+    "NRB_578063243EDR_F0692940NCAM00379M1",
+    "NRB_569627831EDR_F0672478NCAM00279M1",
+    "NRB_605858122EDR_F0750000NCAM00288M1",
+    "NRB_568662787EDR_F0672140NCAM00274M1",
+    "NLB_499672009EDR_F0501116NCAM00564M1",
+    "NLB_527296091EDR_F0572798NCAM00322M1",
+    "NLB_625835929EDR_F0771070NCAM00257M1",
+    "NRB_576555654EDR_F0691648NCAM00312M1",
+    "NRB_586767096EDR_F0721316NCAM00354M1",
+    "NLB_444990881EDR_F0260366NCAM00262M1",
+    "NLB_436483048EDR_F0211572NCAM00203M1",
+    "NLA_412507414EDR_F0060000NCAM05794M1",
+    "NLB_625479393EDR_F0770910NCAM00250M1",
+    "NLB_444632793EDR_F0260184NCAM00207M1",
+    "NLB_521872935EDR_F0552444NCAM00263M1",
+    "NLB_432748204EDR_F0160148NCAM00323M1",
+    "NRB_579833056EDR_F0701752CCAM01054M1",
+    "NRA_597242983EDR_F0730722NCAM00354M1",
+    "NLB_608424359EDR_F0751386NCAM00116M1"
+  ],
+  "counts": {
+    "test": 400,
+    "validation": 400,
+    "train": 3784
+  },
+  "validation_and_test_membership_unchanged": true,
+  "all_original_images_and_labels_unchanged": true,
+  "does_not_relabel_publisher_taxonomy": true
+}

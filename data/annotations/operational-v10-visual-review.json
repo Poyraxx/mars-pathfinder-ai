@@ -1,0 +1,4756 @@
+{
+  "version": 10,
+  "coordinate_shape": [
+    512,
+    512
+  ],
+  "native_shape": [
+    1024,
+    1024
+  ],
+  "classes": {
+    "0": "ground",
+    "1": "substantial_obstacle_candidate",
+    "2": "rover_hardware",
+    "3": "sky_or_distant_unknown",
+    "4": "small_rock_appearance",
+    "255": "unreviewed_or_uncertain"
+  },
+  "annotation_method": "Visually placed conservative interior ellipses and explicit polygons on review sheets, followed by native-pixel crop QA; sparse interior supervision, not exact rock outlines or physical size measurements. No model predictions used to make labels.",
+  "source_manifest_sha256": "63d825618db27796f6959ac23044b242ee37c5836c59df7777b301210a90f125",
+  "scenes": [
+    {
+      "index": 0,
+      "source_id": "FLA_401492677RAD_F0042100FHAZ00103M1",
+      "sol": 45,
+      "source_sha256": "5b3a20a33925b9cccb9316b874194f37cc64a43362cfdd233bed94c1920fcbbb",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          248,
+          302,
+          4,
+          3
+        ],
+        [
+          288,
+          355,
+          3,
+          4
+        ],
+        [
+          184,
+          430,
+          4,
+          3
+        ],
+        [
+          158,
+          429,
+          3,
+          3
+        ],
+        [
+          188,
+          397,
+          3,
+          3
+        ],
+        [
+          211,
+          494,
+          3,
+          3
+        ],
+        [
+          332,
+          466,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Overexposed near Jake scene: only visible stone interiors in shadow; white saturated ground remains unchanged/unknown. No labels guessed in clipped highlights."
+    },
+    {
+      "index": 1,
+      "source_id": "FLA_401761250RAD_F0042644FHAZ00304M1",
+      "sol": 48,
+      "source_sha256": "36dc6eb5d36b73dfdf3b96f7d897a64a8f7e303c1ef590f69bd0ccf378703dbb",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          197,
+          275,
+          3,
+          3
+        ],
+        [
+          221,
+          247,
+          3,
+          3
+        ],
+        [
+          284,
+          261,
+          4,
+          3
+        ],
+        [
+          309,
+          237,
+          3,
+          3
+        ],
+        [
+          309,
+          319,
+          3,
+          3
+        ],
+        [
+          239,
+          355,
+          3,
+          4
+        ],
+        [
+          204,
+          366,
+          3,
+          4
+        ],
+        [
+          235,
+          420,
+          4,
+          4
+        ],
+        [
+          226,
+          457,
+          3,
+          3
+        ],
+        [
+          398,
+          378,
+          3,
+          3
+        ],
+        [
+          425,
+          398,
+          3,
+          3
+        ],
+        [
+          319,
+          481,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Scattered pebbles in exposed and shadowed ground; loose interiors separate from broad ground class."
+    },
+    {
+      "index": 2,
+      "source_id": "FLA_402284021RAD_F0043232FHAZ00202M1",
+      "sol": 54,
+      "source_sha256": "060ba19b2c9facbcbeb9157359e8f6cef3f44d4d3e57ee40baa7ca66459e1c39",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          171,
+          258,
+          3,
+          3
+        ],
+        [
+          299,
+          291,
+          3,
+          3
+        ],
+        [
+          376,
+          288,
+          3,
+          4
+        ],
+        [
+          369,
+          348,
+          3,
+          3
+        ],
+        [
+          170,
+          377,
+          3,
+          3
+        ],
+        [
+          126,
+          350,
+          3,
+          3
+        ],
+        [
+          302,
+          407,
+          3,
+          3
+        ],
+        [
+          352,
+          389,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Arm turret and wheels remain hardware. Broad flat bedrock and rover shadow are not automatically rock interiors."
+    },
+    {
+      "index": 3,
+      "source_id": "FLA_402378017RAD_F0043394FHAZ00304M1",
+      "sol": 55,
+      "source_sha256": "43737bbc9f472844008f2d23106c13751cb25e66e7849bd58a367cadc1c3dee4",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          155,
+          282,
+          3,
+          3
+        ],
+        [
+          153,
+          312,
+          3,
+          3
+        ],
+        [
+          225,
+          330,
+          3,
+          3
+        ],
+        [
+          161,
+          414,
+          3,
+          3
+        ],
+        [
+          188,
+          452,
+          3,
+          3
+        ],
+        [
+          201,
+          479,
+          3,
+          3
+        ],
+        [
+          308,
+          445,
+          3,
+          3
+        ],
+        [
+          321,
+          402,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Highly clipped ground: only discernible small stones in rover shadow. Track treads remain ground; no stone labels on wheels."
+    },
+    {
+      "index": 4,
+      "source_id": "FLA_402732930RAD_F0050036FHAZ00302M1",
+      "sol": 59,
+      "source_sha256": "d23958d98d5ebc38a208eee2d1eb3c44d64c4c53ca6dbe21c58e5353338c3668",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          95,
+          161,
+          4,
+          3
+        ],
+        [
+          211,
+          302,
+          4,
+          3
+        ],
+        [
+          205,
+          338,
+          3,
+          3
+        ],
+        [
+          271,
+          286,
+          3,
+          3
+        ],
+        [
+          302,
+          289,
+          3,
+          3
+        ],
+        [
+          325,
+          331,
+          3,
+          3
+        ],
+        [
+          357,
+          376,
+          3,
+          3
+        ],
+        [
+          375,
+          359,
+          3,
+          3
+        ],
+        [
+          374,
+          306,
+          3,
+          3
+        ],
+        [
+          308,
+          219,
+          3,
+          3
+        ],
+        [
+          404,
+          217,
+          3,
+          3
+        ],
+        [
+          405,
+          281,
+          3,
+          3
+        ],
+        [
+          276,
+          423,
+          4,
+          4
+        ],
+        [
+          299,
+          375,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Old scene contains abundant small angular stones; label detached interiors rather than an entire rubble field."
+    },
+    {
+      "index": 5,
+      "source_id": "FLA_402895937RAD_F0050104FHAZ00311M1",
+      "sol": 61,
+      "source_sha256": "9fce0d4390cbb4e0b1117ec521b05f304b9eda951de0c683c1563209481842aa",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          202,
+          318,
+          3,
+          3
+        ],
+        [
+          228,
+          402,
+          3,
+          3
+        ],
+        [
+          273,
+          350,
+          3,
+          3
+        ],
+        [
+          294,
+          450,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Strong saturation and shadow restrict reliable labels; no artificial dense completeness claim."
+    },
+    {
+      "index": 6,
+      "source_id": "FLA_404772660RAD_F0050104FHAZ00206M1",
+      "sol": 82,
+      "source_sha256": "1c6acf443f3e3afa1827c5634957b46c5cdc0529e5209a0107245b5ad9ffbc63",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          122,
+          143,
+          3,
+          2
+        ],
+        [
+          163,
+          128,
+          3,
+          2
+        ],
+        [
+          227,
+          132,
+          3,
+          2
+        ],
+        [
+          300,
+          165,
+          3,
+          2
+        ],
+        [
+          374,
+          169,
+          3,
+          2
+        ],
+        [
+          337,
+          420,
+          4,
+          4
+        ],
+        [
+          368,
+          454,
+          3,
+          3
+        ],
+        [
+          243,
+          291,
+          3,
+          3
+        ],
+        [
+          220,
+          292,
+          2,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Rocknest sample scoop pits are depressions, not obstacle rocks. Retain ground in scoop interiors and add only detached visible pebble/rock interiors."
+    },
+    {
+      "index": 7,
+      "source_id": "FLA_405746155RAD_F0050104FHAZ00206M1",
+      "sol": 93,
+      "source_sha256": "319d9614bab353dc0bc6f180b7ec3149c3c6fef9f3f3a6e694018541c2db71b9",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          122,
+          144,
+          3,
+          2
+        ],
+        [
+          163,
+          128,
+          3,
+          2
+        ],
+        [
+          369,
+          169,
+          3,
+          2
+        ],
+        [
+          214,
+          291,
+          3,
+          3
+        ],
+        [
+          227,
+          283,
+          3,
+          3
+        ],
+        [
+          338,
+          424,
+          4,
+          4
+        ],
+        [
+          369,
+          455,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Same Rocknest stop with moved arm: keep train-only lineage; shadow and scoop pits remain distinct from hardware and rocks."
+    },
+    {
+      "index": 8,
+      "source_id": "FLA_406374643RAD_F0050178FHAZ00301M1",
+      "sol": 100,
+      "source_sha256": "52d7d0afaa2cf10c0135c42b70ef521173441fa849efa220b83014807527d1c1",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          88,
+          366,
+          4,
+          3
+        ],
+        [
+          77,
+          398,
+          4,
+          2
+        ],
+        [
+          95,
+          387,
+          3,
+          2
+        ],
+        [
+          243,
+          441,
+          3,
+          2
+        ],
+        [
+          428,
+          300,
+          2,
+          3
+        ],
+        [
+          337,
+          228,
+          3,
+          2
+        ],
+        [
+          395,
+          241,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Small detached rocks around sandy patch; wheel rut and rock-shadow edges not positive. Existing raised central rocks retained."
+    },
+    {
+      "index": 9,
+      "source_id": "FLA_407353944RAD_F0050432FHAZ00302M1",
+      "sol": 111,
+      "source_sha256": "8002d376a2aec5b8d52f094c1da4b6f5df27d0f464ad1437fd6f75c48f4aec4d",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          194,
+          421,
+          3,
+          3
+        ],
+        [
+          224,
+          433,
+          3,
+          3
+        ],
+        [
+          300,
+          440,
+          3,
+          3
+        ],
+        [
+          341,
+          412,
+          3,
+          3
+        ],
+        [
+          354,
+          372,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Mostly fractured bedrock. Avoid labelling all flat bedrock as loose rock; use only clear detached interiors in shadow."
+    },
+    {
+      "index": 10,
+      "source_id": "FLA_407879135RAD_F0050432FHAZ00207M1",
+      "sol": 117,
+      "source_sha256": "2650d0b15c9bdd4fc3c55caf24dbaf544f1e4b4bc4c68be084f3e539b9aa3888",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          250,
+          335,
+          3,
+          3
+        ],
+        [
+          293,
+          364,
+          3,
+          3
+        ],
+        [
+          324,
+          405,
+          3,
+          3
+        ],
+        [
+          391,
+          402,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Arm and wheels excluded; clipped terrain not recoverable from this prepared source. Sparse clear shadow stones only."
+    },
+    {
+      "index": 11,
+      "source_id": "FLA_410543155RAD_F0051902FHAZ00317M1",
+      "sol": 147,
+      "source_sha256": "8ae6537d308a73874e062b30abaadca9aaf417ac3fd0fed85b3d693cf2d57995",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          128,
+          164,
+          3,
+          2
+        ],
+        [
+          260,
+          279,
+          3,
+          2
+        ],
+        [
+          351,
+          311,
+          3,
+          3
+        ],
+        [
+          366,
+          295,
+          3,
+          3
+        ],
+        [
+          360,
+          363,
+          3,
+          3
+        ],
+        [
+          348,
+          398,
+          4,
+          3
+        ],
+        [
+          286,
+          422,
+          3,
+          3
+        ],
+        [
+          223,
+          388,
+          3,
+          3
+        ],
+        [
+          197,
+          325,
+          3,
+          3
+        ],
+        [
+          275,
+          309,
+          3,
+          3
+        ],
+        [
+          394,
+          334,
+          3,
+          3
+        ],
+        [
+          155,
+          296,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "User red-reference Sol147. Preserve existing substantial rocks; additional detached pebble/stone interiors get appearance class4, not automatic occupancy."
+    },
+    {
+      "index": 12,
+      "source_id": "FLB_539546122RAD_F0602928FHAZ00206M1",
+      "sol": 1600,
+      "source_sha256": "0fc88f13df0c226a30085b9b96ba3bc670ffe84915136c8006ff5abefc5b3827",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          153,
+          278,
+          4,
+          3
+        ],
+        [
+          162,
+          292,
+          3,
+          3
+        ],
+        [
+          219,
+          352,
+          4,
+          3
+        ],
+        [
+          291,
+          367,
+          4,
+          3
+        ],
+        [
+          299,
+          392,
+          3,
+          3
+        ],
+        [
+          125,
+          391,
+          3,
+          3
+        ],
+        [
+          208,
+          390,
+          3,
+          3
+        ],
+        [
+          85,
+          427,
+          3,
+          3
+        ],
+        [
+          394,
+          416,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Raised slabs stay obstacle candidates. New labels target loose fragments between blocks; do not merge slab/shadow fields into small-rock class."
+    },
+    {
+      "index": 13,
+      "source_id": "FLB_557280820RAD_F0652456FHAZ00206M1",
+      "sol": 1800,
+      "source_sha256": "c4c5bd969e5635e3ea913569678c16932430fcb6fe635a3a3a6b2ddec6286f35",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          196,
+          310,
+          3,
+          3
+        ],
+        [
+          216,
+          341,
+          3,
+          3
+        ],
+        [
+          222,
+          374,
+          3,
+          3
+        ],
+        [
+          284,
+          352,
+          3,
+          3
+        ],
+        [
+          271,
+          394,
+          3,
+          3
+        ],
+        [
+          317,
+          417,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Sparse rubble visible in shadow only. Saturated bright flat slabs and turret are excluded from new small-rock annotation."
+    },
+    {
+      "index": 14,
+      "source_id": "FLB_566171818RAD_F0671016FHAZ00341M1",
+      "sol": 1900,
+      "source_sha256": "bd33f02c376d05bfadb74e35feb2e3835d332fbc64f7e00faf38d129e6ad94cd",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          144,
+          467,
+          4,
+          4
+        ],
+        [
+          181,
+          437,
+          3,
+          4
+        ],
+        [
+          153,
+          447,
+          3,
+          3
+        ],
+        [
+          127,
+          438,
+          3,
+          3
+        ],
+        [
+          107,
+          409,
+          3,
+          3
+        ],
+        [
+          193,
+          385,
+          3,
+          3
+        ],
+        [
+          278,
+          392,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Very strongly clipped view: visible shadow pebbles only. Do not infer stones in saturated region."
+    },
+    {
+      "index": 15,
+      "source_id": "FLB_575050318RAD_F0682626FHAZ00206M1",
+      "sol": 2000,
+      "source_sha256": "2bf6c9cb4403735bcf68aa64b922cc9e1f5ea8aa5b4f4fc44415180cd7f2527e",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          168,
+          372,
+          3,
+          3
+        ],
+        [
+          249,
+          367,
+          3,
+          3
+        ],
+        [
+          284,
+          388,
+          4,
+          4
+        ],
+        [
+          255,
+          414,
+          3,
+          3
+        ],
+        [
+          278,
+          440,
+          3,
+          3
+        ],
+        [
+          294,
+          459,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Large slabs and boulder faces retain earlier obstacle review; new labels are detached fragments between them."
+    },
+    {
+      "index": 16,
+      "source_id": "FLB_583921314RAD_F0711586FHAZ00206M1",
+      "sol": 2100,
+      "source_sha256": "6502e1734b51102373c476eb847bce02b0026d54ae3d114f522868732bbb1f93",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          84,
+          351,
+          3,
+          3
+        ],
+        [
+          174,
+          346,
+          3,
+          3
+        ],
+        [
+          240,
+          335,
+          3,
+          3
+        ],
+        [
+          305,
+          401,
+          3,
+          3
+        ],
+        [
+          307,
+          424,
+          3,
+          3
+        ],
+        [
+          219,
+          440,
+          3,
+          3
+        ],
+        [
+          316,
+          369,
+          3,
+          3
+        ],
+        [
+          348,
+          334,
+          3,
+          3
+        ],
+        [
+          354,
+          301,
+          3,
+          3
+        ],
+        [
+          367,
+          246,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Detached stones between fractured bedrock. Preserve large block candidates and ground cracks."
+    },
+    {
+      "index": 17,
+      "source_id": "FLB_588376031RAD_F0721316FHAZ00337M1",
+      "sol": 2150,
+      "source_sha256": "99933d168f4447380c705ad3e782f0b997a57c5073bfee997233c91f5ab21b45",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          151,
+          377,
+          3,
+          3
+        ],
+        [
+          245,
+          352,
+          3,
+          3
+        ],
+        [
+          250,
+          410,
+          3,
+          3
+        ],
+        [
+          110,
+          327,
+          3,
+          3
+        ],
+        [
+          323,
+          470,
+          3,
+          3
+        ],
+        [
+          286,
+          239,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Predominantly flat bedrock; only detached fragment interiors annotated as small-rock appearance."
+    },
+    {
+      "index": 18,
+      "source_id": "FLA_592704037RAD_F0722464FHAZ00350M1",
+      "sol": 2199,
+      "source_sha256": "8b65202bfede9ea3e403979cc009e81d41da7f9968b1eba1bebacfd124fbe7e3",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          176,
+          352,
+          3,
+          3
+        ],
+        [
+          338,
+          374,
+          3,
+          3
+        ],
+        [
+          340,
+          427,
+          3,
+          3
+        ],
+        [
+          398,
+          359,
+          3,
+          3
+        ],
+        [
+          365,
+          332,
+          3,
+          3
+        ],
+        [
+          407,
+          400,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Preserve flat light plates and rover-shadow ground. Source highlight clipping limits review."
+    },
+    {
+      "index": 19,
+      "source_id": "FLA_597242582RAD_F0730722FHAZ00302M1",
+      "sol": 2250,
+      "source_sha256": "45a59736d16b41ed152332c920b18ca84d0810affa013b057fc8cb8f68efec46",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          169,
+          232,
+          3,
+          3
+        ],
+        [
+          240,
+          286,
+          3,
+          3
+        ],
+        [
+          125,
+          414,
+          3,
+          3
+        ],
+        [
+          152,
+          426,
+          3,
+          3
+        ],
+        [
+          225,
+          414,
+          3,
+          3
+        ],
+        [
+          282,
+          380,
+          3,
+          3
+        ],
+        [
+          362,
+          441,
+          3,
+          3
+        ],
+        [
+          371,
+          404,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Pebbles on exposed soil and in shadow; irregular rover silhouette is not hardware on the ground."
+    },
+    {
+      "index": 20,
+      "source_id": "FLA_601668024RAD_F0731944FHAZ00206M1",
+      "sol": 2300,
+      "source_sha256": "6508d2873fb4e08cccba246e1a0f0319a14783cb6d95e3917ccfabab3d019ab5",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          118,
+          240,
+          3,
+          2
+        ],
+        [
+          410,
+          300,
+          3,
+          3
+        ],
+        [
+          217,
+          375,
+          3,
+          3
+        ],
+        [
+          284,
+          392,
+          3,
+          3
+        ],
+        [
+          158,
+          405,
+          3,
+          3
+        ],
+        [
+          307,
+          420,
+          3,
+          3
+        ],
+        [
+          289,
+          457,
+          3,
+          3
+        ],
+        [
+          137,
+          471,
+          3,
+          3
+        ],
+        [
+          317,
+          325,
+          3,
+          3
+        ],
+        [
+          371,
+          339,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Dense fine rubble with arm present. Label clear isolated stone interiors, leave subpixel texture unclaimed."
+    },
+    {
+      "index": 21,
+      "source_id": "FLB_606105107RAD_F0750000FHAZ00206M1",
+      "sol": 2350,
+      "source_sha256": "e1919e8c162720c635cbd579196afaaa2f9598f9f7e78a1761a63160619d0a9e",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          203,
+          305,
+          3,
+          3
+        ],
+        [
+          187,
+          311,
+          3,
+          3
+        ],
+        [
+          237,
+          328,
+          3,
+          3
+        ],
+        [
+          354,
+          344,
+          3,
+          3
+        ],
+        [
+          326,
+          394,
+          3,
+          3
+        ],
+        [
+          334,
+          464,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Thin flat bedrock sheets and wheel treads are ground context; separate loose small fragments only."
+    },
+    {
+      "index": 22,
+      "source_id": "FLB_610554605RAD_F0751398FHAZ00341M1",
+      "sol": 2400,
+      "source_sha256": "75a813b046f34756600aed9b8b5efe9d9019de61c9f7aed3a4a289fdad09f794",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          366,
+          308,
+          4,
+          4
+        ],
+        [
+          310,
+          234,
+          3,
+          3
+        ],
+        [
+          248,
+          400,
+          3,
+          3
+        ],
+        [
+          326,
+          427,
+          3,
+          3
+        ],
+        [
+          290,
+          448,
+          3,
+          3
+        ],
+        [
+          116,
+          476,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Raised broad blocks retain original positive labels. Add detached small interiors rather than converting every bedrock plate into an obstacle."
+    },
+    {
+      "index": 23,
+      "source_id": "FLB_615003843RAD_F0761384FHAZ00206M1",
+      "sol": 2450,
+      "source_sha256": "865013c8e02409bac35592a318e4bf516e0a70a412e4125e6da8f17262bf3e32",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          156,
+          309,
+          3,
+          3
+        ],
+        [
+          260,
+          287,
+          3,
+          3
+        ],
+        [
+          285,
+          430,
+          3,
+          3
+        ],
+        [
+          242,
+          470,
+          3,
+          3
+        ],
+        [
+          293,
+          500,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Underexposed source. These are provisional seed interiors and require gamma-assisted native crop QA before materialization."
+    },
+    {
+      "index": 24,
+      "source_id": "FLB_619437917RAD_F0763002FHAZ00337M1",
+      "sol": 2500,
+      "source_sha256": "4883ccb914c8d81af44b3f048a862c63521834bde2c597f3240e2c84ccea1e21",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          185,
+          304,
+          3,
+          4
+        ],
+        [
+          211,
+          331,
+          3,
+          3
+        ],
+        [
+          251,
+          246,
+          3,
+          3
+        ],
+        [
+          284,
+          308,
+          3,
+          3
+        ],
+        [
+          327,
+          379,
+          3,
+          3
+        ],
+        [
+          152,
+          456,
+          3,
+          3
+        ],
+        [
+          271,
+          493,
+          3,
+          3
+        ],
+        [
+          138,
+          375,
+          3,
+          3
+        ],
+        [
+          376,
+          408,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Same drill stop as2550. Numerous detached clasts between layered blocks; leave drill holes and flat layered bedrock separate."
+    },
+    {
+      "index": 25,
+      "source_id": "FLB_623872422RAD_F0763002FHAZ00206M1",
+      "sol": 2550,
+      "source_sha256": "63f4141f240991ce7b18b1c88bdcdb3dde1fa530e936e14a963333a957c473ec",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          185,
+          304,
+          3,
+          4
+        ],
+        [
+          211,
+          331,
+          3,
+          3
+        ],
+        [
+          251,
+          246,
+          3,
+          3
+        ],
+        [
+          284,
+          308,
+          3,
+          3
+        ],
+        [
+          327,
+          379,
+          3,
+          3
+        ],
+        [
+          152,
+          456,
+          3,
+          3
+        ],
+        [
+          271,
+          493,
+          3,
+          3
+        ],
+        [
+          138,
+          375,
+          3,
+          3
+        ],
+        [
+          376,
+          408,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Same terrain as2500 with moved arm, both training. Copy candidate locations only because source correspondence was visually inspected; each receives its own native crop QA."
+    },
+    {
+      "index": 26,
+      "source_id": "FLB_628304207RAD_F0772786FHAZ00341M1",
+      "sol": 2600,
+      "source_sha256": "f179cd069b8e6f69224121da5b77abe07969c7dc144d73f5fa739b0779ab2874",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          397,
+          202,
+          3,
+          3
+        ],
+        [
+          412,
+          218,
+          3,
+          3
+        ],
+        [
+          317,
+          427,
+          3,
+          3
+        ],
+        [
+          274,
+          460,
+          3,
+          3
+        ],
+        [
+          295,
+          478,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Mostly bedrock, arm shadow and hardware. Small detached grains in dark soil pockets only."
+    },
+    {
+      "index": 27,
+      "source_id": "FLB_632565162RAD_F0781652FHAZ00341M1",
+      "sol": 2648,
+      "source_sha256": "0796b50a4526028f3013eb2907f29ab77d56b81b29d980981321589bc57828a9",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          201,
+          346,
+          3,
+          3
+        ],
+        [
+          206,
+          329,
+          3,
+          3
+        ],
+        [
+          228,
+          357,
+          3,
+          3
+        ],
+        [
+          217,
+          385,
+          3,
+          3
+        ],
+        [
+          272,
+          449,
+          3,
+          3
+        ],
+        [
+          321,
+          413,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Turret excludes central upper region; saturated terrain omitted from new annotation."
+    },
+    {
+      "index": 28,
+      "source_id": "FLB_637188095RAD_F0790474FHAZ00206M1",
+      "sol": 2700,
+      "source_sha256": "69e4f173da40838d12bf108c391236552a0aee93fa44927008fe5a188d37b22e",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          154,
+          285,
+          3,
+          3
+        ],
+        [
+          212,
+          288,
+          3,
+          3
+        ],
+        [
+          220,
+          316,
+          3,
+          3
+        ],
+        [
+          161,
+          368,
+          3,
+          3
+        ],
+        [
+          397,
+          340,
+          3,
+          3
+        ],
+        [
+          404,
+          326,
+          3,
+          3
+        ],
+        [
+          289,
+          434,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Large raised slab faces preserved. Fragment interiors between cracks receive separate appearance labels; no new passability assertions."
+    },
+    {
+      "index": 29,
+      "source_id": "FLB_641618384RAD_F0792008FHAZ00206M1",
+      "sol": 2750,
+      "source_sha256": "a52c91baefc0e85edeb15234a4e88879846fa973449268a440a09c69e97017fe",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          319,
+          345,
+          3,
+          3
+        ],
+        [
+          355,
+          373,
+          3,
+          3
+        ],
+        [
+          427,
+          404,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Most apparent texture is flat bedrock or dark aggregate; very sparse confident detached fragments, not dense pseudo labels."
+    },
+    {
+      "index": 30,
+      "source_id": "FLB_646065742RAD_F0810000FHAZ00302M1",
+      "sol": 2800,
+      "source_sha256": "a974e79b529a882d6aa77ba53fa34387b6c1eae9e4b719b904dcde4b9ee9677e",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          94,
+          310,
+          2,
+          2
+        ],
+        [
+          200,
+          317,
+          2,
+          2
+        ],
+        [
+          280,
+          425,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Large raised layered ledges retained. Ripples and edge shadows not small stones; few loose interiors in sand."
+    },
+    {
+      "index": 31,
+      "source_id": "FLB_650509660RAD_F0822176FHAZ00337M1",
+      "sol": 2850,
+      "source_sha256": "db9a19bd2e9c35befabeff084d6d46531d47bf6e7cf8cb62d9dca6ff2a5d46d2",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          224,
+          332,
+          3,
+          3
+        ],
+        [
+          243,
+          320,
+          3,
+          3
+        ],
+        [
+          371,
+          333,
+          3,
+          3
+        ],
+        [
+          357,
+          362,
+          3,
+          3
+        ],
+        [
+          346,
+          413,
+          3,
+          3
+        ],
+        [
+          350,
+          432,
+          3,
+          3
+        ],
+        [
+          380,
+          409,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Use detached fragments on sandy strip, preserve broad bedrock as its previous reviewed class."
+    },
+    {
+      "index": 32,
+      "source_id": "FLB_654931291RAD_F0822176FHAZ00341M1",
+      "sol": 2900,
+      "source_sha256": "ae0489f0784c912f8512c50d7f37b0c131dfb178ae95937bc3692d63c7ee1a40",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          222,
+          145,
+          3,
+          2
+        ],
+        [
+          286,
+          164,
+          3,
+          2
+        ],
+        [
+          300,
+          196,
+          3,
+          2
+        ],
+        [
+          316,
+          234,
+          3,
+          3
+        ],
+        [
+          253,
+          308,
+          3,
+          3
+        ],
+        [
+          240,
+          365,
+          3,
+          3
+        ],
+        [
+          288,
+          350,
+          3,
+          3
+        ],
+        [
+          329,
+          485,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Detached clasts amid bright bedrock; flat aggregate texture is not individually asserted."
+    },
+    {
+      "index": 33,
+      "source_id": "FLB_659373267RAD_F0832382FHAZ00206M1",
+      "sol": 2950,
+      "source_sha256": "99ce82404896cabcce6eae0a65d3c654864dac14bf19c92c8feef443521426f7",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          116,
+          250,
+          3,
+          3
+        ],
+        [
+          113,
+          295,
+          3,
+          4
+        ],
+        [
+          238,
+          429,
+          3,
+          3
+        ],
+        [
+          317,
+          458,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Extensive flat bedrock, sand strips and rover arm. Sparse loose stones only; no relabel of continuous plate as small rock."
+    },
+    {
+      "index": 34,
+      "source_id": "FLB_663824339RAD_F0850000FHAZ00302M1",
+      "sol": 3000,
+      "source_sha256": "48facb273ea9ca3ac981d6e21ceb83a4eee4175d7c434795af730936f7d2744d",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          135,
+          260,
+          3,
+          3
+        ],
+        [
+          186,
+          239,
+          3,
+          3
+        ],
+        [
+          223,
+          265,
+          3,
+          3
+        ],
+        [
+          297,
+          297,
+          3,
+          3
+        ],
+        [
+          311,
+          419,
+          3,
+          3
+        ],
+        [
+          278,
+          455,
+          3,
+          3
+        ],
+        [
+          338,
+          356,
+          3,
+          3
+        ],
+        [
+          93,
+          382,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Angular detached chips around sandy strips, not bright whole bedrock patches."
+    },
+    {
+      "index": 35,
+      "source_id": "FLB_668253306RAD_F0870696FHAZ00341M1",
+      "sol": 3050,
+      "source_sha256": "3f6ae53fdc4435d4bed89a757c44f44f55922b5a0d3ca97d39ede06f6902c1e1",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          187,
+          297,
+          3,
+          3
+        ],
+        [
+          251,
+          307,
+          3,
+          3
+        ],
+        [
+          263,
+          300,
+          3,
+          3
+        ],
+        [
+          283,
+          295,
+          3,
+          3
+        ],
+        [
+          349,
+          225,
+          3,
+          3
+        ],
+        [
+          381,
+          223,
+          3,
+          3
+        ],
+        [
+          190,
+          346,
+          3,
+          3
+        ],
+        [
+          241,
+          356,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Dark small fragments separate from broad light slabs and basal outcrop."
+    },
+    {
+      "index": 36,
+      "source_id": "FLB_672691599RAD_F0872578FHAZ00341M1",
+      "sol": 3100,
+      "source_sha256": "e9609498dd5c1e69e90d3b1cf6c382f3f6db07255e35825a7312aa4957c69b9a",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          210,
+          356,
+          3,
+          2
+        ],
+        [
+          179,
+          257,
+          2,
+          2
+        ],
+        [
+          379,
+          208,
+          3,
+          2
+        ],
+        [
+          340,
+          202,
+          3,
+          2
+        ],
+        [
+          293,
+          144,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Mostly flat fractured bedrock. These distant/small visible fragments have unknown physical size; no depth or occupancy inferred."
+    },
+    {
+      "index": 37,
+      "source_id": "FLB_677128842RAD_F0890000FHAZ00341M1",
+      "sol": 3150,
+      "source_sha256": "e46bac7bf73cfd501f47ac47a3dcec06268f3ba4747b9254c8cdc4a5beba6887",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          312,
+          325,
+          3,
+          3
+        ],
+        [
+          290,
+          427,
+          3,
+          3
+        ],
+        [
+          320,
+          491,
+          3,
+          3
+        ],
+        [
+          280,
+          276,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Very clipped terrain with broad deep shadow; ambiguous aggregate remains unknown, few candidate interiors require native QA."
+    },
+    {
+      "index": 38,
+      "source_id": "FLB_681571205RAD_F0900892FHAZ00341M1",
+      "sol": 3200,
+      "source_sha256": "a746478d39c8dbb97a415a0f27acf995a7e24e74631fbb2bef57ad84f30ba911",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          133,
+          123,
+          3,
+          2
+        ],
+        [
+          198,
+          140,
+          3,
+          2
+        ],
+        [
+          358,
+          188,
+          3,
+          3
+        ],
+        [
+          440,
+          183,
+          3,
+          3
+        ],
+        [
+          407,
+          328,
+          3,
+          3
+        ],
+        [
+          323,
+          417,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Preserve broad slab candidates; small detached points and fragments added separately."
+    },
+    {
+      "index": 39,
+      "source_id": "FLB_686009209RAD_F0910516FHAZ00341M1",
+      "sol": 3250,
+      "source_sha256": "fbbc3beca10a2638102e3525f015d5c3799fc0fe580016950bdf99744d68b8a9",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          244,
+          362,
+          3,
+          3
+        ],
+        [
+          252,
+          348,
+          3,
+          3
+        ],
+        [
+          284,
+          352,
+          3,
+          3
+        ],
+        [
+          284,
+          336,
+          3,
+          3
+        ],
+        [
+          315,
+          339,
+          3,
+          3
+        ],
+        [
+          289,
+          385,
+          3,
+          3
+        ],
+        [
+          339,
+          396,
+          3,
+          3
+        ],
+        [
+          204,
+          402,
+          3,
+          3
+        ],
+        [
+          312,
+          425,
+          3,
+          3
+        ],
+        [
+          377,
+          366,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Loose stones around layered outcrop: each clear interior separate. Stepped outcrop remains large-obstacle context."
+    },
+    {
+      "index": 40,
+      "source_id": "FLB_690444976RAD_F0912132FHAZ00341M1",
+      "sol": 3300,
+      "source_sha256": "13956879be8620a3b38591f5244c52a6595d132e17df9e150b4b3bfec9cea966",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          284,
+          106,
+          3,
+          2
+        ],
+        [
+          344,
+          267,
+          4,
+          4
+        ],
+        [
+          378,
+          301,
+          3,
+          3
+        ],
+        [
+          334,
+          176,
+          3,
+          2
+        ],
+        [
+          270,
+          198,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Thin chips and isolated fragments on smooth patches; broad flat plate interiors not small rock."
+    },
+    {
+      "index": 41,
+      "source_id": "FLB_694791632RAD_F0921656FHAZ00200M1",
+      "sol": 3349,
+      "source_sha256": "46733010447d33e1f6c67f983b78beba1adcde4d01f8bd753a91186c732f480b",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          243,
+          182,
+          3,
+          2
+        ],
+        [
+          272,
+          233,
+          3,
+          2
+        ],
+        [
+          268,
+          292,
+          3,
+          2
+        ],
+        [
+          405,
+          331,
+          3,
+          3
+        ],
+        [
+          361,
+          431,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Preserve near layered block and arm. Add sparse detached fragments visible on continuous bedrock."
+    },
+    {
+      "index": 42,
+      "source_id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+      "sol": 3400,
+      "source_sha256": "94b45446b0f139b2bd6f8a6729f9300cb6c8ae35cf9da12c4519033df1537bd5",
+      "prior_split": "validation",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          312,
+          288,
+          3,
+          3
+        ],
+        [
+          436,
+          291,
+          4,
+          3
+        ],
+        [
+          453,
+          315,
+          3,
+          3
+        ],
+        [
+          402,
+          209,
+          3,
+          3
+        ],
+        [
+          421,
+          199,
+          3,
+          3
+        ],
+        [
+          172,
+          250,
+          3,
+          3
+        ],
+        [
+          273,
+          159,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Validation role retained, no training leakage. Smooth sand/ripples remain ground; continuous raised ridge retains obstacle labels."
+    },
+    {
+      "index": 43,
+      "source_id": "FLB_703677551RAD_F0940964FHAZ00200M1",
+      "sol": 3449,
+      "source_sha256": "f785357b66230f1a054d652739484cfaf214a5f56b2041a41602720e3499172e",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          365,
+          321,
+          3,
+          3
+        ],
+        [
+          345,
+          348,
+          3,
+          3
+        ],
+        [
+          331,
+          356,
+          3,
+          3
+        ],
+        [
+          429,
+          353,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Saturated bright terrain and arm do not justify inferred labels. Small fragments only in visible foreground/shadow."
+    },
+    {
+      "index": 44,
+      "source_id": "FLB_708484267RAD_F0952934FHAZ00337M1",
+      "sol": 3503,
+      "source_sha256": "ea25c17737fb3e20bb52c7c3158f76263ce263d748238a9dfe4d85e4b89068af",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          341,
+          205,
+          3,
+          3
+        ],
+        [
+          311,
+          223,
+          3,
+          3
+        ],
+        [
+          370,
+          243,
+          3,
+          3
+        ],
+        [
+          218,
+          360,
+          3,
+          3
+        ],
+        [
+          239,
+          361,
+          3,
+          3
+        ],
+        [
+          155,
+          371,
+          3,
+          3
+        ],
+        [
+          268,
+          422,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Detached rock interiors against slab floor; maintain bright continuous fractured bedrock as previous context."
+    },
+    {
+      "index": 45,
+      "source_id": "FLB_712554377RAD_F0961844FHAZ00302M1",
+      "sol": 3549,
+      "source_sha256": "652f05229db00121e456748fefbe778b1b52a917abdc7786b9df9bd6cadaa648",
+      "prior_split": "validation",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          294,
+          438,
+          3,
+          3
+        ],
+        [
+          305,
+          405,
+          3,
+          3
+        ],
+        [
+          351,
+          405,
+          3,
+          3
+        ],
+        [
+          341,
+          344,
+          3,
+          3
+        ],
+        [
+          425,
+          270,
+          3,
+          3
+        ],
+        [
+          342,
+          304,
+          3,
+          3
+        ],
+        [
+          395,
+          318,
+          3,
+          3
+        ],
+        [
+          422,
+          212,
+          3,
+          3
+        ],
+        [
+          365,
+          202,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Validation role retained. Obvious small fragments between bedrock sheets, no apparent-pixel-size claim of metric height."
+    },
+    {
+      "index": 46,
+      "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+      "sol": 3601,
+      "source_sha256": "34676743bc2f82099cbca755746bf0258c4bc0177c67d1b27aa6938a6fa2e946",
+      "prior_split": "validation",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          104,
+          242,
+          3,
+          3
+        ],
+        [
+          326,
+          278,
+          3,
+          3
+        ],
+        [
+          334,
+          389,
+          3,
+          3
+        ],
+        [
+          158,
+          423,
+          3,
+          3
+        ],
+        [
+          391,
+          334,
+          3,
+          3
+        ],
+        [
+          399,
+          405,
+          3,
+          3
+        ],
+        [
+          399,
+          368,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "User raised-platform example: preserve large blocks; add isolated fragments on surrounding sand, not the platform top texture. Validation remains excluded from training."
+    },
+    {
+      "index": 47,
+      "source_id": "FLB_721532936RAD_F0980908FHAZ00200M1",
+      "sol": 3650,
+      "source_sha256": "842893863ea4a60d4df9e2d37efffd256906bbb145e77d4b283eb204b5ab0dc3",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          363,
+          334,
+          3,
+          3
+        ],
+        [
+          401,
+          341,
+          3,
+          3
+        ],
+        [
+          424,
+          380,
+          3,
+          3
+        ],
+        [
+          412,
+          403,
+          3,
+          3
+        ],
+        [
+          333,
+          366,
+          3,
+          3
+        ],
+        [
+          341,
+          418,
+          3,
+          3
+        ],
+        [
+          420,
+          274,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Near broad slab remains its reviewed obstacle candidate; independent loose fragments only."
+    },
+    {
+      "index": 48,
+      "source_id": "FLB_725950544RAD_F0990188FHAZ00200M1",
+      "sol": 3700,
+      "source_sha256": "1427082e8a6c8fbcd7cf3c39d828d95625752a3816395504e321cc09cdfc870b",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          314,
+          333,
+          3,
+          3
+        ],
+        [
+          336,
+          351,
+          3,
+          3
+        ],
+        [
+          354,
+          390,
+          3,
+          3
+        ],
+        [
+          271,
+          431,
+          3,
+          3
+        ],
+        [
+          195,
+          425,
+          3,
+          3
+        ],
+        [
+          327,
+          413,
+          3,
+          3
+        ],
+        [
+          178,
+          127,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Continuous slab/shadow and arm remain distinct. Small loose interiors are sparse, native crops will remove ambiguous texture."
+    },
+    {
+      "index": 49,
+      "source_id": "FLB_730401928RAD_F1001084FHAZ00200M1",
+      "sol": 3750,
+      "source_sha256": "85f41c58c3aa996726ebc79843de98335bb8574be0ae19834e9b554da4e90622",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          439,
+          180,
+          3,
+          3
+        ],
+        [
+          432,
+          240,
+          3,
+          3
+        ],
+        [
+          361,
+          259,
+          3,
+          3
+        ],
+        [
+          302,
+          315,
+          3,
+          3
+        ],
+        [
+          227,
+          368,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Smooth plates dominate; mark detached fragments only, not every contrast spot."
+    },
+    {
+      "index": 50,
+      "source_id": "FLB_734843011RAD_F1002712FHAZ00200M1",
+      "sol": 3800,
+      "source_sha256": "fdaab8cd21f81af1b980997108fb47de1e0620e1ab5edb1e9233bc4773f37842",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          285,
+          80,
+          3,
+          2
+        ],
+        [
+          294,
+          163,
+          3,
+          3
+        ],
+        [
+          205,
+          287,
+          3,
+          3
+        ],
+        [
+          239,
+          306,
+          3,
+          3
+        ],
+        [
+          232,
+          360,
+          3,
+          3
+        ],
+        [
+          276,
+          384,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Broad dune surface, exposed slabs, arm and shadow. Positive interiors only where a discrete stone is visible."
+    },
+    {
+      "index": 51,
+      "source_id": "FLB_739189237RAD_F1011366FHAZ00302M1",
+      "sol": 3849,
+      "source_sha256": "92871e2fa5b86cd079211919b7daf42a1fb7f9a0f2f88c60e85022e753c4bea2",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          269,
+          172,
+          3,
+          2
+        ],
+        [
+          279,
+          179,
+          3,
+          2
+        ],
+        [
+          162,
+          272,
+          3,
+          2
+        ],
+        [
+          137,
+          254,
+          2,
+          2
+        ],
+        [
+          296,
+          314,
+          3,
+          3
+        ],
+        [
+          385,
+          443,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Wavy tyre track is ground. Large detached light block remains old candidate; small chips around it separate."
+    },
+    {
+      "index": 52,
+      "source_id": "FLB_743727178RAD_F1022428FHAZ00200M1",
+      "sol": 3900,
+      "source_sha256": "cea4c1774686f647cf5b736ca2528688f2181638300d5d8e7f48705d67a8ae9a",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          165,
+          310,
+          3,
+          3
+        ],
+        [
+          164,
+          224,
+          3,
+          3
+        ],
+        [
+          355,
+          436,
+          3,
+          3
+        ],
+        [
+          299,
+          443,
+          3,
+          3
+        ],
+        [
+          238,
+          443,
+          3,
+          3
+        ],
+        [
+          332,
+          487,
+          3,
+          3
+        ],
+        [
+          159,
+          461,
+          3,
+          3
+        ],
+        [
+          185,
+          491,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Large tilted blocks and boulders retained; detached pebble interiors on sandy corridors are the new class."
+    },
+    {
+      "index": 53,
+      "source_id": "FLB_748238322RAD_F1040856FHAZ00302M1",
+      "sol": 3951,
+      "source_sha256": "d8f800a0288ec90f62efcf4fabcb1dbfbfc77d353be5d5d97dc3fed4a349f5b5",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          369,
+          373,
+          3,
+          2
+        ],
+        [
+          430,
+          351,
+          3,
+          2
+        ],
+        [
+          355,
+          362,
+          3,
+          2
+        ],
+        [
+          293,
+          450,
+          3,
+          3
+        ],
+        [
+          305,
+          481,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Smooth sandy foreground and flat plates: no dense stone texture inferred from shadow noise."
+    },
+    {
+      "index": 54,
+      "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+      "sol": 4019,
+      "source_sha256": "a49e78925ea848ecd390954869d3a10dc8d1ec6cb5765ece69d701c738569560",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          259,
+          318,
+          3,
+          3
+        ],
+        [
+          284,
+          333,
+          3,
+          3
+        ],
+        [
+          295,
+          382,
+          3,
+          3
+        ],
+        [
+          234,
+          384,
+          3,
+          3
+        ],
+        [
+          369,
+          390,
+          3,
+          3
+        ],
+        [
+          167,
+          377,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Previously opened test_v9 becomes a consumed control, never fresh. Preserve large block interiors and inspect small separate stones in shadow."
+    },
+    {
+      "index": 55,
+      "source_id": "FLB_757303129RAD_F1051108FHAZ00200M1",
+      "sol": 4053,
+      "source_sha256": "2127ef4fd1a5d041df5c45facc1d567540080945c8a6e6c475b80c7920b15f94",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          183,
+          292,
+          3,
+          3
+        ],
+        [
+          177,
+          337,
+          3,
+          3
+        ],
+        [
+          187,
+          363,
+          3,
+          3
+        ],
+        [
+          194,
+          390,
+          3,
+          3
+        ],
+        [
+          203,
+          411,
+          3,
+          3
+        ],
+        [
+          292,
+          414,
+          3,
+          3
+        ],
+        [
+          306,
+          451,
+          3,
+          3
+        ],
+        [
+          392,
+          353,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "No false hardware on arm shadow. New interiors mostly along loose-fragment strip between slabs."
+    },
+    {
+      "index": 56,
+      "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+      "sol": 4080,
+      "source_sha256": "ac8d7a6f79f887a9fde739d1e68b094f0d693fd28c4e2fd2ab89956e3570190c",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          278,
+          360,
+          4,
+          3
+        ],
+        [
+          332,
+          361,
+          2,
+          2
+        ],
+        [
+          321,
+          409,
+          3,
+          2
+        ],
+        [
+          110,
+          349,
+          2,
+          2
+        ],
+        [
+          187,
+          354,
+          2,
+          2
+        ],
+        [
+          144,
+          407,
+          2,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Consumed test control; retain previously found large foreground rock. Separate small detached stones on smooth sand, with no metric-size assertion."
+    },
+    {
+      "index": 57,
+      "source_id": "FLB_761563839RAD_F1060438FHAZ00200M1",
+      "sol": 4101,
+      "source_sha256": "11484b37493dd888087eb4a1ee4631c4311e8515dc38b0ae93fc56caf38af5f4",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          333,
+          423,
+          3,
+          3
+        ],
+        [
+          341,
+          458,
+          3,
+          3
+        ],
+        [
+          370,
+          375,
+          3,
+          3
+        ],
+        [
+          349,
+          345,
+          3,
+          3
+        ],
+        [
+          243,
+          459,
+          3,
+          3
+        ],
+        [
+          215,
+          490,
+          3,
+          3
+        ],
+        [
+          264,
+          418,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Layered large slabs remain candidates. Add loose fragments between blocks, not continuous bedrock texture."
+    },
+    {
+      "index": 58,
+      "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+      "sol": 4151,
+      "source_sha256": "1dd10424f43cfca854a2bd4ebbeffd90baf62bb31d2a1802b862044c2562b6a3",
+      "prior_split": "validation",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          359,
+          305,
+          3,
+          3
+        ],
+        [
+          244,
+          453,
+          3,
+          3
+        ],
+        [
+          151,
+          389,
+          3,
+          3
+        ],
+        [
+          127,
+          382,
+          3,
+          3
+        ],
+        [
+          344,
+          282,
+          3,
+          3
+        ],
+        [
+          316,
+          281,
+          3,
+          3
+        ],
+        [
+          270,
+          149,
+          3,
+          2
+        ],
+        [
+          174,
+          150,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Validation-only review. Clear detached fragments amid many flat plates; large slab labels preserved."
+    },
+    {
+      "index": 59,
+      "source_id": "FLB_768834697RAD_F1071140FHAZ00302M1",
+      "sol": 4183,
+      "source_sha256": "d3501148cb88c703485bbb5fb365405860da8e583eb94390352970749e6b1fcc",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          346,
+          435,
+          3,
+          3
+        ],
+        [
+          322,
+          327,
+          3,
+          3
+        ],
+        [
+          272,
+          298,
+          3,
+          3
+        ],
+        [
+          250,
+          324,
+          3,
+          3
+        ],
+        [
+          164,
+          295,
+          3,
+          3
+        ],
+        [
+          166,
+          234,
+          3,
+          2
+        ],
+        [
+          294,
+          267,
+          3,
+          3
+        ],
+        [
+          347,
+          239,
+          3,
+          2
+        ],
+        [
+          392,
+          299,
+          3,
+          3
+        ],
+        [
+          198,
+          223,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Coarse rubble and sand ripples. Trace individual interiors rather than extending candidates into the ripples."
+    },
+    {
+      "index": 60,
+      "source_id": "FLB_770343556RAD_F1072484FHAZ00302M1",
+      "sol": 4200,
+      "source_sha256": "18a1b318104b8d11f8ad8bca4863ee93b6c2ed00cf0a4bfb96378fd5fcd1af78",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          309,
+          282,
+          3,
+          3
+        ],
+        [
+          283,
+          276,
+          3,
+          3
+        ],
+        [
+          277,
+          262,
+          3,
+          3
+        ],
+        [
+          155,
+          298,
+          3,
+          3
+        ],
+        [
+          173,
+          334,
+          3,
+          3
+        ],
+        [
+          189,
+          365,
+          3,
+          3
+        ],
+        [
+          273,
+          359,
+          3,
+          3
+        ],
+        [
+          259,
+          380,
+          3,
+          3
+        ],
+        [
+          354,
+          411,
+          3,
+          3
+        ],
+        [
+          197,
+          421,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Rough light fragments and darker pebbles both included; flat strata and shadow remain context."
+    },
+    {
+      "index": 61,
+      "source_id": "FLB_772668569RAD_F1072496FHAZ00337M1",
+      "sol": 4226,
+      "source_sha256": "8236757ac82d9d6b268626b6f1c4969ef41d4b9b71ad7188d57fcc36594b77ed",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          345,
+          351,
+          3,
+          3
+        ],
+        [
+          373,
+          415,
+          3,
+          3
+        ],
+        [
+          254,
+          445,
+          3,
+          3
+        ],
+        [
+          280,
+          481,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Low exposure requires native gamma QA. Sparse proposals; retain known large-component controls, reject indeterminate noise."
+    },
+    {
+      "index": 62,
+      "source_id": "FLB_774800218RAD_F1080222FHAZ00200M1",
+      "sol": 4250,
+      "source_sha256": "90ceed930f1e43f3d830fca8e307aca8ce76b16f6e1530ab619d5663d8b05251",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          140,
+          334,
+          2,
+          2
+        ],
+        [
+          184,
+          382,
+          3,
+          3
+        ],
+        [
+          253,
+          327,
+          3,
+          3
+        ],
+        [
+          301,
+          400,
+          3,
+          3
+        ],
+        [
+          338,
+          352,
+          3,
+          3
+        ],
+        [
+          228,
+          401,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Mostly granular soil and subtle ripples; isolated stones only, not all dark local contrast."
+    },
+    {
+      "index": 63,
+      "source_id": "FLB_777466896RAD_F1080792FHAZ00200M1",
+      "sol": 4280,
+      "source_sha256": "e3da59c529f131279976414ec4824ce79757a8765de630e9170c81586f270c5f",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          322,
+          418,
+          3,
+          3
+        ],
+        [
+          231,
+          427,
+          3,
+          3
+        ],
+        [
+          251,
+          463,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Very dark context: native gamma inspection required. Arm shadow and wheel tread never become small-rock annotations."
+    },
+    {
+      "index": 64,
+      "source_id": "FLB_779233842RAD_F1082162FHAZ00200M1",
+      "sol": 4300,
+      "source_sha256": "a9483ca8651643a993e43d3440645635974bfde023e080f3cc8eba9c301ba1e3",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          145,
+          325,
+          3,
+          3
+        ],
+        [
+          214,
+          347,
+          3,
+          3
+        ],
+        [
+          257,
+          384,
+          3,
+          3
+        ],
+        [
+          399,
+          450,
+          3,
+          3
+        ],
+        [
+          432,
+          445,
+          3,
+          3
+        ],
+        [
+          397,
+          495,
+          3,
+          3
+        ],
+        [
+          206,
+          493,
+          3,
+          3
+        ],
+        [
+          307,
+          307,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Large boulder face retained; separate loose stones in sand. Dark dune shadow is not a stone or body part."
+    },
+    {
+      "index": 65,
+      "source_id": "FLB_781455837RAD_F1091290FHAZ00200M1",
+      "sol": 4325,
+      "source_sha256": "a9217d129c74b0322eacf94b283e2f7c4396647d3d72ba44f171f3a6e59958d6",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          249,
+          459,
+          3,
+          3
+        ],
+        [
+          218,
+          473,
+          3,
+          3
+        ],
+        [
+          237,
+          440,
+          3,
+          3
+        ],
+        [
+          231,
+          338,
+          3,
+          3
+        ],
+        [
+          327,
+          412,
+          3,
+          3
+        ],
+        [
+          312,
+          356,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Broad raised plates remain old candidates; small detached chip interiors between them separately marked."
+    },
+    {
+      "index": 66,
+      "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+      "sol": 4339,
+      "source_sha256": "0ea74b03825205fe8c21eb43d22c2868764621b692104c8f49f4e0c11b1c18d2",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          199,
+          318,
+          3,
+          3
+        ],
+        [
+          160,
+          297,
+          3,
+          3
+        ],
+        [
+          350,
+          286,
+          3,
+          3
+        ],
+        [
+          187,
+          415,
+          3,
+          3
+        ],
+        [
+          222,
+          430,
+          3,
+          3
+        ],
+        [
+          289,
+          459,
+          3,
+          3
+        ],
+        [
+          344,
+          454,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Consumed new-test scene. Existing large near blocks unchanged; candidate loose interiors around shadowed soil pockets."
+    },
+    {
+      "index": 67,
+      "source_id": "FLB_783658054RAD_F1100840FHAZ00200M1",
+      "sol": 4350,
+      "source_sha256": "c02e25285c504f5048ca138bee885294bb2756fe931a22085021326aedc94f57",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          289,
+          405,
+          3,
+          3
+        ],
+        [
+          284,
+          426,
+          3,
+          3
+        ],
+        [
+          352,
+          338,
+          3,
+          3
+        ],
+        [
+          335,
+          351,
+          3,
+          3
+        ],
+        [
+          364,
+          328,
+          3,
+          3
+        ],
+        [
+          328,
+          302,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Do not treat continuous scaly bedrock as separate stones; individual fragments on soil strip only."
+    },
+    {
+      "index": 68,
+      "source_id": "FLB_787925375RAD_F1120534FHAZ00302M1",
+      "sol": 4398,
+      "source_sha256": "307b369dd576959bc90894a670bad10effc0b5a1c649f8a33efa075194701d2c",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          98,
+          235,
+          3,
+          3
+        ],
+        [
+          161,
+          208,
+          3,
+          3
+        ],
+        [
+          356,
+          430,
+          3,
+          3
+        ],
+        [
+          373,
+          438,
+          3,
+          3
+        ],
+        [
+          411,
+          463,
+          3,
+          3
+        ],
+        [
+          309,
+          416,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Flat plates and sand ripples preserved. No automatic all-bright-pixels rock rule."
+    },
+    {
+      "index": 69,
+      "source_id": "FLB_789536250RAD_F1120798FHAZ00200M1",
+      "sol": 4416,
+      "source_sha256": "1666fc2f3c83dff9c01881f557bda88c8e3cefdb9005daaa4095fce4756298dc",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          155,
+          315,
+          3,
+          3
+        ],
+        [
+          292,
+          369,
+          3,
+          3
+        ],
+        [
+          291,
+          413,
+          3,
+          3
+        ],
+        [
+          218,
+          412,
+          3,
+          3
+        ],
+        [
+          207,
+          479,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Consumed control; very dark image. Large raised platforms retained, small candidates await monotonic gamma native inspection."
+    },
+    {
+      "index": 70,
+      "source_id": "FLB_790313338RAD_F1121014FHAZ00200M1",
+      "sol": 4425,
+      "source_sha256": "87e64ce33b4ff0cf2f9ca20ad6ef7d5b2c5458fbc75ec8ffdbb0c90c222b00b2",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          336,
+          382,
+          3,
+          3
+        ],
+        [
+          363,
+          386,
+          3,
+          3
+        ],
+        [
+          306,
+          420,
+          3,
+          3
+        ],
+        [
+          358,
+          470,
+          3,
+          3
+        ],
+        [
+          286,
+          443,
+          3,
+          3
+        ],
+        [
+          243,
+          406,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Large foreground block remains obstacle. Detached fragments in sand separate; turret is hardware, its ground shadow is not."
+    },
+    {
+      "index": 71,
+      "source_id": "FLB_792547535RAD_F1130894FHAZ00302M1",
+      "sol": 4450,
+      "source_sha256": "17dc3378a8a19048ffbc902c88ccfa22df05d40874c30eae49051ddd87ed2401",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          208,
+          333,
+          3,
+          3
+        ],
+        [
+          222,
+          336,
+          3,
+          3
+        ],
+        [
+          302,
+          277,
+          3,
+          3
+        ],
+        [
+          262,
+          285,
+          3,
+          3
+        ],
+        [
+          281,
+          313,
+          3,
+          3
+        ],
+        [
+          276,
+          303,
+          3,
+          3
+        ],
+        [
+          241,
+          275,
+          3,
+          3
+        ],
+        [
+          240,
+          256,
+          3,
+          3
+        ],
+        [
+          302,
+          251,
+          3,
+          3
+        ],
+        [
+          352,
+          238,
+          3,
+          3
+        ],
+        [
+          345,
+          269,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Many detached angular pebbles surrounding known rocks. Preserve ground ripples and near continuous slab."
+    },
+    {
+      "index": 72,
+      "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+      "sol": 4480,
+      "source_sha256": "a0a3fb54884627922c79f5ab4381645b0eb4816ab4cae77bb8c135551c61878b",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          145,
+          339,
+          3,
+          3
+        ],
+        [
+          184,
+          334,
+          3,
+          3
+        ],
+        [
+          276,
+          353,
+          3,
+          3
+        ],
+        [
+          337,
+          347,
+          3,
+          3
+        ],
+        [
+          351,
+          298,
+          3,
+          3
+        ],
+        [
+          363,
+          280,
+          3,
+          3
+        ],
+        [
+          281,
+          257,
+          3,
+          3
+        ],
+        [
+          210,
+          257,
+          3,
+          3
+        ],
+        [
+          180,
+          284,
+          3,
+          3
+        ],
+        [
+          155,
+          280,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Boulder field and dunes. Only discrete fragments are new small-rock appearance; preserve original large controls."
+    },
+    {
+      "index": 73,
+      "source_id": "FLB_796969887RAD_F1142292FHAZ00200M1",
+      "sol": 4500,
+      "source_sha256": "fefb63a8a830bc1a8087f1791ec61e44fa0105036272b66a0150983ff3e2cded",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          210,
+          312,
+          3,
+          3
+        ],
+        [
+          225,
+          346,
+          3,
+          3
+        ],
+        [
+          169,
+          333,
+          3,
+          3
+        ],
+        [
+          311,
+          323,
+          3,
+          3
+        ],
+        [
+          349,
+          371,
+          3,
+          3
+        ],
+        [
+          364,
+          408,
+          3,
+          3
+        ],
+        [
+          424,
+          404,
+          3,
+          3
+        ],
+        [
+          377,
+          245,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Sand and detached stones around slab; arm shadow is ground, not hardware."
+    },
+    {
+      "index": 74,
+      "source_id": "FLB_799211234RAD_F1151770FHAZ00200M1",
+      "sol": 4525,
+      "source_sha256": "1509646cb7fdbeea4ef5bc0c0c1a79a7a4c55d3c9cd65a66ca6512203b1d9861",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          169,
+          225,
+          2,
+          2
+        ],
+        [
+          245,
+          212,
+          2,
+          2
+        ],
+        [
+          337,
+          324,
+          3,
+          3
+        ],
+        [
+          352,
+          416,
+          3,
+          3
+        ],
+        [
+          278,
+          430,
+          3,
+          3
+        ],
+        [
+          383,
+          351,
+          3,
+          3
+        ],
+        [
+          184,
+          451,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Many large slab faces stay large candidates; annotate separate small fragments in surrounding sand."
+    },
+    {
+      "index": 75,
+      "source_id": "FLB_801429831RAD_F1161260FHAZ00200M1",
+      "sol": 4550,
+      "source_sha256": "eb69bbc3f8710d3ea54464cfb9d6ca94ea246c0e34a6d88cababb83363e13eb9",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          235,
+          377,
+          3,
+          3
+        ],
+        [
+          273,
+          353,
+          3,
+          3
+        ],
+        [
+          331,
+          367,
+          3,
+          3
+        ],
+        [
+          335,
+          347,
+          3,
+          3
+        ],
+        [
+          289,
+          299,
+          3,
+          3
+        ],
+        [
+          263,
+          299,
+          3,
+          3
+        ],
+        [
+          183,
+          316,
+          3,
+          3
+        ],
+        [
+          207,
+          435,
+          3,
+          3
+        ],
+        [
+          327,
+          452,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Granular surface and raised bedrock preserved. Individual detached stone interiors, not all rough texture."
+    },
+    {
+      "index": 76,
+      "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+      "sol": 4584,
+      "source_sha256": "f7e0ab63b2bff37b859d323b3e06eb40d63c07d5206dd153bce7cb1241ce9a44",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          169,
+          330,
+          3,
+          3
+        ],
+        [
+          275,
+          459,
+          3,
+          3
+        ],
+        [
+          337,
+          436,
+          3,
+          3
+        ],
+        [
+          408,
+          359,
+          3,
+          3
+        ],
+        [
+          410,
+          422,
+          3,
+          3
+        ],
+        [
+          150,
+          389,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Consumed control with large foreground boulder. Preserve its full measured candidate mask; small loose pieces around it separately reviewed."
+    },
+    {
+      "index": 77,
+      "source_id": "FLB_805859469RAD_F1172166FHAZ00200M1",
+      "sol": 4600,
+      "source_sha256": "7ada8c9b199840949749fdfc98df3639698303c3cf27403b58cef702703d0e72",
+      "prior_split": "validation",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          343,
+          307,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Validation smooth sandy terrain with arm and shadow. Very few visible discrete stones; do not manufacture positives for balance."
+    },
+    {
+      "index": 78,
+      "source_id": "FLB_808083489RAD_F1180762FHAZ00302M1",
+      "sol": 4625,
+      "source_sha256": "724fd6827fa196b90137b04e17e94381355d4f822ac36e02665c7bcd2430e632",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          284,
+          345,
+          3,
+          3
+        ],
+        [
+          271,
+          290,
+          3,
+          3
+        ],
+        [
+          300,
+          282,
+          3,
+          3
+        ],
+        [
+          394,
+          287,
+          3,
+          3
+        ],
+        [
+          275,
+          250,
+          3,
+          3
+        ],
+        [
+          297,
+          278,
+          3,
+          3
+        ],
+        [
+          261,
+          329,
+          3,
+          3
+        ],
+        [
+          291,
+          417,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Pebbles in bedrock/sand field, including shadow. Continuous cracked plates retained as ground context."
+    },
+    {
+      "index": 79,
+      "source_id": "FLB_810298119RAD_F1182304FHAZ00302M1",
+      "sol": 4650,
+      "source_sha256": "bcefe4dc23129e369f12b4cda425915bb71151f73b802bc93a11625f51a55bb3",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          287,
+          299,
+          3,
+          3
+        ],
+        [
+          286,
+          445,
+          3,
+          3
+        ],
+        [
+          310,
+          412,
+          3,
+          3
+        ],
+        [
+          365,
+          443,
+          3,
+          3
+        ],
+        [
+          400,
+          458,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Mostly smooth soil and shadowed flat bedrock, explicit fragments only; tyre tread is ground."
+    },
+    {
+      "index": 80,
+      "source_id": "FLB_813313241RAD_F1191554FHAZ00302M1",
+      "sol": 4684,
+      "source_sha256": "7e422e06b81acf9cef03fb3e3154612cfd494570ee53dd1c8ba9e1d315680d53",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          271,
+          277,
+          3,
+          3
+        ],
+        [
+          253,
+          305,
+          3,
+          3
+        ],
+        [
+          289,
+          347,
+          3,
+          3
+        ],
+        [
+          278,
+          365,
+          3,
+          3
+        ],
+        [
+          327,
+          309,
+          3,
+          3
+        ],
+        [
+          350,
+          301,
+          3,
+          3
+        ],
+        [
+          379,
+          225,
+          3,
+          3
+        ],
+        [
+          269,
+          176,
+          3,
+          2
+        ],
+        [
+          194,
+          225,
+          3,
+          2
+        ],
+        [
+          208,
+          236,
+          3,
+          2
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Consumed control with distant and near fragments. Apparent small size does not mean physical safety; no metric size inferred."
+    },
+    {
+      "index": 81,
+      "source_id": "FLB_814657650RAD_F1191722FHAZ00337M1",
+      "sol": 4699,
+      "source_sha256": "67f4886d09802053f9418a1f7181fce996839e7ce5ff75825821cd6ed31e11c0",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Smooth sandy terrain and wheel tracks. No detached rock is clear enough in this full-source review to justify a new small-rock interior; zero positives is a valid reviewed result."
+    },
+    {
+      "index": 82,
+      "source_id": "FLB_816964361RAD_F1200082FHAZ00337M1",
+      "sol": 4725,
+      "source_sha256": "c48f9dafd4f02aa7b48ed0e90294fbc4672348000ba53db5f88da4fb0d1e9499",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          238,
+          422,
+          3,
+          3
+        ],
+        [
+          249,
+          372,
+          3,
+          3
+        ],
+        [
+          282,
+          392,
+          3,
+          3
+        ],
+        [
+          331,
+          454,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Dark flat bedrock/soil. New sparse seeds need gamma-assisted native QA; not every bright bump is a rock."
+    },
+    {
+      "index": 83,
+      "source_id": "FLB_819176065RAD_F1200346FHAZ00200M1",
+      "sol": 4750,
+      "source_sha256": "7ee904f66849b87e3ff5e2d30d9b6373e66dd918fc5f62a22ff3542e81ef6021",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          313,
+          372,
+          3,
+          3
+        ],
+        [
+          341,
+          372,
+          3,
+          3
+        ],
+        [
+          368,
+          403,
+          3,
+          3
+        ],
+        [
+          370,
+          433,
+          3,
+          3
+        ],
+        [
+          280,
+          343,
+          3,
+          3
+        ],
+        [
+          231,
+          303,
+          3,
+          3
+        ],
+        [
+          364,
+          291,
+          3,
+          3
+        ],
+        [
+          211,
+          320,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Rover apparatus remains excluded; target loose stones in granular strip between continuous slab patches."
+    },
+    {
+      "index": 84,
+      "source_id": "FLB_822183562RAD_F1200538FHAZ00401M1",
+      "sol": 4784,
+      "source_sha256": "1ee3da8bd9b13937bb82fb2b134a38447296008f2d1e6e1843af6f52b1488e81",
+      "prior_split": "test_v9",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          276,
+          277,
+          3,
+          3
+        ],
+        [
+          300,
+          244,
+          3,
+          3
+        ],
+        [
+          340,
+          398,
+          3,
+          3
+        ],
+        [
+          338,
+          370,
+          3,
+          3
+        ],
+        [
+          261,
+          363,
+          3,
+          3
+        ],
+        [
+          227,
+          292,
+          3,
+          3
+        ],
+        [
+          169,
+          409,
+          3,
+          3
+        ],
+        [
+          198,
+          367,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Consumed control. Additional small fragments around broad flat bedrock; both old heads missed reviewed distant targets, which are not relabelled to hide the miss."
+    },
+    {
+      "index": 85,
+      "source_id": "FLB_823427543RAD_F1200574FHAZ00337M1",
+      "sol": 4798,
+      "source_sha256": "7c484e6d90659e5573ec90433cb9a6bcef2b7b0c367c8eb4cb68584553b1f7c6",
+      "prior_split": "train",
+      "reviewed": true,
+      "small_rock_interiors": [
+        [
+          272,
+          308,
+          3,
+          3
+        ],
+        [
+          269,
+          368,
+          3,
+          3
+        ],
+        [
+          331,
+          404,
+          3,
+          3
+        ],
+        [
+          335,
+          457,
+          3,
+          3
+        ],
+        [
+          390,
+          367,
+          3,
+          3
+        ],
+        [
+          313,
+          329,
+          3,
+          3
+        ],
+        [
+          205,
+          427,
+          3,
+          3
+        ],
+        [
+          325,
+          247,
+          3,
+          3
+        ],
+        [
+          263,
+          281,
+          3,
+          3
+        ]
+      ],
+      "new_obstacle_polygons": [],
+      "ignore_polygons": [],
+      "native_crop_qa_completed": true,
+      "initial_review_note": "Additional detached fragments on rough fractured ground; keep hardware and continuous bedrock separately labelled."
+    }
+  ],
+  "initial_sheet_warning": "Brightness-only previews were discarded. Any initial note about clipping refers to that discarded preview, not the original source. Final review used gamma-only full-source sheets and native-pixel crops. Original bytes never altered.",
+  "reviewed_all_native_proposal_crops": 588
+}

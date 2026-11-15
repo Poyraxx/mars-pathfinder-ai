@@ -1,0 +1,38 @@
+{
+  "version": 10,
+  "production_model_unchanged": true,
+  "baseline_navigation_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "source_images_and_old_masks_immutable": true,
+  "classes": {
+    "0": "ground",
+    "1": "substantial_obstacle_candidate",
+    "2": "rover_hardware",
+    "3": "sky_or_distant_unknown",
+    "4": "small_rock_appearance",
+    "255": "unreviewed_or_uncertain"
+  },
+  "reviewed_all_custom_operational_sources": 86,
+  "proposed_interiors": 588,
+  "accepted_interiors": 75,
+  "method": "Sparse visually checked interior ellipses, not exact silhouettes; untraced64-native-pixel context becomes unknown, original obstacle/hardware/sky pixels always protected. Preview brightness clipping was discarded before native QA; original source bytes never altered.",
+  "physical_size": "Class4 is small-rock appearance in these images, not measured dimensions or proof of passability. Stereo geometry still required for occupancy.",
+  "training": "73 train,5 validation,8 previously opened consumed controls; five-class head initialized from v11, frozen original terrain branch. Select on validation only.",
+  "training_plan": {
+    "size": 512,
+    "epochs": 6,
+    "samples_per_epoch": 1008,
+    "head_lr": 1e-05,
+    "encoder_lr_factor": 0.1,
+    "ground_error_weight": 1.25,
+    "obstacle_error_weight": 0.75,
+    "selection": "0.8*unchanged four-class collapsed operational objective +0.2*small-rock IoU; report both separately.",
+    "deployment": "Research candidate only. Keep v11 if any large-object regression or original task metric drops. No new independent test exists in this revision; no automatic deployment.",
+    "partial_ground_loss": "-log(p_ground+p_small_rock), with separate hard labels for reviewed ground and rock cores",
+    "small_rock_class_weight": 16
+  },
+  "expert_datasets": "Original AI4Mars/HiRISE publisher labels and terrain taxonomy are preserved. This86-source sweep is not falsely described as re-labelling thousands of external expert/crowd-labelled frames.",
+  "partial_labels": "Historical0 permits{0,4}: coarse ground/small-stone labels do not become false negatives for untraced small rocks.63 visually checked bare-ground cores provide explicit0 supervision. New4 is a checked rock interior. Partial0 pixels are excluded from strict five-class metrics but included as0 in the old four-class collapsed task.",
+  "ground_review_sha256": "ee3492563585fbd174684e0fd4d132dc4bdcb5c3f36a1d22a9dda1c741e68237",
+  "mask_composition": "Union all accepted cores before applying uncertain ROI; nearby stone interiors cannot erase one another.",
+  "interrupted_pilot": "v19 stopped after detecting nearby-core composition and coarse-ground label ambiguity, before any control-set evaluation; retained locally as interrupted, not a completed release."
+}

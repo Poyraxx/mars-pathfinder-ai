@@ -4,3 +4,6 @@ data/prepared/** -text
 # Reviewed v8/v9 manifests seal annotation/protocol bytes before test opening.
 data/annotations/*v8* -text
 data/annotations/*v9* -text
+data/annotations/*v10* -text
+# Keep the byte hash of the sealed research trainer portable too.
+scripts/*v10*.py -text
