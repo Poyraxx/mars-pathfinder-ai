@@ -1,0 +1,103 @@
+{
+  "selection_before_v9_test": true,
+  "selection": "Fixed validation objective subject to retaining all baseline-found large objects on consumed v8 training controls. No test_v9 prediction.",
+  "choices": [
+    {
+      "new_weight": 0.0,
+      "validation_objective": 0.5520967638948813,
+      "validation_obstacle_iou": 0.47225117147996326,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.05,
+      "validation_objective": 0.556352550265501,
+      "validation_obstacle_iou": 0.47615944999110643,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.1,
+      "validation_objective": 0.5596548297080234,
+      "validation_obstacle_iou": 0.47940680130979013,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.15,
+      "validation_objective": 0.5623504140742955,
+      "validation_obstacle_iou": 0.48165566593930853,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.2,
+      "validation_objective": 0.5653969948317715,
+      "validation_obstacle_iou": 0.48417377767192754,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.25,
+      "validation_objective": 0.5681682751311106,
+      "validation_obstacle_iou": 0.4866222841193254,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.3,
+      "validation_objective": 0.5712720366850259,
+      "validation_obstacle_iou": 0.4896585660704876,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.4,
+      "validation_objective": 0.5769131162631518,
+      "validation_obstacle_iou": 0.4957394153977934,
+      "large_controls_found": 17,
+      "large_controls_total": 17,
+      "missed_control_sols": [],
+      "eligible": true
+    },
+    {
+      "new_weight": 0.5,
+      "validation_objective": 0.5810326882638318,
+      "validation_obstacle_iou": 0.500203217415539,
+      "large_controls_found": 16,
+      "large_controls_total": 17,
+      "missed_control_sols": [
+        4425
+      ],
+      "eligible": false
+    }
+  ],
+  "selected": {
+    "new_weight": 0.4,
+    "validation_objective": 0.5769131162631518,
+    "validation_obstacle_iou": 0.4957394153977934,
+    "large_controls_found": 17,
+    "large_controls_total": 17,
+    "missed_control_sols": [],
+    "eligible": true
+  },
+  "frozen_terrain_weights_unchanged": true,
+  "checkpoint_sha256": "79b18882e3719999b088bf00fb99cebaed65f8e64f9b85fd4daf212f81062389",
+  "inference_preprocessing": "Exact production512 BILINEAR normalization, CPU; alpha0 matches deployed v11 validation objective and all17 controls.",
+  "rejected_probability_ensemble_peak_mib": 548.8828125,
+  "selected_single_head_peak_mib": 311.90234375
+}

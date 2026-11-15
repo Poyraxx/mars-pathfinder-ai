@@ -1,0 +1,16 @@
+{
+  "selected_before_fresh_test": true,
+  "created_at": "2026-11-15T05:22:02.322842+00:00",
+  "policy": {
+    "inference_policy": "whole",
+    "navigation_obstacle_threshold": 0.7,
+    "hardware_threshold": 0.8,
+    "hardware_margin_native_px": 3
+  },
+  "manifest_sha256": "63d825618db27796f6959ac23044b242ee37c5836c59df7777b301210a90f125",
+  "annotation_sha256": "1a53c6397f7e3d8a9664bd2ec3271dcb9fa779f8d41b79a94e0ecf2cadc999c6",
+  "review_protocol_sha256": "f21f2cf0843b6af5447bbcaf810606bc1d7b77bea2ab7a40da4d6a8e64dcbe4b",
+  "weight_selection_sha256": "ad8033605adf73527aa2d26118e540cb7c364beda943ab4736d9b6a4c2414e92",
+  "candidate_model_sha256": "5a7946a33909632d69eda7fed866b1746828264cdedb7e9b7f4b0469f44c7a83",
+  "baseline_model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0"
+}

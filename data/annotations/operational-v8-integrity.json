@@ -1,0 +1,29 @@
+{
+  "images": 78,
+  "split_counts": {
+    "train": 65,
+    "validation": 5,
+    "test_v8": 8
+  },
+  "reviewed_pixels": {
+    "train": 44442886,
+    "validation": 3523351,
+    "test_v8": 5200157
+  },
+  "scored_connected_objects_min_50px": {
+    "train": 245,
+    "validation": 36,
+    "test_v8": 38
+  },
+  "all_source_label_hashes_match": true,
+  "same_rmc_cross_split_collisions": 0,
+  "training_manifest_immutable": true,
+  "manifest_sha256": "cc2eba9ea51fc5959e6f2846271c157ba0a2582a2c8db36cdde939971e2b1d67",
+  "new_images": 25,
+  "new_training_images": 17,
+  "new_test_images": 8,
+  "new_traced_rock_polygons": 80,
+  "new_training_rock_polygons": 42,
+  "new_test_rock_polygons": 38,
+  "limitations": "Assistant visual review, sparse ground truth and uncertain collars; not independently expert-labelled or exact metric obstacle size."
+}

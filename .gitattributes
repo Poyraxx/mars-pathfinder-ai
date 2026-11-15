@@ -1,3 +1,6 @@
 # Prepared scientific artifacts include byte-level provenance hashes. Preserve
 # their exact bytes on Windows, Linux and Render; never normalize JSON newlines.
 data/prepared/** -text
+# Reviewed v8/v9 manifests seal annotation/protocol bytes before test opening.
+data/annotations/*v8* -text
+data/annotations/*v9* -text

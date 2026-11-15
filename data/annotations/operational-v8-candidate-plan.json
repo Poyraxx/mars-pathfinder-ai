@@ -1,0 +1,24 @@
+{
+  "recorded_before_test_predictions": true,
+  "created_at": "2026-11-15T04:34:40.689360+00:00",
+  "selection_split": "validation",
+  "objective": "Existing fixed operational objective; includes false-positive penalties. Initialization is retained if no epoch improves it.",
+  "candidates": [
+    {
+      "name": "v16-v8-from-v11",
+      "resume": "v11-navigation-512",
+      "epochs": 8,
+      "samples": 1008,
+      "learning_rate": 2e-05
+    },
+    {
+      "name": "v17-v8-from-v14",
+      "resume": "v14-v7",
+      "epochs": 6,
+      "samples": 840,
+      "learning_rate": 1e-05
+    }
+  ],
+  "selection": "Highest validation objective among the two trained chains and their retained initializations; no fresh-test score used to choose.",
+  "test": "Only the selected frozen challenger and deployed v11 baseline are evaluated on test_v8; unchanged gate in operational-v8-review-protocol.json."
+}

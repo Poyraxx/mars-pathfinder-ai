@@ -1,0 +1,984 @@
+{
+  "training_images": 65,
+  "validation_images": 5,
+  "fresh_test_not_used_during_training": true,
+  "runtime_unchanged": true,
+  "runs": [
+    {
+      "name": "v16-v8-from-v11",
+      "settings": {
+        "manifest": "manifest-operational-v8-trainval.json",
+        "init": "best-surface.pt",
+        "output": "v16-v8-from-v11",
+        "size": 512,
+        "epochs": 8,
+        "samples": 1008,
+        "lr": 2e-05,
+        "resume": "best-operational.pt",
+        "spatial_refinement": true,
+        "train_navigation_encoder": true,
+        "ground_error_weight": 1.25,
+        "obstacle_error_weight": 0.75,
+        "device": "cuda",
+        "encoder_frozen": false,
+        "terrain_encoder_frozen": true,
+        "terrain_head_frozen": true,
+        "selection_split": "validation",
+        "test_evaluated": false,
+        "navigation_classes": [
+          "ground_or_small_stone",
+          "substantial_obstacle",
+          "rover_hardware",
+          "sky_or_distant_unknown"
+        ],
+        "resume_sha256": "fbd85ca0c9b448e47c002713c970d8d42ba73973e7fcfc0a949425f732b6eaef",
+        "loss": "weighted CE +0.5 Dice + hardware class error +1.25 ground class error +0.75 obstacle recall error",
+        "manifest_sha256": "a583470428a0d0edb55bc56eafd3ed3b6e9b5bd3e106154b3e856dc6ca5eb294",
+        "init_sha256": "ddbaea44801b9ce663008e98dad32c9cc2d516bcbed5c5d7ab89f6766ad3311f"
+      },
+      "report": {
+        "candidate_only": true,
+        "test_evaluated": false,
+        "input_size": 512,
+        "best_epoch": 8,
+        "best_validation": {
+          "miou": 0.7810501451987225,
+          "iou": {
+            "ground_or_small_stone": 0.8782095801636872,
+            "substantial_obstacle": 0.4928305832226214,
+            "rover_hardware": 0.8165210899589399,
+            "sky_or_distant_unknown": 0.9366393274496416
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9321655662282113,
+            "substantial_obstacle": 0.6959246256955334,
+            "rover_hardware": 0.8672229328991743,
+            "sky_or_distant_unknown": 0.9721293882288441
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9381658991227618,
+            "substantial_obstacle": 0.6280785154498709,
+            "rover_hardware": 0.933182220225077,
+            "sky_or_distant_unknown": 0.9624850581217409
+          },
+          "hardware_as_obstacle_fraction": 0.004399723559709112,
+          "ground_as_obstacle_fraction": 0.04451067684965853,
+          "confusion_matrix": [
+            [
+              2276119,
+              107989,
+              42029,
+              0
+            ],
+            [
+              148493,
+              250766,
+              0,
+              0
+            ],
+            [
+              12390,
+              1547,
+              328119,
+              9557
+            ],
+            [
+              4752,
+              33,
+              8208,
+              333349
+            ]
+          ]
+        },
+        "epochs_completed": 8,
+        "elapsed_s": 686.8191819000058,
+        "terrain_weights_unchanged": true,
+        "frozen_terrain_state_sha256": "e085101d99d76d483be9535b74cec7928b502dda0a6233dd519910f596fe7b5c",
+        "model_sha256": "9aaf2fc16cee213015a444619583cc648ea5f761b35176dfdadf0233e8dba5e3"
+      },
+      "checkpoint_sha256": "81a2d7cb65b1016f71aa537e35d36ea39269c0a964fd4716e76889ef0c14e4e2",
+      "history": [
+        {
+          "epoch": 1,
+          "loss": 0.9359409960193766,
+          "validation": {
+            "miou": 0.7710097060269285,
+            "iou": {
+              "ground_or_small_stone": 0.8770151914062246,
+              "substantial_obstacle": 0.4622448317913598,
+              "rover_hardware": 0.8048593107115071,
+              "sky_or_distant_unknown": 0.9399194901986229
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9217998826693485,
+              "substantial_obstacle": 0.7371244062550034,
+              "rover_hardware": 0.8496331196416158,
+              "sky_or_distant_unknown": 0.9761265827234855
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9475107959690652,
+              "substantial_obstacle": 0.553485331576746,
+              "rover_hardware": 0.9385489159957112,
+              "sky_or_distant_unknown": 0.9620346362843664
+            },
+            "hardware_as_obstacle_fraction": 0.0006057796497854175,
+            "ground_as_obstacle_fraction": 0.032220356888337305,
+            "confusion_matrix": [
+              [
+                2298791,
+                78171,
+                49175,
+                0
+              ],
+              [
+                178275,
+                220984,
+                0,
+                0
+              ],
+              [
+                13245,
+                213,
+                330006,
+                8149
+              ],
+              [
+                3496,
+                424,
+                9229,
+                333193
+              ]
+            ]
+          },
+          "selection_score": 0.5408181397672657,
+          "improved": false,
+          "elapsed_s": 110.52054320000752
+        },
+        {
+          "epoch": 2,
+          "loss": 0.8644577272842446,
+          "validation": {
+            "miou": 0.7732344161939337,
+            "iou": {
+              "ground_or_small_stone": 0.8732428437762781,
+              "substantial_obstacle": 0.48157957386025474,
+              "rover_hardware": 0.7966111473013935,
+              "sky_or_distant_unknown": 0.9415040998378086
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9302830044664181,
+              "substantial_obstacle": 0.6984543053293665,
+              "rover_hardware": 0.8372953812181497,
+              "sky_or_distant_unknown": 0.9743731713856089
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9343915862954153,
+              "substantial_obstacle": 0.6079887992506118,
+              "rover_hardware": 0.9425106580245896,
+              "sky_or_distant_unknown": 0.9654099127452056
+            },
+            "hardware_as_obstacle_fraction": 0.0033047697326321836,
+            "ground_as_obstacle_fraction": 0.04270945952351413,
+            "confusion_matrix": [
+              [
+                2266962,
+                103619,
+                55556,
+                0
+              ],
+              [
+                156514,
+                242745,
+                0,
+                0
+              ],
+              [
+                10258,
+                1162,
+                331399,
+                8794
+              ],
+              [
+                3118,
+                20,
+                8842,
+                334362
+              ]
+            ]
+          },
+          "selection_score": 0.5545443869385682,
+          "improved": true,
+          "elapsed_s": 190.26959579999675
+        },
+        {
+          "epoch": 3,
+          "loss": 0.8253285862091515,
+          "validation": {
+            "miou": 0.7733653193165656,
+            "iou": {
+              "ground_or_small_stone": 0.8799569843889051,
+              "substantial_obstacle": 0.4696401624827225,
+              "rover_hardware": 0.8077077786031039,
+              "sky_or_distant_unknown": 0.9361563517915309
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9222829510616214,
+              "substantial_obstacle": 0.7504364887728671,
+              "rover_hardware": 0.8592509168615899,
+              "sky_or_distant_unknown": 0.9673161261245645
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9504319005892907,
+              "substantial_obstacle": 0.5565660385864815,
+              "rover_hardware": 0.9308671749906858,
+              "sky_or_distant_unknown": 0.9667351923820963
+            },
+            "hardware_as_obstacle_fraction": 0.0002019265499284725,
+            "ground_as_obstacle_fraction": 0.03043026836489448,
+            "confusion_matrix": [
+              [
+                2305878,
+                73828,
+                46427,
+                4
+              ],
+              [
+                177045,
+                222214,
+                0,
+                0
+              ],
+              [
+                12928,
+                71,
+                327305,
+                11309
+              ],
+              [
+                4334,
+                0,
+                7187,
+                334821
+              ]
+            ]
+          },
+          "selection_score": 0.5477124612556223,
+          "improved": false,
+          "elapsed_s": 270.7408487000066
+        },
+        {
+          "epoch": 4,
+          "loss": 0.8406908152004083,
+          "validation": {
+            "miou": 0.771679203904687,
+            "iou": {
+              "ground_or_small_stone": 0.8696081442971118,
+              "substantial_obstacle": 0.49122239332566614,
+              "rover_hardware": 0.7834012145682306,
+              "sky_or_distant_unknown": 0.9424850634277396
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9340749713782291,
+              "substantial_obstacle": 0.6889950321665167,
+              "rover_hardware": 0.8193800834266448,
+              "sky_or_distant_unknown": 0.9724648271222612
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9264703518391583,
+              "substantial_obstacle": 0.6311742502986784,
+              "rover_hardware": 0.946924601763871,
+              "sky_or_distant_unknown": 0.9683261054102592
+            },
+            "hardware_as_obstacle_fraction": 0.001604036255769838,
+            "ground_as_obstacle_fraction": 0.04665317745865134,
+            "confusion_matrix": [
+              [
+                2247744,
+                113187,
+                65194,
+                12
+              ],
+              [
+                147247,
+                252002,
+                10,
+                0
+              ],
+              [
+                8614,
+                564,
+                332951,
+                9484
+              ],
+              [
+                2780,
+                0,
+                8190,
+                335372
+              ]
+            ]
+          },
+          "selection_score": 0.5651090534252173,
+          "improved": true,
+          "elapsed_s": 351.51587400000426
+        },
+        {
+          "epoch": 5,
+          "loss": 0.7986325429870732,
+          "validation": {
+            "miou": 0.7796248745356762,
+            "iou": {
+              "ground_or_small_stone": 0.8805083384419445,
+              "substantial_obstacle": 0.48213974952449784,
+              "rover_hardware": 0.8194694765811378,
+              "sky_or_distant_unknown": 0.9363819335951244
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9264971539451443,
+              "substantial_obstacle": 0.7253406598822167,
+              "rover_hardware": 0.8690402861455736,
+              "sky_or_distant_unknown": 0.9739333856441847
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9466349179786632,
+              "substantial_obstacle": 0.5898226464525533,
+              "rover_hardware": 0.9349227702047421,
+              "sky_or_distant_unknown": 0.9604523852146144
+            },
+            "hardware_as_obstacle_fraction": 0.0013310088079792272,
+            "ground_as_obstacle_fraction": 0.0365618264755865,
+            "confusion_matrix": [
+              [
+                2296666,
+                88704,
+                40767,
+                0
+              ],
+              [
+                163767,
+                235492,
+                0,
+                0
+              ],
+              [
+                13511,
+                468,
+                328731,
+                8903
+              ],
+              [
+                4926,
+                0,
+                8771,
+                332645
+              ]
+            ]
+          },
+          "selection_score": 0.5609676331604908,
+          "improved": false,
+          "elapsed_s": 433.224824600009
+        },
+        {
+          "epoch": 6,
+          "loss": 0.772627813711999,
+          "validation": {
+            "miou": 0.7800738040286539,
+            "iou": {
+              "ground_or_small_stone": 0.8818005388400123,
+              "substantial_obstacle": 0.48094726135655086,
+              "rover_hardware": 0.8215572783117655,
+              "sky_or_distant_unknown": 0.9359901376062867
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9253621304718334,
+              "substantial_obstacle": 0.7355315347281183,
+              "rover_hardware": 0.8713837361565417,
+              "sky_or_distant_unknown": 0.9738004181625446
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9493202568527663,
+              "substantial_obstacle": 0.5815072421661127,
+              "rover_hardware": 0.9349284582765711,
+              "sky_or_distant_unknown": 0.9601694279065202
+            },
+            "hardware_as_obstacle_fraction": 0.001006788713727877,
+            "ground_as_obstacle_fraction": 0.03426269827301591,
+            "confusion_matrix": [
+              [
+                2303181,
+                83126,
+                39830,
+                0
+              ],
+              [
+                167087,
+                232172,
+                0,
+                0
+              ],
+              [
+                13579,
+                354,
+                328733,
+                8947
+              ],
+              [
+                5104,
+                0,
+                8691,
+                332547
+              ]
+            ]
+          },
+          "selection_score": 0.5600923324264987,
+          "improved": false,
+          "elapsed_s": 516.8426813999977
+        },
+        {
+          "epoch": 7,
+          "loss": 0.7598540395616539,
+          "validation": {
+            "miou": 0.7776702264432154,
+            "iou": {
+              "ground_or_small_stone": 0.8801804205519341,
+              "substantial_obstacle": 0.4847222624970484,
+              "rover_hardware": 0.8108693784894779,
+              "sky_or_distant_unknown": 0.9349088442344013
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9263914649847546,
+              "substantial_obstacle": 0.7369440350678306,
+              "rover_hardware": 0.8553813255460545,
+              "sky_or_distant_unknown": 0.9738210071098732
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9463661780023139,
+              "substantial_obstacle": 0.5861383212400972,
+              "rover_hardware": 0.9396950624692488,
+              "sky_or_distant_unknown": 0.9590116127989098
+            },
+            "hardware_as_obstacle_fraction": 0.0006029356138709319,
+            "ground_as_obstacle_fraction": 0.03434389731494965,
+            "confusion_matrix": [
+              [
+                2296014,
+                83323,
+                46800,
+                0
+              ],
+              [
+                165238,
+                234021,
+                0,
+                0
+              ],
+              [
+                12063,
+                212,
+                330409,
+                8929
+              ],
+              [
+                5134,
+                0,
+                9062,
+                332146
+              ]
+            ]
+          },
+          "selection_score": 0.5619986834332322,
+          "improved": false,
+          "elapsed_s": 602.255092899999
+        },
+        {
+          "epoch": 8,
+          "loss": 0.7373419108224057,
+          "validation": {
+            "miou": 0.7810501451987225,
+            "iou": {
+              "ground_or_small_stone": 0.8782095801636872,
+              "substantial_obstacle": 0.4928305832226214,
+              "rover_hardware": 0.8165210899589399,
+              "sky_or_distant_unknown": 0.9366393274496416
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9321655662282113,
+              "substantial_obstacle": 0.6959246256955334,
+              "rover_hardware": 0.8672229328991743,
+              "sky_or_distant_unknown": 0.9721293882288441
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9381658991227618,
+              "substantial_obstacle": 0.6280785154498709,
+              "rover_hardware": 0.933182220225077,
+              "sky_or_distant_unknown": 0.9624850581217409
+            },
+            "hardware_as_obstacle_fraction": 0.004399723559709112,
+            "ground_as_obstacle_fraction": 0.04451067684965853,
+            "confusion_matrix": [
+              [
+                2276119,
+                107989,
+                42029,
+                0
+              ],
+              [
+                148493,
+                250766,
+                0,
+                0
+              ],
+              [
+                12390,
+                1547,
+                328119,
+                9557
+              ],
+              [
+                4752,
+                33,
+                8208,
+                333349
+              ]
+            ]
+          },
+          "selection_score": 0.5670882786938124,
+          "improved": true,
+          "elapsed_s": 684.4769691999973
+        }
+      ]
+    },
+    {
+      "name": "v17-v8-from-v14",
+      "settings": {
+        "manifest": "manifest-operational-v8-trainval.json",
+        "init": "best-surface.pt",
+        "output": "v17-v8-from-v14",
+        "size": 512,
+        "epochs": 6,
+        "samples": 840,
+        "lr": 1e-05,
+        "resume": "best-operational.pt",
+        "spatial_refinement": true,
+        "train_navigation_encoder": true,
+        "ground_error_weight": 1.25,
+        "obstacle_error_weight": 0.75,
+        "device": "cuda",
+        "encoder_frozen": false,
+        "terrain_encoder_frozen": true,
+        "terrain_head_frozen": true,
+        "selection_split": "validation",
+        "test_evaluated": false,
+        "navigation_classes": [
+          "ground_or_small_stone",
+          "substantial_obstacle",
+          "rover_hardware",
+          "sky_or_distant_unknown"
+        ],
+        "resume_sha256": "b99e28dc9cf5be9998deb5bb535c7be68ee6b0a15f254366226d32fc8d94683f",
+        "loss": "weighted CE +0.5 Dice + hardware class error +1.25 ground class error +0.75 obstacle recall error",
+        "manifest_sha256": "a583470428a0d0edb55bc56eafd3ed3b6e9b5bd3e106154b3e856dc6ca5eb294",
+        "init_sha256": "ddbaea44801b9ce663008e98dad32c9cc2d516bcbed5c5d7ab89f6766ad3311f"
+      },
+      "report": {
+        "candidate_only": true,
+        "test_evaluated": false,
+        "input_size": 512,
+        "best_epoch": 6,
+        "best_validation": {
+          "miou": 0.7911023901986767,
+          "iou": {
+            "ground_or_small_stone": 0.8795375002003916,
+            "substantial_obstacle": 0.5365953755607995,
+            "rover_hardware": 0.8153814119530068,
+            "sky_or_distant_unknown": 0.9328952730805089
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9448261841666992,
+            "substantial_obstacle": 0.6776909738583033,
+            "rover_hardware": 0.8736674031901682,
+            "sky_or_distant_unknown": 0.9656063101326168
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9271574523615114,
+            "substantial_obstacle": 0.7204596515044119,
+            "rover_hardware": 0.9243685529260863,
+            "sky_or_distant_unknown": 0.964959490907831
+          },
+          "hardware_as_obstacle_fraction": 0.0021842195823248856,
+          "ground_as_obstacle_fraction": 0.05607185414508744,
+          "confusion_matrix": [
+            [
+              2249411,
+              136038,
+              40572,
+              116
+            ],
+            [
+              111609,
+              287650,
+              0,
+              0
+            ],
+            [
+              14037,
+              768,
+              325020,
+              11788
+            ],
+            [
+              5710,
+              0,
+              6426,
+              334206
+            ]
+          ]
+        },
+        "epochs_completed": 6,
+        "elapsed_s": 443.0438393000077,
+        "terrain_weights_unchanged": true,
+        "frozen_terrain_state_sha256": "e085101d99d76d483be9535b74cec7928b502dda0a6233dd519910f596fe7b5c",
+        "model_sha256": "66082149528d3201cd759c9ed13829c65ca44c25c49bbaafc8b355dfecfb2fb5"
+      },
+      "checkpoint_sha256": "9884bd1eaddf064842d243bd81b7a9ea639316ef636b231032b92bc750843dcb",
+      "history": [
+        {
+          "epoch": 1,
+          "loss": 0.7550976486787909,
+          "validation": {
+            "miou": 0.7883682607116503,
+            "iou": {
+              "ground_or_small_stone": 0.8777249619718409,
+              "substantial_obstacle": 0.5194451714210939,
+              "rover_hardware": 0.820700349012814,
+              "sky_or_distant_unknown": 0.9356025604408528
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9408498845149901,
+              "substantial_obstacle": 0.6719138780277256,
+              "rover_hardware": 0.8798901815956701,
+              "sky_or_distant_unknown": 0.9687340539036045
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9289879343169821,
+              "substantial_obstacle": 0.6959692830969371,
+              "rover_hardware": 0.924243415345849,
+              "sky_or_distant_unknown": 0.9647342799891436
+            },
+            "hardware_as_obstacle_fraction": 0.002875320309544869,
+            "ground_as_obstacle_fraction": 0.05550799480820745,
+            "confusion_matrix": [
+              [
+                2253852,
+                134670,
+                37595,
+                20
+              ],
+              [
+                121387,
+                277872,
+                0,
+                0
+              ],
+              [
+                14862,
+                1011,
+                324976,
+                10764
+              ],
+              [
+                5448,
+                0,
+                6766,
+                334128
+              ]
+            ]
+          },
+          "selection_score": 0.5991488024189975,
+          "improved": false,
+          "elapsed_s": 100.5613039000018
+        },
+        {
+          "epoch": 2,
+          "loss": 0.7212751605060129,
+          "validation": {
+            "miou": 0.7893567928340067,
+            "iou": {
+              "ground_or_small_stone": 0.879650159034553,
+              "substantial_obstacle": 0.5262317198412909,
+              "rover_hardware": 0.8177767165979692,
+              "sky_or_distant_unknown": 0.9337685758622136
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9410283704933536,
+              "substantial_obstacle": 0.6836729669983408,
+              "rover_hardware": 0.875507205820624,
+              "sky_or_distant_unknown": 0.9672352873030584
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9309700977314966,
+              "substantial_obstacle": 0.6955960917599854,
+              "rover_hardware": 0.9253838737475577,
+              "sky_or_distant_unknown": 0.9642694215544173
+            },
+            "hardware_as_obstacle_fraction": 0.0022268801210421686,
+            "ground_as_obstacle_fraction": 0.052641709845734186,
+            "confusion_matrix": [
+              [
+                2258661,
+                127716,
+                39712,
+                48
+              ],
+              [
+                121536,
+                277723,
+                0,
+                0
+              ],
+              [
+                14188,
+                783,
+                325377,
+                11265
+              ],
+              [
+                5820,
+                0,
+                6555,
+                333967
+              ]
+            ]
+          },
+          "selection_score": 0.6045754156032835,
+          "improved": false,
+          "elapsed_s": 168.37539800000377
+        },
+        {
+          "epoch": 3,
+          "loss": 0.7205258794128895,
+          "validation": {
+            "miou": 0.7890600349411471,
+            "iou": {
+              "ground_or_small_stone": 0.8769565953126321,
+              "substantial_obstacle": 0.5365503928386832,
+              "rover_hardware": 0.8090858602687993,
+              "sky_or_distant_unknown": 0.9336472913444736
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9464112619755296,
+              "substantial_obstacle": 0.6733030496054901,
+              "rover_hardware": 0.8596368843280157,
+              "sky_or_distant_unknown": 0.9656977533183382
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9227780624095012,
+              "substantial_obstacle": 0.7254038105590607,
+              "rover_hardware": 0.9322436883732967,
+              "sky_or_distant_unknown": 0.9656726588170075
+            },
+            "hardware_as_obstacle_fraction": 0.0019737609246529564,
+            "ground_as_obstacle_fraction": 0.05763730572510951,
+            "confusion_matrix": [
+              [
+                2238786,
+                139836,
+                46687,
+                828
+              ],
+              [
+                109635,
+                289624,
+                0,
+                0
+              ],
+              [
+                12078,
+                694,
+                327789,
+                11052
+              ],
+              [
+                5054,
+                0,
+                6835,
+                334453
+              ]
+            ]
+          },
+          "selection_score": 0.614947336928959,
+          "improved": true,
+          "elapsed_s": 236.46127420000266
+        },
+        {
+          "epoch": 4,
+          "loss": 0.7029769147435824,
+          "validation": {
+            "miou": 0.7896361715271062,
+            "iou": {
+              "ground_or_small_stone": 0.8773114598992472,
+              "substantial_obstacle": 0.5278679787928072,
+              "rover_hardware": 0.819823275981737,
+              "sky_or_distant_unknown": 0.9335419714346336
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9445988650192987,
+              "substantial_obstacle": 0.6646997024098783,
+              "rover_hardware": 0.8792759480376048,
+              "sky_or_distant_unknown": 0.9657641265577842
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9249020150139914,
+              "substantial_obstacle": 0.719437758447524,
+              "rover_hardware": 0.9238082778509327,
+              "sky_or_distant_unknown": 0.9654936450098458
+            },
+            "hardware_as_obstacle_fraction": 0.0027217423701626506,
+            "ground_as_obstacle_fraction": 0.05932847155787163,
+            "confusion_matrix": [
+              [
+                2243939,
+                143939,
+                38143,
+                116
+              ],
+              [
+                112017,
+                287242,
+                0,
+                0
+              ],
+              [
+                14095,
+                957,
+                324823,
+                11738
+              ],
+              [
+                5496,
+                0,
+                6455,
+                334391
+              ]
+            ]
+          },
+          "selection_score": 0.6086222516077471,
+          "improved": false,
+          "elapsed_s": 304.6524389000115
+        },
+        {
+          "epoch": 5,
+          "loss": 0.699906489563485,
+          "validation": {
+            "miou": 0.7830934041572619,
+            "iou": {
+              "ground_or_small_stone": 0.8799687881975261,
+              "substantial_obstacle": 0.5008252751906841,
+              "rover_hardware": 0.8196608206277463,
+              "sky_or_distant_unknown": 0.9319187326130917
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9319935928414996,
+              "substantial_obstacle": 0.7047317223959654,
+              "rover_hardware": 0.877311757825344,
+              "sky_or_distant_unknown": 0.9661607869368939
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9403487931637826,
+              "substantial_obstacle": 0.6338241592550199,
+              "rover_hardware": 0.9257791947396712,
+              "sky_or_distant_unknown": 0.9633628032407274
+            },
+            "hardware_as_obstacle_fraction": 0.000910091492635369,
+            "ground_as_obstacle_fraction": 0.04357008693243621,
+            "confusion_matrix": [
+              [
+                2281415,
+                105707,
+                38927,
+                88
+              ],
+              [
+                146193,
+                253060,
+                6,
+                0
+              ],
+              [
+                14179,
+                320,
+                325516,
+                11598
+              ],
+              [
+                6100,
+                0,
+                6589,
+                333653
+              ]
+            ]
+          },
+          "selection_score": 0.5808868230459083,
+          "improved": false,
+          "elapsed_s": 372.3085213000013
+        },
+        {
+          "epoch": 6,
+          "loss": 0.6927050657481665,
+          "validation": {
+            "miou": 0.7911023901986767,
+            "iou": {
+              "ground_or_small_stone": 0.8795375002003916,
+              "substantial_obstacle": 0.5365953755607995,
+              "rover_hardware": 0.8153814119530068,
+              "sky_or_distant_unknown": 0.9328952730805089
+            },
+            "precision": {
+              "ground_or_small_stone": 0.9448261841666992,
+              "substantial_obstacle": 0.6776909738583033,
+              "rover_hardware": 0.8736674031901682,
+              "sky_or_distant_unknown": 0.9656063101326168
+            },
+            "recall": {
+              "ground_or_small_stone": 0.9271574523615114,
+              "substantial_obstacle": 0.7204596515044119,
+              "rover_hardware": 0.9243685529260863,
+              "sky_or_distant_unknown": 0.964959490907831
+            },
+            "hardware_as_obstacle_fraction": 0.0021842195823248856,
+            "ground_as_obstacle_fraction": 0.05607185414508744,
+            "confusion_matrix": [
+              [
+                2249411,
+                136038,
+                40572,
+                116
+              ],
+              [
+                111609,
+                287650,
+                0,
+                0
+              ],
+              [
+                14037,
+                768,
+                325020,
+                11788
+              ],
+              [
+                5710,
+                0,
+                6426,
+                334206
+              ]
+            ]
+          },
+          "selection_score": 0.6151074993851311,
+          "improved": true,
+          "elapsed_s": 440.70958500000415
+        }
+      ]
+    }
+  ]
+}

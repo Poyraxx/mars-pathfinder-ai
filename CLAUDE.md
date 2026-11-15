@@ -1,5 +1,16 @@
 # Current continuation — 15 November 2026
 
+Newest perception/data pass: [DATASET_V8_REFINEMENT.md](DATASET_V8_REFINEMENT.md).
+Dataset now86 images (+33 authentic reviewed Hazcam exposures,117 new retained
+rock-instance polygons); v8 fine-tunes and v9 weight mixture are **rejected**.
+Final fresh test: both v11/v18 find25/35 objects; v18 loses one previously found
+large component onSol4080. Production staysv11, SHA6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0.
+Both new tests are now consumed; do not tune another coefficient against them
+and call it fresh evaluation. Full training/selection/paired results are in
+data/annotations/operational-v8* andoperational-v9*. UI, planner and global map
+unchanged. Camera–map bank adds two correlation candidates; runtime localization
+flags remain unchanged. Older paragraphs below are historical, not current state.
+
 Latest: [GUIDANCE_CONTINUITY.md](GUIDANCE_CONTINUITY.md). Fresh pages open Plan a
 route; Live GPS Test is second, Explore third. The NASA film feature is removed.
 Direct display links, bounded joins and measured-space turn continuity address

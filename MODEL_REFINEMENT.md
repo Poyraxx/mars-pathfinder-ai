@@ -1,5 +1,12 @@
 # Hazcam obstacle refinement — 14 November 2026
 
+Latest,15 November: see [DATASET_V8_REFINEMENT.md](DATASET_V8_REFINEMENT.md).
+33 further native Hazcam sources and117 retained rock-instance polygons expand
+the operational dataset to86 images. Two fine-tunes and a single-head mixture
+were evaluated with sealed new tests; none was promoted because large-object
+retention regressed. Production remainsv11. The archived results include misses,
+false positives and consumed-test status; they do not claim perfect perception.
+
 Scope: native-image perception and the local Hazcam planner only. Existing UI,
 recorded-motion classifier, route ribbon renderer, global 3D map and registration
 checks are preserved. This is a research prototype, not a rover safety system.

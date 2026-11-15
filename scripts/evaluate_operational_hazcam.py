@@ -22,7 +22,7 @@ from train_operational_hazcam import metrics
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--candidate',type=Path,required=True);ap.add_argument('--manifest',type=Path,required=True)
-    ap.add_argument('--split',choices=['validation','test','test_v6','test_v7'],default='validation');ap.add_argument('--output',type=Path,required=True)
+    ap.add_argument('--split',choices=['validation','test','test_v6','test_v7','test_v8','test_v9'],default='validation');ap.add_argument('--output',type=Path,required=True)
     ap.add_argument('--obstacle-threshold',type=float,default=.7);ap.add_argument('--hardware-threshold',type=float,default=.8)
     ap.add_argument('--margin',type=int,default=3);ap.add_argument('--render',type=Path);args=ap.parse_args()
     path=args.candidate/'surface.onnx';model_sha=hashlib.sha256(path.read_bytes()).hexdigest()
@@ -30,6 +30,8 @@ def main():
     if args.split.startswith('test'):
         frozen=json.loads((args.candidate/'frozen-selection.json').read_text('utf8'))
         assert frozen['model_sha256']==model_sha and frozen['policy']==policy, 'Test requires a previously frozen model and policy'
+        if args.split in ('test_v8','test_v9'):
+            assert frozen.get('manifest_sha256')==hashlib.sha256(args.manifest.read_bytes()).hexdigest(), 'New test requires its exact frozen reviewed manifest'
     entries=[e for e in json.loads(args.manifest.read_text('utf8'))['entries'] if e['split']==args.split]
     assert entries
     opts=ort.SessionOptions();opts.intra_op_num_threads=2;opts.inter_op_num_threads=1
@@ -52,14 +54,17 @@ def main():
         obstacle=np.asarray(Image.fromarray(obstacle).resize(source.size,Image.Resampling.NEAREST));hardware=np.asarray(Image.fromarray(hardware).resize(source.size,Image.Resampling.NEAREST))
         runtime_hw_fp+=int((obstacle&(truth==2)).sum());runtime_ground_fp+=int((obstacle&(truth==0)).sum())
         runtime_obstacle_tp+=int((obstacle&(truth==1)).sum());runtime_obstacle_as_hardware+=int((hardware&(truth==1)).sum())
-        labels,count=ndimage.label(truth==1);found=total=0
+        labels,count=ndimage.label(truth==1);found=total=0;object_rows=[]
         for cid,sl in enumerate(ndimage.find_objects(labels),1):
             if sl is None:continue
             mask=labels[sl]==cid
             if mask.sum()<50:continue
-            total+=1;found+=int(obstacle[sl][mask].mean()>=.25)
+            coverage=float(obstacle[sl][mask].mean());detected=coverage>=.25
+            total+=1;found+=int(detected)
+            object_rows.append({'component_id':cid,'reviewed_pixels':int(mask.sum()),'coverage':coverage,'found':bool(detected),
+                                'bbox':[sl[1].start,sl[0].start,sl[1].stop-1,sl[0].stop-1]})
         objects_total+=total;objects_found+=found
-        rows.append({'source_id':entry['source_id'],'sol':entry['sol'],'raw_metrics':metrics(cm),'reviewed_objects':total,'found_objects':found})
+        rows.append({'source_id':entry['source_id'],'sol':entry['sol'],'raw_metrics':metrics(cm),'reviewed_objects':total,'found_objects':found,'objects':object_rows})
         if args.render:
             args.render.mkdir(exist_ok=True,parents=True);image=np.asarray(source).astype('float32')
             image[obstacle]=image[obstacle]*.5+[127,30,20];image[hardware]=image[hardware]*.5+[25,90,127]

@@ -3,6 +3,12 @@
 Global Mars exploration and terrain-aware mission planning with real NASA/USGS/PDS data.
 Research prototype for the Martian Map challenge. **Not certified for human EVA operations.**
 
+Latest perception audit (15 November2026): the reviewed operational Hazcam
+dataset now has86 images, including33 additional PDS exposures and117 newly
+traced rock-instance polygons. Fine-tuned challengers were tested but rejected
+for losing previously found large objects; the deployed head remainsv11.
+See [dataset, training and paired test results](DATASET_V8_REFINEMENT.md).
+
 ## Real-footage navigation
 
 The default view is now the actual forward-facing rover camera on the left and

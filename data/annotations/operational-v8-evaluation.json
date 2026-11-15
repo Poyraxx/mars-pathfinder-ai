@@ -1,0 +1,1037 @@
+{
+  "baseline": {
+    "split": "test_v8",
+    "images": 8,
+    "model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+    "policy": {
+      "inference_policy": "whole",
+      "navigation_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "hardware_margin_native_px": 3
+    },
+    "manifest_sha256": "cc2eba9ea51fc5959e6f2846271c157ba0a2582a2c8db36cdde939971e2b1d67",
+    "raw_head_metrics": {
+      "miou": 0.6760354850869557,
+      "iou": {
+        "ground_or_small_stone": 0.8171850441531225,
+        "substantial_obstacle": 0.19076436508555586,
+        "rover_hardware": 0.8347956002333864,
+        "sky_or_distant_unknown": 0.8613969308757576
+      },
+      "precision": {
+        "ground_or_small_stone": 0.9555679889434281,
+        "substantial_obstacle": 0.20749279983463145,
+        "rover_hardware": 0.9076178138793277,
+        "sky_or_distant_unknown": 0.9921832751585468
+      },
+      "recall": {
+        "ground_or_small_stone": 0.8494624770752117,
+        "substantial_obstacle": 0.7029260058635088,
+        "rover_hardware": 0.9123149589394021,
+        "sky_or_distant_unknown": 0.867282614085252
+      },
+      "hardware_as_obstacle_fraction": 0.00544683591863024,
+      "ground_as_obstacle_fraction": 0.1464963089938898,
+      "confusion_matrix": [
+        [
+          2949524,
+          508668,
+          14032,
+          0
+        ],
+        [
+          56846,
+          134507,
+          0,
+          0
+        ],
+        [
+          72475,
+          5074,
+          849867,
+          4134
+        ],
+        [
+          7826,
+          0,
+          72472,
+          524732
+        ]
+      ]
+    },
+    "runtime_policy": {
+      "reviewed_obstacle_pixel_recall": 0.622969067639389,
+      "hardware_as_obstacle_fraction": 0.0014406097364607375,
+      "ground_small_stone_as_obstacle_fraction": 0.11885667514538233,
+      "obstacle_as_self_exclusion_fraction": 0.0,
+      "object_recall_25pct_coverage": {
+        "found": 26,
+        "total": 38,
+        "recall": 0.6842105263157895
+      }
+    },
+    "inference_ms_median": 214.397600000666,
+    "per_scene": [
+      {
+        "source_id": "FLB_768834697RAD_F1071140FHAZ00302M1",
+        "sol": 4183,
+        "raw_metrics": {
+          "miou": 0.7644835723616462,
+          "iou": {
+            "ground_or_small_stone": 0.9471729237552483,
+            "substantial_obstacle": 0.43390648097720375,
+            "rover_hardware": 0.7623685936078854,
+            "sky_or_distant_unknown": 0.9144862911062474
+          },
+          "precision": {
+            "ground_or_small_stone": 0.97210841598743,
+            "substantial_obstacle": 0.48034107058266223,
+            "rover_hardware": 0.9053288622634164,
+            "sky_or_distant_unknown": 0.9690597632566644
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9736324955296811,
+            "substantial_obstacle": 0.8178018916342841,
+            "rover_hardware": 0.8284108669669946,
+            "sky_or_distant_unknown": 0.9419903457566232
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.023737442289117994,
+          "confusion_matrix": [
+            [
+              494949,
+              12067,
+              1337,
+              0
+            ],
+            [
+              2485,
+              11154,
+              0,
+              0
+            ],
+            [
+              11716,
+              0,
+              72085,
+              3215
+            ],
+            [
+              0,
+              0,
+              6201,
+              100695
+            ]
+          ]
+        },
+        "reviewed_objects": 10,
+        "found_objects": 7
+      },
+      {
+        "source_id": "FLB_772668569RAD_F1072496FHAZ00337M1",
+        "sol": 4226,
+        "raw_metrics": {
+          "miou": 0.6602049003026278,
+          "iou": {
+            "ground_or_small_stone": 0.8922232322594288,
+            "substantial_obstacle": 0.37305520575212253,
+            "rover_hardware": 0.7802914080569422,
+            "sky_or_distant_unknown": 0.5952497551420176
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9289157659975982,
+            "substantial_obstacle": 0.560824427480916,
+            "rover_hardware": 0.8347468217338421,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9576050368152048,
+            "substantial_obstacle": 0.5270150067429916,
+            "rover_hardware": 0.9228459590145061,
+            "sky_or_distant_unknown": 0.5952497551420176
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.042394963184795235,
+          "confusion_matrix": [
+            [
+              324879,
+              14383,
+              0,
+              0
+            ],
+            [
+              16484,
+              18367,
+              0,
+              0
+            ],
+            [
+              8377,
+              0,
+              100198,
+              0
+            ],
+            [
+              0,
+              0,
+              19836,
+              29172
+            ]
+          ]
+        },
+        "reviewed_objects": 5,
+        "found_objects": 2
+      },
+      {
+        "source_id": "FLB_777466896RAD_F1080792FHAZ00200M1",
+        "sol": 4280,
+        "raw_metrics": {
+          "miou": 0.5292355857859693,
+          "iou": {
+            "ground_or_small_stone": 0.9269563128260309,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.6318236825699513,
+            "sky_or_distant_unknown": 0.5581623477478951
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9269563128260309,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.7993801384481191,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 1.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.7508912617127914,
+            "sky_or_distant_unknown": 0.5581623477478951
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              362680,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              28579,
+              0,
+              86146,
+              0
+            ],
+            [
+              0,
+              0,
+              21620,
+              27312
+            ]
+          ]
+        },
+        "reviewed_objects": 0,
+        "found_objects": 0
+      },
+      {
+        "source_id": "FLB_781455837RAD_F1091290FHAZ00200M1",
+        "sol": 4325,
+        "raw_metrics": {
+          "miou": 0.660627866233995,
+          "iou": {
+            "ground_or_small_stone": 0.8037417002823055,
+            "substantial_obstacle": 0.2156857231236467,
+            "rover_hardware": 0.8907453658657511,
+            "sky_or_distant_unknown": 0.7323386756642767
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9639990423597938,
+            "substantial_obstacle": 0.2362156224656353,
+            "rover_hardware": 0.9207018263114403,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.8286134258997524,
+            "substantial_obstacle": 0.7127811164116226,
+            "rover_hardware": 0.9647598974345205,
+            "sky_or_distant_unknown": 0.7323386756642767
+          },
+          "hardware_as_obstacle_fraction": 0.0056249916094993895,
+          "ground_as_obstacle_fraction": 0.16635497111068395,
+          "confusion_matrix": [
+            [
+              366417,
+              73563,
+              2225,
+              0
+            ],
+            [
+              9272,
+              23010,
+              0,
+              0
+            ],
+            [
+              4412,
+              838,
+              143728,
+              0
+            ],
+            [
+              0,
+              0,
+              10154,
+              27782
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 3
+      },
+      {
+        "source_id": "FLB_790313338RAD_F1121014FHAZ00200M1",
+        "sol": 4425,
+        "raw_metrics": {
+          "miou": 0.7334019750819962,
+          "iou": {
+            "ground_or_small_stone": 0.74712044351609,
+            "substantial_obstacle": 0.36438543395489603,
+            "rover_hardware": 0.9202860610676122,
+            "sky_or_distant_unknown": 0.9018159617893867
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9148662838329019,
+            "substantial_obstacle": 0.43691616135602745,
+            "rover_hardware": 0.9218162422450937,
+            "sky_or_distant_unknown": 0.9966660933758451
+          },
+          "recall": {
+            "ground_or_small_stone": 0.8029443238553696,
+            "substantial_obstacle": 0.687012222058607,
+            "rover_hardware": 0.9981995005065921,
+            "sky_or_distant_unknown": 0.9045446358888155
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.16238003450010297,
+          "confusion_matrix": [
+            [
+              237857,
+              48102,
+              10272,
+              0
+            ],
+            [
+              17004,
+              37324,
+              0,
+              0
+            ],
+            [
+              27,
+              0,
+              154678,
+              252
+            ],
+            [
+              5103,
+              0,
+              2847,
+              75335
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 3
+      },
+      {
+        "source_id": "FLB_799211234RAD_F1151770FHAZ00200M1",
+        "sol": 4525,
+        "raw_metrics": {
+          "miou": 0.5924214055252562,
+          "iou": {
+            "ground_or_small_stone": 0.33414722194873814,
+            "substantial_obstacle": 0.09160670749836475,
+            "rover_hardware": 0.9515804667607324,
+            "sky_or_distant_unknown": 0.9923512258931897
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9781100899804669,
+            "substantial_obstacle": 0.09201351040605878,
+            "rover_hardware": 0.9931026895279362,
+            "sky_or_distant_unknown": 0.999405339139663
+          },
+          "recall": {
+            "ground_or_small_stone": 0.33666485174596106,
+            "substantial_obstacle": 0.9539599975230665,
+            "rover_hardware": 0.9579112348269022,
+            "sky_or_distant_unknown": 0.9929375193150212
+          },
+          "hardware_as_obstacle_fraction": 0.026146298457996948,
+          "ground_as_obstacle_fraction": 0.663156595326322,
+          "confusion_matrix": [
+            [
+              152727,
+              300839,
+              81,
+              0
+            ],
+            [
+              1487,
+              30811,
+              0,
+              0
+            ],
+            [
+              1888,
+              3203,
+              117347,
+              65
+            ],
+            [
+              43,
+              0,
+              734,
+              109241
+            ]
+          ]
+        },
+        "reviewed_objects": 6,
+        "found_objects": 6
+      },
+      {
+        "source_id": "FLB_808083489RAD_F1180762FHAZ00302M1",
+        "sol": 4625,
+        "raw_metrics": {
+          "miou": 0.6572572293262386,
+          "iou": {
+            "ground_or_small_stone": 0.8539304975051338,
+            "substantial_obstacle": 0.16845577138406115,
+            "rover_hardware": 0.7334944919791766,
+            "sky_or_distant_unknown": 0.8731481564365831
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9549957470377624,
+            "substantial_obstacle": 0.18556604279508768,
+            "rover_hardware": 0.8625629644406763,
+            "sky_or_distant_unknown": 0.9940383380720903
+          },
+          "recall": {
+            "ground_or_small_stone": 0.8897348003169864,
+            "substantial_obstacle": 0.6462623149834243,
+            "rover_hardware": 0.8305640262203761,
+            "sky_or_distant_unknown": 0.8777445828234108
+          },
+          "hardware_as_obstacle_fraction": 0.01240185367493457,
+          "ground_as_obstacle_fraction": 0.11004957520134166,
+          "confusion_matrix": [
+            [
+              482779,
+              59714,
+              117,
+              0
+            ],
+            [
+              7576,
+              13841,
+              0,
+              0
+            ],
+            [
+              12495,
+              1033,
+              69181,
+              585
+            ],
+            [
+              2680,
+              0,
+              10906,
+              97542
+            ]
+          ]
+        },
+        "reviewed_objects": 8,
+        "found_objects": 5
+      },
+      {
+        "source_id": "FLB_816964361RAD_F1200082FHAZ00337M1",
+        "sol": 4725,
+        "raw_metrics": {
+          "miou": 0.7340812059365964,
+          "iou": {
+            "ground_or_small_stone": 0.9859393554057465,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9536874529890039,
+            "sky_or_distant_unknown": 0.9966980153516354
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9859393554057465,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9983689233018992,
+            "sky_or_distant_unknown": 0.9997052193514826
+          },
+          "recall": {
+            "ground_or_small_stone": 1.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9551756919158401,
+            "sky_or_distant_unknown": 0.9969910249537414
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              527236,
+              0,
+              0,
+              0
+            ],
+            [
+              2538,
+              0,
+              0,
+              0
+            ],
+            [
+              4981,
+              0,
+              106504,
+              17
+            ],
+            [
+              0,
+              0,
+              174,
+              57653
+            ]
+          ]
+        },
+        "reviewed_objects": 1,
+        "found_objects": 0
+      }
+    ],
+    "limitations": "Sparse visual labels on a few separate PDS episodes; not independent expert truth, exhaustive full-image precision, flight qualification, or proof of zero misses. Physical route blockage additionally needs measured stereo size/relief."
+  },
+  "candidate": {
+    "split": "test_v8",
+    "images": 8,
+    "model_sha256": "f593568ca03e5dc78535429bce59345672da3517c48e01d31629368badd52af8",
+    "policy": {
+      "inference_policy": "whole",
+      "navigation_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "hardware_margin_native_px": 3
+    },
+    "manifest_sha256": "cc2eba9ea51fc5959e6f2846271c157ba0a2582a2c8db36cdde939971e2b1d67",
+    "raw_head_metrics": {
+      "miou": 0.7155676350911973,
+      "iou": {
+        "ground_or_small_stone": 0.8544495277449823,
+        "substantial_obstacle": 0.22496676050138917,
+        "rover_hardware": 0.8781866983197315,
+        "sky_or_distant_unknown": 0.9046675537986862
+      },
+      "precision": {
+        "ground_or_small_stone": 0.9510539016333959,
+        "substantial_obstacle": 0.2573861263987008,
+        "rover_hardware": 0.9528275926608816,
+        "sky_or_distant_unknown": 0.9854654622647375
+      },
+      "recall": {
+        "ground_or_small_stone": 0.8937516703991447,
+        "substantial_obstacle": 0.6410717365288237,
+        "rover_hardware": 0.9181031613976706,
+        "sky_or_distant_unknown": 0.9169016412409302
+      },
+      "hardware_as_obstacle_fraction": 0.0010165852611239332,
+      "ground_as_obstacle_fraction": 0.10165962795027049,
+      "confusion_matrix": [
+        [
+          3103306,
+          352985,
+          15933,
+          0
+        ],
+        [
+          68682,
+          122671,
+          0,
+          0
+        ],
+        [
+          67162,
+          947,
+          855259,
+          8182
+        ],
+        [
+          23868,
+          0,
+          26409,
+          554753
+        ]
+      ]
+    },
+    "runtime_policy": {
+      "reviewed_obstacle_pixel_recall": 0.5625571587589429,
+      "hardware_as_obstacle_fraction": 0.000668777843379314,
+      "ground_small_stone_as_obstacle_fraction": 0.07867119172034984,
+      "obstacle_as_self_exclusion_fraction": 0.0,
+      "object_recall_25pct_coverage": {
+        "found": 26,
+        "total": 38,
+        "recall": 0.6842105263157895
+      }
+    },
+    "inference_ms_median": 212.71390000038082,
+    "per_scene": [
+      {
+        "source_id": "FLB_768834697RAD_F1071140FHAZ00302M1",
+        "sol": 4183,
+        "raw_metrics": {
+          "miou": 0.8041453222284529,
+          "iou": {
+            "ground_or_small_stone": 0.9625130002696353,
+            "substantial_obstacle": 0.5207422006441379,
+            "rover_hardware": 0.8081113148527667,
+            "sky_or_distant_unknown": 0.9252147731472717
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9787181540980332,
+            "substantial_obstacle": 0.6019336556092683,
+            "rover_hardware": 0.9293671074503188,
+            "sky_or_distant_unknown": 0.9621730570919659
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9830885231325477,
+            "substantial_obstacle": 0.7942664418212478,
+            "rover_hardware": 0.8609910820998437,
+            "sky_or_distant_unknown": 0.9601388265229756
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.01409256953337543,
+          "confusion_matrix": [
+            [
+              499756,
+              7164,
+              1433,
+              0
+            ],
+            [
+              2806,
+              10833,
+              0,
+              0
+            ],
+            [
+              8061,
+              0,
+              74920,
+              4035
+            ],
+            [
+              0,
+              0,
+              4261,
+              102635
+            ]
+          ]
+        },
+        "reviewed_objects": 10,
+        "found_objects": 6
+      },
+      {
+        "source_id": "FLB_772668569RAD_F1072496FHAZ00337M1",
+        "sol": 4226,
+        "raw_metrics": {
+          "miou": 0.7193801110489022,
+          "iou": {
+            "ground_or_small_stone": 0.8942869658759468,
+            "substantial_obstacle": 0.32955118507312153,
+            "rover_hardware": 0.8781966582481727,
+            "sky_or_distant_unknown": 0.7754856349983676
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9377225802887984,
+            "substantial_obstacle": 0.5042138999347142,
+            "rover_hardware": 0.9051596331540477,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9507548738143382,
+            "substantial_obstacle": 0.48753263894866716,
+            "rover_hardware": 0.9671931844347226,
+            "sky_or_distant_unknown": 0.7754856349983676
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.04924512618566182,
+          "confusion_matrix": [
+            [
+              322555,
+              16707,
+              0,
+              0
+            ],
+            [
+              17860,
+              16991,
+              0,
+              0
+            ],
+            [
+              3562,
+              0,
+              105013,
+              0
+            ],
+            [
+              0,
+              0,
+              11003,
+              38005
+            ]
+          ]
+        },
+        "reviewed_objects": 5,
+        "found_objects": 3
+      },
+      {
+        "source_id": "FLB_777466896RAD_F1080792FHAZ00200M1",
+        "sol": 4280,
+        "raw_metrics": {
+          "miou": 0.5436750798678598,
+          "iou": {
+            "ground_or_small_stone": 0.8758120733891659,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.6311043827617471,
+            "sky_or_distant_unknown": 0.6677838633205264
+          },
+          "precision": {
+            "ground_or_small_stone": 0.8776113104030386,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9324550191721561,
+            "sky_or_distant_unknown": 1.0
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9976646079188265,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.6613379821311832,
+            "sky_or_distant_unknown": 0.6677838633205264
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              361833,
+              0,
+              847,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              38853,
+              0,
+              75872,
+              0
+            ],
+            [
+              11607,
+              0,
+              4649,
+              32676
+            ]
+          ]
+        },
+        "reviewed_objects": 0,
+        "found_objects": 0
+      },
+      {
+        "source_id": "FLB_781455837RAD_F1091290FHAZ00200M1",
+        "sol": 4325,
+        "raw_metrics": {
+          "miou": 0.7415997664268645,
+          "iou": {
+            "ground_or_small_stone": 0.8743345255737748,
+            "substantial_obstacle": 0.28388326350093107,
+            "rover_hardware": 0.9292585723362062,
+            "sky_or_distant_unknown": 0.878922704296546
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9571962127700067,
+            "substantial_obstacle": 0.3486518841460146,
+            "rover_hardware": 0.9548736819197974,
+            "sky_or_distant_unknown": 0.9985642927646338
+          },
+          "recall": {
+            "ground_or_small_stone": 0.9099105618434888,
+            "substantial_obstacle": 0.6044544947648844,
+            "rover_hardware": 0.9719421659573897,
+            "sky_or_distant_unknown": 0.8800347954449599
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.08243687882317025,
+          "confusion_matrix": [
+            [
+              402367,
+              36454,
+              3384,
+              0
+            ],
+            [
+              12769,
+              19513,
+              0,
+              0
+            ],
+            [
+              4132,
+              0,
+              144798,
+              48
+            ],
+            [
+              1092,
+              0,
+              3459,
+              33385
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 3
+      },
+      {
+        "source_id": "FLB_790313338RAD_F1121014FHAZ00200M1",
+        "sol": 4425,
+        "raw_metrics": {
+          "miou": 0.7500854364004841,
+          "iou": {
+            "ground_or_small_stone": 0.7985888331645431,
+            "substantial_obstacle": 0.35068006356435893,
+            "rover_hardware": 0.9473424893761163,
+            "sky_or_distant_unknown": 0.903730359496918
+          },
+          "precision": {
+            "ground_or_small_stone": 0.8869569610022227,
+            "substantial_obstacle": 0.5227073502806946,
+            "rover_hardware": 0.9540230597954513,
+            "sky_or_distant_unknown": 0.9881055953045669
+          },
+          "recall": {
+            "ground_or_small_stone": 0.8890798059622389,
+            "substantial_obstacle": 0.5158665881313503,
+            "rover_hardware": 0.9926624805591229,
+            "sky_or_distant_unknown": 0.913669928558564
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.08638866290158694,
+          "confusion_matrix": [
+            [
+              263373,
+              25591,
+              7267,
+              0
+            ],
+            [
+              26302,
+              28026,
+              0,
+              0
+            ],
+            [
+              221,
+              0,
+              153820,
+              916
+            ],
+            [
+              7044,
+              0,
+              146,
+              76095
+            ]
+          ]
+        },
+        "reviewed_objects": 4,
+        "found_objects": 2
+      },
+      {
+        "source_id": "FLB_799211234RAD_F1151770FHAZ00200M1",
+        "sol": 4525,
+        "raw_metrics": {
+          "miou": 0.6555325322283616,
+          "iou": {
+            "ground_or_small_stone": 0.5560287972393592,
+            "substantial_obstacle": 0.12027396297370202,
+            "rover_hardware": 0.9574655883966697,
+            "sky_or_distant_unknown": 0.9883617803037159
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9750925075549425,
+            "substantial_obstacle": 0.12293164377349002,
+            "rover_hardware": 0.9736863385680322,
+            "sky_or_distant_unknown": 0.9956241111475769
+          },
+          "recall": {
+            "ground_or_small_stone": 0.5640398812292378,
+            "substantial_obstacle": 0.8476376246207196,
+            "rover_hardware": 0.9828983779989061,
+            "sky_or_distant_unknown": 0.9926739260848225
+          },
+          "hardware_as_obstacle_fraction": 0.0005387623160249136,
+          "ground_as_obstacle_fraction": 0.4304183649401407,
+          "confusion_matrix": [
+            [
+              255875,
+              195258,
+              2514,
+              0
+            ],
+            [
+              4921,
+              27377,
+              0,
+              0
+            ],
+            [
+              1549,
+              66,
+              120408,
+              480
+            ],
+            [
+              66,
+              0,
+              740,
+              109212
+            ]
+          ]
+        },
+        "reviewed_objects": 6,
+        "found_objects": 5
+      },
+      {
+        "source_id": "FLB_808083489RAD_F1180762FHAZ00302M1",
+        "sol": 4625,
+        "raw_metrics": {
+          "miou": 0.7082774159830614,
+          "iou": {
+            "ground_or_small_stone": 0.8451489084122965,
+            "substantial_obstacle": 0.21178633286933238,
+            "rover_hardware": 0.844646410575681,
+            "sky_or_distant_unknown": 0.9315280120749356
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9713476694810237,
+            "substantial_obstacle": 0.21518413353054858,
+            "rover_hardware": 0.9649171784850177,
+            "sky_or_distant_unknown": 0.9858861116331517
+          },
+          "recall": {
+            "ground_or_small_stone": 0.8667569709367686,
+            "substantial_obstacle": 0.9306158659009198,
+            "rover_hardware": 0.8714073042476048,
+            "sky_or_distant_unknown": 0.9441184939889137
+          },
+          "hardware_as_obstacle_fraction": 0.010576992340384662,
+          "ground_as_obstacle_fraction": 0.13234367225078786,
+          "confusion_matrix": [
+            [
+              470311,
+              71811,
+              488,
+              0
+            ],
+            [
+              1486,
+              19931,
+              0,
+              0
+            ],
+            [
+              8328,
+              881,
+              72583,
+              1502
+            ],
+            [
+              4059,
+              0,
+              2151,
+              104918
+            ]
+          ]
+        },
+        "reviewed_objects": 8,
+        "found_objects": 7
+      },
+      {
+        "source_id": "FLB_816964361RAD_F1200082FHAZ00337M1",
+        "sol": 4725,
+        "raw_metrics": {
+          "miou": 0.7343682360653614,
+          "iou": {
+            "ground_or_small_stone": 0.9906168385848223,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9672023820200535,
+            "sky_or_distant_unknown": 0.9796537236565698
+          },
+          "precision": {
+            "ground_or_small_stone": 0.9906168385848223,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 1.0,
+            "sky_or_distant_unknown": 0.9796537236565698
+          },
+          "recall": {
+            "ground_or_small_stone": 1.0,
+            "substantial_obstacle": 0.0,
+            "rover_hardware": 0.9672023820200535,
+            "sky_or_distant_unknown": 1.0
+          },
+          "hardware_as_obstacle_fraction": 0.0,
+          "ground_as_obstacle_fraction": 0.0,
+          "confusion_matrix": [
+            [
+              527236,
+              0,
+              0,
+              0
+            ],
+            [
+              2538,
+              0,
+              0,
+              0
+            ],
+            [
+              2456,
+              0,
+              107845,
+              1201
+            ],
+            [
+              0,
+              0,
+              0,
+              57827
+            ]
+          ]
+        },
+        "reviewed_objects": 1,
+        "found_objects": 0
+      }
+    ],
+    "limitations": "Sparse visual labels on a few separate PDS episodes; not independent expert truth, exhaustive full-image precision, flight qualification, or proof of zero misses. Physical route blockage additionally needs measured stereo size/relief."
+  },
+  "deployed": false,
+  "decision": "v17 alone loses three of17 baseline-found large object controls on Sol4226,4425,4525; an aggregate26/38 score hides that regression. Runtime retains v11 pending a separately sealed v9 test.",
+  "test_now_consumed": true
+}

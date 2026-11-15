@@ -1,0 +1,44 @@
+{
+  "now_consumed": true,
+  "first_frozen_selection": {
+    "selected_before_fresh_test": true,
+    "selected_training": {
+      "name": "v17-v8-from-v14",
+      "objective": 0.6151074993851311,
+      "best_epoch": 6
+    },
+    "choices_validation_only": [
+      {
+        "name": "v16-v8-from-v11",
+        "objective": 0.5670882786938124,
+        "best_epoch": 8
+      },
+      {
+        "name": "v17-v8-from-v14",
+        "objective": 0.6151074993851311,
+        "best_epoch": 6
+      }
+    ],
+    "policy": {
+      "inference_policy": "whole",
+      "navigation_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "hardware_margin_native_px": 3
+    },
+    "manifest_sha256": "cc2eba9ea51fc5959e6f2846271c157ba0a2582a2c8db36cdde939971e2b1d67",
+    "annotation_sha256": "b654de6995cde939da509b802e31cf280124492071b0040e8678917db9ef3fe2",
+    "review_protocol_sha256": "c1778107e16a9ab1cd6fabcb8c1dc6a3c9c816ee6fbdd20f09bbe35195702379",
+    "created_at": "2026-11-15T04:44:10.058840+00:00"
+  },
+  "aggregate_gate": {
+    "test_objects_at_least_30": true,
+    "object_recall_not_worse": true,
+    "obstacle_iou": true,
+    "hardware_false_positives": true,
+    "ground_false_positives": true
+  },
+  "candidate_deployed": false,
+  "additional_visual_rejection": "v17 alone loses three of17 baseline-found large object controls on Sol4226,4425,4525; an aggregate26/38 score hides that regression. Runtime retains v11 pending a separately sealed v9 test.",
+  "next_use": "V8 test scenes become disclosed training/control material, not a fresh benchmark.",
+  "created_at": "2026-11-15T05:18:35.370039+00:00"
+}

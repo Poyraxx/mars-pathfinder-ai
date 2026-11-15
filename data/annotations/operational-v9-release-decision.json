@@ -1,0 +1,65 @@
+{
+  "decision": "REJECTED: a baseline-found large reviewed component on Sol4080 falls below the frozen25% object-coverage criterion. Runtime remains v11. No further tuning on this opened test.",
+  "production_model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "rejected_candidate_sha256": "5a7946a33909632d69eda7fed866b1746828264cdedb7e9b7f4b0469f44c7a83",
+  "gates": {
+    "minimum_objects": true,
+    "object_recall": true,
+    "large_object_retention": false,
+    "obstacle_iou": true,
+    "hardware_false_positive": true,
+    "ground_false_positive": true,
+    "obstacle_pixel_recall": true,
+    "cpu_memory": true
+  },
+  "large_objects_preserved_on_new_test": {
+    "found": 16,
+    "total": 17
+  },
+  "runtime_profile": {
+    "model_sha256": "5a7946a33909632d69eda7fed866b1746828264cdedb7e9b7f4b0469f44c7a83",
+    "input_shape": [
+      1,
+      3,
+      512,
+      512
+    ],
+    "provider": "CPUExecutionProvider",
+    "peak_working_set_mib": 311.90234375,
+    "platform": "win32",
+    "training_stack_imported": false,
+    "routes": [
+      {
+        "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+        "status": "no_path",
+        "elapsed_s": 0.7593976000061957,
+        "path_points": 0,
+        "ribbons": 0
+      },
+      {
+        "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+        "status": "partial",
+        "elapsed_s": 0.5609434000070905,
+        "path_points": 12,
+        "ribbons": 65
+      },
+      {
+        "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+        "status": "no_path",
+        "elapsed_s": 0.5161018999933731,
+        "path_points": 0,
+        "ribbons": 0
+      }
+    ],
+    "warmed_scenario": null,
+    "note": "One process, regions and three real local routes. Host allocator and full warmed server caches can differ; this is not a Render memory guarantee."
+  },
+  "export_parity": "100% native-pixel argmax agreement on five validation sources",
+  "probability_ensemble_rejected": {
+    "cpu_peak_mib": 548.9,
+    "gate_mib": 450
+  },
+  "test_now_consumed": true,
+  "next_experiment": "Do not select another weight or threshold using test_v9. Current misses can become explicitly consumed training controls only with a newly sealed independent holdout. Prioritize shadowed foreground rocks and distant raised slabs; hardware-free ground may need more negative examples.",
+  "scope": "No runtime model, UI, global map, planner geometry or thresholds changed."
+}

@@ -1,0 +1,45 @@
+{
+  "version": 9,
+  "fixed_before_new_test_predictions": true,
+  "created_at": "2026-11-15T04:58:49.993903+00:00",
+  "train_new": [],
+  "test_v9": [
+    4019,
+    4080,
+    4339,
+    4416,
+    4480,
+    4584,
+    4684,
+    4784
+  ],
+  "consumed_to_train": [
+    "test_v8"
+  ],
+  "excluded_candidate_sols": {
+    "4266": "RMC108/0792 duplicates consumed4280",
+    "4234": "RMC107/2496 duplicates consumed4226"
+  },
+  "model": "Single SegFormer-B0 local head:0.6 deployed v11 parameter state +0.4 fine-tuned v17 parameter state. Frozen terrain parameters identical. No ensemble at runtime.",
+  "selection": "Fixed BILINEAR CPU validation objective, subject to retaining all17 baseline-found large object instances on consumed v8 training controls. Weight grid0,.05,.1,.15,.2,.25,.3,.4,.5; selected0.4 before v9 predictions. Paired probability ensemble rejected at548.9MiB CPU peak.",
+  "runtime_policy": {
+    "inference_policy": "whole",
+    "navigation_obstacle_threshold": 0.7,
+    "hardware_threshold": 0.8,
+    "hardware_margin_native_px": 3
+  },
+  "promotion_gate": {
+    "minimum_test_objects": 30,
+    "object_coverage_recall": "not below deployed v11",
+    "large_object_retention": "Every baseline-found reviewed component >=2500 native pixels retains >=25% coverage; apparent size is a diagnostic only, not a physical obstacle criterion.",
+    "obstacle_iou": "not below v11 -0.01",
+    "hardware_as_obstacle": "not above v11 +0.005",
+    "ground_as_obstacle": "not above v11 +0.01",
+    "obstacle_pixel_recall": "not below v11 -0.02",
+    "cpu_peak_mib_max": 450
+  },
+  "annotation": "Same native source hashes, manually reviewed polygons, six-pixel uncertain collar and explicit255. New test images never used to select a weight or train an encoder.",
+  "selected_validation_objective": 0.5769131162631518,
+  "selected_validation_obstacle_iou": 0.4957394153977934,
+  "preprocessing": "Exactly the production512 BILINEAR resize and mean/std normalization; initial experimental bicubic calibration was discarded before selection."
+}

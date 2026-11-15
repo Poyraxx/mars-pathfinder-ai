@@ -1,0 +1,25 @@
+{
+  "images": 86,
+  "split_counts": {
+    "train": 73,
+    "validation": 5,
+    "test_v9": 8
+  },
+  "reviewed_pixels": {
+    "train": 49643043,
+    "validation": 3523351,
+    "test_v9": 5519089
+  },
+  "scored_connected_objects_min_50px": {
+    "train": 283,
+    "validation": 36,
+    "test_v9": 35
+  },
+  "all_source_label_hashes_match": true,
+  "same_rmc_cross_split_collisions": 0,
+  "manifest_sha256": "63d825618db27796f6959ac23044b242ee37c5836c59df7777b301210a90f125",
+  "annotation_sha256": "1a53c6397f7e3d8a9664bd2ec3271dcb9fa779f8d41b79a94e0ecf2cadc999c6",
+  "review_protocol_sha256": "f21f2cf0843b6af5447bbcaf810606bc1d7b77bea2ab7a40da4d6a8e64dcbe4b",
+  "frozen_terrain_train_buffer_checked": true,
+  "limitations": "Sparse visually reviewed regions; no assertion of independent expert truth or exact physical rock dimensions."
+}

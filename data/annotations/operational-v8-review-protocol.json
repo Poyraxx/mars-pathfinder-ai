@@ -1,0 +1,60 @@
+{
+  "version": 8,
+  "fixed_before_new_model_predictions": true,
+  "created_at": "2026-11-15T04:11:47.238262+00:00",
+  "train_new": [
+    1600,
+    1800,
+    1900,
+    2100,
+    2150,
+    2250,
+    2300,
+    2350,
+    2450,
+    2500,
+    2550,
+    2648,
+    2750,
+    3150,
+    3700,
+    4398,
+    4699
+  ],
+  "test_v8": [
+    4183,
+    4226,
+    4280,
+    4325,
+    4425,
+    4525,
+    4625,
+    4725
+  ],
+  "consumed_to_train": [
+    "test",
+    "test_v7",
+    "consumed_audit"
+  ],
+  "validation": "Existing five validation scenes and labels unchanged; select checkpoint on the pre-existing objective only. No new test predictions before candidate and policy hashes are sealed.",
+  "annotation_method": "Individually viewed native PDS exposures, manually traced 512-preview coordinates scaled to native 1024. Explicit ground ROIs, rock silhouettes and self-hardware; uncertain pixels 255, uncertain boundary collar. Not independent expert or metric-height ground truth.",
+  "selection_objective": "0.5 obstacle IoU +0.3 obstacle recall +0.2 hardware IoU -2 hardware-as-obstacle -0.5 ground-as-obstacle",
+  "promotion_gate": {
+    "new_test_min_objects": 30,
+    "object_coverage_recall": "candidate >= production v11",
+    "obstacle_iou": "candidate >= production v11 -0.01",
+    "hardware_as_obstacle": "candidate <= production v11 +0.005",
+    "ground_as_obstacle": "candidate <= production v11 +0.01"
+  },
+  "frozen_runtime_policy": {
+    "inference_policy": "whole",
+    "navigation_obstacle_threshold": 0.7,
+    "hardware_threshold": 0.8,
+    "hardware_margin_native_px": 3
+  },
+  "notes": [
+    "4226 and4725 are strongly underexposed; ambiguous ground/rocks stay unknown. Retain identifiable hardware; do not infer hazards hidden in darkness.",
+    "4183 and4280 add extra heldout episodes before any prediction, to increase physical-object population beyond the prior seven-object benchmark.",
+    "New test episodes must pass hash, RMC site/drive and +/-6-sol cross-split checks before training. Old consumed tests are explicitly training now, never fresh evaluation."
+  ]
+}
