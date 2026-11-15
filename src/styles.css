@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@600;700&display=swap');
 
-/* Pathfinder · an instrument for Mars terrain. One dark surface, one accent for routes
-   (cyan), one for destinations and warnings (amber). Operate-mode: precise, quiet, legible. */
 :root{
  --bg:#070b10;--surface:#0c1319;--surface-2:#111a21;--surface-3:#16222b;--line:#1f2b33;--line-strong:#2c3c46;
  --text:#dce5e7;--text-2:#a9b6bc;--muted:#8796a0;--accent:#5fd4c4;--accent-ink:#06211d;--amber:#f2a65a;--danger:#ff7a6b;
@@ -25,7 +23,6 @@ h1,h2,h3{margin:0;text-wrap:balance}
 p{margin:0}
 .spin{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 
-/* Layout */
 .app{height:100dvh;min-height:640px;overflow:hidden;display:grid;grid-template-columns:var(--side) minmax(0,1fr);grid-template-rows:var(--top) minmax(0,1fr);background:var(--bg)}
 .app.has-bottom{grid-template-rows:var(--top) minmax(0,1fr) var(--bottom)}
 .app.has-details{grid-template-columns:var(--side) minmax(0,1fr) var(--details)}
@@ -108,7 +105,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .route-feature small{color:var(--muted);font-size:12px}
 .route-feature.crosses strong{color:#f0c49b}
 
-/* Stage */
 .stage{position:relative;min-width:0;min-height:0;display:grid}
 .stage.split{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
 .map-area{position:relative;min-width:0;min-height:0;overflow:hidden}
@@ -142,7 +138,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .service-overlay{position:absolute;inset:0;z-index:30;display:grid;place-content:center;justify-items:center;gap:12px;text-align:center;background:#070b10e8}
 .service-overlay p{color:var(--text-2)}
 
-/* Details panel (plan mode) */
 .details{grid-row:2/-1;overflow-y:auto;border-left:1px solid var(--line);background:var(--surface)}
 .details section{display:grid;gap:12px;padding:20px;border-bottom:1px solid var(--line)}
 .details h3{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600}
@@ -154,7 +149,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .orbital-result{display:grid;gap:8px}
 .orbital-result small{color:var(--muted)}
 
-/* Analysis bar (plan mode) */
 .analysis{grid-column:2/-1;display:grid;grid-template-rows:42px minmax(0,1fr);border-top:1px solid var(--line);background:var(--surface);min-height:0}
 .app.has-details .analysis{grid-column:2/3}
 .tabs{display:flex;align-items:center;gap:4px;padding:0 14px;border-bottom:1px solid var(--line)}
@@ -171,7 +165,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .log li{display:grid;grid-template-columns:72px 1fr auto;gap:12px}
 .log time,.log small{color:var(--muted);font-variant-numeric:tabular-nums}
 
-/* Rover camera (plan mode, Gale) */
 .camera-main{position:absolute;inset:62px 64px 18px 18px;z-index:2;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface);box-shadow:0 18px 50px #000a}
 .camera-main.dual{left:auto;width:min(52%,620px);top:auto;height:60%}
 .camera-caption{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--text-2)}
@@ -193,7 +186,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .camera-controls button{display:flex;align-items:center;gap:5px;height:30px;padding:0 9px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);font-size:12px;color:var(--text)}
 .empty-camera{flex:1;display:grid;place-content:center;justify-items:center;gap:8px;color:var(--muted)}
 
-/* Replay */
 .scenario-list{display:grid;gap:8px}
 .scenario{display:flex;gap:12px;align-items:center;width:100%;padding:10px;border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--surface-2);text-align:left}
 .scenario img{width:64px;height:64px;border-radius:var(--radius-sm);object-fit:cover}
@@ -233,7 +225,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .mark.u_turn,.mark.obstacle{background:var(--amber)}
 .scrubber-labels{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}
 
-/* Sources dialog */
 .modal-backdrop{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:20px;background:#03060ad0}
 .sources-modal{position:relative;width:min(720px,100%);max-height:88dvh;overflow:auto;display:grid;gap:14px;padding:28px;border:1px solid var(--line-strong);border-radius:14px;background:var(--surface)}
 .sources-modal h2{font-family:Manrope,sans-serif;font-size:22px}
@@ -247,7 +238,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .source-list span{grid-column:1;color:var(--muted);font-size:12px}
 .source-list svg{grid-row:1/3;grid-column:2;align-self:center;color:var(--muted)}
 
-/* Narrow screens: the side panel becomes a scroll region above the stage */
 @media (max-width:980px){
  :root{--side:280px;--bottom:150px}
  .app.has-details{grid-template-columns:var(--side) minmax(0,1fr)}
@@ -269,7 +259,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
  .camera-main,.camera-main.dual{inset:56px 10px 10px 10px;width:auto;height:auto}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-/* Replay follows the user's source sketch: actual camera left, shared Mars map right. */
 .replay-loading{position:absolute;inset:42px 0 0;display:flex;align-items:center;justify-content:center;gap:12px;background:#070b10c9;z-index:5;font-size:14px;color:var(--text)}
 .navcam .replay-loading{inset:0}.replay-readout{top:auto;bottom:90px;max-width:210px;pointer-events:none}
 .replay-toast{top:58px;max-width:calc(100% - 24px);text-align:center;font-size:14px;pointer-events:none}
@@ -285,7 +274,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 @media(max-width:700px){:root{--top:92px}.topbar{display:grid;grid-template-columns:auto 1fr;grid-template-rows:30px 40px;gap:4px 12px;padding:8px 12px;overflow:visible}.brand{grid-column:1;grid-row:1;font-size:14px}.brand span{display:inline}.modes{grid-column:1/-1;grid-row:2;width:100%;justify-content:space-around;border-radius:9px}.modes button{flex:1;justify-content:center;white-space:nowrap;padding:0 6px;font-size:12px;height:32px}.topbar-right{grid-column:2;grid-row:1;margin:0;justify-self:end}.text-button{white-space:nowrap;font-size:12px;padding:4px}.topbar .connection{display:none}}
 @media(max-width:700px){.replay-speed select{width:53px}.mode-replay .replay-timeline{gap:9px}.scrubber-labels{font-size:10px;flex-wrap:wrap;gap:2px 8px}.transport{gap:4px}.transport button{width:30px;height:30px}.transport .play{width:40px;height:40px}}
 
-/* The steering guide has its own rover-centred origin; camera calibration stays optional. */
 .navcam{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;container-type:normal}
 .camera-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px;background:var(--surface);border-bottom:1px solid var(--line);flex-shrink:0}
 .recorded-motion{display:flex;align-items:center;gap:8px;min-width:0}.recorded-motion>svg{color:var(--accent)}.recorded-motion>span{display:grid;gap:1px}
@@ -331,7 +319,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .camera-route .tracked-obstacle{fill:#ffb23d;fill-opacity:.9}
 .camera-route .distant-candidate{fill:#ffb23d;fill-opacity:.12;stroke:#ffb23d;stroke-width:1.6;stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
 
-/* Operate-mode refinement: the image stays clear; evidence is one disclosure away. */
 .section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
 .section-heading .replay-section-title{margin:0;font-size:13px;color:var(--text)}
 .section-heading>span{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
@@ -502,7 +489,6 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
  .camera-evidence{padding-inline:10px;font-size:9px}
  .geometry-details summary{font-size:9px}
 }
-/* Marswalk: profiles, science stops, round trip, conditions overlays */
 .marswalk-block{display:grid;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .marswalk-block h3,.geology-along h3{margin:0;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-2)}
 .segmented.three{grid-template-columns:repeat(3,1fr)}

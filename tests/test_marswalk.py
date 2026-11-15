@@ -10,7 +10,6 @@ from backend.main import app
 
 
 def test_solar_longitude_matches_curiosity_landing():
-    # Curiosity landed 2012-08-06 at Ls ~150.
     assert marswalk.solar_longitude(datetime(2012, 8, 6, 5, 17, tzinfo=timezone.utc)) == pytest.approx(150.6, abs=0.6)
 
 

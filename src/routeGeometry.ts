@@ -1,17 +1,5 @@
-/**
- * One continuous, ground-painted guidance ribbon in image coordinates (0..1).
- *
- * Input: the projected ground ribbon quads [l0,r0,r1,l1] from the local planner (metric 0.5 m wide,
- * already in perspective) and, per quad, its ground arc length in metres along the path.
- * Output: a single outline polygon (no internal seams) whose arrow head covers the last
- * HEAD_M metres of ground, and chevrons painted every CHEVRON_EVERY_M metres. Because both are
- * defined on the ground, they shrink and foreshorten with distance exactly as the surface does.
- * Gaps where a nearer rise hides the ground are bridged so the guidance reads as one path; the
- * corridor itself remains computed from measured stereo only.
- */
 export type P=[number,number];
 export const ANCHOR:P=[.5,.985];
-/** Painted line width as a fraction of the planner's 0.5 m ribbon (perspective preserved). */
 export const PAINT=.55;
 const HEAD_M=1.0,CHEVRON_EVERY_M=.9,CHEVRON_LEN_M=.28;
 
@@ -22,7 +10,6 @@ const lerp=(a:number,b:number,t:number)=>a+(b-a)*t;
 
 type Track={c:P[];w:number[];g:number[]};
 
-/** Centre points, half-widths and ground metres of the projected ribbon, strips concatenated in order. */
 function centreline(ribbons:number[][][],groundM?:number[][]):Track{
  const c:P[]=[],w:number[]=[],g:number[]=[];
  ribbons.forEach((q,i)=>{
@@ -34,7 +21,6 @@ function centreline(ribbons:number[][][],groundM?:number[][]):Track{
  return {c,w,g};
 }
 
-/** Uniform resampling along image arc length; width and ground metres are interpolated. */
 function resample({c,w,g}:Track,step:number):Track{
  const oc:P[]=[c[0]],ow=[w[0]],og=[g[0]];let carry=0;
  for(let i=1;i<c.length;i++){
@@ -63,10 +49,6 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):
  let tr=centreline(ribbons,groundM?.length===ribbons.length?groundM:undefined);
  if(tr.c.length<2)return null;
  const metric=tr.g.every(Number.isFinite);
- // The unmeasured image-space connection is a direct bearing to measured ground.
- // A tangent-matching cubic used to add an opposite-side sweep before the
- // real bypass, making one manoeuvre look like left/right/left instructions.
- // Its ground metres run up to the first projected point (the ground just ahead of the body).
  const {c:c0,w:w0,g:g0}=tr,d=dist(ANCHOR,c0[0]);
  const startW=Math.max(w0[0],.03/PAINT);
  if(d>.01){
@@ -78,14 +60,12 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):
  }
  tr=resample(tr,.006);
  const c=smooth(tr.c,3),g=tr.g;let w=tr.w;
- // Perspective: ground width can only shrink away from the camera.
  for(let i=1;i<w.length;i++)w[i]=Math.min(w[i],w[i-1]);
  w=smooth(w,4,false).map(x=>Math.max(.004,x*PAINT));
  const s=[0];for(let i=1;i<c.length;i++)s.push(s[i-1]+dist(c[i-1],c[i]));
  const total=s[s.length-1];if(total<.03)return null;
  const tan=c.map((_,i)=>unit([c[Math.min(i+2,c.length-1)][0]-c[Math.max(i-2,0)][0],c[Math.min(i+2,c.length-1)][1]-c[Math.max(i-2,0)][1]]));
  const gEnd=g[g.length-1];
- // Arrow head: the last HEAD_M metres of ground (foreshortened by the camera), base 1.8x the local width.
  let b=c.length-1;
  if(!head){}
  else if(metric)while(b>0&&gEnd-g[b]<HEAD_M&&total-s[b]<total*.4)b--;
@@ -93,10 +73,7 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):
  const left:P[]=[],right:P[]=[];
  for(let i=0;i<=b;i++){const n:P=[-tan[i][1],tan[i][0]];left.push([c[i][0]+n[0]*w[i],c[i][1]+n[1]*w[i]]);right.push([c[i][0]-n[0]*w[i],c[i][1]-n[1]*w[i]]);}
  const tip=c[c.length-1],hw=w[b]*2.0,ht=unit([tip[0]-c[b][0],tip[1]-c[b][1]]),nh:P=[-ht[1],ht[0]];
- // Without a head the ribbon simply ends on the ground; the plan continues as a thin line beyond it.
  const outline=head?[...left,[c[b][0]+nh[0]*hw,c[b][1]+nh[1]*hw] as P,tip,[c[b][0]-nh[0]*hw,c[b][1]-nh[1]*hw] as P,...right.reverse()]:[...left,...right.reverse()];
- // Chevrons painted on the surface: every CHEVRON_EVERY_M metres of ground, CHEVRON_LEN_M long on the ground,
- // so their spacing and length foreshorten with distance; their width follows the local ribbon width.
  const chevrons:P[][]=[];
  const chevron=(i:number,len:number)=>{const n:P=[-tan[i][1],tan[i][0]],ww=w[i]*.62;
   const apex:P=[c[i][0]+tan[i][0]*len*.5,c[i][1]+tan[i][1]*len*.5],back:P=[c[i][0]-tan[i][0]*len*.5,c[i][1]-tan[i][1]*len*.5];
@@ -117,18 +94,13 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):
  return {outline,chevrons,length:total,tip,centre:c,width:w};
 }
 
-/** Projected map context, distinct from the collision-checked local corridor. */
 export function mapRoute(segments:number[][][],fromM=2){
  const extent=Math.max(0,...segments.flatMap(seg=>seg.map(p=>p[2]??0)));
- // A goal close to the front wheels can have less than two metres of projected
- // remaining path. Keep its actual visible ground rather than dropping it all.
  const closeGoal=fromM<=2&&extent>0&&extent<fromM;
  const threshold=closeGoal?extent*.5:fromM;
  const visible=segments.map(seg=>{
   const valid=seg.filter(p=>p.length>=3&&p.every(Number.isFinite));
   const clipped=valid.filter(p=>p[2]>=threshold);
-  // Retain a two-point final fragment on sparse short plans. Earlier body-side
-  // points must not pull the centre guide backwards into a hook at the rover.
   return closeGoal&&clipped.length===1&&valid.at(-1)?.[2]===extent?valid.slice(-2):clipped;
  })
   .filter(s=>s.length>=2).map(seg=>seg.map((p,i)=>{
@@ -159,15 +131,10 @@ function outlineTrack(centre:P[],width:number[],planned:P[]):RibbonStroke{
  return {outline:[...left,...right.reverse()],centre,width,planned};
 }
 
-/** One tapering outline across the near/map handoff. The planned continuation
- * remains marked separately; joining display geometry does not validate terrain.
- * True camera exits/occlusions remain separate strips, never invented ground. */
 export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefined,segments:number[][][],localLength=0,planningLink=false,manoeuvre=false):NavigationRibbon{
  const near=groundArrow(ribbons,groundM,false),plan=mapRoute(segments,near?Math.max(2,localLength+.5):2);
  let visible=plan.visible,attachNear=false;
  if(near&&visible.length){
-  // The first projected map fragment can lie behind the local endpoint after a
-  // detour. Attach to the nearest forward fragment, not back toward the rover.
   const before=near.centre[Math.max(0,near.centre.length-4)],tangent=unit([near.tip[0]-before[0],near.tip[1]-before[1]]);
   let best=Infinity,attachment:[number,number]|null=null;
   for(let si=0;si<visible.length;si++)for(let pi=0;pi<visible[si].length;pi++){
@@ -184,8 +151,6 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
  const strokes:RibbonStroke[]=[],chevrons=near?.chevrons.map(ch=>[...ch])??[];
  let c:P[]=near?[...near.centre]:[],w=near?[...near.width]:[],planned:P[]=[];
  if(!near&&planningLink&&visible.length){
-  // Centre-guide mode may connect the projected map to the rover as a thin HUD
-  // direction cue. Every point is planned/unchecked; hasLocal stays false.
   const first=visible[0][0],end:P=[first[0],first[1]];
   for(let j=0;j<=32;j++){
    const t=j/32;
@@ -195,9 +160,6 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
   attachNear=true;
  }
  if(near&&(manoeuvre||(visible.length&&dist(near.tip,visible[0][0] as P)<.45))){
-  // Spread the paint taper over the whole visible approach. A fixed short
-  // end-window pinched a broad middle into a needle just before the map join.
-  // This changes paint only; the measured centre and clearance stay unchanged.
   const target=Math.min(w.at(-1)!, .0012+.004*(visible[0]?.[0][1]??near.tip[1])**2);
   const arc=[0];for(let i=1;i<c.length;i++)arc.push(arc[i-1]+dist(c[i-1],c[i]));
   const total=arc.at(-1)||1;
@@ -220,7 +182,6 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
    const before=c[Math.max(0,c.length-4)],after=seg[Math.min(3,seg.length-1)],d=dist(last,first);
    const a=unit([last[0]-before[0],last[1]-before[1]]),b=unit([after[0]-first[0],after[1]-first[1]]);
    const p1:P=[last[0]+a[0]*d*.3,last[1]+a[1]*d*.3],p2:P=[first[0]-b[0]*d*.3,first[1]-b[1]*d*.3];
-   // A display handoff must not overshoot either endpoint and double back.
    for(const axis of [0,1] as const){
     p1[axis]=Math.max(Math.min(last[axis],first[axis]),Math.min(Math.max(last[axis],first[axis]),p1[axis]));
     p2[axis]=Math.max(Math.min(p1[axis],first[axis]),Math.min(Math.max(p1[axis],first[axis]),p2[axis]));
@@ -242,7 +203,6 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
    if(c.length&&dist(c.at(-1)!,p)<1e-7)continue;
    c.push(p);w.push(half);planned.push(p);
   }
-  // Subsequent visible pieces are separated by a true camera/occlusion gap.
   flush();
  }
  flush();

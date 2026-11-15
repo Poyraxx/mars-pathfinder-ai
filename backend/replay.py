@@ -71,7 +71,6 @@ def _driven_between(prev_frame, frame, prev_ned, ned, prev_yaw, yaw):
     return [(float(prev_ned[0]), float(prev_ned[1]), float(prev_yaw)), *mid, (float(ned[0]), float(ned[1]), float(yaw))]
 
 def _xy(ned, meta):
-    # Gale meta uses standard parallel 0 and central lon 0: x = east metres, y = north metres.
     return np.array([ned[1], ned[0]], dtype=float)
 
 
@@ -99,7 +98,7 @@ def _track_distance(p, poly):
 
 
 def _heading(v):
-    return math.degrees(math.atan2(v[0], v[1])) % 360  # clockwise from north, v = (east, north)
+    return math.degrees(math.atan2(v[0], v[1])) % 360
 
 
 def _remaining_cells(route_cells, p, meta):
@@ -130,7 +129,7 @@ def compute(scenario_id: str, profile: dict | None = None, goal: dict | None = N
         goal_xy = np.array([math.radians(sc['destination']['lon'])*R,math.radians(sc['destination']['lat'])*R])
     elif goal is None:
         goal_xy = _xy(poses[-1], meta)
-    else:  # user-chosen destination (equirectangular, standard parallel 0: x = R*lon, y = R*lat)
+    else:
         goal_xy = np.array([math.radians(goal["lon"]) * R, math.radians(goal["lat"]) * R])
     goal_rc = _cell(goal_xy, meta)
     if not (0 <= goal_rc[0] < region.elevation.shape[0] and 0 <= goal_rc[1] < region.elevation.shape[1]) or not region.analysis["valid"][goal_rc]:
@@ -142,7 +141,7 @@ def compute(scenario_id: str, profile: dict | None = None, goal: dict | None = N
         b = blocked.copy()
         rr, cc = np.ogrid[:b.shape[0], :b.shape[1]]
         s = _cell(from_xy, meta)
-        b[(rr - s[0]) ** 2 + (cc - s[1]) ** 2 <= (CLEAR_AROUND_ROVER_M / meta["cell_m"]) ** 2] = False  # the rover stands here
+        b[(rr - s[0]) ** 2 + (cc - s[1]) ** 2 <= (CLEAR_AROUND_ROVER_M / meta["cell_m"]) ** 2] = False
         cost = cost_grid(region.analysis, "surface", profile["max_slope_deg"], b)
         path, _ = plan_legs(cost, [s, goal_rc], meta["cell_m"])
         return path
@@ -156,7 +155,6 @@ def compute(scenario_id: str, profile: dict | None = None, goal: dict | None = N
         dev, along, total = _track_distance(p, poly)
         deviation_before = dev
         remaining_cells = _remaining_cells(route_cells,p,meta)
-        # Stereo obstacles from this registered frame (measured geometry, not the learned class).
         hazards = 0
         if f["registration"].get("verified"):
             loc = localize_obstacles(f, np.zeros(tuple(f["shape"]), dtype=np.uint8), np.zeros(tuple(f["shape"])), meta, profile["obstacle_step_m"])
@@ -189,15 +187,12 @@ def compute(scenario_id: str, profile: dict | None = None, goal: dict | None = N
         target_direction = _centre(remaining_cells[min(2,len(remaining_cells)-1)],meta)-p
         turn_to_route = ((_heading(target_direction)-yaw+180)%360-180) if np.linalg.norm(target_direction)>.1 else 0.
         idx = np.unique(np.linspace(0, len(remaining_cells) - 1, min(len(remaining_cells), 200)).astype(int))
-        # Registered frames: placement verified by image correlation. Others: drawn with the archived
-        # PLACES pose only, flagged unverified (display only; never used to update the map).
         verified = bool(f["registration"].get("verified"))
         tol = max(.35, min(1.0, f["registration"]["horizontal_error_bound_m"] / 2)) if verified else .5
         projection = project_route(f, meta, remaining_cells, tol, destination_xy=goal_xy)
         projection = {k2: projection[k2] for k2 in ("segments", "destination", "destination_visibility", "visibility_mask", "visible_route_m", "tolerance_m", "method")} | {"placement": "image-verified" if verified else "archived PLACES pose, not independently verified"}
         guide = navigation_guide(p, yaw, [_centre(c, meta) for c in remaining_cells], remaining)
         driven = _driven_between(frames[k-1] if k else None, f, poses[k-1] if k else None, ned, yaws[k-1] if k else None, yaw)
-        # Motion from the dense drive log when available (exact manoeuvres); otherwise the two-pose comparison.
         motion = drive_motion(driven) if driven else pose_change(_xy(poses[k-1], meta) if k else None, yaws[k-1] if k else None, p, yaw)
         lat, lon = math.degrees(ned[0] / R), (math.degrees(ned[1] / R) + 180) % 360 - 180
         steps.append({"step": k, "frame_id": f["id"], "sol": f["sol"], "time": f["acquired_at"], "rover": {"lat": lat, "lon": lon, "yaw_deg": round(yaw, 1)},

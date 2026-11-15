@@ -73,7 +73,6 @@ def main():
                 target[np.asarray(canvas, bool)] = class_id
                 if class_id < 4:
                     regions.append({'class_id': class_id, 'bbox': [*p.min(0).tolist(), *p.max(0).tolist()]})
-        # Exclude uncertain native boundary pixels, including the review ROI edge.
         boundary = np.zeros(target.shape, bool)
         for axis in [0, 1]:
             change = np.diff(target.astype(np.int16), axis=axis) != 0

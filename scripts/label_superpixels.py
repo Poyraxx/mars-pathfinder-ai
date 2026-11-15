@@ -50,7 +50,6 @@ def render(source_id: str, out_dir: Path):
         y, x = int(rr.mean()) + sl[0].start, int(cc.mean()) + sl[1].start
         draw.text((x, y), str(label), font=font, fill="white", anchor="mm", stroke_width=3, stroke_fill="black")
     sheet.save(out_dir / f"{source_id}-numbered.png")
-    # Coordinate grid (every 64 native px) for tracing individual rock polygons.
     grid = image.copy(); g = ImageDraw.Draw(grid); small = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 12)
     for v in range(64, 1024, 64):
         g.line([(v, 0), (v, 1023)], fill=(0, 200, 255), width=1); g.line([(0, v), (1023, v)], fill=(0, 200, 255), width=1)
@@ -75,12 +74,10 @@ def build():
         for class_id in ("0", "3", "2", "1"):
             ids = scene["classes"].get(class_id, [])
             target[np.isin(seg, ids)] = int(class_id)
-        # Individually traced polygons override superpixels (rocks smaller than a superpixel).
         for poly in scene.get("polygons", []):
             canvas = Image.new("L", (seg.shape[1], seg.shape[0]), 0)
             ImageDraw.Draw(canvas).polygon([tuple(p) for p in poly["polygon"]], fill=1)
             target[np.asarray(canvas, bool)] = poly["class_id"]
-        # Ignore a 10-pixel collar wherever two different reviewed classes meet.
         collar = np.zeros(seg.shape, bool)
         for c in (0, 1, 2, 3):
             m = target == c
@@ -90,7 +87,6 @@ def build():
         out = out_dir / f"{sid}.png"
         Image.fromarray(target).save(out)
         counts = {str(c): int((target == c).sum()) for c in (0, 1, 2, 3)}
-        # Region boxes (connected components per class) used by the trainer's object-centred crops.
         regions = []
         for c in (0, 1, 2, 3):
             lab, _ = ndimage.label(target == c)

@@ -6,7 +6,6 @@ from backend.camera_model import project, site_points_to_pixels
 
 
 def test_cahvore_perspective_limit_and_behind_camera_rejection():
-    # Analytic camera fixture only, not claimed as a Mars observation.
     m=dict(type='CAHVORE',C=[0,0,0],A=[1,0,0],H=[0,100,0],V=[0,0,100],
            O=[1,0,0],R=[0,0,0],E=[0,0,0],T=1,P=1)
     uv=project(np.array([[1,0,0],[1,.2,.3],[-1,0,0]]),m)
@@ -129,8 +128,6 @@ def test_guidance_origin_and_left_right_steering_are_not_ground_projection():
 
 
 def test_sol150_goal_stays_on_ground_when_the_arm_moves_at_the_same_rover_pose():
-    # The user's three screenshots. Previously the nearest unfiltered XYZ
-    # return lifted the flag onto the raised arm as it moved between exposures.
     data.load_regions()
     result=replay.compute('hazcam-extended-traverse')
     from backend.camera_visibility import visibility

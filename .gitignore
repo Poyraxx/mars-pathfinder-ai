@@ -17,3 +17,19 @@ artifacts/
 *.tsbuildinfo
 .taste-skill/
 data/prepared/build-cache.json.gz
+
+# local working notes (not published)
+/CLAUDE.md
+/CONTINUATION_REVIEW.md
+/DATASET_V10_COORDINATION.md
+/DATASET_V8_REFINEMENT.md
+/DESIGN.md
+/GUIDANCE_CONTINUITY.md
+/HANDOFF.md
+/HAZCAM_OCCLUSION_FIXES.md
+/MARSWALK.md
+/MODEL_REFINEMENT.md
+/NASA_FOOTAGE.md
+/PRODUCT.md
+/REPLAY_VISUAL_FIXES.md
+/TASKS.md

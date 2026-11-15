@@ -41,7 +41,6 @@ def main():
                 collar=ndimage.binary_dilation(np.asarray(canvas,dtype=bool),iterations=10)&~interior
                 target[collar&(target!=region['class_id'])]=255
             points=np.asarray(polygon);regions.append({'class_id':region['class_id'],'bbox':[*points.min(0).tolist(),*points.max(0).tolist()]})
-        # Do not teach a fabricated, pixel-exact boundary at semantic transitions.
         boundaries=np.zeros((h,w),bool)
         for axis in [0,1]:
             pairs=np.diff(target.astype('int16'),axis=axis)!=0

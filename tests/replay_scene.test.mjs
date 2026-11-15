@@ -11,14 +11,14 @@ test('negative-elevation annotations survive a zero-height LOD bound without see
  const camera=new C.Cartesian3(950,0,0),near=new C.BoundingSphere(new C.Cartesian3(900.15,0,0),.01),far=new C.BoundingSphere(new C.Cartesian3(-900.15,0,0),.01);
  const scene={preRender:new C.Event(),frameState:{minimumTerrainHeight:0}};
  const visible=sphere=>new C.Occluder(new C.BoundingSphere(C.Cartesian3.ZERO,1000+scene.frameState.minimumTerrainHeight),camera).isBoundingSphereVisible(sphere);
- assert.equal(visible(near),false); // camera is above measured ground, inside reference sphere
+ assert.equal(visible(near),false);
  const release=keepReplayDatum(scene,()=>-100);
  for(let i=0;i<120;i++){
   scene.frameState.minimumTerrainHeight=0;scene.preRender.raiseEvent();
   assert.equal(visible(near),true);assert.equal(visible(far),false);
  }
  scene.frameState.minimumTerrainHeight=-150;scene.preRender.raiseEvent();
- assert.equal(scene.frameState.minimumTerrainHeight,-150); // preserve a lower real terrain bound
+ assert.equal(scene.frameState.minimumTerrainHeight,-150);
  release();scene.frameState.minimumTerrainHeight=0;scene.preRender.raiseEvent();
  assert.equal(scene.frameState.minimumTerrainHeight,0);
 });

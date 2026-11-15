@@ -4,7 +4,6 @@ import {navigationRibbon} from './routeGeometry';
 type P=[number,number];
 const pts=(ps:P[])=>ps.map(p=>`${p[0].toFixed(5)},${p[1].toFixed(5)}`).join(' ');
 
-/** One tapering route shape; dashes identify the unverified map continuation. */
 export default function RouteOverlay({local,faint,far,destination,visibilityMask}:{local:LocalNavigation|null;faint:boolean;far?:number[][][];destination?:number[]|null;visibilityMask?:string|null}){
  const ribbon=navigationRibbon(local?.ribbons??[],local?.ribbon_s_m,far??[],local?.length_m??0,!faint,local?.status==='u_turn');
  const k=faint?.45:1;
@@ -39,7 +38,6 @@ export default function RouteOverlay({local,faint,far,destination,visibilityMask
  </svg>;
 }
 
-/** In-place rotation cue when the destination is behind the camera's view. A guidance icon, not a ground route. */
 export function TurnCue({direction,degrees}:{direction:'left'|'right';degrees:number}){
  const sweep=direction==='right'?1:0,dx=direction==='right'?1:-1;
  const sx=.5-dx*.14,ex=.5+dx*.14;

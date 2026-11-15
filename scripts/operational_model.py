@@ -33,7 +33,7 @@ class OperationalSurface(nn.Module):
 
     def train(self, mode=True):
         super().train(mode)
-        self.base.eval()  # preserve ALL terrain weights and running statistics
+        self.base.eval()
         return self
 
     def forward(self,image):

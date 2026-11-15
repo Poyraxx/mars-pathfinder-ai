@@ -20,8 +20,6 @@ def _fingerprint(frame):
 def _cached(frame_id, fingerprint):
     from .perception import infer_navigation
     _,labels,_,_,_=infer_navigation(frame_id)
-    # One geometry pixel protects the edge of the downsampled stereo footprint.
-    # It excludes an uncertain boundary; it never fills hidden ground.
     excluded=ndimage.binary_dilation(labels==255,iterations=1)
     rgba=np.full((*labels.shape,4),255,np.uint8);rgba[:,:,3]=np.where(excluded,0,255)
     out=io.BytesIO();Image.fromarray(rgba).save(out,format='PNG')
@@ -29,7 +27,6 @@ def _cached(frame_id, fingerprint):
 
 
 def visibility(frame):
-    # Analytic calibration fixtures have no camera image/model inference input.
     if not frame.get('image_path'):
         return None,None
     return _cached(frame['id'],_fingerprint(frame))

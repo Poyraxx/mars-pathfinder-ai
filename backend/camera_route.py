@@ -55,11 +55,8 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
     tree = cKDTree(ground)
     cell = meta["cell_m"]
     centres = np.array([[meta["west_m"] + (c + .5) * cell, meta["north_m"] - (r + .5) * cell] for r, c in route_cells], dtype=np.float64)
-    # The flag belongs to the requested destination, not the local stopping
-    # point, last visible fragment, or centre of its rounded planning cell.
     if destination_xy is not None:
         centres[-1] = np.asarray(destination_xy, dtype=np.float64)
-    # 10 cm samples along each leg (vectorised; same values as the former per-sample loop).
     if len(centres) > 1:
         delta = centres[1:] - centres[:-1]
         seg = np.hypot(delta[:, 0], delta[:, 1])
@@ -78,9 +75,6 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
     projected = None
     destination_visibility='unverified'
     if model and model.get('validation',{}).get('accepted'):
-        # Keep vertical support in the measured stereo datum (the orbital DEM
-        # has a documented vertical offset), but retain the planned horizontal
-        # coordinates. No guessed perspective or horizontal route is drawn.
         world = ned[idx].copy()
         world[:, 0] = samples[:, 1]
         world[:, 1] = samples[:, 0]
@@ -89,9 +83,6 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
             def heights(xy):
                 rc=np.array([(meta['north_m']-xy[:,1])/cell-.5,(xy[:,0]-meta['west_m'])/cell-.5])
                 return map_coordinates(np.asarray(dem_region.elevation),rc,order=1,mode='constant',cval=np.nan)
-            # The labelled stereo and areoid DEM have a measured vertical datum
-            # difference. A robust vertical-only alignment does not change any
-            # horizontal camera or map placement.
             ground_h=heights(ground)
             vertical_delta=-ned[:,2]-ground_h
             finite=np.isfinite(vertical_delta)&(np.abs(vertical_delta)<5)
@@ -99,8 +90,6 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
             dem_h=heights(samples)+datum
             supported=hit.copy()
             world[~supported,2]=-dem_h[~supported]
-            # Beyond stereo support, a calibrated DEM projection is a display
-            # estimate, never a new obstacle observation or occupancy assertion.
             hit=np.isfinite(dem_h)
         else:
             supported=hit.copy()
@@ -110,7 +99,6 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
         height, width = model['native_shape']
         hit &= np.isfinite(projected).all(-1) & (projected[:,0]>=0) & (projected[:,0]<width) & (projected[:,1]>=0) & (projected[:,1]<height)
         destination_visibility='out_of_view' if not hit[-1] else 'terrain_occluded'
-        # A nearer measured surface at the projected pixel occludes the route.
         uv = np.nan_to_num(projected)
         rr = np.clip((uv[:,1]/height*shape[0]).astype(int),0,shape[0]-1)
         cc = np.clip((uv[:,0]/width*shape[1]).astype(int),0,shape[1]-1)
@@ -127,7 +115,6 @@ def project_route(frame: dict, meta: dict, route_cells: list, tolerance_m: float
         hit &= ~has_depth | (route_range <= observed_range + max(.3,tolerance_m))
         if dem_region is not None:
             camera_global=camera_in_site @ np.asarray(p['archive_site_to_global_ned_rotation']).T + np.asarray(p['archive_site_to_global_ned_translation_m'])
-            # DEM line-of-sight test. This does not resolve sub-metre rocks.
             for fraction in np.linspace(.05,.95,28):
                 ray=camera_global[None,:]+fraction*(world-camera_global)
                 terrain_h=heights(np.column_stack((ray[:,1],ray[:,0])))+datum

@@ -7,7 +7,6 @@ import numpy as np
 
 def terrain_analysis(elevation: np.ndarray, cell_m: float) -> dict:
     valid = np.isfinite(elevation)
-    # Missing neighbours are never silently replaced by zero height.
     dy, dx = np.gradient(elevation.astype(np.float64), cell_m)
     slope = np.degrees(np.arctan(np.hypot(dx, dy)))
     valid &= np.isfinite(slope)
@@ -34,8 +33,6 @@ def astar(cost: np.ndarray, start: tuple[int, int], goal: tuple[int, int], cell_
         if not (0 <= p[0] < rows and 0 <= p[1] < cols) or not np.isfinite(cost[p]):
             raise ValueError("endpoint_blocked_or_outside")
     began = time.perf_counter()
-    # Same algorithm, arithmetic and heap order as before, on flat Python lists:
-    # NumPy scalar indexing dominated the run time; results are identical.
     flat = cost.ravel().tolist()
     finite = np.isfinite(cost).ravel().tolist()
     gr, gc = goal

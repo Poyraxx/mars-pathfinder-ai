@@ -1,4 +1,3 @@
-// Video authoring uses the exact pure geometry module rendered by React.
 import {navigationRibbon} from '../src/routeGeometry.ts';
 
 let input='';

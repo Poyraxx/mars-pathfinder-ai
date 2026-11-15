@@ -212,8 +212,6 @@ def prepare_dem_crop(cache: Path, output: Path, candidates: list[dict]) -> dict:
             raise ValueError("DEM row range length mismatch")
         cache_path.write_bytes(payload)
     values = np.frombuffer(payload, dtype=">f4").reshape(size, width)[:, col0:col0+size].astype(np.float32)
-    # PDS label has no Special_Constants declaration. Mask only nonfinite or
-    # unmistakable floating sentinel magnitudes; never fill/interpolate holes.
     special = {node.tag.rsplit("}", 1)[-1]: node.text for node in array.findall("p:Special_Constants/*", ns)}
     valid = np.isfinite(values) & (np.abs(values) < 1e6)
     for constant in special.values():
@@ -253,8 +251,6 @@ def prepare_region_ortho(cache: Path, output: Path, dem: dict) -> dict:
     target_top = dem["upper_left_northing_m"]
     extent = dem["source_pixel_window"]["width"] * dem["pixel_resolution_m"]
     size = int(round(extent / resolution))
-    # Use native pixels, with explicit nearest-pixel bounds. Reprojection or
-    # image stretching to falsely imply exact grid registration is avoided.
     row0 = int(round((top-target_top) / resolution))
     col0 = int(round((target_left-left) / resolution))
     if not (0 <= row0 <= height-size and 0 <= col0 <= width-size):
@@ -322,7 +318,6 @@ def main() -> None:
         arrays = {}
         products = []
         labels = {}
-        # RAD is the exact radiometric reference image listed as an input to XYZ.
         for product_type in ["RAD", "XYZ", "XYE"]:
             product_id = xyz_id.replace("XYZ_D", product_type + "_D")
             label_bytes = fetch(BASE + product_id + ".LBL", cache / (product_id + ".LBL"))
@@ -343,9 +338,6 @@ def main() -> None:
         row = next(item for item in localizations if item["frame"] == "SITE" and int(item["site"]) == site)
         if [float(row[key]) for key in ["quat_s", "quat_v1", "quat_v2", "quat_v3"]] != [1., 0., 0., 0.]:
             raise ValueError("Nonidentity SITE orientation requires full frame rotation")
-        # XYZ was created in the TELEMETRY Site frame. Later corrected rover
-        # localization must replace the telemetry rover anchor; adding the
-        # localized Site origin alone retains accumulated odometry drift.
         pose_candidates = [item for item in interpolated if item["frame"] == "ROVER" and int(item["site"]) == site and int(item["drive"]) == motion_indices[1]]
         if not pose_candidates:
             raise ValueError("No corrected PLACES rover localization for this motion counter")

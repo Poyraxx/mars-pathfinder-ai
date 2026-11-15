@@ -42,7 +42,6 @@ def main():
     objects_total=objects_found=0;rows=[];latencies=[]
     for entry in entries:
         source=Image.open(entry['image']).convert('RGB');truth=np.asarray(Image.open(entry['label']))
-        # Source and label inputs are pinned by the reviewed manifest.
         assert hashlib.sha256(Path(entry['image']).read_bytes()).hexdigest()==entry['source_sha256']
         assert hashlib.sha256(Path(entry['label']).read_bytes()).hexdigest()==entry['label_sha256']
         tick=time.perf_counter();outputs,passes=predict_outputs(session,source,policy['inference_policy']);latencies.append((time.perf_counter()-tick)*1000)

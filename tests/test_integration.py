@@ -21,8 +21,6 @@ def test_missing_registration_bound_still_rejects_even_if_flag_true():
 
 
 def _plane_with_block(error=0.02):
-    # Geometry fixture for the algorithm only (not presented as Mars data):
-    # flat ground 6x6 m at 2.5 cm spacing in SITE north/east/down, one 0.3 m tall 0.5 m block.
     n,e=np.meshgrid(np.arange(240)*.025,np.arange(240)*.025,indexing='ij')
     down=np.zeros_like(n)
     block=(np.abs(n-3)<.25)&(np.abs(e-3)<.25)

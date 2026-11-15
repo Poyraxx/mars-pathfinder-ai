@@ -61,7 +61,6 @@ def camera_patch(frame, res, e0, n0, shape):
     rot = np.array(p["archive_site_to_global_ned_rotation"]); tr = np.array(p["archive_site_to_global_ned_translation_m"])
     ned = xyz[valid] @ rot.T + tr
     b = img[valid]; b = (b - b.mean()) / (b.std() + 1e-9)
-    # Only ground inside the HiRISE region (minus the search margin) can be compared.
     margin = SEARCH_M + LOCAL_M + 2
     inside = ((ned[:, 1] > e0 + margin) & (ned[:, 1] < e0 + shape[1] * res - margin) &
               (ned[:, 0] < n0 - margin) & (ned[:, 0] > n0 - shape[0] * res + margin))

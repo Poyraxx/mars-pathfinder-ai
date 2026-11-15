@@ -24,7 +24,6 @@ OUT = ROOT / "data/prepared/geology"
 PPD = 8
 W, H = 360 * PPD, 180 * PPD
 
-# Period from the unit code prefix (Tanaka et al. 2014 naming: e/m/l = early/middle/late, A/H/N = Amazonian/Hesperian/Noachian).
 PERIODS = [("lA", "Late Amazonian", (99, 165, 222)), ("mA", "Middle Amazonian", (122, 186, 230)), ("eA", "Early Amazonian", (150, 206, 236)),
            ("AH", "Amazonian–Hesperian", (156, 205, 168)), ("A", "Amazonian", (130, 190, 230)),
            ("lH", "Late Hesperian", (125, 189, 110)), ("eH", "Early Hesperian", (163, 207, 116)), ("HN", "Hesperian–Noachian", (214, 196, 120)),
@@ -47,7 +46,6 @@ def main():
     desc = {}
     canvas = Image.new("L", (W, H), 0)
     draw = ImageDraw.Draw(canvas)
-    # Larger polygons first so enclosed small units are drawn on top.
     items = sorted(zip(reader.records(), reader.shapes()), key=lambda rs: -rs[0]["SphArea_km"])
     for rec, shape in items:
         desc[rec["Unit"]] = rec["UnitDesc"]

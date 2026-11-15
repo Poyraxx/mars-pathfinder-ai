@@ -126,15 +126,12 @@ def render_keyframes(result):
         panel(d,(810,86,1580,844),'MARS MAP   /   HiRISE 25 cm ORTHOPHOTO')
         f=catalogue[st['frame_id']]
         camera=Image.open(data.DATA_DIR/(f.get('display_path') or f['image_path'])).convert('RGB').resize((size,size),Image.Resampling.LANCZOS)
-        # Header is inside the panel but above the two square data viewports.
         cy=118;my=118
         canvas.paste(camera,(xcam,cy));canvas.paste(map_image,(xmap,my))
         d=ImageDraw.Draw(canvas)
         local=locals_by_frame[st['frame_id']]
         for line in local.get('corridor_edges',[]):
             d.line([(xcam+p[0]*size,cy+p[1]*size) for p in line],fill=CYAN,width=2)
-        # A single tapering outline crosses the local/map handoff. Planned
-        # sections retain a dashed centre and never assert measured clearance.
         ribbon=geometry[index]
         P=lambda q:(xcam+q[0]*size,cy+q[1]*size)
         for stroke in ribbon['strokes']:
@@ -172,10 +169,8 @@ def render_keyframes(result):
             d.polygon([(gx,gy-40),(gx+24,gy-33),(gx,gy-22)],fill=AMBER,outline='#fff3df')
             right=gx<xcam+size-130
             d.text((gx+30 if right else gx-8,gy-30),'Destination',font=font(16,True),fill='#fff3df',stroke_width=2,stroke_fill='#111b22',anchor='la' if right else 'ra')
-        # Same route payload as the in-app map; only the cartographic projection changes.
         def mp(p):
             x,y=map_point(p);return x,y+(my-ymain)
-        # Actual driven path (PLACES drive log), red; straight pose-to-pose only where no log exists.
         trail=[]
         for j,s_ in enumerate(result['steps'][:index+1]):
             pts=[{'lat':q[0],'lon':q[1]} for q in s_.get('driven') or []] or [result['trail'][j]]

@@ -99,8 +99,6 @@ def seed_worker(_):
 
 def objective(s,aux=None):
     rock=s['class_iou']['big_rock'] or 0.
-    # Recall alone rewards marking every pixel as a rock. Keep IoU and precision
-    # in the checkpoint objective; the locked test is never used for selection.
     value=.5*rock+.3*s['recall']['big_rock']+.2*s['miou']-.3*max(0.,.35-s['precision']['big_rock'])
     if aux:
         matrix=np.asarray(aux['confusion_matrix']);neg=matrix[:3].sum();fp=matrix[:3,3].sum()/max(1,neg)

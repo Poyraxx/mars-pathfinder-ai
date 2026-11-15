@@ -140,7 +140,7 @@ def main():
         def forward(self,x):return self.m(x)["out"]
     export_model=Export(model).eval()
     torch.onnx.export(export_model,torch.randn(1,3,320,320),str(out_dir/"surface.onnx"),opset_version=17,input_names=["image"],output_names=["logits"],dynamo=False,external_data=False)
-    model.eval()  # Keep BatchNorm in eval after the exporter restores wrapper state.
+    model.eval()
     import onnxruntime as ort
     options=ort.SessionOptions();options.intra_op_num_threads=1;options.inter_op_num_threads=1
     session=ort.InferenceSession(str(out_dir/"surface.onnx"),sess_options=options,providers=["CPUExecutionProvider"])

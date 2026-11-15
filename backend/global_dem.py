@@ -32,7 +32,6 @@ SOURCE = "Mars MGS MOLA - MEX HRSC Blended DEM Global 200m v2 (NASA/USGS/ESA/DLR
 
 _tiles: OrderedDict = OrderedDict()
 _lock = threading.Lock()
-# httpx ships its own CA bundle (certifi); slim containers may lack system certificates.
 _http = httpx.Client(timeout=40, follow_redirects=True, headers={"User-Agent": "MarsPathfinderResearch/1.0"})
 _dll = None
 
@@ -92,7 +91,6 @@ def sample(lat: np.ndarray, lon: np.ndarray, z: int) -> np.ndarray:
             try:
                 vals[sel] = tile(z, a, b)[gy[sel] - a * TILE, gx[sel] - b * TILE]
             except OSError:
-                # Upstream tile error: read the same pixels from the next finer level, else no data.
                 vals[sel] = sample(lat[sel], lon[sel], z + 1) if z < MAX_LEVEL else np.nan
         out += w * vals
     return out
@@ -103,7 +101,6 @@ class GlobalRegion:
         lats = [p["lat"] for p in points]
         if max(abs(v) for v in lats) > MAX_ABS_LAT:
             raise ValueError("polar_not_supported")
-        # Unwrap longitudes around the first waypoint so routes may cross the 180 degree meridian.
         ref = points[0]["lon"]
         lons = [ref + ((p["lon"] - ref + 180) % 360 - 180) for p in points]
         clat = (max(lats) + min(lats)) / 2; clon = ((max(lons) + min(lons)) / 2 + 180) % 360 - 180
@@ -111,7 +108,6 @@ class GlobalRegion:
         span_n = math.radians(max(lats) - min(lats)) * R
         span_e = math.radians(max(lons) - min(lons)) * R * coslat
         span = max(span_n, span_e)
-        # No distance limit: the grid stays <= MAX_CELLS^2 and cells simply grow for long traverses.
         extent = min(max(span * 1.3, 4000.0), math.pi * R)
         native = [LEVEL0_RES / 2 ** z * math.pi / 180 * R for z in range(MAX_LEVEL + 1)]
         cell = max(extent / MAX_CELLS, native[MAX_LEVEL])

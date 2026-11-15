@@ -44,8 +44,6 @@ def predict_probabilities(session,source,policy='whole'):
 
 
 def predict_outputs(session,source,policy='whole'):
-    # Startup replay warming and an interactive frame may arrive together.
-    # Share one ONNX workspace instead of multiplying peak memory on free hosts.
     with _inference_guard:
         return _predict_outputs(session,source,policy)
 
@@ -56,8 +54,6 @@ def _predict_outputs(session,source,policy):
     if not isinstance(size,int):raise ValueError('Surface model needs a fixed square input size')
     probabilities=_run(session,source,size)
     if policy=='whole' or min(source.size)<=size:return probabilities,1
-    # The whole-image pass retains context. Additional REAL native windows give
-    # small objects more feature pixels; no image content or depth is generated.
     width,height=source.size
     if width>2048 or height>2048:raise ValueError('Native tiled inference exceeds bounded source size')
     accumulators=[np.stack([np.asarray(Image.fromarray(p).resize(source.size,Image.Resampling.BILINEAR)) for p in probability]) for probability in probabilities]

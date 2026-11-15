@@ -7,7 +7,6 @@ const minutes=(m:number|undefined|null)=>m==null?'—':Math.abs(m)>=1440?`${(m/1
 const PROFILE_ICONS={astronaut:Footprints,crew_cart:Truck,rover:Bike} as const;
 const SHORT={astronaut:'Astronaut',crew_cart:'Crew + cart',rover:'Rover'} as const;
 
-/** Movement profile: who or what travels. Assumptions are shown, not hidden. */
 export function ProfilePicker(){
  const s=useMission();
  const profiles=s.catalog?.profiles;if(!profiles)return null;
@@ -20,7 +19,6 @@ export function ProfilePicker(){
  </div>;
 }
 
-/** Sourced science stops for the current area, added to the route with their work time. */
 export function ScienceTargets(){
  const s=useMission();
  useEffect(()=>{if(!s.scienceTargets)void api<{gale:ScienceTarget[];global:ScienceTarget[]}>('/api/science-targets').then(t=>s.set({scienceTargets:t})).catch(()=>{});},[s.scienceTargets]);
@@ -37,7 +35,6 @@ export function ScienceTargets(){
  </details>;
 }
 
-/** Time budget, date and per-stop work minutes that feed the round-trip plan. */
 export function EvaControls(){
  const s=useMission();
  const profile=s.catalog?.profiles?.[s.profileKind];
@@ -52,7 +49,6 @@ export function EvaControls(){
  </div>;
 }
 
-/** Analysis tab: outbound, science work and return against the budget, and what each stop costs. */
 export function EvaPanel(){
  const e=useMission(st=>st.mission?.eva);
  const names=useMission(st=>st.stopNames);
@@ -76,7 +72,6 @@ export function EvaPanel(){
 const distanceKm=(m:number)=>m>=1000?`${(m/1000).toFixed(1)} km`:`${Math.round(m)} m`;
 
 const KIND_LABEL={measurement:'Measurement',historical:'Historical record',model:'Model'} as const;
-/** Analysis tab: sourced environment at the route midpoint, each value labelled by kind. */
 export function EnvironmentPanel(){
  const s=useMission();
  const route=s.mission?.routes.find(r=>r.mode===s.activeRoute&&r.status==='ready');
@@ -92,7 +87,6 @@ export function EnvironmentPanel(){
  </div>;
 }
 
-/** Geologic units crossed by the active route (USGS SIM 3292). */
 export function GeologyAlong(){
  const s=useMission();
  const g=s.mission?.routes.find(r=>r.mode===s.activeRoute&&r.status==='ready')?.geology;
@@ -103,7 +97,6 @@ export function GeologyAlong(){
  </div>;
 }
 
-/** Map overlay switch (Google Earth style): one conditions layer at a time, with its legend and source. */
 export function OverlaySwitch(){
  const s=useMission();
  const overlays=s.catalog?.overlays??[];

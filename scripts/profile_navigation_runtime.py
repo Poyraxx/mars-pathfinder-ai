@@ -42,8 +42,6 @@ def main():
         rows.append({'frame_id':frame['id'], 'status':result['status'], 'elapsed_s':time.perf_counter()-tick,
                      'path_points':len(result.get('path_xy',[])), 'ribbons':len(result['ribbons'])})
     if args.navigation_only:
-        # The unrelated global classifier can be requested in the same server.
-        # Include its workspace too when checking the free-host memory budget.
         perception.infer(rows[-1]['frame_id'])
     warmed=None
     if args.warm_scenario:

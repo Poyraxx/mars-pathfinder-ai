@@ -18,11 +18,10 @@ URL = "https://astro.arcgis.com/arcgis/rest/services/OnMars/CTX/MapServer/tile/{
 SOURCE = "Murray Lab CTX global mosaic beta01 (Caltech; NASA/JPL/MSSS), Esri tiles"
 R = 3396190.0
 TILE = 512
-LEVEL0_RES = 0.3515625 * 2  # degrees per pixel at level 0 (2 x 1 tiles of 512 px over 360 x 180)
+LEVEL0_RES = 0.3515625 * 2
 MAX_LEVEL = 12
 _cache: OrderedDict = OrderedDict()
 _lock = threading.Lock()
-# httpx ships its own CA bundle (certifi); slim containers may lack system certificates.
 _http = httpx.Client(timeout=40, follow_redirects=True, headers={"User-Agent": "MarsPathfinderResearch/1.0"})
 
 

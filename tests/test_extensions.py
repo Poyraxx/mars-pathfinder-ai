@@ -11,7 +11,6 @@ from backend.main import app, missions
 
 
 def _plane_tiles(monkeypatch, grade):
-    # Algorithm fixture only: a uniform north-rising plane, not Mars data.
     def fake_tile(z, y, x):
         res = global_dem.LEVEL0_RES / 2 ** z
         rows = np.arange(512) + y * 512
@@ -34,10 +33,10 @@ def test_global_region_rejects_polar_and_allows_long_or_wrapped_spans(monkeypatc
     _plane_tiles(monkeypatch, grade=0)
     with pytest.raises(ValueError, match="polar"):
         global_dem.GlobalRegion([{"lat": 85, "lon": 0}, {"lat": 86, "lon": 1}])
-    far = global_dem.GlobalRegion([{"lat": 0, "lon": 170}, {"lat": 10, "lon": -100}])  # long, crosses 180
+    far = global_dem.GlobalRegion([{"lat": 0, "lon": 170}, {"lat": 10, "lon": -100}])
     assert far.meta["cell_m"] > 10000 and far.meta["shape"][0] <= global_dem.MAX_CELLS
     w, s, e, n = far.meta["bounds"]
-    assert w > e  # rectangle wraps across the antimeridian
+    assert w > e
 
 
 def test_global_mission_plans_through_api(monkeypatch):

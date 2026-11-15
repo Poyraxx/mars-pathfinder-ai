@@ -15,7 +15,6 @@ def terrain_fixture(kind='flat', *, semantic_rocks=True):
     rock = np.zeros(f.shape, bool)
     if kind == 'rock':
         rock = (f-8.)**2+r**2 < .55**2
-        # A second obstacle closes the left passage; the right side remains open.
         rock |= (f-8.)**2+(r+4.)**2 < .7**2
     elif kind == 'low_block':
         rock=(f-8.)**2+r**2<.55**2
@@ -49,7 +48,7 @@ def test_open_flat_ground_produces_direct_route_without_cosmetic_curves():
     terrain = terrain_fixture()
     result = local.plan_observed(terrain, [13., 0.])
     points = assert_validated(result, terrain)
-    assert len(points) == 2  # collision-checked direct shortcut
+    assert len(points) == 2
     assert abs(points[:, 1]).max() < .11
     assert result['length_m'] == pytest.approx(np.linalg.norm(points[-1]-points[0]), abs=.002)
 
@@ -172,7 +171,6 @@ def test_ongoing_uturn_does_not_flip_at_the_180_degree_boundary():
     assert second['status']=='u_turn' and second['required_turn_deg']>180
     points=np.asarray(second['path_xy'])
     assert points[-1,1]>1 and all(local.segment_clear(a,b,terrain) for a,b in zip(points,points[1:]))
-    # Once the target is materially to the other side, release the rear-sector preference.
     assert local.plan_observed(terrain,[-3.,-4.],preferred_turn='right')['turn_direction']=='left'
 
 
@@ -195,7 +193,6 @@ def test_stationary_obstacle_bypass_keeps_a_valid_previous_side():
     result=local.plan_observed(terrain,[13.,0.],previous_path=reference)
     assert result['continuity_reused'] and result['path_xy']==reference
     assert all(local.segment_clear(a,b,terrain) for a,b in zip(result['path_xy'],result['path_xy'][1:]))
-    # Current observations always veto history. Closing an old segment forces a fresh route.
     cell=tuple(local._cell([[6.,2.8]],terrain)[0]);terrain['free'][cell]=False;terrain['cost'][cell]=np.inf
     changed=local.plan_observed(terrain,[13.,0.],previous_path=reference)
     assert not changed['continuity_reused']
@@ -205,7 +202,6 @@ def test_stationary_obstacle_bypass_keeps_a_valid_previous_side():
 def test_combined_diagonal_slope_is_checked_not_only_each_axis():
     cfg=replace(local.DEFAULT,forward_max_m=16.,half_width_m=7.)
     f,r=np.meshgrid(np.arange(.425,15.98,.04),np.arange(-6.975,7.,.04),indexing='ij')
-    # Each axis is16.7 degrees; the actual combined slope is23 degrees.
     xyz=np.stack((f,r,-.3*(f+r)),axis=-1)
     terrain=local.build_terrain(xyz,np.full(xyz.shape,.001),np.ones(f.shape,dtype=np.uint8),np.full(f.shape,.99),np.zeros(3),np.array([1.,0.]),np.array([0.,1.]),cfg)
     result=local.plan_observed(terrain,[13.,0.])
@@ -233,8 +229,8 @@ def test_distant_stereo_rock_biases_heading_without_extending_known_ground():
     assert len(terrain['distant_rock_candidates'])==1
     assert result['status']=='partial', result
     points=np.asarray(result['path_xy'])
-    assert abs(points[-1,1])>.9  # start avoiding before reaching the distant rock
-    assert points[:,0].max()<4.6  # uncertain far XYZ never became drivable
+    assert abs(points[-1,1])>.9
+    assert points[:,0].max()<4.6
     assert all(local.segment_clear(a,b,terrain) for a,b in zip(points,points[1:]))
 
 
@@ -245,8 +241,6 @@ def test_semantic_rock_on_flat_ground_and_excessive_stereo_error_cannot_create_p
 
 def calibrated_plane(tmp_path, monkeypatch):
     from backend import data
-    # Analytic pinhole limit of CAHVORE, with real perspective and an independently
-    # constructed stereo depth image for these tests only.
     model = dict(type='CAHVORE', C=[0., 0., -1.], A=[1., 0., 0.], H=[512., 400., 0.], V=[512., 0., 400.],
                  O=[1., 0., 0.], R=[0., 0., 0.], E=[0., 0., 0.], T=1., P=1.,
                  rover_to_site_rotation=np.eye(3).tolist(), rover_origin_in_site_m=[0., 0., 0.], native_shape=[1024, 1024])
@@ -280,7 +274,6 @@ def test_closer_stereo_surface_occludes_ribbon_instead_of_painting_over_it(tmp_p
     terrain = terrain_fixture()
     clear = local.project_path(frame, terrain, [[3.1, 0.], [12.5, 0.]])
     xyz = np.load(tmp_path/'xyz.npy')
-    # Measured test occluder on the same image rays, halfway to the floor.
     camera = np.array([0., 0., -1.])
     xyz[144:152, 123:133] = camera+.5*(xyz[144:152, 123:133]-camera)
     np.save(tmp_path/'xyz.npy', xyz)
@@ -310,16 +303,11 @@ def _terrain_for(frame):
 
 
 def test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route():
-    # Catalogue sol 45, facing Jake Matijevic. This demo is a training scene,
-    # so this checks planner geometry, not held-out model generalisation.
     frame = _frame('FLA_401492677')
     result = local.compute(frame['id'])
     terrain = _terrain_for(frame)
     assert result['obstacles']
     if result['status']=='no_path':
-        # The user-selected sensitive profile also blocks the smaller measured
-        # rocks beside Jake. Prove the rover's free component cannot exit its
-        # footprint, instead of weakening clearance to recover the old demo.
         from scipy import ndimage
         labels,_=ndimage.label(terrain['free'])
         start=tuple(local._cell([[.05,0.]],terrain)[0])
@@ -330,7 +318,7 @@ def test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route():
     points = np.array(result['path_xy'])
     assert all(local.segment_clear(a, b, terrain) for a, b in zip(points, points[1:]))
     assert result['min_obstacle_distance_m'] >= result['geometry']['required_obstacle_distance_m']-local.DEFAULT.cell_m
-    assert np.abs(points[:, 1]).max() > 1.  # it steers around the rock instead of through it
+    assert np.abs(points[:, 1]).max() > 1.
     quads = np.array(result['ribbons'])
     assert (quads >= 0).all() and (quads <= 1).all()
 

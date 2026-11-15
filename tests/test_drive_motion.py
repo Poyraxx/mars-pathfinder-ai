@@ -36,10 +36,10 @@ def test_turn_left_across_north_wraps():
 
 
 def test_sequence_backup_turn_then_forward():
-    seq = line(2, -.5, 0)                                  # back up 1 m facing north
+    seq = line(2, -.5, 0)
     n, e, _ = seq[-1]
-    seq += [(n, e, 45), (n, e, 90)]                         # turn right 90 in place
-    seq += line(8, .5, 90, (n, e))[1:]                      # drive 4 m east
+    seq += [(n, e, 45), (n, e, 90)]
+    seq += line(8, .5, 90, (n, e))[1:]
     m = drive_motion(seq)
     assert [p['kind'] for p in m['phases']] == ['reverse', 'turn', 'forward']
     assert m['kind'] == 'right' and m['reverse_m'] == pytest.approx(1) and m['forward_m'] == pytest.approx(4)

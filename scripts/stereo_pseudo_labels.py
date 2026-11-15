@@ -43,9 +43,7 @@ ROCK_RELIEF, ROCK_PEAK, ROCK_MAX_WIDTH, FLAT = .10, .15, 1.2, .04
 ROCK_MAX_PEAK = .6
 HELD_OUT_FRACTION = .25
 FLAT_CORRECTION = True
-ROCK_PEAK = .10  # relaxed: every candidate is reviewed by eye
-# Visual review of every stereo candidate (rock vs. rover arm/hardware/shadow edge):
-# {frame_id: [accepted candidate keys]}. Without it, all geometric candidates are used.
+ROCK_PEAK = .10
 REVIEW_PATH = ROOT / "data" / "training" / "pseudo-rock-review.json"
 REVIEW = json.loads(REVIEW_PATH.read_text("utf-8"))["accepted"] if REVIEW_PATH.exists() else None
 
@@ -64,11 +62,8 @@ def label_frame(frame):
         delta = xyz[..., :2] - origin[:2]
         x, y = delta @ forward, delta @ right
         valid &= (np.hypot(x, y) <= MAX_RANGE) & (x > 0)
-        # Rover hardware (deck, wheels) is not terrain.
         valid &= ~((x < 1.6) & (np.abs(y) <= 1.6))
     else:
-        # Navcam products here carry no rover pose: grid directly in site north/east.
-        # The stereo error cap already limits range; tall components (deck, mast) are rejected by ROCK_MAX_PEAK.
         x, y = xyz[..., 0], xyz[..., 1]
     height = -xyz[..., 2]
     if valid.sum() < 500:
@@ -78,7 +73,6 @@ def label_frame(frame):
     low = np.full(shape, np.inf)
     np.minimum.at(low, (gx[valid], gy[valid]), height[valid])
     seen = np.isfinite(low)
-    # Fill unseen cells from the nearest measured one, then a 1.5 m median = local ground.
     idx = ndimage.distance_transform_edt(~seen, return_distances=False, return_indices=True)
     filled = low[tuple(idx)]
     k = int(round(WINDOW_M / CELL)) | 1
@@ -108,7 +102,6 @@ def label_frame(frame):
     _, mask, conf, _, _ = infer(frame["id"])
     mask = np.asarray(Image.fromarray(mask).resize((w, h), Image.Resampling.NEAREST))
     conf = np.asarray(Image.fromarray(conf.astype(np.float32)).resize((w, h), Image.Resampling.NEAREST))
-    # Second-best non-rock class for correcting false rocks on flat measured ground.
     source = Image.open(data.DATA_DIR / frame["image_path"]).convert("RGB")
     flat = valid & (np.abs(relief) <= FLAT) & ~ndimage.binary_dilation(rock | rejected, iterations=2)
     label = np.full((h, w), 255, np.uint8)

@@ -57,7 +57,6 @@ def main():
     from backend.coordinates import cell_to_point
     corners=[cell_to_point(r,c,meta) for r,c in [(0,0),(0,n-1),(n-1,n-1),(n-1,0)]]
     meta["bounds"]=[min(p["lon"] for p in corners),min(p["lat"] for p in corners),max(p["lon"] for p in corners),max(p["lat"] for p in corners)]
-    # Default endpoints are real, valid DEM cells. No invented obstacle is added.
     meta["default_start"]=cell_to_point(int(n*.6),int(n*.37),meta)
     meta["default_goal"]=cell_to_point(int(n*.43),int(n*.62),meta)
     (out/"metadata.json").write_text(json.dumps(meta,indent=2),"utf-8")

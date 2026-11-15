@@ -5,7 +5,6 @@ import type {Frame} from './types';
 
 type Projection={segments:number[][][];visible_route_m:number;route_length_m:number;tolerance_m:number;camera_ground_range_m:[number,number];map_version:number};
 
-// Archived rover camera with the planned map route drawn through measured stereo ground pixels.
 export default function CameraView({dual}:{dual:boolean}){
  const s=useMission();
  const frame=s.catalog?.frames.find(f=>f.id===s.frameId);

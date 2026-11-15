@@ -80,7 +80,6 @@ def main():
                      'rock_boxes':boxes,'big_rock_pixels':int((label==3).sum())})
         if i%300==0:print('Scanned publisher labels',i,'/',len(source_labels),'rock images',sum(bool(e['rock_boxes']) for e in pool),flush=True)
     rocky=[e for e in pool if e['rock_boxes']];plain=[e for e in pool if not e['rock_boxes']]
-    # Prefer diversity of actual acquisition groups and include small-object scenes.
     def ordering(e):return hashlib.sha256(('rock-v4-'+e['stem']).encode()).hexdigest()
     groups=Counter();selected=[]
     for items,limit in [(rocky,int(args.count*.70)),(plain,args.count)]:
@@ -93,8 +92,6 @@ def main():
     print('Missing members to fetch',len(needed),flush=True)
     progress=[0];lock=threading.Lock()
     def fetch_slice(subset):
-        # Separate ZIP/read cursors per worker; contiguous offsets preserve the
-        # bounded 2 MB range cache. Shared ZipFile cursors must not race.
         remote=open_ai4mars()
         try:
             for name in subset:

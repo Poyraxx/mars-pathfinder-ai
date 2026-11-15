@@ -34,12 +34,11 @@ def main():
         match=re.search(r"N[LR][A-Z]?_(\d{9})",stem)
         if not match: continue
         sclk=int(match[1])
-        if abs(sclk-402556045)<88775*3: continue  # Exclude demo and neighbouring sols entirely.
+        if abs(sclk-402556045)<88775*3: continue
         group=str(sclk//(88775*3))
         bucket=int(hashlib.sha256(group.encode()).hexdigest()[:8],16)%100
         split="train" if bucket<70 else "validation" if bucket<85 else "test"
         if sum(e["split"]==split for e in entries)>=pool_cap[split]: continue
-        # Limit adjacent frames from one acquisition group.
         if groups.get(group,0)>=args.group_cap: continue
         groups[group]=groups.get(group,0)+1
         entries.append({"image_member":image,"label_member":name,"group":group,"split":split,"stem":stem})
@@ -60,7 +59,6 @@ def main():
         keep=rocky[:want]+plain[:args.count-want]
         entries=[e for e in entries if e["split"]!="train"]+keep
         print(f"train big_rock images {want} of {len(keep)} (pool {len(rocky)} rocky / {len(pool)})",flush=True)
-    # Read in archive byte order to reduce repeated HTTP range requests.
     needed={n for e in entries for n in [e["image_member"],e["label_member"]]}
     for i,n in enumerate(sorted(needed,key=lambda n:z.getinfo(n).header_offset)):
         local=target/"members"/n.removeprefix(prefix)

@@ -7,7 +7,6 @@ Latest perception audit (15 November2026): the reviewed operational Hazcam
 dataset now has86 images, including33 additional PDS exposures and117 newly
 traced rock-instance polygons. Fine-tuned challengers were tested but rejected
 for losing previously found large objects; the deployed head remainsv11.
-See [dataset, training and paired test results](DATASET_V8_REFINEMENT.md).
 
 ## Real-footage navigation
 
@@ -76,7 +75,7 @@ The sidebar also plays two **full original NASA films**, streamed directly from
 NASA: Perseverance's175 m Sol200 drive (28.8 s,192 distinct decoded frames), and
 Curiosity's five-year Hazcam film (5 min49 s, including NASA's inset location map).
 These films retain their original content; the app does not claim per-frame
-planner registration for them. See [NASA_FOOTAGE.md](NASA_FOOTAGE.md).
+planner registration for them.
 
 ## Implemented
 

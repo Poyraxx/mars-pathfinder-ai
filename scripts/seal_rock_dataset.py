@@ -26,8 +26,6 @@ def main():
     assert gold, 'No independent expert groups remain'
     forbidden=neighbours({e['group'] for e in baseline['entries'] if e['split']!='train'}|{e['group'] for e in gold}|manual_heldout_groups)
     entries=[e for e in expansion['entries'] if e['split']!='train' or e['group'] not in forbidden]
-    # Manual validation/test stay separate: a tiny sparse check must not distort
-    # or replace the large, fixed validation set used for checkpoint selection.
     entries += [e for e in manual['entries'] if e['split']=='train']
     protocol='Frozen original validation/test; new train excludes their +/-1 three-sol groups, sealed expert groups +/-1, and manual heldout camera episodes +/-1 across sensors. Sealed expert excludes ALL v3 train/val/test and manual training groups +/-1. Sparse native Hazcam training only; its val/test are separate.'
     final={**expansion,'entries':entries,'split_method':protocol,

@@ -1,14 +1,6 @@
 import * as C from 'cesium';
 
-// Ground-clamped CallbackProperties are dynamic even when their returned values
-// haven't changed. Cesium rebuilds their ground primitives while zooming/ticking.
-// Keep constant properties, and invalidate geometry only on a real data change.
 const TIME=new C.JulianDate(0,0);
-/** Cesium 1.147 constructs its central-body occluder before updating terrain.
- * During LOD transitions its last-frame minimum can be above Gale's negative
- * DEM heights, hiding every annotation, including depth-disabled labels.
- * Seed that bound with the actual loaded DEM minimum immediately before render.
- * frameState is a guarded engine compatibility hook; no geometry is moved. */
 export function keepReplayDatum(scene:C.Scene,minimum:()=>number|null){
  return scene.preRender.addEventListener(()=>{
   const state=(scene as unknown as {frameState?:{minimumTerrainHeight:number}}).frameState;
@@ -17,8 +9,6 @@ export function keepReplayDatum(scene:C.Scene,minimum:()=>number|null){
  });
 }
 export function updateReplayLine(entity:C.Entity,positions:C.Cartesian3[],clampToGround?:boolean){
- // Stationary acquisitions can append repeated poses to the driven history.
- // Their extra array entries must not invalidate an unchanged ground line.
  positions=positions.filter((p,i)=>!i||!C.Cartesian3.equalsEpsilon(p,positions[i-1],0,1e-6));
  if(positions.length<2)positions=[];
  const line=entity.polyline!;
@@ -29,7 +19,6 @@ export function updateReplayLine(entity:C.Entity,positions:C.Cartesian3[],clampT
  line.positions=new C.ConstantProperty(positions);return true;
 }
 
-/** Sample the actual DEM between route vertices; no inferred flat heights. */
 export function measuredReplayLine(points:{lat:number;lon:number}[],heightAt:(lat:number,lon:number)=>number|null,ellipsoid:C.Ellipsoid){
  const sampled:{lat:number;lon:number}[]=[];
  points.forEach((p,i)=>{

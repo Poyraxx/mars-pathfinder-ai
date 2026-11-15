@@ -30,7 +30,7 @@ def test_map_context_survives_without_a_measured_local_route():
     stroke=result['strokes'][0]
     assert stroke['centre'][0]==frame['segments'][0][0][:2]
     assert stroke['planned']==stroke['centre']
-    assert [.5,.985] not in stroke['centre']  # no invented measured link from the rover
+    assert [.5,.985] not in stroke['centre']
 
 
 def test_camera_exit_is_not_filled_by_a_solid_shortcut():
@@ -57,7 +57,7 @@ def test_taper_is_distributed_through_the_middle_instead_of_pinching_at_the_end(
     arc=np.r_[0,np.cumsum(np.linalg.norm(np.diff(c,axis=0),axis=1))]
     join=np.argmin(np.linalg.norm(c-[.5,.35],axis=1))
     middle=np.argmin(abs(arc-arc[join]*.5))
-    assert .3*w[0]<w[middle]<.8*w[0]  # no broad plateau followed by a short squeeze
+    assert .3*w[0]<w[middle]<.8*w[0]
     for i in range(join):
         j=min(join,np.searchsorted(arc,arc[i]+.05))
         assert w[i]/w[j]<2.8
@@ -80,8 +80,6 @@ def test_short_near_destination_keeps_unverified_map_context():
 
 
 def test_unmeasured_centre_link_has_one_bearing_instead_of_an_opposite_side_sweep():
-    # The first map point is left of centre but its tangent already heads right.
-    # The former tangent-fitting cubic overshot left and then doubled back.
     frame={'segments':[[[.46,.6,2.],[.52,.5,3.],[.6,.4,4.]]],'planningLink':True}
     stroke=overlay_geometries([frame])[0]['strokes'][0]
     c=np.asarray(stroke['centre'])[:33]

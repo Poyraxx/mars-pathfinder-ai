@@ -31,7 +31,6 @@ export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
  s.set({busy:true,error:null});
  try{
   const q=goal?`?goal_lat=${goal.lat}&goal_lon=${goal.lon}`:'';
-  // A busy free-tier server answers 429/502/503; retry instead of leaving the user on a spinner.
   let r!:ReplayResult;
   for(let attempt=0;;attempt++){
    try{r=await api<ReplayResult>(`/api/scenarios/${id}/replay${q}`);break;}
@@ -39,18 +38,14 @@ export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
   }
   if(request!==replayRequest)return;
   useMission.getState().set({replay:r,replayStep:0,busy:false,busyNote:null,replayView:'navcam',replayImageReady:null,localBatch:null,frameId:r.steps[0]?.frame_id??s.frameId});
-  // Preload every real camera frame so playback never waits on the network.
   const seen=new Set<string>();r.steps.forEach((step,i)=>{if(seen.has(step.frame_id))return;seen.add(step.frame_id);window.setTimeout(()=>{const img=new Image();img.src=`/api/frames/${step.frame_id}/display`;},i*40);});
-  // All local stereo routes for this replay, computed once on the server.
   const key=`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`;
   void fetch(`/api/scenarios/${id}/local-navigation${q}`).then(res=>res.ok?res.json():null).then(batch=>{if(!batch)return;for(const [frame,local] of Object.entries(batch.frames as Record<string,LocalNavigation>))localSeen.set(`${key}|${frame}`,local);if(request===replayRequest)useMission.getState().set({localBatch:{key,frames:batch.frames}});}).catch(()=>{});
  }catch(error){if(request===replayRequest)useMission.getState().set({busy:false,busyNote:null,error:error instanceof Error?error.message:String(error)});}
 }
 
-/** Local routes already computed in this browser session, by goal + frame: going back never re-scans a frame. */
 const localSeen=new Map<string,LocalNavigation>();
 
-/** Sidebar content for Replay mode: ready-made scenarios built from real archived drives. */
 export function ReplayPanel(){
  const s=useMission();
  const [selected,setSelected]=useState<string|null>(null);
@@ -85,7 +80,6 @@ export function ReplayPanel(){
  </div>;
 }
 
-/** Left half in Replay mode: first-person 3D view from the real rover pose, or the archived Navcam frame. */
 export function ReplayView(){
  const s=useMission();
  const r=s.replay,st=r?.steps[Math.min(s.replayStep,(r?.steps.length??1)-1)];
@@ -167,7 +161,6 @@ function FirstPerson(){
   const gh=demHeightAt(replay.goal.lat,replay.goal.lon)??ground;
   const goal=v.entities.getById('first-person-goal')??v.entities.add({id:'first-person-goal',point:{pixelSize:14,color:C.Color.fromCssColorString('#f2a65a'),outlineColor:C.Color.WHITE,outlineWidth:2,disableDepthTestDistance:Infinity},label:{text:'DESTINATION',font:'600 12px sans-serif',fillColor:C.Color.WHITE,outlineColor:C.Color.BLACK,outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,pixelOffset:new C.Cartesian2(0,-20),disableDepthTestDistance:Infinity}});
   updateReplayPose(goal,C.Cartesian3.fromDegrees(replay.goal.lon,replay.goal.lat,gh+1.2,MARS));
-  // Navcam height on Curiosity's mast is about 1.9 m above the ground.
   const position=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,ground+1.9,MARS),previous=cameraPose.current;
   if(!previous||!C.Cartesian3.equalsEpsilon(previous.position,position,0,.001)||previous.yaw!==st.rover.yaw_deg){
    v.camera.flyTo({destination:position,orientation:{heading:C.Math.toRadians(st.rover.yaw_deg),pitch:C.Math.toRadians(-14),roll:0},duration:previous?.7:0,easingFunction:C.EasingFunction.LINEAR_NONE});
@@ -181,11 +174,8 @@ function FirstPerson(){
 function NavcamFrame(){
  const {replay,replayStep,replayImageReady,set,catalog,cameraOverlay,localNavigation}=useMission();
  const image=useRef<HTMLImageElement>(null);
- // Keep the last decoded frame on screen while the next one downloads (no blank/spinner flashes during playback).
  const [held,setHeld]=useState<string|null>(null);
  const st=replay!.steps[Math.min(replayStep,replay!.steps.length-1)];
- // A cached image can finish before a fresh replay response clears readiness.
- // The same frame's DOM image then stays mounted and will not fire load again.
  useEffect(()=>{if(image.current?.complete&&image.current.naturalWidth>0)set({replayImageReady:st.frame_id});},[replay,st.frame_id,set]);
  const loaded=replayImageReady===st.frame_id;
  const frame=catalog?.frames.find(f=>f.id===st.frame_id);
@@ -219,7 +209,6 @@ function NavcamFrame(){
  </div>;
 }
 
-/** Bottom bar in Replay mode: transport controls and the event-marked scrubber. */
 export function ReplayTimeline(){
  const s=useMission();
  const [playing,setPlaying]=useState(false);

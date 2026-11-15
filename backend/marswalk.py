@@ -17,7 +17,6 @@ from PIL import Image
 from . import data
 from .navigation import cost_grid, plan_legs
 
-# ---------------------------------------------------------------- movement profiles
 PROFILES = {
     "astronaut": {"label": "Walking astronaut", "speed_m_s": 0.8, "max_slope_deg": 25, "clearance_m": 0.5, "obstacle_step_m": 0.30,
                   "slope_speed": "tobler", "budget_min": 420,
@@ -49,14 +48,12 @@ def path_time_s(cells, elevation, cell_m, profile):
     return total
 
 
-# ---------------------------------------------------------------- science stops
 @lru_cache(maxsize=1)
 def science_targets():
     path = data.DATA_DIR / "science-targets.json"
     return json.loads(path.read_text("utf-8")) if path.exists() else {"gale": [], "global": []}
 
 
-# ---------------------------------------------------------------- round trip and reserve
 def eva_summary(region, mission, route_mode="terrain"):
     """Outbound (with stops) + work at stops + return to start, against a time budget; marginal cost per stop."""
     req = mission["request"]
@@ -115,7 +112,6 @@ def _point(region, rc):
     return cell_to_point(int(rc[0]), int(rc[1]), region.meta)
 
 
-# ---------------------------------------------------------------- environment
 def solar_longitude(when: datetime) -> float:
     """Ls (deg) from Allison & McEwen (2000) without the small planetary perturbation terms (<0.05 deg)."""
     jd_ut = when.timestamp() / 86400 + 2440587.5
@@ -166,7 +162,6 @@ def environment(lat: float, lon: float, elevation_m: float | None, when: datetim
             "note": "Each value says whether it is a measurement, historical climatology or a model computed here. Map layers (dust, thermal inertia, night infrared) show the measured orbital context."}
 
 
-# ---------------------------------------------------------------- geology
 @lru_cache(maxsize=1)
 def _geology():
     base = data.DATA_DIR / "geology"

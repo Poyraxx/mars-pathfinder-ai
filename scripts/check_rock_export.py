@@ -19,7 +19,6 @@ def main():
     opts=ort.SessionOptions();opts.intra_op_num_threads=2;opts.inter_op_num_threads=1
     path=args.candidate/'surface.onnx';session=ort.InferenceSession(str(path),sess_options=opts,providers=['CPUExecutionProvider'])
     entries=[e for e in json.loads(args.manifest.read_text('utf8'))['entries'] if e['split']=='validation']
-    # Include a rock-bearing image, not only easy plain terrain.
     from PIL import Image
     rock=next(e for e in entries if (np.asarray(Image.open(e['label']))==3).any())
     dataset=MarsDataset([entries[0],entries[len(entries)//2],rock],size=session.get_inputs()[0].shape[-1]);checks=[]

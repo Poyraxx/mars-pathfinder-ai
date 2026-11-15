@@ -9,8 +9,6 @@ from backend.surface_inference import predict_probabilities
 
 @pytest.fixture(autouse=True)
 def isolated_navigation_session(monkeypatch):
-    # The installed navigation.onnx is cached process-wide by other tests; these fixtures
-    # exercise mocked sessions, so the real model must not leak in. Tests may override.
     monkeypatch.setattr(perception,'get_navigation_session',lambda:None)
 
 
@@ -125,7 +123,7 @@ def test_local_only_model_class_numbers_cannot_be_confused_with_terrain(tmp_path
         def get_inputs(self):return [Input()]
         def run(self,_,inputs):
             logits=np.zeros((1,4,8,8),'float32');logits[:,0]=8
-            logits[:,0,:2]=0;logits[:,3,:2]=10  # operational sky != big rock
+            logits[:,0,:2]=0;logits[:,3,:2]=10
             logits[:,0,4:6,4:6]=0;logits[:,1,4:6,4:6]=10
             logits[:,0,6:8,:2]=0;logits[:,2,6:8,:2]=10
             return [logits]

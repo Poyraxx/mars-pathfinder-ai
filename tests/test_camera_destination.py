@@ -4,7 +4,6 @@ from backend import camera_route
 
 
 def projection(monkeypatch, goal, occluded=False,nonterrain=False):
-    # Analytic geometry fixture: NED ground plane, camera one metre above it.
     model={'validation':{'accepted':True},'native_shape':[100,100],'C':[0,0,-1],
            'rover_to_site_rotation':np.eye(3).tolist(),'rover_origin_in_site_m':[0,0,0]}
     places={'archive_site_to_global_ned_translation_m':[0,0,0],
@@ -47,8 +46,6 @@ def test_equipment_without_stereo_depth_still_hides_goal_and_route(monkeypatch):
 
 
 def test_ground_height_support_never_uses_masked_hardware(tmp_path,monkeypatch):
-    # Identical horizontal location: one raised hardware return and one floor
-    # return. Filtering must retain the floor, not lift the target onto the arm.
     xyz=np.array([[[1.,2.,-2.],[1.,2.,0.],[2.,3.,0.]]])
     np.save(tmp_path/'xyz.npy',xyz);monkeypatch.setattr(camera_route,'DATA_DIR',tmp_path)
     frame={'xyz_path':'xyz.npy','places':{'archive_site_to_global_ned_rotation':np.eye(3),

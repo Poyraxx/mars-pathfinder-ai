@@ -32,19 +32,19 @@ from .perception import infer_navigation as infer
 class Settings:
     cell_m: float = .10
     forward_min_m: float = 0.
-    body_front_m: float = 1.6    # Curiosity's front wheels; rover origin is mid-body
+    body_front_m: float = 1.6
     forward_max_m: float = 8.
     half_width_m: float = 5.
     max_stereo_error_m: float = .10
     max_triangle_edge_m: float = .30
-    max_step_m: float = .25      # wheel-hazard research threshold (Curiosity wheels are 0.5 m)
-    rock_relief_m: float = .02  # user-selected sensitive research profile
+    max_step_m: float = .25
+    rock_relief_m: float = .02
     min_rock_width_m: float = .08
     rock_ground_ring_m: float = .8
     min_rock_ground_cells: int = 12
     max_slope_deg: float = 20.
     semantic_threshold: float = .70
-    half_width_m_body: float = 1.4    # Curiosity is 2.8 m wide (wheel-to-wheel)
+    half_width_m_body: float = 1.4
     clearance_m: float = .15
     min_corridor_observed: float = .5
     ribbon_width_m: float = .5
@@ -137,15 +137,7 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
     rc = _cell(np.nan_to_num(xy).reshape(-1, 2), t).reshape((*xyz.shape[:2], 2))
     valid = np.isfinite(xyz).all(-1) & (xyz != 0).any(-1) & np.isfinite(error) & (error <= cfg.max_stereo_error_m)
     valid &= (rc[..., 0] >= 0) & (rc[..., 0] < shape[0]) & (rc[..., 1] >= 0) & (rc[..., 1] < shape[1])
-    # Stereo points on the rover's own wheels and body (visible in the Hazcam's lower corners)
-    # are hardware, not terrain: drop everything inside the body box.
-    # Use the same physical footprint below and here. The former extra20cm
-    # blanket exclusion created an unobserved moat beside the rover: even
-    # measured clear ground could never connect to its starting component.
-    # Hardware outside this footprint is excluded by the learned self mask.
     valid &= ~((xy[..., 0] < cfg.body_front_m) & (np.abs(xy[..., 1]) <= cfg.half_width_m_body))
-    # A recognised arm/wheel is not a fixed world obstacle. Its occlusion must
-    # stay unobserved, including during triangle hole filling.
     self_pixels=valid&(segmentation==255)
     self_ids=np.ravel_multi_index(rc[self_pixels].T,shape)
     self_cells=np.zeros(shape[0]*shape[1],bool);self_cells[self_ids]=True
@@ -158,8 +150,6 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
     height_error=np.zeros(n)
     np.maximum.at(height_error,ids,np.abs(xye[...,2][valid]))
     count = np.bincount(ids, minlength=n)
-    # Class order is checked by the caller. Rock predictions veto a cell; semantic
-    # confidence is not an occupancy probability and never overrides measured relief.
     traversable = (segmentation[valid] != 3) & (confidence[valid] >= cfg.semantic_threshold)
     rocks = (segmentation[valid] == 3) & (confidence[valid] >= cfg.semantic_threshold)
     good_count = np.bincount(ids[traversable], minlength=n)
@@ -168,8 +158,6 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
     observed = count > 0
     z = low.copy(); z[~observed] = np.nan
     sem = (good_count > 0) & (rock_count == 0)
-    # Interpolate only small stereo-supported surface triangles. Their bounded
-    # edges cannot bridge a boulder-sized hole or invent ground behind an occluder.
     measured_rc = np.column_stack(np.unravel_index(np.flatnonzero(observed), shape))
     positions = _centres(measured_rc, t)
     if len(positions) >= 3:
@@ -196,8 +184,6 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
             pass
     z = z.reshape(shape); observed = observed.reshape(shape); sem = sem.reshape(shape)
     high = high.reshape(shape); low = low.reshape(shape)
-    # Robust ground baseline fitted from measured lower surfaces. All heights
-    # still come from stereo; the plane is used only to flag elevated obstacles.
     rr, cc = np.nonzero(observed)
     pts = _centres(np.column_stack((rr, cc)), t)
     a = np.column_stack((pts, np.ones(len(pts))))
@@ -213,9 +199,6 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
             keep = (residual >= np.percentile(residual, 5)-.05) & (residual <= np.percentile(residual, 65))
     baseline = np.full(shape, np.nan)
     baseline[rr, cc] = a@coefficients
-    # The rover stands on the ground under its own front half: that area is physically
-    # occupied by the rover, so it is usable for turning in place. Its height is the
-    # fitted ground plane; it is never drawn (the body hides it from the camera).
     all_rc = np.column_stack(np.unravel_index(np.arange(shape[0]*shape[1]), shape))
     all_xy = _centres(all_rc, t)
     rover_cells = ((all_xy[:, 0] < cfg.body_front_m) & (np.abs(all_xy[:, 1]) <= cfg.half_width_m_body)).reshape(shape)
@@ -225,27 +208,21 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
     observed = observed | rover_cells; sem = sem | rover_cells
     relief = z-baseline
     raised = observed & ((relief >= cfg.max_step_m) | (high-low >= cfg.max_step_m))
-    # Slope from a 0.2 m smoothed surface: single-cell stereo noise is not a slope.
     zf = np.where(observed, z, 0.); w = ndimage.gaussian_filter(observed.astype(float), 2.)
     zs = np.where(w > .2, ndimage.gaussian_filter(zf, 2.)/np.maximum(w, 1e-6), np.nan)
     gy, gx = np.gradient(zs, cfg.cell_m)
     slope = np.nan_to_num(np.hypot(gx, gy))
     steep = observed & (np.degrees(np.arctan(slope)) > cfg.max_slope_deg)
-    # Step edges between neighbouring measured cells.
     discontinuity = np.zeros(shape, bool)
     for axis in (0, 1):
         dz = np.abs(np.diff(z, axis=axis)); bad = np.isfinite(dz) & (dz >= cfg.max_step_m)
         s0, s1 = [slice(None)]*2, [slice(None)]*2
         s0[axis], s1[axis] = slice(None, -1), slice(1, None)
         discontinuity[tuple(s0)] |= bad; discontinuity[tuple(s1)] |= bad
-    # Learned obstacle candidates block only where stereo confirms size/relief.
     rock_sem = rock_count.reshape(shape) > 0
     components,component_count=ndimage.label(rock_sem & observed)
     rock_confirmed=np.zeros(shape,bool)
     point_components=components[tuple(rc[valid].T)]
-    # A distant/global plane can mistake a gentle terrain crest for a 2 cm rock.
-    # Compare each candidate with actual nearby non-rock ground, including its
-    # fit residual. Without such support, appearance cannot assert occupation.
     measured_ground=observed & np.isfinite(low) & ~rock_sem & ~rover_cells & sem
     for cid in range(1,component_count+1):
         component=components==cid
@@ -262,18 +239,14 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
         point_relief=height-(xy[valid]@local_plane[:2]+local_plane[2])-np.abs(xye[...,2][valid])-fit_error
         elevated_points=candidate_points&(point_relief>=cfg.rock_relief_m)
         points=xy[valid][elevated_points]
-        # Use actual elevated stereo points. Counting one 10 cm grid cell as
-        # a 10 cm stone would inflate even a 2 cm pebble into an obstacle.
         width=float(np.ptp(points,axis=0).max()) if len(points)>=2 else 0.
         if width+1e-6>=cfg.min_rock_width_m:
             rock_confirmed[tuple(rc[valid][elevated_points].T)]=True
     blocked = raised | discontinuity | steep | rock_confirmed
     passable = observed & ~blocked
-    # Distance from every cell to the nearest MEASURED obstacle (blocked cell).
     obstacle = blocked
     clearance = ndimage.distance_transform_edt(~obstacle, sampling=cfg.cell_m) if obstacle.any() else np.full(shape, np.inf)
     radius = cfg.half_width_m_body+cfg.clearance_m+cfg.cell_m/math.sqrt(2)
-    # Share of the swept corridor (disc of half a body width) that stereo actually measured.
     k = int(math.ceil(cfg.half_width_m_body/cfg.cell_m))
     yy, xx = np.mgrid[-k:k+1, -k:k+1]
     disc = ((yy**2+xx**2)*cfg.cell_m**2 <= cfg.half_width_m_body**2).astype(float)
@@ -282,7 +255,6 @@ def build_terrain(xyz, xye, segmentation, confidence, origin, forward, right, se
     ground_uncertainty=max(.05,float(np.percentile(np.abs(heights[keep]-a[keep]@coefficients),90))) if keep.sum()>=6 else np.inf
     preview=distant_rock_candidates(xyz,xye,segmentation,confidence,xy,coefficients,ground_uncertainty,cfg)
     preview_risk=lookahead_risk(all_xy,preview,cfg).reshape(shape)
-    # A rock-like texture or harmless pebble alone must not create a detour.
     cost = 1. + 2*np.minimum(slope, 1.)**2 + 3*(sand_count.reshape(shape) > 0) + 2*(~sem) + 6*preview_risk
     cost[~free] = np.inf
     return {**t, 'height': z, 'observed': observed, 'blocked': blocked, 'free': free, 'cost': cost,
@@ -314,12 +286,7 @@ def plan_observed(terrain, target_xy, *, waypoint=False, preferred_turn=None, pr
     target = np.asarray(target_xy, float)
     angle = math.degrees(math.atan2(target[1], target[0]))
     if target[0] <= 0 or abs(angle) >= 100:
-        # U-turn manoeuvre: swing out to the turning side over measured free ground, then the
-        # rover continues back toward the destination (behind this camera's view).
         natural = 'right' if angle > 0 else 'left'
-        # Crossing +/-180 degrees must not reverse an ongoing turn. Keep its
-        # side in the rear 90-degree sector, provided this frame still measures
-        # a usable swing on that side. A newly blocked side yields to the other.
         word=preferred_turn if preferred_turn in ('left','right') and abs(angle)>=135 else natural
         choices=[word,'left' if word=='right' else 'right']
         for choice in choices:
@@ -341,12 +308,7 @@ def plan_observed(terrain, target_xy, *, waypoint=False, preferred_turn=None, pr
         enough = bool(obs.any() and (terrain['corridor_observed'][obs] >= terrain['settings']['min_corridor_observed']).any())
         return {'status': 'no_path' if enough else 'insufficient_geometry',
                 'reason': 'Measured obstacles leave no 2.8 m wide corridor.' if enough else 'Too little measured ground in front of the rover; no route is asserted.', 'path_xy': []}
-    # The route starts at the rover's own origin (mid-body) and may turn inside the
-    # rover's current footprint before leaving it over measured, obstacle-clear ground.
     start = tuple(_cell(np.array([[terrain['cell_m']/2, 0.]]), terrain)[0])
-    # Only cells actually connected to the rover through free measured ground are goal candidates;
-    # a frontier cell in a disconnected free patch would only make A* fail.
-    # Four-connectivity also respects A*'s no-diagonal-corner-cutting rule.
     labels, _ = ndimage.label(free)
     if labels[start] == 0:
         conflict=bool(terrain['blocked'][start] or terrain['clearance'][start]<terrain['settings']['half_width_m_body']+terrain['settings']['clearance_m']+terrain['cell_m']/math.sqrt(2))
@@ -358,9 +320,6 @@ def plan_observed(terrain, target_xy, *, waypoint=False, preferred_turn=None, pr
     goal_rc = _cell(target, terrain)[0]
     inside = (goal_rc >= 0).all() and (goal_rc < free.shape).all()
     reachable = inside and labels[tuple(goal_rc)] == labels[start]
-    # A map waypoint is a heading reference, not an assertion that it is locally
-    # reachable. Stop on this connected measured component when it is blocked.
-    # An explicitly requested, measured but blocked destination still fails.
     measured_target = inside and terrain['observed'][tuple(goal_rc)]
     if measured_target and not reachable and not waypoint:
         return {'status': 'no_path', 'reason': 'The requested local target or its clearance envelope is blocked.', 'path_xy': []}
@@ -388,8 +347,6 @@ def plan_observed(terrain, target_xy, *, waypoint=False, preferred_turn=None, pr
     except (ValueError, TimeoutError):
         return {'status': 'no_path', 'reason': 'No collision-free connection through the observed terrain.', 'path_xy': []}
     path = _centres(cells, terrain)
-    # Collision-checked string pulling, not a decorative spline. Check every
-    # shortcut against the inflated grid, and recheck the final segments.
     simplified = [path[0]]; i = 0
     while i < len(path)-1:
         j = len(path)-1
@@ -398,8 +355,6 @@ def plan_observed(terrain, target_xy, *, waypoint=False, preferred_turn=None, pr
         simplified.append(path[j]); i = j
     if not all(segment_clear(a, b, terrain) for a, b in zip(simplified, simplified[1:])):
         return {'status': 'no_path', 'reason': 'Final shortcut collision validation failed.', 'path_xy': []}
-    # Round the corners (Chaikin, two passes, endpoints fixed) and keep the smoothed
-    # line only if every segment passes the same collision check again.
     smooth = [np.asarray(q) for q in simplified]
     for _ in range(2):
         if len(smooth) < 3:
@@ -461,7 +416,6 @@ def project_path(frame, terrain, path_xy):
     uv = site_points_to_pixels(site, frame['camera_model'])
     h, w = frame['camera_model']['native_shape']
     good = np.isfinite(uv).all(-1) & np.isfinite(heights) & (uv[:, 0] >= 0) & (uv[:, 0] < w) & (uv[:, 1] >= 0) & (uv[:, 1] < h)
-    # A route point hidden by a closer measured rock/arm is not painted over it.
     xyz = np.load(data.DATA_DIR/frame['xyz_path'])
     xye = np.load(data.DATA_DIR/frame['xye_path'])
     pixel = np.nan_to_num(uv, nan=-1.)
@@ -472,12 +426,9 @@ def project_path(frame, terrain, path_xy):
     valid_depth = np.isfinite(xyz).all(-1) & (xyz != 0).any(-1)
     support = ndimage.map_coordinates(valid_depth.astype(float), rc, order=1, mode='constant', cval=0.) >= 1-1e-6
     error = ndimage.map_coordinates(np.linalg.norm(xye, axis=-1), rc, order=1, mode='constant', cval=np.inf)
-    # Hidden only where a CLOSER measured surface lies on the same ray (rock, arm, wheel);
-    # pixels without stereo (e.g. shadow) keep the route drawn on the mapped ground height.
     measured = support & np.isfinite(seen).all(-1) & (error <= terrain['settings']['max_stereo_error_m'])
     closer = np.linalg.norm(seen-camera, axis=1) < np.linalg.norm(site-camera, axis=1)-np.maximum(.12, error*2+terrain['cell_m']*math.sqrt(2))
     good &= ~(measured & closer)
-    # Draw nothing whose centreline point is still under the rover body (in-place turning).
     good &= np.tile(dense[:, 0] >= terrain['settings']['body_front_m']+terrain['cell_m'], 5)
     uv /= [w, h]
     size = len(dense)
@@ -493,16 +444,12 @@ def project_path(frame, terrain, path_xy):
                 cur = [track[i].round(5).tolist()] if ok[i] else []
         if len(cur) >= 8: out.append(cur)
         return out
-    # Corridor edges are drawn along straight-ish legs only; at a pivot the offset
-    # boundary sweeps an arc that reads as a tangle in the image.
     heading = np.unwrap(np.arctan2(tangent[:, 1], tangent[:, 0]))
     turning = np.zeros(size, bool)
     turning[1:] |= np.abs(np.diff(heading)) > np.radians(15)
     turning = ndimage.binary_dilation(turning, iterations=int(math.ceil(body/.04)))
     corridor = runs(body_left, good[3*size:4*size] & ~turning) + runs(body_right, good[4*size:] & ~turning)
     segments, ribbons, ribbon_s, segment = [], [], [], []
-    # Ground arc length (m) along the planned path: lets the display size its arrow head and chevrons
-    # in metres on the surface, so they shrink with distance exactly like the ground does.
     along = np.r_[0., np.cumsum(np.linalg.norm(np.diff(dense, axis=0), axis=1))]
     for i in range(size):
         if i and segment and np.linalg.norm(centre[i]-centre[i-1]) >= .08:
@@ -597,8 +544,6 @@ def _global_to_site(frame, ned):
 
 def confirmed_obstacles_global(frame, terrain):
     """Stereo-confirmed obstacle cells of this frame in global NED (rover hardware excluded), 20 cm deduplicated."""
-    # Only view-independent obstacles are remembered: raised steps and stereo-confirmed rocks.
-    # Depth discontinuities and steep edges depend on the viewpoint and are not carried.
     cells = np.column_stack(np.nonzero(terrain.get('physical_obstacle', terrain['blocked']) & ~terrain['rover_cells']))
     if not len(cells):
         return np.zeros((0, 3))
@@ -666,8 +611,6 @@ def with_memory(frame, terrain, remembered, cfg=DEFAULT):
     added = np.zeros(shape, bool); added[tuple(rc[inside].T)] = True
     cells_h = np.full(shape, np.nan); cells_h[tuple(rc[inside].T)] = -site[inside][:, 2]
     added &= ~terrain['blocked'] & ~terrain['rover_cells']
-    # Missing stereo may use the historical measurement. When stereo exists,
-    # retain the rock only if its height AND relief are physically remeasured.
     remeasured=_remeasured_rocks(terrain,added,cells_h,cfg)
     added &= ~terrain['observed'] | remeasured
     if not added.any():
@@ -741,13 +684,9 @@ def compute(frame_id, goal=None, route=None, remembered=None, preferred_turn=Non
     key = hashlib.sha256(json.dumps([[(str(p), p.stat().st_size, p.stat().st_mtime_ns) for p in files], frame['camera_model'], asdict(DEFAULT)], sort_keys=True).encode()).hexdigest()
     terrain, inference = _terrain_cached(frame_id, key)
     terrain, tracked_cells = with_memory(frame, terrain, remembered)
-    # Only new/reconfirmed stereo evidence renews a track; an occluded remembered
-    # cell cannot refresh itself indefinitely without another measurement.
     confirmed_here = confirmed_obstacles_global(frame, terrain)
     origin, forward, right = frame_basis(frame)
     if route:
-        # Track the global map route: aim at its first point beyond the measured stereo range, so the
-        # painted local corridor hands over to the projected map route as one continuous line.
         aim = _route_waypoint(frame, route, origin, forward, right)
         if aim is not None:
             goal = aim

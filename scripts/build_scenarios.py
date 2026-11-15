@@ -39,8 +39,6 @@ def main():
     hazcam = sorted([f for f in frames if f.get('instrument')=='FRONT_HAZCAM_LEFT_A'],key=lambda f:f['acquired_at'])
     if hazcam:
         meta=json.loads((DATA/'gale/metadata.json').read_text('utf-8'))
-        # Four actual acquisitions at progressively different rover positions.
-        # Later sol55 images are in-place turns, not additional forward motion.
         approach=[next(f for f in hazcam if f['sol']==sol) for sol in [50,52,53,55]]
         refs=[{'label':'NASA PDS: calibrated Front Hazcam images, XYZ and camera models',
                'url':'https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/'},

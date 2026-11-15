@@ -138,7 +138,6 @@ def drive_motion(samples) -> dict:
             phases[-1]['distance_m'] += dist; phases[-1]['yaw_deg'] += dyaw
         else:
             phases.append({'kind': kind, 'distance_m': dist, 'yaw_deg': dyaw})
-    # Drop numerical crumbs (sub-decimetre drives, sub-3-degree in-place turns) and re-merge.
     clean = []
     for p in phases:
         if (p['kind'] == 'turn' and abs(p['yaw_deg']) < 3) or (p['kind'] != 'turn' and p['distance_m'] < .1):

@@ -92,7 +92,6 @@ def classify(arrays: list[np.ndarray]) -> np.ndarray:
 def analyze_route(points: list[dict], route_length_m: float, max_windows: int = 24) -> dict:
     from . import ctx
     size = float(min(5000.0, max(600.0, route_length_m / 10)))
-    # Resample the route polyline every `size` metres (start and goal included).
     lat = np.array([p["lat"] for p in points]); lon = np.array([p["lon"] for p in points])
     step = np.hypot(np.diff(lat) * np.pi / 180 * ctx.R, np.diff(lon) * np.pi / 180 * ctx.R * np.cos(np.radians(lat[:-1])))
     along = np.r_[0, np.cumsum(step)]

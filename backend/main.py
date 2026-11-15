@@ -36,7 +36,6 @@ LAYERS = {
  "mola":{"name":"MOLA elevation / hillshade","kind":"Topography visualization","layer":"Mars_MGS_MOLA_ClrShade_merge_global_463m","ext":"jpg","resolution_m":463,"coverage":[-180,-90,180,90],"mission":"Mars Global Surveyor · NASA / USGS"},
  "themis":{"name":"THEMIS daytime infrared","kind":"Thermal context","layer":"THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018","ext":"png","resolution_m":100,"coverage":[-180,-65,180,65],"mission":"Mars Odyssey · NASA / ASU / USGS"},
 }
-# Measured orbital environment overlays (NASA Mars Trek tiles), shown on top of the base map and toggled by the user.
 OVERLAYS = {
  "dust":{"name":"Dust cover","layer":"tes_ruffdust","ext":"png","max_level":4,"kind":"measurement","resolution_m":3500,
          "legend":"TES Dust Cover Index: blue/green = little dust (rock and sand exposed), red/orange = thick dust mantle",
@@ -114,7 +113,6 @@ def route_result(mission,mode):
     except (ValueError,TimeoutError) as exc:
         return {"mode":mode,"status":str(exc),"points":[],"map_version":mission["map_version"]}
     stats = metrics(path,region.elevation,region.analysis["slope"],region.meta["cell_m"],request["profile"]["speed_m_s"])
-    # Retain all path cells for validation; decimate only the visualization payload.
     draw_indices = np.unique(np.linspace(0,len(path)-1,min(len(path),400)).astype(int))
     drawn=[cell_to_point(*path[i],region.meta) for i in draw_indices]
     return {"mode":mode,"status":"ready","map_version":mission["map_version"],
@@ -368,7 +366,6 @@ async def frame_local_navigation(frame_id: str, goal_lat: float|None=None, goal_
     goal=None if goal_lat is None else {'lat':goal_lat,'lon':goal_lon}
     key=(frame_id,None if goal is None else (round(goal_lat,7),round(goal_lon,7)))
     if key in frame_local_cache: return frame_local_cache[key]
-    # A frame already computed for a whole replay is served from that batch, never re-scanned.
     for payload in list(scenario_local_cache.values()):
         g=payload['goal']
         if key[1] is not None and (round(g['lat'],7),round(g['lon'],7))==key[1] and frame_id in payload['frames']:

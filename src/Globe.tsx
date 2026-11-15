@@ -5,7 +5,6 @@ import 'cesium/Build/Cesium/Widgets/widgets.css';
 import {useMission} from './store';
 import {updateReplayLine,updateReplayPose,updateReplayColour,measuredReplayLine,keepReplayDatum} from './replayScene';
 
-// Mars 2000 sphere used by the open MOLA/HRSC service and NASA Trek.
 export const MARS=new C.Ellipsoid(3396190,3396190,3396190);
 export const scheme=new C.GeographicTilingScheme({ellipsoid:MARS});
 const terrainTiles=new Map<string,Promise<ReturnType<typeof Lerc.decode>>>();
@@ -26,15 +25,9 @@ export function demHeightAt(lat:number,lon:number):number|null{
  return (v[j*w+i]*(1-ax)+v[j*w+i+1]*ax)*(1-ay)+(v[(j+1)*w+i]*(1-ax)+v[(j+1)*w+i+1]*ax)*ay;
 }
 
-/** Replay annotations on the actual 1 m HiRISE DEM, independent of streamed
- * terrain LOD/classification rebuilds. The 15 cm lift is display separation.
- * Outside measured DEM coverage we retain Cesium's ground-clamped fallback. */
 export function replayGroundLine(points:{lat:number;lon:number}[]){
  return measuredReplayLine(points,demHeightAt,MARS);
 }
-/** Display version of the greyscale HiRISE ortho: luminance mapped onto the surrounding Viking colour and edges
- * feathered, so the 25 cm patch blends into the 232 m colour base instead of sitting on it as a grey square.
- * Brightness (the measured signal) is preserved; the hue is a display tint, not HiRISE colour data. */
 const tinted=new Map<string,Promise<string>>();
 export function martianOrtho(url:string):Promise<string>{
  if(!tinted.has(url))tinted.set(url,new Promise((resolve,reject)=>{
@@ -65,10 +58,6 @@ function demTile(key:string){
  return terrainTiles.get(key)!;
 }
 
-/** Relief shading computed from the same MOLA/HRSC DEM tiles that build the 3D terrain.
- * Heightmap terrain has no vertex normals, so lighting cannot shade slopes; this layer does:
- * a classic hillshade (light from the north-west, 35 deg above the horizon, slopes exaggerated)
- * drawn as translucent light/shadow over the elevation colours. Display only. */
 class ReliefShadeProvider{
  tilingScheme=scheme;rectangle=scheme.rectangle;tileWidth=256;tileHeight=256;minimumLevel=0;maximumLevel=9;
  ready=true;readyPromise=Promise.resolve(true);hasAlphaChannel=true;errorEvent=new C.Event();
@@ -80,7 +69,7 @@ class ReliefShadeProvider{
   const tile=await demTile(`${z}/${ty}/${tx}`),px=tile.pixels[0] as ArrayLike<number>,tw=tile.width,th=tile.height;
   const rect=scheme.tileXYToRectangle(x,y,level),N=256;
   const dLat=(rect.north-rect.south)/N,dLon=(rect.east-rect.west)/N;
-  const sample=(u:number,v:number)=>{ // u,v in 0..1 of this imagery tile
+  const sample=(u:number,v:number)=>{
    const fx=((x%factor)+u)/factor*(tw-1),fy=((y%factor)+v)/factor*(th-1);
    const ix=Math.max(0,Math.min(tw-2,Math.floor(fx))),iy=Math.max(0,Math.min(th-2,Math.floor(fy))),a=fx-ix,b=fy-iy;
    const h=(i:number,j:number)=>{const q=px[j*tw+i];return Number.isFinite(q)&&q>-20000&&q<30000?q:0;};
@@ -116,7 +105,6 @@ export function terrain(){
     const px=((x%factor)+col/64)/factor*(tile.width-1),py=((y%factor)+row/64)/factor*(tile.height-1);
     const ix=Math.floor(px),iy=Math.floor(py),jx=Math.min(ix+1,tile.width-1),jy=Math.min(iy+1,tile.height-1),a=px-ix,b=py-iy;
     const v=(pixels[iy*tile.width+ix]*(1-a)+pixels[iy*tile.width+jx]*a)*(1-b)+(pixels[jy*tile.width+ix]*(1-a)+pixels[jy*tile.width+jx]*a)*b;
-    // Invalid source pixels must not create astronomical spikes.
     out[row*65+col]=Number.isFinite(v)&&v>-20000&&v<30000?v:0;
     if(localDEM&&level>=10){
      const rectangle=scheme.tileXYToRectangle(x,y,level),lon=C.Math.lerp(rectangle.west,rectangle.east,col/64),lat=C.Math.lerp(rectangle.north,rectangle.south,row/64);
@@ -134,14 +122,12 @@ export function terrain(){
 }
 let flownMission='';
 const typeColor:Record<string,string>={Mons:'#f0c58d',Tholus:'#f0c58d',Patera:'#f0c58d',Vallis:'#8ec9d6',Valles:'#8ec9d6',Chasma:'#8ec9d6',Planitia:'#b8c4a0',Planum:'#b8c4a0',Crater:'#d3c4b1'};
-/** Oblique camera looking north at a point, so exaggerated relief reads as height. Altitude is clamped to a regional scale. */
 function obliqueOver(v:C.Viewer,lat:number,lon:number,height:number){
  const alt=Math.min(1600000,Math.max(80000,height));
  v.camera.flyTo({destination:C.Cartesian3.fromRadians(lon,lat-alt*1.05/3396190,alt*1.15,MARS),orientation:{heading:0,pitch:C.Math.toRadians(-45),roll:0},duration:1.4});
 }
 
 const RELIEF_X=12;
-/** Route heights for the exaggerated relief view: the route's own MOLA/HRSC elevation profile, scaled like the terrain and lifted slightly so it is never buried. */
 function reliefHeights(route:{points:{lat:number;lon:number}[];profile?:{distance_m:number;elevation_m:number}[]}):number[]|null{
  const prof=route.profile;if(!prof?.length)return null;
  const R=3396190,rad=Math.PI/180;let d=0;const out:number[]=[];
@@ -180,7 +166,6 @@ export default function Globe(){
    if(!catalogue||viewer.isDestroyed())return;
    useMission.getState().set({features:catalogue.features});
    for(const f of catalogue.features as {name:string;type:string;diameter_km:number;lat:number;lon:number}[]){
-    // Larger features stay visible from further away; tiny craters appear only close up.
     const far=Math.min(17000000,Math.max(120000,f.diameter_km*14000));
     names.add({position:C.Cartesian3.fromDegrees(f.lon,f.lat,f.type==='Mons'||f.type==='Tholus'?22000:3000,MARS),text:f.diameter_km>=300?f.name.toUpperCase():f.name,
      font:f.diameter_km>=300?'600 11px sans-serif':'10px sans-serif',fillColor:C.Color.fromCssColorString(typeColor[f.type]||'#cdbfae'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:3,style:C.LabelStyle.FILL_AND_OUTLINE,
@@ -207,12 +192,9 @@ export default function Globe(){
  },[]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
-  // Keep negative-elevation replay annotations inside the horizon bound during
-  // streamed LOD transitions. Terrain depth and on-demand rendering stay intact.
   if(mode==='replay')return keepReplayDatum(v.scene,localDEMMinimum);
  },[mode]);
  useEffect(()=>{
-  // Environment / geology overlays on top of the base map (one at a time, toggled like the relief view).
   const v=viewerRef.current;if(!v)return;
   if(overlayRef.current){v.imageryLayers.remove(overlayRef.current);overlayRef.current=null;}
   for(const e of [...v.entities.values])if(String(e.id).startsWith('conf-'))v.entities.remove(e);
@@ -292,14 +274,10 @@ export default function Globe(){
    ...(w.class!=='other'?{position:C.Cartesian3.fromDegrees(w.lon,w.lat,0,MARS),label:{text:`${w.class.replaceAll('_',' ')} ${(w.score*100).toFixed(0)}%`,font:'10px sans-serif',fillColor:C.Color.fromCssColorString(colours[w.class]),pixelOffset:new C.Cartesian2(0,-12),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}}:{})});});
   v.scene.requestRender();
  },[orbital,mission?.id]);
- // Keep replay entities and constant geometry alive across renders and zooms.
- // Dynamic clamped callbacks rebuilt primitives even while the replay was paused.
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
   for(const e of [...v.entities.values])if(String(e.id).startsWith('replay-'))v.entities.remove(e);
   if(mode!=='replay'||!replay){v.scene.requestRender();return;}
-  // Actual driven path: every logged PLACES drive step between acquisitions (forward, reverse, turns),
-  // falling back to the straight pose-to-pose line where no drive log exists.
   const driven=replay.steps.map((st,i)=>st.driven?.length?st.driven.map(([lat,lon])=>({lat,lon})):i?[replay.trail[i-1],replay.trail[i]]:[replay.trail[0]]);
   const upTo=(k:number)=>driven.slice(0,k+1).flat();
   v.entities.add({id:'replay-trail-all',polyline:{...replayGroundLine(upTo(driven.length-1)),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.WHITE.withAlpha(.35),dashLength:8})}});
@@ -324,7 +302,6 @@ export default function Globe(){
   const position=C.Cartesian3.fromDegrees(st.rover.lon,st.rover.lat,(demHeightAt(st.rover.lat,st.rover.lon)??0)+.05,MARS);
   const poseChanged=updateReplayPose(v.entities.getById('replay-rover')!,position,C.Transforms.headingPitchRollQuaternion(position,new C.HeadingPitchRoll(C.Math.toRadians(st.rover.yaw_deg-90),0,0),MARS));
   if(useMission.getState().followRover&&poseChanged){
-   // Follow mode: keep the current zoom, re-centre on the rover as the replay advances.
    const st=replay.steps[Math.min(replayStep,replay.steps.length-1)];
    const ground=v.scene.globe.getHeight(C.Cartographic.fromDegrees(st.rover.lon,st.rover.lat))??catalog?.regions[0]?.display_surface_height_m??-4517;
    const above=Math.max(15,Math.min(400,v.camera.positionCartographic.height-ground));
@@ -354,12 +331,10 @@ export default function Globe(){
  },[mode,replay,catalog?.regions]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
-  // Relief view: exaggerate real MOLA/HRSC heights so mountains rise and basins sink.
   (v.scene as unknown as {verticalExaggeration:number}).verticalExaggeration=relief&&mode!=='replay'?RELIEF_X:1;
   if(shadeRef.current){v.imageryLayers.remove(shadeRef.current);shadeRef.current=null;}
   if(relief&&mode!=='replay'){shadeRef.current=v.imageryLayers.addImageryProvider(new ReliefShadeProvider() as unknown as C.ImageryProvider,1);}
   if(relief&&mode!=='replay'){
-   // Tilt the view so the exaggerated relief reads as height, not just colour.
    const canvas=v.scene.canvas,centre=v.camera.pickEllipsoid(new C.Cartesian2(canvas.clientWidth/2,canvas.clientHeight/2),MARS);
    if(centre){
     const c=MARS.cartesianToCartographic(centre);

@@ -23,7 +23,6 @@ _session_guard = threading.Lock()
 
 @lru_cache(maxsize=128)
 def _file_sha(path: str, size: int, mtime_ns: int):
-    # Size/mtime participate in the key; changed local inputs invalidate the cache.
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
@@ -62,7 +61,6 @@ def get_navigation_session():
         if _navigation_session is None:
             path=Path(os.environ.get('MARS_NAVIGATION_MODEL_PATH') or DATA_DIR/'navigation.onnx')
             if not path.exists():return None
-            # Initialise the same runtime DLL search path as the terrain model.
             global _dll_handle
             if os.name=='nt' and _dll_handle is None:
                 config=Path(__file__).resolve().parents[1]/'.local-run.json'
@@ -142,7 +140,6 @@ def _infer(frame_id,for_navigation):
     if for_navigation:
         source, reference = inference_source(frame)
     else:
-        # Preserve the established global terrain classifier's input contract.
         reference=Image.open(DATA_DIR/frame['image_path']).convert('RGB')
         source=reference
     session = get_navigation_session() if for_navigation else None
@@ -158,8 +155,6 @@ def _infer(frame_id,for_navigation):
     confidence = probs.max(axis=0)
     navigation=outputs[0] if navigation_only else outputs[1] if len(outputs)>1 else None
     if navigation_only:
-        # Operational ground has no soil/sand taxonomy. Do not reuse its class
-        # numbers as terrain classes or run the unrelated global model here.
         mask=np.zeros(probs.shape[1:],np.uint8)
         confidence=navigation.max(0)
     hardware=np.zeros(mask.shape,bool);obstacle=np.zeros(mask.shape,bool)
@@ -171,14 +166,10 @@ def _infer(frame_id,for_navigation):
         nonterrain=hardware.copy()
         if navigation.shape[0]==4:nonterrain|=(navigation.argmax(0)==3)&(navigation[3]>=.7)
         if navigation_only:
-            # Uncertain hardware/sky is still not evidence for visible ground.
             nonterrain|=navigation.argmax(0)>=2
         if for_navigation:
             mask[obstacle]=3;confidence[obstacle]=navigation[1][obstacle]
-        # Self pixels are UNKNOWN terrain, never free terrain beneath the rover.
         mask[nonterrain]=255;confidence[nonterrain]=0.
-    # The public mask remains on the exact reference/XYZ grid. Native pixels
-    # improve inference detail; they never create extra stereo measurements.
     native_mask = np.asarray(Image.fromarray(mask).resize(reference.size,Image.Resampling.NEAREST))
     native_conf = np.asarray(Image.fromarray(confidence.astype(np.float32)).resize(reference.size,Image.Resampling.NEAREST))
     overlay = np.asarray(reference)*.48 + PALETTE[np.minimum(native_mask,3)]*.52
@@ -211,7 +202,7 @@ GROUND_WINDOW_M = 2.0
 GROUND_PERCENTILE = 20
 MAX_STEREO_ERROR_M = 0.10
 MIN_COMPONENT_PX = 6
-MAX_FOOTPRINT_M = 3.0  # discrete-obstacle detector: wider raised areas are terrain shape or stereo artefacts
+MAX_FOOTPRINT_M = 3.0
 MAX_FOOTPRINT_AREA_M2 = 2.0
 
 
@@ -288,8 +279,6 @@ def localize_obstacles(frame: dict, mask: np.ndarray, confidence: np.ndarray, me
     xyz = np.load(DATA_DIR / frame["xyz_path"])
     if xyz.shape != (*mask.shape,3):
         return {"accepted":False,"reason":"Reference image and XYZ geometry differ; map unchanged."}
-    # Obstacles come from measured stereo geometry. The learned big_rock class has
-    # insufficient held-out precision, so it never asserts occupied map cells.
     xye = np.load(DATA_DIR / frame["xye_path"]) if frame.get("xye_path") else None
     found = stereo_hazards(xyz, xye, step_m)
     classes = model_status().get("classes",[])
@@ -308,7 +297,6 @@ def localize_obstacles(frame: dict, mask: np.ndarray, confidence: np.ndarray, me
     translation = np.array(places["archive_site_to_global_ned_translation_m"],dtype=float)
     if rotation.shape!=(3,3) or translation.shape!=(3,) or not np.allclose(rotation.T@rotation,np.eye(3),atol=1e-5) or np.linalg.det(rotation)<.999:
         return {"accepted":False,"reason":"Invalid archive-to-localized frame transform; map unchanged."}
-    # Corrected rover affine replaces the old telemetry anchor, avoiding ~7m drift.
     ned=points@rotation.T+translation
     lat = np.degrees(ned[:,0]/3396190.)
     lon = np.degrees(ned[:,1]/3396190.)
