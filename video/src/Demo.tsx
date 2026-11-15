@@ -3,7 +3,7 @@ import {AbsoluteFill, Audio, Img, OffthreadVideo, Sequence, interpolate, spring,
 import timing from '../public/vo/timing.json';
 
 /** Team details shown in the closing card. Fill in before rendering; empty values are not shown. */
-export const demoSchema = {team: '', members: '', url: 'mars-pathfinder-ai.onrender.com'};
+export const demoSchema = {team: 'Asteria Roket', members: 'Erol Poyraz Çakmaz · Fatih Han Bayram · Ayşe Özsarı', url: 'mars-pathfinder-ai.onrender.com'};
 
 const CYAN = '#3ce1ff', AMBER = '#f2a65a', INK = '#070b10', TEXT = '#eef4f6', MUTED = '#9fb2bd';
 const FONT = '"Segoe UI Variable Display","Segoe UI",Inter,system-ui,sans-serif';
@@ -145,7 +145,7 @@ const Close: React.FC<{team: string; members: string; url: string; frames: numbe
       <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12, maxWidth: 1500, marginTop: 30}}>
         {data.map((d, i) => <span key={d} style={{opacity: ease(f, 6 + i * 3, 14 + i * 3), padding: '10px 18px', borderRadius: 999, border: '1px solid rgba(60,225,255,.4)', color: TEXT, fontSize: 24, background: 'rgba(7,11,16,.7)'}}>{d}</span>)}
       </div>
-      <div style={{color: MUTED, fontSize: 28, marginTop: 34, opacity: ease(f, 30, 42)}}>{[team && `Team ${team}`, members].filter(Boolean).join(' · ')}</div>
+      <div style={{color: MUTED, fontSize: 28, marginTop: 34, opacity: ease(f, 30, 42)}}>{team&&<span style={{color: TEXT, fontWeight: 700}}>Team {team} · Ankara</span>}{members&&<><br/>{members}</>}</div>
       <div style={{color: CYAN, fontSize: 30, marginTop: 8, opacity: ease(f, 34, 46)}}>{url}</div>
       <div style={{color: MUTED, fontSize: 20, marginTop: 18, opacity: ease(f, 40, 52)}}>Research prototype · not a certified safety system · NASA data, no endorsement implied</div>
     </AbsoluteFill>
