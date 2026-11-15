@@ -159,7 +159,7 @@ function reliefHeights(route:{points:{lat:number;lon:number}[];profile?:{distanc
 }
 
 export default function Globe(){
- const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
+ const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),underRef=useRef<C.ImageryLayer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
  const [groundReady,setGroundReady]=useState(false);
  const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep,relief,overlay}=useMission();
@@ -263,9 +263,11 @@ export default function Globe(){
  useEffect(()=>{
   const viewer=viewerRef.current;if(!viewer)return;
   if(layerRef.current){viewer.imageryLayers.remove(layerRef.current);layerRef.current=null;}
+  if(underRef.current){viewer.imageryLayers.remove(underRef.current);underRef.current=null;}
   const meta=useMission.getState().catalog?.layers.find(l=>l.id===layer);
+  if(layer==='themis')underRef.current=viewer.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:'/api/tiles/viking/{z}/{y}/{x}',tilingScheme:scheme,maximumLevel:7,credit:'Viking · NASA / USGS (outside THEMIS coverage)'}),0);
   const provider=new C.UrlTemplateImageryProvider({url:`/api/tiles/${layer}/{z}/{y}/{x}`,tilingScheme:scheme,maximumLevel:layer==='themis'?9:7,credit:meta?.mission||'NASA / USGS · Mars Trek',rectangle:layer==='themis'?C.Rectangle.fromDegrees(-180,-65,180,65):C.Rectangle.MAX_VALUE});
-  layerRef.current=viewer.imageryLayers.addImageryProvider(provider,0);
+  layerRef.current=viewer.imageryLayers.addImageryProvider(provider,underRef.current?1:0);
   provider.errorEvent.addEventListener(()=>setStatus('IMAGERY SERVICE RETRYING'));
   viewer.scene.requestRender();
  },[layer]);
