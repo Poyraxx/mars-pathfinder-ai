@@ -1,0 +1,178 @@
+{
+ "source_note": "Gale positions: MSL PLACES localized rover pose on the investigation sol (target within ~2 m). Global: USGS SIM 3292 landing-site layer. Work minutes and measurements are crewed-EVA planning assumptions.",
+ "gale": [
+  {
+   "id": "jake-matijevic",
+   "name": "Jake Matijevic rock",
+   "sol": 46,
+   "why": "First rock Curiosity examined with its contact instruments; its alkaline, feldspar-rich composition was unlike any igneous rock seen before on Mars, showing that Gale's source magmas were more varied than expected.",
+   "measure": "Close-up imaging and handheld X-ray fluorescence of a cleaned surface; collect a hand sample.",
+   "work_min": 30,
+   "sources": [
+    {
+     "label": "Stolper et al. 2013, Science 341, 'The Petrochemistry of Jake_M'",
+     "url": "https://doi.org/10.1126/science.1239463"
+    },
+    {
+     "label": "NASA JPL: Curiosity touches its first rock",
+     "url": "https://www.jpl.nasa.gov/news/nasa-mars-rover-preparing-to-bounce-laser-off-rock"
+    }
+   ],
+   "lat": -4.5904351,
+   "lon": 137.4453477,
+   "position_source": "PLACES site 4 drive 2100 (sol 45)"
+  },
+  {
+   "id": "bathurst-inlet",
+   "name": "Bathurst Inlet",
+   "sol": 54,
+   "why": "Dark, fine-grained rock checked with the hand lens imager and APXS on the approach to Glenelg; a reference for the basaltic rocks around Bradbury Landing.",
+   "measure": "Hand-lens imaging of grain size and layering; X-ray fluorescence for composition.",
+   "work_min": 20,
+   "sources": [
+    {
+     "label": "NASA: Curiosity Mars rover checks odd-looking rock (sol 54)",
+     "url": "https://www.nasa.gov/mission_pages/msl/news/msl20121001.html"
+    }
+   ],
+   "lat": -4.5900653,
+   "lon": 137.4479403,
+   "position_source": "PLACES site 4 drive 3232 (sol 53)"
+  },
+  {
+   "id": "rocknest",
+   "name": "Rocknest sand shadow",
+   "sol": 61,
+   "why": "Where Curiosity first scooped soil (sols 61-100). CheMin returned the first X-ray diffraction of Martian soil: basaltic minerals plus a large amorphous, water-bearing component.",
+   "measure": "Scoop and sieve windblown sand; bag samples for mineralogy and volatile analysis.",
+   "work_min": 45,
+   "sources": [
+    {
+     "label": "Bish et al. 2013, Science 341, X-ray diffraction results from Rocknest",
+     "url": "https://doi.org/10.1126/science.1238932"
+    },
+    {
+     "label": "NASA: Rover's first soil studies help fingerprint Martian minerals",
+     "url": "https://www.jpl.nasa.gov/news/nasa-rovers-first-soil-studies-help-fingerprint-martian-minerals"
+    }
+   ],
+   "lat": -4.5899957,
+   "lon": 137.4483418,
+   "position_source": "PLACES site 5 drive 104 (sol 59)"
+  }
+ ],
+ "global": [
+  {
+   "id": "viking-1",
+   "name": "Viking 1 Landing Site",
+   "lat": 22.4571,
+   "lon": -47.9507,
+   "why": "First successful U.S. landing (1976); Chryse Planitia outflow-channel plains and the Viking biology experiments.",
+   "measure": "Context imaging, regolith sample and comparison with the mission's published results.",
+   "work_min": 30,
+   "position_source": "USGS SIM 3292 landing-site layer",
+   "sources": [
+    {
+     "label": "Viking 1 Landing Site (NASA)",
+     "url": "http://nssdc.gsfc.nasa.gov/database/MasterCatalog?sc=1975-075C"
+    }
+   ]
+  },
+  {
+   "id": "viking-2",
+   "name": "Viking 2 Landing Site",
+   "lat": 47.9325,
+   "lon": 133.739,
+   "why": "Utopia Planitia plains; observed seasonal surface frost.",
+   "measure": "Context imaging, regolith sample and comparison with the mission's published results.",
+   "work_min": 30,
+   "position_source": "USGS SIM 3292 landing-site layer",
+   "sources": [
+    {
+     "label": "Viking 2 Landing Site (NASA)",
+     "url": "http://nssdc.gsfc.nasa.gov/database/MasterCatalog?sc=1975-083C"
+    }
+   ]
+  },
+  {
+   "id": "pathfinder",
+   "name": "Mars Pathfinder Landing Site",
+   "lat": 19.2608,
+   "lon": -33.2528,
+   "why": "Ares Vallis flood deposits; first Mars rover (Sojourner) measured rock chemistry.",
+   "measure": "Context imaging, regolith sample and comparison with the mission's published results.",
+   "work_min": 30,
+   "position_source": "USGS SIM 3292 landing-site layer",
+   "sources": [
+    {
+     "label": "Mars Pathfinder Landing Site (NASA)",
+     "url": "http://nssdc.gsfc.nasa.gov/database/MasterCatalog?sc=1996-068A"
+    }
+   ]
+  },
+  {
+   "id": "mer-a",
+   "name": "MER Spirit Landing Site",
+   "lat": -14.5692,
+   "lon": 175.4729,
+   "why": "Spirit, Gusev crater: hydrothermal silica and carbonate-bearing outcrops in the Columbia Hills.",
+   "measure": "Context imaging, regolith sample and comparison with the mission's published results.",
+   "work_min": 30,
+   "position_source": "USGS SIM 3292 landing-site layer",
+   "sources": [
+    {
+     "label": "MER Spirit Landing Site (NASA)",
+     "url": "http://nssdc.gsfc.nasa.gov/database/MasterCatalog?sc=2003-027A"
+    }
+   ]
+  },
+  {
+   "id": "mer-b",
+   "name": "MER Opportunity Landing Site",
+   "lat": -1.9462,
+   "lon": -5.5266,
+   "why": "Opportunity, Meridiani Planum: hematite concretions and sulfate sandstones recording ancient water.",
+   "measure": "Context imaging, regolith sample and comparison with the mission's published results.",
+   "work_min": 30,
+   "position_source": "USGS SIM 3292 landing-site layer",
+   "sources": [
+    {
+     "label": "MER Opportunity Landing Site (NASA)",
+     "url": "http://nssdc.gsfc.nasa.gov/database/MasterCatalog?sc=2003-032A"
+    }
+   ]
+  },
+  {
+   "id": "phx",
+   "name": "Phoenix Landing Site",
+   "lat": 68.2188,
+   "lon": -125.7492,
+   "why": "Phoenix: dug into ground ice and measured perchlorate in the soil at high northern latitude.",
+   "measure": "Context imaging, regolith sample and comparison with the mission's published results.",
+   "work_min": 30,
+   "position_source": "USGS SIM 3292 landing-site layer",
+   "sources": [
+    {
+     "label": "Phoenix Landing Site (NASA)",
+     "url": "http://www.nasa.gov/mission_pages/phoenix/main"
+    }
+   ]
+  },
+  {
+   "id": "msl",
+   "name": "MSL Curiosity Landing Site (prelim)",
+   "lat": -4.59,
+   "lon": 137.44,
+   "why": "Curiosity, Gale crater: ancient lake deposits and the layered foothills of Aeolis Mons.",
+   "measure": "Context imaging, regolith sample and comparison with the mission's published results.",
+   "work_min": 30,
+   "position_source": "USGS SIM 3292 landing-site layer",
+   "sources": [
+    {
+     "label": "MSL Curiosity Landing Site (prelim) (NASA)",
+     "url": "http://www.nasa.gov/mission_pages/msl/"
+    }
+   ]
+  }
+ ]
+}

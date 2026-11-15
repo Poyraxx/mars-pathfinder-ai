@@ -1,3 +1,10 @@
+# Marswalk mission layer (15 November 2026, Claude) — see MARSWALK.md
+
+Science stops (sourced), astronaut / crew+cart / rover profiles, round trip with reserve and per-stop
+cost, Conditions map layers (TES dust, thermal inertia, THEMIS night IR, USGS geology, data confidence)
+and a labelled environment tab. Codex works separately on branch `dataset-v10-small-rock-review`
+(DATASET_V10_COORDINATION.md); it does not touch backend/UI files.
+
 # Current continuation — 15 November 2026
 
 Newest perception/data pass: [DATASET_V8_REFINEMENT.md](DATASET_V8_REFINEMENT.md).

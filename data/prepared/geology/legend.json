@@ -1,0 +1,419 @@
+{
+ "source": "Tanaka, K.L., et al., 2014, Geologic map of Mars: USGS Scientific Investigations Map 3292, scale 1:20,000,000",
+ "url": "https://pubs.usgs.gov/sim/3292/",
+ "grid": {
+  "ppd": 8,
+  "width": 2880,
+  "height": 1440,
+  "origin": "row 0 = 90N, col 0 = 180W"
+ },
+ "note": "Rasterised at 1/8 degree (~7.4 km). Contacts are generalised for 1:20M scale; a unit is regional context, not the rock under a single footstep.",
+ "periods": [
+  {
+   "period": "Late Amazonian",
+   "colour": "#63a5de"
+  },
+  {
+   "period": "Middle Amazonian",
+   "colour": "#7abae6"
+  },
+  {
+   "period": "Early Amazonian",
+   "colour": "#96ceec"
+  },
+  {
+   "period": "Amazonian\u2013Hesperian",
+   "colour": "#9ccda8"
+  },
+  {
+   "period": "Amazonian",
+   "colour": "#82bee6"
+  },
+  {
+   "period": "Late Hesperian",
+   "colour": "#7dbd6e"
+  },
+  {
+   "period": "Early Hesperian",
+   "colour": "#a3cf74"
+  },
+  {
+   "period": "Hesperian\u2013Noachian",
+   "colour": "#d6c478"
+  },
+  {
+   "period": "Hesperian",
+   "colour": "#91c770"
+  },
+  {
+   "period": "Late Noachian",
+   "colour": "#dea15f"
+  },
+  {
+   "period": "Middle Noachian",
+   "colour": "#cc8052"
+  },
+  {
+   "period": "Early Noachian",
+   "colour": "#b0684a"
+  },
+  {
+   "period": "Noachian",
+   "colour": "#c48256"
+  }
+ ],
+ "units": [
+  {
+   "index": 1,
+   "unit": "AHi",
+   "description": "Amazonian and Hesperian impact unit",
+   "period": "Amazonian\u2013Hesperian",
+   "colour": "#9ccda8",
+   "area_fraction": 0.05443
+  },
+  {
+   "index": 2,
+   "unit": "AHtu",
+   "description": "Amazonian and Hesperian transition undivided unit",
+   "period": "Amazonian\u2013Hesperian",
+   "colour": "#9ccda8",
+   "area_fraction": 0.0097
+  },
+  {
+   "index": 3,
+   "unit": "AHv",
+   "description": "Amazonian and Hesperian volcanic",
+   "period": "Amazonian\u2013Hesperian",
+   "colour": "#9ccda8",
+   "area_fraction": 0.06575
+  },
+  {
+   "index": 4,
+   "unit": "ANa",
+   "description": "Amazonian and Noachian apron unit",
+   "period": "Amazonian",
+   "colour": "#82bee6",
+   "area_fraction": 0.00253
+  },
+  {
+   "index": 5,
+   "unit": "Aa",
+   "description": "Amazonian apron unit",
+   "period": "Amazonian",
+   "colour": "#82bee6",
+   "area_fraction": 0.00491
+  },
+  {
+   "index": 6,
+   "unit": "Ap",
+   "description": "Amazonian polar unit",
+   "period": "Amazonian",
+   "colour": "#82bee6",
+   "area_fraction": 0.00476
+  },
+  {
+   "index": 7,
+   "unit": "Apu",
+   "description": "Amazonian polar undivided unit",
+   "period": "Amazonian",
+   "colour": "#82bee6",
+   "area_fraction": 0.06735
+  },
+  {
+   "index": 8,
+   "unit": "Av",
+   "description": "Amazonian volcanic unit",
+   "period": "Amazonian",
+   "colour": "#82bee6",
+   "area_fraction": 0.0124
+  },
+  {
+   "index": 9,
+   "unit": "Ave",
+   "description": "Amazonian volcanic edifice",
+   "period": "Amazonian",
+   "colour": "#82bee6",
+   "area_fraction": 0.00395
+  },
+  {
+   "index": 10,
+   "unit": "HNb",
+   "description": "Hesperian and Noachian basin unit",
+   "period": "Hesperian\u2013Noachian",
+   "colour": "#d6c478",
+   "area_fraction": 0.00387
+  },
+  {
+   "index": 11,
+   "unit": "HNhu",
+   "description": "Hesperian and Noachian highland undivided unit",
+   "period": "Hesperian\u2013Noachian",
+   "colour": "#d6c478",
+   "area_fraction": 0.00521
+  },
+  {
+   "index": 12,
+   "unit": "HNt",
+   "description": "Hesperian and Noachian transition unit",
+   "period": "Hesperian\u2013Noachian",
+   "colour": "#d6c478",
+   "area_fraction": 0.01448
+  },
+  {
+   "index": 13,
+   "unit": "Hp",
+   "description": "Hesperian polar unit",
+   "period": "Hesperian",
+   "colour": "#91c770",
+   "area_fraction": 0.01948
+  },
+  {
+   "index": 14,
+   "unit": "Hpe",
+   "description": "Hesperian polar edifice unit",
+   "period": "Hesperian",
+   "colour": "#91c770",
+   "area_fraction": 0.00518
+  },
+  {
+   "index": 15,
+   "unit": "Hpu",
+   "description": "Hesperian polar undivided unit",
+   "period": "Hesperian",
+   "colour": "#91c770",
+   "area_fraction": 0.0012
+  },
+  {
+   "index": 16,
+   "unit": "Ht",
+   "description": "Hesperian transition unit",
+   "period": "Hesperian",
+   "colour": "#91c770",
+   "area_fraction": 0.00433
+  },
+  {
+   "index": 17,
+   "unit": "Hto",
+   "description": "Hesperian transition outflow unit",
+   "period": "Hesperian",
+   "colour": "#91c770",
+   "area_fraction": 0.00602
+  },
+  {
+   "index": 18,
+   "unit": "Htu",
+   "description": "Hesperian transition undivided unit",
+   "period": "Hesperian",
+   "colour": "#91c770",
+   "area_fraction": 0.00337
+  },
+  {
+   "index": 19,
+   "unit": "Hve",
+   "description": "Hesperian volcanic edifice unit",
+   "period": "Hesperian",
+   "colour": "#91c770",
+   "area_fraction": 0.00198
+  },
+  {
+   "index": 20,
+   "unit": "Nhe",
+   "description": "Noachian highland edifice unit",
+   "period": "Noachian",
+   "colour": "#c48256",
+   "area_fraction": 0.00147
+  },
+  {
+   "index": 21,
+   "unit": "Nhu",
+   "description": "Noachian highland undivided unit",
+   "period": "Noachian",
+   "colour": "#c48256",
+   "area_fraction": 0.00758
+  },
+  {
+   "index": 22,
+   "unit": "Nve",
+   "description": "Noachian volcanic edifice unit",
+   "period": "Noachian",
+   "colour": "#c48256",
+   "area_fraction": 0.00134
+  },
+  {
+   "index": 23,
+   "unit": "eAb",
+   "description": "Early Amazonian basin unit",
+   "period": "Early Amazonian",
+   "colour": "#96ceec",
+   "area_fraction": 0.00351
+  },
+  {
+   "index": 24,
+   "unit": "eHb",
+   "description": "Early Hesperian basin unit",
+   "period": "Early Hesperian",
+   "colour": "#a3cf74",
+   "area_fraction": 0.00229
+  },
+  {
+   "index": 25,
+   "unit": "eHh",
+   "description": "Early Hesperian highland unit",
+   "period": "Early Hesperian",
+   "colour": "#a3cf74",
+   "area_fraction": 0.00897
+  },
+  {
+   "index": 26,
+   "unit": "eHt",
+   "description": "Early Hesperian transition unit",
+   "period": "Early Hesperian",
+   "colour": "#a3cf74",
+   "area_fraction": 0.01872
+  },
+  {
+   "index": 27,
+   "unit": "eHv",
+   "description": "Early Hesperian volcanic unit",
+   "period": "Early Hesperian",
+   "colour": "#a3cf74",
+   "area_fraction": 0.02754
+  },
+  {
+   "index": 28,
+   "unit": "eNh",
+   "description": "Early Noachian highland unit",
+   "period": "Early Noachian",
+   "colour": "#b0684a",
+   "area_fraction": 0.08913
+  },
+  {
+   "index": 29,
+   "unit": "eNhm",
+   "description": "Early Noachian highland massif unit",
+   "period": "Early Noachian",
+   "colour": "#b0684a",
+   "area_fraction": 0.01195
+  },
+  {
+   "index": 30,
+   "unit": "lAa",
+   "description": "Late Amazonian apron unit",
+   "period": "Late Amazonian",
+   "colour": "#63a5de",
+   "area_fraction": 0.00134
+  },
+  {
+   "index": 31,
+   "unit": "lApc",
+   "description": "Late Amazonian polar cap unit",
+   "period": "Late Amazonian",
+   "colour": "#63a5de",
+   "area_fraction": 0.05072
+  },
+  {
+   "index": 32,
+   "unit": "lApd",
+   "description": "Late Amazonian polar dunes unit",
+   "period": "Late Amazonian",
+   "colour": "#63a5de",
+   "area_fraction": 0.00765
+  },
+  {
+   "index": 33,
+   "unit": "lAv",
+   "description": "Late Amazonian volcanic unit",
+   "period": "Late Amazonian",
+   "colour": "#63a5de",
+   "area_fraction": 0.01593
+  },
+  {
+   "index": 34,
+   "unit": "lAvf",
+   "description": "Late Amazonian volcanic field unit",
+   "period": "Late Amazonian",
+   "colour": "#63a5de",
+   "area_fraction": 0.00154
+  },
+  {
+   "index": 35,
+   "unit": "lHb",
+   "description": "Late Hesperian basin unit",
+   "period": "Late Hesperian",
+   "colour": "#7dbd6e",
+   "area_fraction": 0.00531
+  },
+  {
+   "index": 36,
+   "unit": "lHl",
+   "description": "Late Hesperian lowland unit",
+   "period": "Late Hesperian",
+   "colour": "#7dbd6e",
+   "area_fraction": 0.13789
+  },
+  {
+   "index": 37,
+   "unit": "lHt",
+   "description": "Late Hesperian transition unit",
+   "period": "Late Hesperian",
+   "colour": "#7dbd6e",
+   "area_fraction": 0.01267
+  },
+  {
+   "index": 38,
+   "unit": "lHv",
+   "description": "Late Hesperian volcanic unit",
+   "period": "Late Hesperian",
+   "colour": "#7dbd6e",
+   "area_fraction": 0.01124
+  },
+  {
+   "index": 39,
+   "unit": "lHvf",
+   "description": "Late Hesperian volcanic field unit",
+   "period": "Late Hesperian",
+   "colour": "#7dbd6e",
+   "area_fraction": 0.00231
+  },
+  {
+   "index": 40,
+   "unit": "lNh",
+   "description": "Late Noachian highland unit",
+   "period": "Late Noachian",
+   "colour": "#dea15f",
+   "area_fraction": 0.05378
+  },
+  {
+   "index": 41,
+   "unit": "lNv",
+   "description": "Late Noachian volcanic unit",
+   "period": "Late Noachian",
+   "colour": "#dea15f",
+   "area_fraction": 0.01739
+  },
+  {
+   "index": 42,
+   "unit": "mAl",
+   "description": "Middle Amazonian lowland unit",
+   "period": "Middle Amazonian",
+   "colour": "#7abae6",
+   "area_fraction": 0.02949
+  },
+  {
+   "index": 43,
+   "unit": "mNh",
+   "description": "Middle Noachian highland unit",
+   "period": "Middle Noachian",
+   "colour": "#cc8052",
+   "area_fraction": 0.17803
+  },
+  {
+   "index": 44,
+   "unit": "mNhm",
+   "description": "Middle Noachian highland massif unit",
+   "period": "Middle Noachian",
+   "colour": "#cc8052",
+   "area_fraction": 0.01128
+  }
+ ]
+}

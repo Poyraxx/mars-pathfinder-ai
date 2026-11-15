@@ -26,6 +26,7 @@ from . import orbital
 from . import features
 from . import replay
 from . import local_navigation
+from . import marswalk
 from .navigation import cost_grid, plan_legs, metrics, inflate_obstacles
 from .perception import infer, localize_obstacles, hazard_overlay
 from .schemas import MissionRequest, ObservationRequest, PlanRequest
@@ -34,6 +35,18 @@ LAYERS = {
  "viking":{"name":"Viking color mosaic","kind":"Optical imagery","layer":"Mars_Viking_MDIM21_ClrMosaic_global_232m","ext":"jpg","resolution_m":232,"coverage":[-180,-90,180,90],"mission":"Viking · NASA / USGS"},
  "mola":{"name":"MOLA elevation / hillshade","kind":"Topography visualization","layer":"Mars_MGS_MOLA_ClrShade_merge_global_463m","ext":"jpg","resolution_m":463,"coverage":[-180,-90,180,90],"mission":"Mars Global Surveyor · NASA / USGS"},
  "themis":{"name":"THEMIS daytime infrared","kind":"Thermal context","layer":"THEMIS_DayIR_ControlledMosaics_100m_v2_oct2018","ext":"png","resolution_m":100,"coverage":[-180,-65,180,65],"mission":"Mars Odyssey · NASA / ASU / USGS"},
+}
+# Measured orbital environment overlays (NASA Mars Trek tiles), shown on top of the base map and toggled by the user.
+OVERLAYS = {
+ "dust":{"name":"Dust cover","layer":"tes_ruffdust","ext":"png","max_level":4,"kind":"measurement","resolution_m":3500,
+         "legend":"TES Dust Cover Index: blue/green = little dust (rock and sand exposed), red/orange = thick dust mantle",
+         "source":"MGS TES · Ruff & Christensen 2002, JGR 107(E12)","url":"https://doi.org/10.1029/2001JE001580"},
+ "thermal_inertia":{"name":"Thermal inertia","layer":"TES_Thermal_Inertia","ext":"png","max_level":4,"kind":"measurement","resolution_m":3500,
+         "legend":"Low (dark/blue) = loose dust that heats and cools fast; high (bright/red) = rock and coarse sand that keep heat",
+         "source":"MGS TES thermal inertia (Putzig et al. 2005)","url":"https://doi.org/10.1016/j.icarus.2004.08.017"},
+ "night_ir":{"name":"Night temperature (IR)","layer":"THEMIS_NightIR_ControlledMosaics_100m_v2_oct2018","ext":"png","max_level":9,"kind":"measurement","resolution_m":100,
+         "legend":"THEMIS night-time infrared brightness: bright = warmer at night (rock), dark = colder (dust). Relative, not degrees",
+         "source":"Mars Odyssey THEMIS night IR mosaic (Edwards et al. 2011)","url":"https://doi.org/10.1029/2010JE003755"},
 }
 SOURCES = [
  {"name":"NASA Mars Trek","url":"https://trek.nasa.gov/mars/","usage":"Challenge resource; optical, topographic and thermal tile layers"},
@@ -118,6 +131,12 @@ def health(): return {"status":"ok","boot_id":BOOT_ID,"regions":list(data.region
 def catalog():
     return {"body":499,"latitude_type":"planetocentric","longitude_domain":"[-180,180)",
             "layers":[{"id":key,**val} for key,val in LAYERS.items()],"sources":SOURCES,
+            "overlays":[{"id":k,**{kk:vv for kk,vv in v.items() if kk!="layer"}} for k,v in OVERLAYS.items()]+[
+               {"id":"geology","name":"Geology (USGS)","kind":"map","resolution_m":7400,"legend":"Geologic units by age: blue = Amazonian (young), green = Hesperian, orange/brown = Noachian (oldest)",
+                "source":"Tanaka et al. 2014, USGS SIM 3292, 1:20M","url":"https://pubs.usgs.gov/sim/3292/"},
+               {"id":"confidence","name":"Data confidence","kind":"map","legend":"Green: measured 1 m HiRISE DEM + 25 cm image. Dots: camera frames (green = position verified by image correlation, amber = archived pose only). Elsewhere: coarse 200 m orbital terrain",
+                "source":"HiRISE DTM ESP_023957_1755 + image-correlation registration","url":"https://hirise.lpl.arizona.edu/dtm/ESP_023957_1755"}],
+            "profiles":marswalk.PROFILES,
             "regions":[r.meta for r in data.regions.values()],"model":data.model_status(),
             "frames":data.frame_catalog(),"boot_id":BOOT_ID,
             "disclaimer":"Research prototype. Not flight qualified or certified for human EVA safety.",
@@ -197,6 +216,14 @@ async def plan(mission_id: str, payload: PlanRequest):
             try:
                 for mode in ["distance","terrain","surface"]:
                     routes.append(await asyncio.to_thread(route_result,m,mode))
+                for r in routes:
+                    if r.get("points"): r["geology"]=marswalk.geology_along(r["points"])
+                ready=[r for r in routes if r.get("status")=="ready"]
+                if ready:
+                    eva_mode="surface" if any(r["mode"]=="surface" for r in ready) else ready[0]["mode"]
+                    m["eva"]=await asyncio.to_thread(marswalk.eva_summary,region_of(m),m,eva_mode)
+                    if m["eva"].get("status")=="ready":
+                        e=m["eva"];events.append(mission_id,"eva.planned",f"EVA · {e['profile']}: out {e['outbound']['time_min']:.0f} min + work {sum(s['work_min'] for s in e['stops']):.0f} min + return {e['return']['time_min']:.0f} min; reserve {e['reserve_min']:.0f} of {e['budget_min']:.0f} min",map_version=version)
                 if version==m["map_version"]:
                     m["routes"] = routes
                     m["state"] = "ready"
@@ -603,6 +630,45 @@ async def imagery_tile(layer:str,z:int,y:int,x:int):
     l=LAYERS[layer]
     url=f"https://trek.nasa.gov/tiles/Mars/EQ/{l['layer']}/1.0.0/default/default028mm/{z}/{y}/{x}.{l['ext']}"
     return await tile_response(f"{layer}/{z}/{y}/{x}",url,"image/png" if l["ext"]=="png" else "image/jpeg")
+
+
+@app.get("/api/overlays/{layer}/{z}/{y}/{x}")
+async def overlay_tile(layer:str,z:int,y:int,x:int):
+    if layer not in OVERLAYS or not 0<=z<=OVERLAYS[layer]["max_level"] or not 0<=x<2**(z+1) or not 0<=y<2**z:
+        reject("invalid_tile","Invalid overlay tile.",404)
+    l=OVERLAYS[layer]
+    url=f"https://trek.nasa.gov/tiles/Mars/EQ/{l['layer']}/1.0.0/default/default028mm/{z}/{y}/{x}.{l['ext']}"
+    return await tile_response(f"overlay/{layer}/{z}/{y}/{x}",url,"image/png")
+
+
+@app.get("/api/geology/overlay.png")
+def geology_overlay():
+    path=data.DATA_DIR/"geology"/"overlay.png"
+    if not path.exists(): reject("geology_missing","Geologic map is not installed.",404)
+    return Response(path.read_bytes(),media_type="image/png",headers={"Cache-Control":"public,max-age=86400"})
+
+
+@app.get("/api/geology/legend")
+def geology_legend():
+    _,legend=marswalk._geology()
+    if legend is None: reject("geology_missing","Geologic map is not installed.",404)
+    return legend
+
+
+@app.get("/api/science-targets")
+def science_targets():
+    return marswalk.science_targets()
+
+
+@app.get("/api/environment")
+def environment(lat: float, lon: float, elevation_m: float|None=None, date: str|None=None):
+    if not (math.isfinite(lat) and math.isfinite(lon) and -90<=lat<=90 and -180<=lon<=180): reject("invalid_point","Use finite Mars coordinates.")
+    when=None
+    if date:
+        try: when=datetime.fromisoformat(date if 'T' in date else date+'T12:00:00+00:00')
+        except ValueError: reject("invalid_date","Use an ISO date (YYYY-MM-DD).")
+        if when.tzinfo is None: when=when.replace(tzinfo=timezone.utc)
+    return marswalk.environment(lat,lon,elevation_m,when)
 
 
 @app.get("/api/terrain/{z}/{y}/{x}")

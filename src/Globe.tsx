@@ -112,7 +112,8 @@ export default function Globe(){
  const mount=useRef<HTMLDivElement>(null),viewerRef=useRef<C.Viewer|null>(null),layerRef=useRef<C.ImageryLayer|null>(null),riskRef=useRef<C.ImageryLayer|null>(null),orthoRef=useRef<C.ImageryLayer|null>(null),tilesetRef=useRef<C.Cesium3DTileset|null>(null);
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
  const [groundReady,setGroundReady]=useState(false);
- const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep,relief}=useMission();
+ const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep,relief,overlay}=useMission();
+ const overlayRef=useRef<C.ImageryLayer|null>(null);
  useEffect(()=>{
   if(!mount.current)return;
   C.Ellipsoid.default=MARS;
@@ -166,11 +167,35 @@ export default function Globe(){
   if(mode==='replay')return keepReplayDatum(v.scene,localDEMMinimum);
  },[mode]);
  useEffect(()=>{
+  // Environment / geology overlays on top of the base map (one at a time, toggled like the relief view).
+  const v=viewerRef.current;if(!v)return;
+  if(overlayRef.current){v.imageryLayers.remove(overlayRef.current);overlayRef.current=null;}
+  for(const e of [...v.entities.values])if(String(e.id).startsWith('conf-'))v.entities.remove(e);
+  const meta=catalog?.overlays?.find(o=>o.id===overlay);
+  if(overlay==='geology'){
+   C.SingleTileImageryProvider.fromUrl('/api/geology/overlay.png',{rectangle:C.Rectangle.fromDegrees(-180,-90,180,90),ellipsoid:MARS,credit:'USGS SIM 3292 (Tanaka et al. 2014)'}).then(p=>{if(!v.isDestroyed()&&useMission.getState().overlay==='geology'){overlayRef.current=v.imageryLayers.addImageryProvider(p);overlayRef.current.alpha=.62;v.scene.requestRender();}});
+  }else if(overlay==='confidence'){
+   for(const r of catalog?.regions??[]){
+    const [w,so,e,n]=r.bounds;v.entities.add({id:`conf-dem-${r.id}`,rectangle:{coordinates:C.Rectangle.fromDegrees(w,so,e,n),material:C.Color.fromCssColorString('#5fd48a').withAlpha(.22),outline:true,outlineColor:C.Color.fromCssColorString('#5fd48a'),height:0,classificationType:C.ClassificationType.BOTH},
+     position:C.Cartesian3.fromDegrees((w+e)/2,n,0,MARS),label:{text:'Measured: HiRISE 1 m DEM',font:'600 11px sans-serif',fillColor:C.Color.fromCssColorString('#7ff0a8'),pixelOffset:new C.Cartesian2(0,-12),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity,distanceDisplayCondition:new C.DistanceDisplayCondition(0,400000)}});
+    if(r.ortho_bounds){const [a,b,c,d]=r.ortho_bounds;v.entities.add({id:`conf-ortho-${r.id}`,rectangle:{coordinates:C.Rectangle.fromDegrees(a,b,c,d),material:C.Color.fromCssColorString('#5fd48a').withAlpha(.12),outline:true,outlineColor:C.Color.fromCssColorString('#b8ffd0'),height:0,classificationType:C.ClassificationType.BOTH}});}
+   }
+   for(const f of (catalog?.frames??[]) as unknown as {id:string;registration?:{verified?:boolean};places?:{row?:{planetocentric_latitude?:string;longitude?:string}}}[]){
+    const lat=Number(f.places?.row?.planetocentric_latitude),lon=Number(f.places?.row?.longitude);if(!Number.isFinite(lat)||!Number.isFinite(lon))continue;
+    const ok=!!f.registration?.verified;v.entities.add({id:`conf-frame-${f.id}`,position:C.Cartesian3.fromDegrees(lon,lat,0,MARS),point:{pixelSize:ok?8:6,color:C.Color.fromCssColorString(ok?'#5fd48a':'#f2a65a'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:1.5,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
+   }
+  }else if(meta){
+   const provider=new C.UrlTemplateImageryProvider({url:`/api/overlays/${overlay}/{z}/{y}/{x}`,tilingScheme:scheme,maximumLevel:meta.max_level??4,credit:meta.source});
+   overlayRef.current=v.imageryLayers.addImageryProvider(provider);overlayRef.current.alpha=.72;
+  }
+  v.scene.requestRender();
+ },[overlay,catalog]);
+ useEffect(()=>{
   const viewer=viewerRef.current;if(!viewer)return;
   if(layerRef.current){viewer.imageryLayers.remove(layerRef.current);layerRef.current=null;}
   const meta=useMission.getState().catalog?.layers.find(l=>l.id===layer);
   const provider=new C.UrlTemplateImageryProvider({url:`/api/tiles/${layer}/{z}/{y}/{x}`,tilingScheme:scheme,maximumLevel:layer==='themis'?9:7,credit:meta?.mission||'NASA / USGS · Mars Trek',rectangle:layer==='themis'?C.Rectangle.fromDegrees(-180,-65,180,65):C.Rectangle.MAX_VALUE});
-  layerRef.current=viewer.imageryLayers.addImageryProvider(provider);
+  layerRef.current=viewer.imageryLayers.addImageryProvider(provider,0);
   provider.errorEvent.addEventListener(()=>setStatus('IMAGERY SERVICE RETRYING'));
   viewer.scene.requestRender();
  },[layer]);
@@ -181,7 +206,7 @@ export default function Globe(){
  },[region,view,exploreTarget]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
-  for(const e of [...v.entities.values])if(!String(e.id).startsWith('orbital-')&&!String(e.id).startsWith('replay-'))v.entities.remove(e);
+  for(const e of [...v.entities.values])if(!String(e.id).startsWith('orbital-')&&!String(e.id).startsWith('replay-')&&!String(e.id).startsWith('conf-'))v.entities.remove(e);
   const coverage=region?.bounds??mission?.region?.bounds;
   if(coverage){const [w,s,e,n]=coverage;v.entities.add({id:'coverage',rectangle:{coordinates:C.Rectangle.fromDegrees(w,s,e,n),material:C.Color.fromCssColorString('#6faeab').withAlpha(.045),outline:true,outlineColor:C.Color.fromCssColorString('#64b9b0'),height:0,classificationType:C.ClassificationType.BOTH}});}
   for(const [id,p,color]of [['start',start,'#75dbc1'],['goal',goal,'#f4b06f'],...stops.map((p,i)=>[`stop-${i}`,p,'#b7b4ed'])] as [string,{lat:number;lon:number}|null,string][]){if(p)v.entities.add({id,position:C.Cartesian3.fromDegrees(p.lon,p.lat,0,MARS),point:{pixelSize:10,color:C.Color.fromCssColorString(color),outlineColor:C.Color.fromCssColorString('#111b22'),outlineWidth:3,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity},label:{text:id==='start'?'START':id==='goal'?'DESTINATION':`SCIENCE ${id.split('-')[1]}`,font:'10px sans-serif',pixelOffset:new C.Cartesian2(0,-23),fillColor:C.Color.fromCssColorString(color),heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});}
@@ -193,6 +218,8 @@ export default function Globe(){
   }
   const old=mission?.previous_route;
   if(old?.points.length)v.entities.add({id:'old-route',polyline:{positions:C.Cartesian3.fromDegreesArray(old.points.flatMap(p=>[p.lon,p.lat]),MARS),width:2,material:new C.PolylineDashMaterialProperty({color:C.Color.fromCssColorString('#e7a66b').withAlpha(.6)}),clampToGround:true}});
+  const back=mission?.eva?.status==='ready'?mission.eva.return?.points:undefined;
+  if(back&&back.length>1)v.entities.add({id:'return-route',polyline:{positions:C.Cartesian3.fromDegreesArray(back.flatMap(p=>[p.lon,p.lat]),MARS),width:3,material:new C.PolylineDashMaterialProperty({color:C.Color.fromCssColorString('#f2a65a'),dashLength:14}),clampToGround:true}});
   if(!region&&route?.points.length&&mission?.region?.bounds&&flownMission!==mission.id){flownMission=mission.id;const [w,s,e,n]=mission.region.bounds;if(relief&&mode!=='replay'){const la=route.points.map(p=>p.lat),lo=route.points.map(p=>p.lon),s2=Math.min(...la),n2=Math.max(...la),w2=Math.min(...lo),e2=Math.max(...lo);obliqueOver(v,C.Math.toRadians((s2+n2)/2),C.Math.toRadians((w2+e2)/2),Math.max(e2-w2,n2-s2)*59000*.95);}else v.camera.flyTo({destination:C.Rectangle.fromDegrees(w,s,e,n),duration:1.6});}
   v.scene.requestRender();
  },[region,start,goal,stops,mission,activeRoute,relief,mode]);

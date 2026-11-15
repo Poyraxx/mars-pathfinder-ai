@@ -4,6 +4,7 @@ import {Area,AreaChart,ResponsiveContainer,Tooltip,XAxis,YAxis} from 'recharts';
 import CameraView from './CameraView';
 import Globe from './Globe';
 import {ReplayPanel,ReplayTimeline,ReplayView} from './Replay';
+import {EnvironmentPanel,EvaControls,EvaPanel,GeologyAlong,OverlaySwitch,ProfilePicker,ScienceTargets} from './Marswalk';
 import {api,useMission} from './store';
 import type {Catalog,Event,Mission,OrbitalResult,Point} from './types';
 
@@ -14,7 +15,7 @@ const famous=['Olympus Mons','Valles Marineris','Jezero','Gale','Hellas Planitia
 
 function App(){
  const s=useMission();
- const [connected,setConnected]=useState(false),[booting,setBooting]=useState(false),[layerMenu,setLayerMenu]=useState(false),[tab,setTab]=useState<'profile'|'compare'|'log'>('profile');
+ const [connected,setConnected]=useState(false),[booting,setBooting]=useState(false),[layerMenu,setLayerMenu]=useState(false),[tab,setTab]=useState<'eva'|'environment'|'profile'|'compare'|'log'>('eva');
  const sourcesRef=useRef<HTMLElement>(null);
  const analysisToggleRef=useRef<HTMLButtonElement>(null);
  useEffect(()=>{
@@ -50,7 +51,10 @@ function App(){
  async function plan(){
   if(!s.start||!s.goal)return;
   s.set({busy:true,error:null,events:[],mission:null,orbital:null});
-  try{const created=await api<{id:string;map_version:number}>('/api/missions',{region_id:s.region?s.region.id:'global',start:s.start,goal:s.goal,stops:s.stops,avoid_features:s.avoid});
+  const pr=s.catalog?.profiles?.[s.profileKind];
+  const profile=pr?{kind:s.profileKind,speed_m_s:pr.speed_m_s,max_slope_deg:pr.max_slope_deg,clearance_m:pr.clearance_m,obstacle_step_m:pr.obstacle_step_m}:undefined;
+  const eva={budget_min:s.budgetMin??pr?.budget_min??420,work_min:s.stops.map((_,i)=>s.stopWork[i]??30),date:s.evaDate};
+  try{const created=await api<{id:string;map_version:number}>('/api/missions',{region_id:s.region?s.region.id:'global',start:s.start,goal:s.goal,stops:s.stops,avoid_features:s.avoid,...(profile?{profile}:{}),eva});
    s.set({mission:await api<Mission>(`/api/missions/${created.id}/state`)});
    await api(`/api/missions/${created.id}/plan`,{expected_map_version:created.map_version});
   }catch(error){s.set({busy:false,error:error instanceof Error?error.message:String(error)});}
@@ -103,10 +107,13 @@ function App(){
     <div className="segmented" role="group" aria-label="Terrain data"><button className={!s.region?'active':''} onClick={()=>s.set({region:null,planMode:'global',start:null,goal:null,stops:[],mission:null,view:'orbital'})}>Anywhere</button><button className={s.region?'active':''} onClick={openGale}>Gale 1 m</button></div>
     <div className="waypoints">
      <button className={`waypoint ${s.pick==='start'?'picking':''}`} disabled={busy} onClick={()=>s.set({pick:s.pick==='start'?null:'start'})}><i className="dot start"/><span><strong>{s.pick==='start'?'Click the map…':'Start'}</strong><small>{coord(s.start)}</small></span><Crosshair size={15}/></button>
-     {s.stops.map((p,i)=><div className="waypoint stop" key={i}><i className="dot stop"/><span><strong>Stop {i+1}</strong><small>{coord(p)}</small></span><button aria-label={`Remove stop ${i+1}`} onClick={()=>s.set({stops:s.stops.filter((_,j)=>i!==j),mission:null})}><X size={14}/></button></div>)}
+     {s.stops.map((p,i)=><div className="waypoint stop" key={i}><i className="dot stop"/><span><strong>{s.stopNames[i]??`Stop ${i+1}`}</strong><small>{coord(p)}</small></span><button aria-label={`Remove stop ${i+1}`} onClick={()=>s.set({stops:s.stops.filter((_,j)=>i!==j),stopWork:s.stopWork.filter((_,j)=>i!==j),stopNames:s.stopNames.filter((_,j)=>i!==j),mission:null})}><X size={14}/></button></div>)}
      <button className={`waypoint ${s.pick==='goal'?'picking':''}`} disabled={busy} onClick={()=>s.set({pick:s.pick==='goal'?null:'goal'})}><i className="dot goal"/><span><strong>{s.pick==='goal'?'Click the map…':'Destination'}</strong><small>{coord(s.goal)}</small></span><Flag size={15}/></button>
     </div>
-    <button className="link-button" disabled={s.stops.length>=3||busy} onClick={()=>s.set({pick:'stop'})}><Plus size={14}/>Add a stop ({s.stops.length}/3)</button>
+    <button className="link-button" disabled={s.stops.length>=5||busy} onClick={()=>s.set({pick:'stop'})}><Plus size={14}/>Add a stop on the map ({s.stops.length}/5)</button>
+    <ScienceTargets/>
+    <ProfilePicker/>
+    <EvaControls/>
     {s.avoid.length>0&&<div className="chips"><span>Avoiding</span>{s.avoid.map(n=><button key={n} className="chip" onClick={()=>s.set({avoid:s.avoid.filter(x=>x!==n),mission:null})}>{n}<X size={11}/></button>)}</div>}
     <button className="primary-button" disabled={!s.start||!s.goal||busy||!connected} onClick={plan}>{busy?<LoaderCircle className="spin" size={16}/>:<RouteIcon size={16}/>}{busy?'Calculating…':'Calculate route'}</button>
     {!active&&<p className="setup-hint"><MapPin size={16}/><span>{s.pick?'Select a location on the map. Drag to rotate; scroll to zoom.':!s.start?'Choose Start, then select a point on the map.':!s.goal?'Choose Destination, then select a second point.':'Your points are set. Calculate to compare routes.'}</span></p>}
@@ -115,6 +122,7 @@ function App(){
      <select aria-label="Route type" value={s.activeRoute} onChange={e=>s.set({activeRoute:e.target.value})}>{Object.entries(routeNames).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select>
     </div>}
     {active?.features&&active.features.length>0&&<div className="route-features"><h3>Named places on this route</h3>{active.features.map(f=><div key={f.name} className={`route-feature ${f.relation==='crosses'?'crosses':''}`}><span><strong>{f.name}</strong><small>{f.relation==='crosses'?'Crosses':'Passes near'} · {f.type} · {f.diameter_km.toFixed(0)} km · at {f.along_km.toFixed(1)} km</small></span>{!s.avoid.includes(f.name)&&<button className="ghost-button small" onClick={()=>s.set({avoid:[...s.avoid,f.name].slice(0,10),mission:null})}>Avoid</button>}</div>)}</div>}
+    <GeologyAlong/>
    </div>}
 
    {s.mode==='replay'&&<ReplayPanel/>}
@@ -128,6 +136,7 @@ function App(){
     {s.mode==='plan'&&s.region&&<div className="view-switcher" role="group" aria-label="View">{([['orbital','Orbit',Globe2],['terrain','Terrain',Mountain],['astronaut','Camera',Video],['dual','Camera + map',ScanLine]] as const).map(([id,label,Icon])=><button key={id} className={s.view===id?'active':''} onClick={()=>s.set({view:id})}><Icon size={14}/>{label}</button>)}</div>}
     {s.mode==='explore'&&!s.feature&&<div className="intro"><h1>Explore Mars, plan a route, test rover guidance.</h1><p>Real NASA and USGS data: 200 m global terrain, 2055 named places, and Curiosity's own camera frames.</p></div>}
     {s.mode==='replay'&&<span className="map-label">Map · real rover track</span>}
+    <OverlaySwitch/>
     {s.mode!=='replay'&&<div className="relief-switch" role="group" aria-label="Map style"><button className={!s.relief?'active':''} aria-pressed={!s.relief} onClick={()=>s.set({relief:false,layer:'viking'})}>Imagery</button><button className={s.relief?'active':''} aria-pressed={s.relief} onClick={()=>s.set({relief:true,layer:'mola'})}><Mountain size={14}/>Relief</button></div>}
     {s.relief&&s.mode!=='replay'&&<div className="relief-legend"><strong>Elevation · MOLA/HRSC</strong><div className="relief-bar"/><div className="relief-ticks"><span>−8 km</span><span>0</span><span>+10 km</span><span>+21 km</span></div><small>Heights exaggerated ×12 so mountains rise and craters sink. Colour = MOLA elevation, shaded relief.</small>{s.mission?.routes.some(r=>r.status==='ready')&&<p className="relief-route"><i/>Route: lowest slope + roughness cost on the same 200 m MOLA/HRSC terrain. Steep slopes cost more, so it picks gentler ways down and up.</p>}</div>}
     <div className="map-tools">
@@ -160,8 +169,8 @@ function App(){
 
   {s.mode==='replay'&&<ReplayTimeline/>}
   {s.mode==='plan'&&<section className="analysis">
-   <div className="tabs" role="tablist">{([['profile','Elevation'],['compare','Compare routes'],['log',`Decisions (${s.events.length})`]] as const).map(([id,label])=><button key={id} role="tab" aria-selected={tab===id} className={tab===id?'active':''} onClick={()=>setTab(id)}>{label}</button>)}<button className="text-button" onClick={download} disabled={!s.mission}><ArrowDownToLine size={14}/>Report</button></div>
-   <div className="analysis-body">{tab==='profile'?(active?.profile?<ResponsiveContainer width="100%" height="100%"><AreaChart data={active.profile} margin={{top:8,right:16,bottom:0,left:0}}><defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#5fd4c4" stopOpacity={.28}/><stop offset="100%" stopColor="#5fd4c4" stopOpacity={0}/></linearGradient></defs><XAxis dataKey="distance_m" type="number" tick={{fontSize:11,fill:'#8796a0'}} tickFormatter={v=>distance(v)} axisLine={false} tickLine={false}/><YAxis domain={['dataMin-1','dataMax+1']} width={56} tick={{fontSize:11,fill:'#8796a0'}} tickFormatter={v=>`${Number(v).toFixed(0)} m`} axisLine={false} tickLine={false}/><Tooltip contentStyle={{background:'#111a21',border:'1px solid #26343d',borderRadius:8,fontSize:12}} labelFormatter={v=>`${distance(Number(v))} along route`} formatter={v=>[`${Number(v).toFixed(1)} m`,'Elevation']}/><Area type="linear" dataKey="elevation_m" stroke="#5fd4c4" fill="url(#fill)" strokeWidth={2} isAnimationActive={false}/></AreaChart></ResponsiveContainer>:<p className="empty">Set a start and destination, then calculate to see the elevation profile.</p>)
+   <div className="tabs" role="tablist">{([['eva','Round trip'],['environment','Conditions'],['profile','Elevation'],['compare','Compare routes'],['log',`Decisions (${s.events.length})`]] as const).map(([id,label])=><button key={id} role="tab" aria-selected={tab===id} className={tab===id?'active':''} onClick={()=>setTab(id)}>{label}</button>)}<button className="text-button" onClick={download} disabled={!s.mission}><ArrowDownToLine size={14}/>Report</button></div>
+   <div className="analysis-body">{tab==='eva'?<EvaPanel/>:tab==='environment'?<EnvironmentPanel/>:tab==='profile'?(active?.profile?<ResponsiveContainer width="100%" height="100%"><AreaChart data={active.profile} margin={{top:8,right:16,bottom:0,left:0}}><defs><linearGradient id="fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#5fd4c4" stopOpacity={.28}/><stop offset="100%" stopColor="#5fd4c4" stopOpacity={0}/></linearGradient></defs><XAxis dataKey="distance_m" type="number" tick={{fontSize:11,fill:'#8796a0'}} tickFormatter={v=>distance(v)} axisLine={false} tickLine={false}/><YAxis domain={['dataMin-1','dataMax+1']} width={56} tick={{fontSize:11,fill:'#8796a0'}} tickFormatter={v=>`${Number(v).toFixed(0)} m`} axisLine={false} tickLine={false}/><Tooltip contentStyle={{background:'#111a21',border:'1px solid #26343d',borderRadius:8,fontSize:12}} labelFormatter={v=>`${distance(Number(v))} along route`} formatter={v=>[`${Number(v).toFixed(1)} m`,'Elevation']}/><Area type="linear" dataKey="elevation_m" stroke="#5fd4c4" fill="url(#fill)" strokeWidth={2} isAnimationActive={false}/></AreaChart></ResponsiveContainer>:<p className="empty">Set a start and destination, then calculate to see the elevation profile.</p>)
     :tab==='compare'?<table className="compare"><thead><tr><th>Route</th><th>Distance</th><th>Climb</th><th>Max slope</th><th>Compute</th></tr></thead><tbody>{s.mission?.routes.map(r=><tr key={r.mode} className={r.mode===s.activeRoute?'selected':''} onClick={()=>s.set({activeRoute:r.mode})}><td>{routeNames[r.mode]}</td><td>{r.status==='ready'?distance(r.distance_m):r.status.replaceAll('_',' ')}</td><td>{distance(r.ascent_m)}</td><td>{r.max_slope_deg!==undefined?`${r.max_slope_deg}°`:'—'}</td><td>{r.planning_ms!==undefined?`${r.planning_ms} ms`:'—'}</td></tr>)}</tbody></table>
     :<ol className="log">{s.events.map(e=><li key={e.sequence_id}><time>{new Date(e.timestamp).toLocaleTimeString('en-GB')}</time><span>{e.message}</span>{e.map_version!==undefined&&<small>map v{e.map_version}</small>}</li>)}{!s.events.length&&<p className="empty">Decisions appear here as the server computes them.</p>}</ol>}</div>
   </section>}
