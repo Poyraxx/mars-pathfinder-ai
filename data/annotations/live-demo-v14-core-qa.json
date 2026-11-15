@@ -1,0 +1,312 @@
+{
+  "version": 14,
+  "complete": true,
+  "all_rendered_core_pages_viewed": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "rejected_region_keys": [
+    "103:4:0",
+    "103:4:1",
+    "104:4:0",
+    "104:4:1",
+    "107:5:0",
+    "108:4:1",
+    "108:5:1",
+    "108:5:2",
+    "110:3:0",
+    "110:4:0",
+    "112:3:0",
+    "112:4:0",
+    "113:1:0",
+    "113:3:0",
+    "113:3:1",
+    "114:5:0",
+    "126:3:0",
+    "128:4:0",
+    "141:3:0",
+    "149:4:0",
+    "14:1:0",
+    "150:3:0",
+    "151:2:0",
+    "151:3:0",
+    "151:5:0",
+    "152:2:0",
+    "152:3:0",
+    "153:2:0",
+    "153:4:0",
+    "154:1:0",
+    "154:4:0",
+    "155:5:0",
+    "155:6:0",
+    "156:6:0",
+    "157:6:0",
+    "157:8:0",
+    "158:10:0",
+    "158:11:0",
+    "158:12:1",
+    "158:13:0",
+    "158:14:0",
+    "159:7:0",
+    "159:7:1",
+    "159:8:0",
+    "160:4:1",
+    "161:3:0",
+    "161:6:0",
+    "161:9:0",
+    "163:1:0",
+    "163:4:0",
+    "163:5:0",
+    "163:6:0",
+    "163:9:0",
+    "164:1:0",
+    "164:4:0",
+    "164:7:0",
+    "164:8:0",
+    "165:1:0",
+    "165:7:1",
+    "166:8:0",
+    "166:8:1",
+    "167:1:0",
+    "169:2:0",
+    "169:3:0",
+    "172:5:0",
+    "177:2:0",
+    "180:3:0",
+    "19:3:0",
+    "19:6:0",
+    "20:2:0",
+    "20:4:0",
+    "22:7:0",
+    "31:4:0",
+    "33:2:0",
+    "35:4:1",
+    "35:6:2"
+  ],
+  "adjusted_regions": {
+    "13:1:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        336,
+        232
+      ],
+      "radius": [
+        7,
+        3
+      ]
+    },
+    "14:2:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        336,
+        232
+      ],
+      "radius": [
+        7,
+        3
+      ]
+    },
+    "15:2:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        336,
+        232
+      ],
+      "radius": [
+        7,
+        3
+      ]
+    },
+    "16:1:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        336,
+        232
+      ],
+      "radius": [
+        7,
+        3
+      ]
+    },
+    "19:4:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        421,
+        403
+      ],
+      "radius": [
+        4,
+        12
+      ]
+    },
+    "20:1:1": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        313,
+        184
+      ],
+      "radius": [
+        2,
+        2
+      ]
+    },
+    "20:2:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        257,
+        195
+      ],
+      "radius": [
+        3,
+        2
+      ]
+    },
+    "20:3:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        86,
+        210
+      ],
+      "radius": [
+        2.5,
+        2
+      ]
+    },
+    "20:4:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        380,
+        280
+      ],
+      "radius": [
+        2.5,
+        2
+      ]
+    },
+    "20:5:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        205,
+        337
+      ],
+      "radius": [
+        7,
+        2
+      ]
+    },
+    "20:6:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        392,
+        382
+      ],
+      "radius": [
+        2,
+        2
+      ]
+    },
+    "106:3:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        234,
+        292
+      ],
+      "radius": [
+        5,
+        2
+      ]
+    },
+    "116:4:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        120,
+        261
+      ],
+      "radius": [
+        2,
+        2
+      ]
+    },
+    "128:7:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        279,
+        292
+      ],
+      "radius": [
+        7,
+        3
+      ]
+    },
+    "130:1:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        320,
+        249
+      ],
+      "radius": [
+        5,
+        2
+      ]
+    },
+    "153:4:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        332,
+        232
+      ],
+      "radius": [
+        3,
+        3
+      ]
+    },
+    "159:7:0": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        422,
+        216
+      ],
+      "radius": [
+        3,
+        2
+      ]
+    },
+    "159:7:1": {
+      "class_id": 1,
+      "shape": "ellipse",
+      "center": [
+        402,
+        216
+      ],
+      "radius": [
+        3,
+        2
+      ]
+    }
+  },
+  "method": "Native-source plain/outline paired crops; reject uncertain shadow/gap points and move ambiguous lower-edge cores into the visible rock material. No model contour becomes automatic positive truth.",
+  "all181_demo_sources_are_fitting_data": true,
+  "not_exhaustive_silhouettes_or_independent_test": true
+}
