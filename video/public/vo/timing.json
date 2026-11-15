@@ -1,42 +1,35 @@
 {
- "provider": "elevenlabs",
+ "provider": "edge-tts tr-TR-AhmetNeural",
  "lines": [
   {
    "file": "vo/00.mp3",
-   "seconds": 2.09,
-   "tr": "Mars'ta bir astronot, nereye güvenle yürür?",
-   "en": "Where can an astronaut safely walk on Mars?"
+   "seconds": 5.09,
+   "tr": "Biz Ankara'dan Asteria Roket takımıyız. Mars harita görevini seçtik.",
+   "en": "We are team Asteria Roket from Ankara. We chose the Martian Map challenge."
   },
   {
    "file": "vo/01.mp3",
-   "seconds": 4.5,
-   "tr": "Yörünge haritası iki yüz metreyi görür; tehlike, yirmi beş santimlik bir kaya.",
-   "en": "Orbital maps see 200 m. The hazard is a 25 cm rock."
+   "seconds": 4.78,
+   "tr": "Projemiz Mars Pathfinder: Mars'ta yürüyecek ilk astronot için bir rota haritası.",
+   "en": "Our project, Mars Pathfinder: a route map for the first astronaut to walk on Mars."
   },
   {
    "file": "vo/02.mp3",
-   "seconds": 6.29,
-   "tr": "Pathfinder; bilim duraklarını, dönüşü, tozu ve jeolojiyi, NASA verisiyle tek rotada planlar.",
-   "en": "Pathfinder plans science stops, the return, dust and geology in one route, from NASA open data."
+   "seconds": 5.54,
+   "tr": "NASA verisiyle dağları, kraterleri ve tozu görüyor; bilim duraklarını ve dönüş süresini planlıyoruz.",
+   "en": "With NASA data we see mountains, craters and dust, and plan science stops and the time to get back."
   },
   {
    "file": "vo/03.mp3",
-   "seconds": 4.87,
-   "tr": "Gerçek Curiosity karelerinde model kayayı işaretler, stereo doğrular, rota dolaşır.",
-   "en": "On real Curiosity frames, the model flags rocks, stereo confirms them, the route goes around."
+   "seconds": 4.67,
+   "tr": "Gerçek Curiosity görüntülerinde kayaları işaretleyip, rotayı aralarından geçiriyoruz.",
+   "en": "On real Curiosity images we mark the rocks and lead the route between them."
   },
   {
    "file": "vo/04.mp3",
-   "seconds": 4.97,
-   "tr": "Eski model kaya bulamıyordu; yenisi, görmediği elli dokuz kayanın otuz birini buluyor.",
-   "en": "The old model found none. The new one finds 31 of 59 rocks in scenes it never saw."
-  },
-  {
-   "file": "vo/05.mp3",
-   "seconds": 2.79,
-   "tr": "Açık NASA verisiyle, Mars'ta daha güvenli adımlar.",
-   "en": "Built on open NASA data. For safer steps on Mars."
+   "seconds": 3.37,
+   "tr": "Hedefimiz, Mars'taki ilk adımların daha bilinçli atılması.",
+   "en": "Our goal: better-informed first steps on Mars."
   }
- ],
- "tempo": 1.157
+ ]
 }

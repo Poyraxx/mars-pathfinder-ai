@@ -11,12 +11,11 @@ import subprocess
 from pathlib import Path
 
 LINES = [
-    ("Mars'ta bir astronot, nereye güvenle yürür?", "Where can an astronaut safely walk on Mars?"),
-    ("Yörünge haritası iki yüz metreyi görür; tehlike, yirmi beş santimlik bir kaya.", "Orbital maps see 200 m. The hazard is a 25 cm rock."),
-    ("Pathfinder; bilim duraklarını, dönüşü, tozu ve jeolojiyi, NASA verisiyle tek rotada planlar.", "Pathfinder plans science stops, the return, dust and geology in one route, from NASA open data."),
-    ("Gerçek Curiosity karelerinde model kayayı işaretler, stereo doğrular, rota dolaşır.", "On real Curiosity frames, the model flags rocks, stereo confirms them, the route goes around."),
-    ("Eski model kaya bulamıyordu; yenisi, görmediği elli dokuz kayanın otuz birini buluyor.", "The old model found none. The new one finds 31 of 59 rocks in scenes it never saw."),
-    ("Açık NASA verisiyle, Mars'ta daha güvenli adımlar.", "Built on open NASA data. For safer steps on Mars."),
+    ("Biz Ankara'dan Asteria Roket takımıyız. Mars harita görevini seçtik.", "We are team Asteria Roket from Ankara. We chose the Martian Map challenge."),
+    ("Projemiz Mars Pathfinder: Mars'ta yürüyecek ilk astronot için bir rota haritası.", "Our project, Mars Pathfinder: a route map for the first astronaut to walk on Mars."),
+    ("NASA verisiyle dağları, kraterleri ve tozu görüyor; bilim duraklarını ve dönüş süresini planlıyoruz.", "With NASA data we see mountains, craters and dust, and plan science stops and the time to get back."),
+    ("Gerçek Curiosity görüntülerinde kayaları işaretleyip, rotayı aralarından geçiriyoruz.", "On real Curiosity images we mark the rocks and lead the route between them."),
+    ("Hedefimiz, Mars'taki ilk adımların daha bilinçli atılması.", "Our goal: better-informed first steps on Mars."),
 ]
 OUT = Path(__file__).parent / "public/vo"
 FFPROBE_FF = None
@@ -42,16 +41,16 @@ def duration(path):
 
 async def edge(text, path):
     import edge_tts
-    await edge_tts.Communicate(text, "tr-TR-AhmetNeural", rate="+16%", pitch="-2Hz").save(str(path))
+    await edge_tts.Communicate(text, "tr-TR-AhmetNeural", rate="+4%").save(str(path))
 
 
-def eleven(text, path):
+def eleven(text, path, previous="", following=""):
     import urllib.request
-    voice = os.environ.get("ELEVENLABS_VOICE_ID", "pNInz6obpgDQGcFmaJgB")
+    voice = os.environ.get("ELEVENLABS_VOICE_ID", "X2nuXhfEmBYjbVTFw3li")
     req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{voice}", method="POST",
                                  headers={"xi-api-key": os.environ["ELEVENLABS_API_KEY"], "Content-Type": "application/json", "Accept": "audio/mpeg"},
-                                 data=json.dumps({"text": text, "model_id": "eleven_multilingual_v2",
-                                                  "voice_settings": {"stability": .45, "similarity_boost": .8, "style": .35}}).encode())
+                                 data=json.dumps({"text": text, "model_id": "eleven_multilingual_v2", "previous_text": previous, "next_text": following,
+                                                  "voice_settings": {"stability": .55, "similarity_boost": .8, "style": .15, "use_speaker_boost": True}}).encode())
     path.write_bytes(urllib.request.urlopen(req, timeout=120).read())
 
 
@@ -65,22 +64,53 @@ def load_dotenv():
                     os.environ[key.strip()] = value.strip().strip('"').strip("'")
 
 
+def split_take(take):
+    """Split one web-generated take (all lines, paragraph pauses) at its longest silences into NN.mp3. No tempo change."""
+    import re
+    import imageio_ffmpeg
+    ff = imageio_ffmpeg.get_ffmpeg_exe()
+    log = subprocess.run([ff, "-i", str(take), "-af", "silencedetect=noise=-38dB:d=0.25", "-f", "null", "-"], capture_output=True, text=True).stderr
+    starts = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", log)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", log)]
+    gaps = sorted(zip(starts, ends), key=lambda g: g[0] - g[1])[:len(LINES) - 1]
+    cuts = [0.0] + sorted((a + b) / 2 for a, b in gaps) + [duration(take)]
+    if len(cuts) != len(LINES) + 1:
+        raise SystemExit(f"found {len(cuts) - 1} segments, expected {len(LINES)}; put a paragraph break between lines")
+    for i in range(len(LINES)):
+        path = OUT / f"{i:02d}.mp3"
+        subprocess.run([ff, "-loglevel", "error", "-y", "-i", str(take), "-ss", f"{cuts[i]:.3f}", "-to", f"{cuts[i + 1]:.3f}", "-b:a", "192k", str(path)], check=True)
+        trim(path)
+
+
 def main():
+    import sys
     load_dotenv()
     OUT.mkdir(parents=True, exist_ok=True)
-    provider = "elevenlabs" if os.environ.get("ELEVENLABS_API_KEY") else "edge-tts tr-TR-AhmetNeural"
+    take = OUT / "doruk.mp3"
+    if take.is_file() and "--edge" not in sys.argv:
+        provider = "elevenlabs Doruk (web take, split at pauses)"
+        split_take(take)
+    elif "--edge" in sys.argv or not os.environ.get("ELEVENLABS_API_KEY"):
+        provider = "edge-tts tr-TR-AhmetNeural"
+    else:
+        provider = "elevenlabs"
     timing = []
     for i, (tr, en) in enumerate(LINES):
         path = OUT / f"{i:02d}.mp3"
-        if provider == "elevenlabs":
-            eleven(tr, path)
+        if provider.startswith("elevenlabs Doruk"):
+            pass
+        elif provider == "elevenlabs":
+            eleven(tr, path, " ".join(x[0] for x in LINES[:i]), " ".join(x[0] for x in LINES[i + 1:]))
         else:
             asyncio.run(edge(tr, path))
         trim(path)
         timing.append({"file": f"vo/{i:02d}.mp3", "seconds": round(duration(path), 2), "tr": tr, "en": en})
         print(i, timing[-1]["seconds"], tr)
     (OUT / "timing.json").write_text(json.dumps({"provider": provider, "lines": timing}, ensure_ascii=False, indent=1), "utf-8")
-    print("total", round(sum(t["seconds"] for t in timing), 2))
+    total = sum(t["seconds"] for t in timing)
+    print("total", round(total, 2))
+    if total > 26:
+        raise SystemExit("voice longer than 26 s: shorten the text rather than speeding it up")
 
 
 if __name__ == "__main__":
