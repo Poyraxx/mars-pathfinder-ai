@@ -1,0 +1,458 @@
+[
+  {
+    "epoch": 1,
+    "loss": 0.1596182541280486,
+    "demo": {
+      "ground_fp": 44962,
+      "hardware_fp": 937,
+      "sky_fp": 0,
+      "ground_as_hardware": 18579,
+      "rock_tp": 236909,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0024202317204196893,
+      "hardware_fp_fraction": 0.00013216343073134052,
+      "ground_as_hardware_fraction": 0.0010000775128703662,
+      "rock_pixel_recall": 0.9986132069904484,
+      "iou": [
+        0.9958833409818943,
+        0.8015650785921056,
+        0.9967919606302702,
+        0.9965877563853928
+      ],
+      "confusion_matrix": [
+        [
+          18502176,
+          57281,
+          18095,
+          8
+        ],
+        [
+          212,
+          237026,
+          0,
+          0
+        ],
+        [
+          886,
+          1185,
+          7086209,
+          1427
+        ],
+        [
+          0,
+          0,
+          1213,
+          773381
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 47,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.026891874876333353,
+      "navcam_hardware_fraction": 1.4476287059294871e-05,
+      "max_navcam_frame_hardware_fraction": 0.0005645751953125,
+      "totals": {
+        "1": {
+          "false_pixels": 2990,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 37,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "lost_stage1_manual_regions": [],
+    "eligible": true,
+    "selected": true,
+    "score": 0.89633274536009,
+    "elapsed_s": 103.36964320001425
+  },
+  {
+    "epoch": 2,
+    "loss": 0.06195111158179702,
+    "demo": {
+      "ground_fp": 22260,
+      "hardware_fp": 449,
+      "sky_fp": 0,
+      "ground_as_hardware": 13779,
+      "rock_tp": 236396,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0011982197877439234,
+      "hardware_fp_fraction": 6.333124909111195e-05,
+      "ground_as_hardware_fraction": 0.0007417012783164205,
+      "rock_pixel_recall": 0.9964508215378649,
+      "iou": [
+        0.9976244029049703,
+        0.8877766030039217,
+        0.997505120723529,
+        0.9970212255418621
+      ],
+      "confusion_matrix": [
+        [
+          18535192,
+          28877,
+          13491,
+          0
+        ],
+        [
+          449,
+          236786,
+          3,
+          0
+        ],
+        [
+          1320,
+          603,
+          7087227,
+          557
+        ],
+        [
+          0,
+          0,
+          1752,
+          772842
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 35,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.011476264997391758,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 1276,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "lost_stage1_manual_regions": [],
+    "eligible": true,
+    "selected": true,
+    "score": 0.9418004506384546,
+    "elapsed_s": 175.29400150000583
+  },
+  {
+    "epoch": 3,
+    "loss": 0.05747569049829141,
+    "demo": {
+      "ground_fp": 49148,
+      "hardware_fp": 540,
+      "sky_fp": 0,
+      "ground_as_hardware": 12562,
+      "rock_tp": 236991,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0026455573283036093,
+      "hardware_fp_fraction": 7.616675837238407e-05,
+      "ground_as_hardware_fraction": 0.0006761921371805555,
+      "rock_pixel_recall": 0.9989588514487561,
+      "iou": [
+        0.9959241507189588,
+        0.790486224797698,
+        0.9976452702702703,
+        0.9969125289652004
+      ],
+      "confusion_matrix": [
+        [
+          18503225,
+          61961,
+          12374,
+          0
+        ],
+        [
+          153,
+          237085,
+          0,
+          0
+        ],
+        [
+          1237,
+          724,
+          7087272,
+          474
+        ],
+        [
+          0,
+          0,
+          1919,
+          772675
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 38,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0044250175381792675,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 492,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "lost_stage1_manual_regions": [],
+    "eligible": true,
+    "selected": false,
+    "score": 0.8972023534155359,
+    "elapsed_s": 252.08043729999918
+  },
+  {
+    "epoch": 4,
+    "loss": 0.05219204381113269,
+    "demo": {
+      "ground_fp": 44192,
+      "hardware_fp": 425,
+      "sky_fp": 0,
+      "ground_as_hardware": 14947,
+      "rock_tp": 237061,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.00237878386612666,
+      "hardware_fp_fraction": 5.9946059830117096e-05,
+      "ground_as_hardware_fraction": 0.0008045728287245472,
+      "rock_pixel_recall": 0.9992539137912139,
+      "iou": [
+        0.9961532691883197,
+        0.8064363625232555,
+        0.9974338792948044,
+        0.9967881508704511
+      ],
+      "confusion_matrix": [
+        [
+          18507166,
+          56187,
+          14207,
+          0
+        ],
+        [
+          129,
+          237106,
+          3,
+          0
+        ],
+        [
+          944,
+          592,
+          7087822,
+          349
+        ],
+        [
+          0,
+          0,
+          2140,
+          772454
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 40,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0019067148741748062,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 212,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "lost_stage1_manual_regions": [],
+    "eligible": true,
+    "selected": false,
+    "score": 0.9054982007317346,
+    "elapsed_s": 333.22808830000577
+  },
+  {
+    "epoch": 5,
+    "loss": 0.0484600355638833,
+    "demo": {
+      "ground_fp": 32124,
+      "hardware_fp": 321,
+      "sky_fp": 0,
+      "ground_as_hardware": 17627,
+      "rock_tp": 236927,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0017291829497522817,
+      "hardware_fp_fraction": 4.527690636580609e-05,
+      "ground_as_hardware_fraction": 0.000948832893017167,
+      "rock_pixel_recall": 0.9986890801642233,
+      "iou": [
+        0.9968253870855907,
+        0.8496327390959897,
+        0.9971062207321538,
+        0.9965916907459436
+      ],
+      "confusion_matrix": [
+        [
+          18519663,
+          41274,
+          16623,
+          0
+        ],
+        [
+          224,
+          237011,
+          3,
+          0
+        ],
+        [
+          859,
+          445,
+          7088126,
+          277
+        ],
+        [
+          0,
+          0,
+          2364,
+          772230
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 38,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0014570179698882952,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 162,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "lost_stage1_manual_regions": [],
+    "eligible": true,
+    "selected": false,
+    "score": 0.926155593737584,
+    "elapsed_s": 420.9184751000139
+  },
+  {
+    "epoch": 6,
+    "loss": 0.04708417850479085,
+    "demo": {
+      "ground_fp": 21101,
+      "hardware_fp": 209,
+      "sky_fp": 0,
+      "ground_as_hardware": 16499,
+      "rock_tp": 236630,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0011358326927755852,
+      "hardware_fp_fraction": 2.9479356481163467e-05,
+      "ground_as_hardware_fraction": 0.0008881144778969897,
+      "rock_pixel_recall": 0.9974371727969381,
+      "iou": [
+        0.9975744291089176,
+        0.8914971682315088,
+        0.9972743348936768,
+        0.9967351552801443
+      ],
+      "confusion_matrix": [
+        [
+          18533655,
+          28202,
+          15703,
+          0
+        ],
+        [
+          325,
+          236902,
+          11,
+          0
+        ],
+        [
+          834,
+          295,
+          7088250,
+          328
+        ],
+        [
+          0,
+          0,
+          2202,
+          772392
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 35,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 1.7987876171460436e-05,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 2,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "lost_stage1_manual_regions": [],
+    "eligible": true,
+    "selected": true,
+    "score": 0.9465289560631864,
+    "elapsed_s": 507.0686360000109
+  }
+]

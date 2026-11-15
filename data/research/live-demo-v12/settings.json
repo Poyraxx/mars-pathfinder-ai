@@ -1,0 +1,17 @@
+{
+  "device": "cuda",
+  "epochs": 12,
+  "samples": 1086,
+  "seed": 2026,
+  "size": 512,
+  "head_lr": 0.0001,
+  "encoder_lr": 1e-05,
+  "manifest_sha256": "45eb3135d30aa6010042e0085b5d027200f87b14e2eeaa0a495e98c76adbdeb4",
+  "protocol_sha256": "97808fa0040fde57c2c01ff51d898d5a1f2489fc78a4786ef1d41ae1386bb0fe",
+  "trainer_sha256": "95fdafb06286d90dbebc5da8585ec89b7173e83c1f49d7d913afeea5bd64970f",
+  "initial_checkpoint_sha256": "fbd85ca0c9b448e47c002713c970d8d42ba73973e7fcfc0a949425f732b6eaef",
+  "original_navigation_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "terrain_sha256": "b3b7813cdfe2868a69ef593069acd0781b04c67d0b17a3fa0ee7918aee353cb9",
+  "population": "All181 demo frames fit and select the model. No held-out validation/test claim.",
+  "runtime": "Actual four-class ONNX; no frame-ID lookup or annotation substitution."
+}

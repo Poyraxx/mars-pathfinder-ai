@@ -1,0 +1,1562 @@
+{
+  "model_sha256": "5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd",
+  "fresh_computation_not_build_cache": true,
+  "scenarios": [
+    {
+      "scenario": "hazcam-extended-traverse",
+      "goal": {
+        "lat": -4.589536020581021,
+        "lon": 137.44922213807723,
+        "custom": false
+      },
+      "frames": [
+        {
+          "frame_id": "FLA_401051057XYZ_F0040916FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 48,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_401137864XYZ_F0041238FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 53,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_401232778XYZ_F0041632FHAZ00302M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 58,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_401316557XYZ_F0042002FHAZ00302M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 39,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_401490207XYZ_F0042080FHAZ00306M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 20,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_401490495XYZ_F0042086FHAZ00306M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_401490757XYZ_F0042092FHAZ00306M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_401761250XYZ_F0042644FHAZ00304M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 101\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_401848200XYZ_F0042778FHAZ00302M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_401936576XYZ_F0042956FHAZ00305M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 58,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402116846XYZ_F0043200FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 35,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402204165XYZ_F0043232FHAZ00302M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 34,
+          "path_points": 12,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 27,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402286687XYZ_F0043232FHAZ00202M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 28,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402287146XYZ_F0043232FHAZ00202M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 23,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402289743XYZ_F0043232FHAZ00202M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 27,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402290334XYZ_F0043232FHAZ00202M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 37,
+          "path_points": 12,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402378017XYZ_F0043394FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 66,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402378202XYZ_F0043400FHAZ00307M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 41,
+          "path_points": 2,
+          "reason": "Destination is 90\u00b0 to the left, behind the camera. Swing left through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402378404XYZ_F0043406FHAZ00307M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 36,
+          "path_points": 2,
+          "reason": "Destination is 180\u00b0 to the left, behind the camera. Swing left through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402380707XYZ_F0043416FHAZ00304M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_402468252XYZ_F0043474FHAZ00308M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 20,
+          "path_points": 16,
+          "reason": "Destination is 118\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402556211XYZ_F0043492FHAZ00310M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 71,
+          "path_points": 5,
+          "reason": "Destination is 156\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402556301XYZ_F0043496FHAZ00310M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 68,
+          "path_points": 4,
+          "reason": "Destination is 156\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402556325XYZ_F0043500FHAZ00310M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 73,
+          "path_points": 16,
+          "reason": "Destination is 156\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402556346XYZ_F0043504FHAZ00310M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 68,
+          "path_points": 4,
+          "reason": "Destination is 156\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402642395XYZ_F0050000FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402646855XYZ_F0050000FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402647752XYZ_F0050000FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402648013XYZ_F0050000FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402648027XYZ_F0050000FHAZ00309M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402648473XYZ_F0050000FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402648735XYZ_F0050000FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402654171XYZ_F0050000FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 121\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402732930XYZ_F0050036FHAZ00302M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 4,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402736648XYZ_F0050104FHAZ00302M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402808856XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402820707XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402821249XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402821794XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402822331XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402822752XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402895937XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402905126XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402905597XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402905730XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402906098XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402907131XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_402986405XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403075179XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403163953XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403252730XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403266291XYZ_F0050104FHAZ00312M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403340259XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403351737XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403351750XYZ_F0050104FHAZ00203M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403351763XYZ_F0050104FHAZ00204M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403352624XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403353089XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403353215XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403353588XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403354613XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403429841XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403437146XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403437658XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403439651XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403440197XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403440734XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403517811XYZ_F0050104FHAZ00311M1",
+          "status": "out_of_view",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 2,
+          "reason": "Computed ground route is occluded or outside stereo-confirmed camera pixels."
+        },
+        {
+          "frame_id": "FLA_403617264XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403617820XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403618256XYZ_F0050104FHAZ00202M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403618855XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403618996XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403619390XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403620422XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403694921XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_403785368XYZ_F0050104FHAZ00311M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_404064494XYZ_F0050104FHAZ00313M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_404065095XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_404065885XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_404066019XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_404066919XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_404067417XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "out_of_view",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 2,
+          "reason": "Computed ground route is occluded or outside stereo-confirmed camera pixels."
+        },
+        {
+          "frame_id": "FLA_404773629XYZ_F0050104FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405305667XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405306179XYZ_F0050104FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405306929XYZ_F0050104FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405392925XYZ_F0050104FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405393458XYZ_F0050104FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405482409XYZ_F0050104FHAZ00206M1",
+          "status": "out_of_view",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 2,
+          "reason": "Computed ground route is occluded or outside stereo-confirmed camera pixels."
+        },
+        {
+          "frame_id": "FLA_405482774XYZ_F0050104FHAZ00206M1",
+          "status": "out_of_view",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 2,
+          "reason": "Computed ground route is occluded or outside stereo-confirmed camera pixels."
+        },
+        {
+          "frame_id": "FLA_405746155XYZ_F0050104FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405746661XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405747230XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405747365XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405747953XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_405748207XYZ_F0050104FHAZ00205M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 135\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_406374643XYZ_F0050178FHAZ00301M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 181\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_406377515XYZ_F0050178FHAZ00302M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 181\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_406546698XYZ_F0050178FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 181\u00b0 to the right. No measured room to swing out in front, so turn in place right; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_406558475XYZ_F0050388FHAZ00304M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_406728828XYZ_F0050388FHAZ00302M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_407353944XYZ_F0050432FHAZ00302M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_407879135XYZ_F0050432FHAZ00207M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_407974778XYZ_F0050432FHAZ00305M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_408156048XYZ_F0050742FHAZ00305M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_408238825XYZ_F0050754FHAZ00317M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 43,
+          "path_points": 2,
+          "reason": "Destination is 163\u00b0 to the left, behind the camera. Swing left through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_408244605XYZ_F0050926FHAZ00318M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 1,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_408331341XYZ_F0050938FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 62,
+          "path_points": 3,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_408419964XYZ_F0051070FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 84,
+          "path_points": 7,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_408507427XYZ_F0051216FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 51,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_408594407XYZ_F0051398FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 10,
+          "path_points": 12,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_408770910XYZ_F0051530FHAZ00319M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 165\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_408774879XYZ_F0051576FHAZ00302M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 211\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_408945009XYZ_F0051576FHAZ00206M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 15,
+          "path_points": 2,
+          "reason": "Destination is 211\u00b0 to the left, behind the camera. Swing left through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_408948733XYZ_F0051576FHAZ00206M1",
+          "status": "out_of_view",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 2,
+          "reason": "Computed ground route is occluded or outside stereo-confirmed camera pixels."
+        },
+        {
+          "frame_id": "FLA_408949999XYZ_F0051576FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 211\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_408950550XYZ_F0051576FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 211\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_409036143XYZ_F0051606FHAZ00319M1",
+          "status": "out_of_view",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 4,
+          "reason": "Computed ground route is occluded or outside stereo-confirmed camera pixels."
+        },
+        {
+          "frame_id": "FLA_409036773XYZ_F0051662FHAZ00302M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 137\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_409207208XYZ_F0051662FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 137\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_409210731XYZ_F0051662FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 137\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_409211275XYZ_F0051662FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 137\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_409211719XYZ_F0051662FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 137\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_409212417XYZ_F0051662FHAZ00206M1",
+          "status": "turn_required",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Destination is 137\u00b0 to the left. No measured room to swing out in front, so turn in place left; the ground behind is outside this camera view."
+        },
+        {
+          "frame_id": "FLA_409303731XYZ_F0051674FHAZ00310M1",
+          "status": "out_of_view",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 12,
+          "reason": "Computed ground route is occluded or outside stereo-confirmed camera pixels."
+        },
+        {
+          "frame_id": "FLA_409306032XYZ_F0051812FHAZ00320M1",
+          "status": "no_path",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Measured obstacles leave no 2.8 m wide corridor beyond the rover."
+        },
+        {
+          "frame_id": "FLA_409306950XYZ_F0051858FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 64,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_410543155XYZ_F0051902FHAZ00317M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410545778XYZ_F0051902FHAZ00302M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410717360XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410719903XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410721368XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410721895XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410805036XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410807042XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410807686XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410809683XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        },
+        {
+          "frame_id": "FLA_410810101XYZ_F0051902FHAZ00206M1",
+          "status": "no_path",
+          "failure_kind": "clearance_conflict",
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Nearby measured rocks overlap the conservative rover-clearance envelope at the current pose; no forward route is verified."
+        }
+      ]
+    },
+    {
+      "scenario": "hazcam-rocknest-approach",
+      "goal": {
+        "lat": -4.590062023813819,
+        "lon": 137.44834800630565,
+        "custom": false
+      },
+      "frames": [
+        {
+          "frame_id": "FLA_401936576XYZ_F0042956FHAZ00305M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 41,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402116846XYZ_F0043200FHAZ00304M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 64,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402204165XYZ_F0043232FHAZ00302M1",
+          "status": "partial",
+          "failure_kind": null,
+          "ribbon_segments": 54,
+          "path_points": 2,
+          "reason": "Only the stereo-observed local segment is validated; unseen space is blocked."
+        },
+        {
+          "frame_id": "FLA_402378017XYZ_F0043394FHAZ00304M1",
+          "status": "ready",
+          "failure_kind": null,
+          "ribbon_segments": 34,
+          "path_points": 2,
+          "reason": "Observed local route and clearance validated."
+        }
+      ]
+    },
+    {
+      "scenario": "hazcam-return-waypoint",
+      "goal": {
+        "lat": -4.590145782471964,
+        "lon": 137.44733428455663,
+        "custom": false
+      },
+      "frames": [
+        {
+          "frame_id": "FLA_401936576XYZ_F0042956FHAZ00305M1",
+          "status": "ready",
+          "failure_kind": null,
+          "ribbon_segments": 21,
+          "path_points": 2,
+          "reason": "Observed local route and clearance validated."
+        },
+        {
+          "frame_id": "FLA_402116846XYZ_F0043200FHAZ00304M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 42,
+          "path_points": 2,
+          "reason": "Destination is 151\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402204165XYZ_F0043232FHAZ00302M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 36,
+          "path_points": 2,
+          "reason": "Destination is 172\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        },
+        {
+          "frame_id": "FLA_402378017XYZ_F0043394FHAZ00304M1",
+          "status": "u_turn",
+          "failure_kind": null,
+          "ribbon_segments": 64,
+          "path_points": 2,
+          "reason": "Destination is 162\u00b0 to the right, behind the camera. Swing right through measured free ground, then keep turning toward it."
+        }
+      ]
+    },
+    {
+      "scenario": "rocknest-approach",
+      "goal": {
+        "lat": -4.590019559239826,
+        "lon": 137.44833921415795,
+        "custom": false
+      },
+      "frames": [
+        {
+          "frame_id": "NLA_402376029XYZ_D0043238TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376083XYZ_D0043244TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376160XYZ_D0043250TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376237XYZ_D0043256TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376319XYZ_D0043262TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376394XYZ_D0043268TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376468XYZ_D0043274TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376561XYZ_D0043280TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376618XYZ_D0043286TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376695XYZ_D0043292TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376773XYZ_D0043298TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376851XYZ_D0043304TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402376926XYZ_D0043310TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377022XYZ_D0043316TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377082XYZ_D0043322TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377155XYZ_D0043328TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377230XYZ_D0043334TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377304XYZ_D0043340TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377380XYZ_D0043346TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377460XYZ_D0043352TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377555XYZ_D0043358TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377623XYZ_D0043364TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377696XYZ_D0043370TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377769XYZ_D0043376TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377829XYZ_D0043382TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402377914XYZ_D0043388TRAV00020M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463357XYZ_D0043416TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463427XYZ_D0043422TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463559XYZ_D0043428TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463617XYZ_D0043434TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463694XYZ_D0043440TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463771XYZ_D0043446TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463848XYZ_D0043452TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402463932XYZ_D0043458TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402464014XYZ_D0043464TRAV00021M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402556045XYZ_D0043480TRAV00022M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402556100XYZ_D0043486TRAV00022M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402556155XYZ_D0043492TRAV00022M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        },
+        {
+          "frame_id": "NLA_402556425XYZ_D0043510TRAV00022M1",
+          "status": "insufficient_geometry",
+          "failure_kind": null,
+          "ribbon_segments": 0,
+          "path_points": 0,
+          "reason": "Validated stereo/calibration is missing; no depth is invented."
+        }
+      ]
+    }
+  ],
+  "unique_frames": 181,
+  "peak_working_set_mib": 444.5390625,
+  "elapsed_s": 253.23529769998277,
+  "training_stack_imported": false
+}

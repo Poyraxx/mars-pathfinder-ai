@@ -1,0 +1,730 @@
+[
+  {
+    "epoch": 1,
+    "loss": 0.3244116455453755,
+    "demo": {
+      "ground_fp": 156202,
+      "hardware_fp": 1555,
+      "sky_fp": 0,
+      "ground_as_hardware": 32672,
+      "rock_tp": 225086,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.00840810095620738,
+      "hardware_fp_fraction": 0.00021933205420195784,
+      "ground_as_hardware_fraction": 0.0017586809031971905,
+      "rock_pixel_recall": 0.9487771773493285,
+      "iou": [
+        0.985452866911164,
+        0.4995302917897639,
+        0.9908958132043512,
+        0.9778514843696603
+      ],
+      "confusion_matrix": [
+        [
+          18319284,
+          216003,
+          42273,
+          0
+        ],
+        [
+          9264,
+          227587,
+          387,
+          0
+        ],
+        [
+          2887,
+          2361,
+          7083606,
+          853
+        ],
+        [
+          0,
+          0,
+          16322,
+          758272
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 89,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.7415276125287885,
+    "eligible": false,
+    "lost_baseline_manual_regions": [
+      "138:transfer-138-10"
+    ],
+    "selected": false,
+    "elapsed_s": 151.41782709999825
+  },
+  {
+    "epoch": 2,
+    "loss": 0.2135795971402696,
+    "demo": {
+      "ground_fp": 91061,
+      "hardware_fp": 479,
+      "sky_fp": 0,
+      "ground_as_hardware": 27555,
+      "rock_tp": 230430,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0049016663113993445,
+      "hardware_fp_fraction": 6.75627356673555e-05,
+      "ground_as_hardware_fraction": 0.0014832410714862446,
+      "rock_pixel_recall": 0.97130307960782,
+      "iou": [
+        0.9916688288578756,
+        0.6551340828619391,
+        0.9937152159921251,
+        0.986431372144109
+      ],
+      "confusion_matrix": [
+        [
+          18429711,
+          116570,
+          31279,
+          0
+        ],
+        [
+          4810,
+          232209,
+          219,
+          0
+        ],
+        [
+          2172,
+          637,
+          7086690,
+          208
+        ],
+        [
+          0,
+          0,
+          10305,
+          764289
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 53,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.8251426215709233,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": true,
+    "elapsed_s": 250.27964749999228
+  },
+  {
+    "epoch": 3,
+    "loss": 0.16541176579527525,
+    "demo": {
+      "ground_fp": 93938,
+      "hardware_fp": 533,
+      "sky_fp": 0,
+      "ground_as_hardware": 21655,
+      "rock_tp": 234793,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.005056530566985115,
+      "hardware_fp_fraction": 7.517941150459392e-05,
+      "ground_as_hardware_fraction": 0.0011656536165136865,
+      "rock_pixel_recall": 0.9896938938955816,
+      "iou": [
+        0.9923522576014574,
+        0.6669758996275063,
+        0.9951815447617852,
+        0.989299918545646
+      ],
+      "confusion_matrix": [
+        [
+          18438417,
+          115636,
+          23507,
+          0
+        ],
+        [
+          1273,
+          235818,
+          147,
+          0
+        ],
+        [
+          1683,
+          689,
+          7087262,
+          73
+        ],
+        [
+          0,
+          0,
+          8216,
+          766378
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 47,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.8345380076305767,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": true,
+    "elapsed_s": 368.0936094999779
+  },
+  {
+    "epoch": 4,
+    "loss": 0.13208247434573409,
+    "demo": {
+      "ground_fp": 75645,
+      "hardware_fp": 463,
+      "sky_fp": 0,
+      "ground_as_hardware": 19511,
+      "rock_tp": 236037,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.004071847971423588,
+      "hardware_fp_fraction": 6.530594282669227e-05,
+      "ground_as_hardware_fraction": 0.0010502455650795905,
+      "rock_pixel_recall": 0.9949375732386886,
+      "iou": [
+        0.9936514718030999,
+        0.7099910520721359,
+        0.995816187058042,
+        0.9909145948681274
+      ],
+      "confusion_matrix": [
+        [
+          18461942,
+          95207,
+          20411,
+          0
+        ],
+        [
+          693,
+          236454,
+          91,
+          0
+        ],
+        [
+          1644,
+          593,
+          7087415,
+          55
+        ],
+        [
+          0,
+          0,
+          6983,
+          767611
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 40,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.8573698928686923,
+    "eligible": false,
+    "lost_baseline_manual_regions": [
+      "131:transfer-131-10",
+      "131:transfer-131-6"
+    ],
+    "selected": false,
+    "elapsed_s": 484.74342929999693
+  },
+  {
+    "epoch": 5,
+    "loss": 0.10200216546203404,
+    "demo": {
+      "ground_fp": 57503,
+      "hardware_fp": 969,
+      "sky_fp": 0,
+      "ground_as_hardware": 12090,
+      "rock_tp": 235960,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.003095293461574071,
+      "hardware_fp_fraction": 0.000136677016412667,
+      "ground_as_hardware_fraction": 0.0006507851407827508,
+      "rock_pixel_recall": 0.994613004661985,
+      "iou": [
+        0.9953697484708087,
+        0.7643323018021076,
+        0.9971577847439916,
+        0.9941397907049673
+      ],
+      "confusion_matrix": [
+        [
+          18495029,
+          70776,
+          11755,
+          0
+        ],
+        [
+          854,
+          236369,
+          15,
+          0
+        ],
+        [
+          2650,
+          1235,
+          7085529,
+          293
+        ],
+        [
+          0,
+          0,
+          4248,
+          770346
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 39,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.8844944298660088,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": true,
+    "elapsed_s": 594.6025698999874
+  },
+  {
+    "epoch": 6,
+    "loss": 0.09292803938971692,
+    "demo": {
+      "ground_fp": 53743,
+      "hardware_fp": 369,
+      "sky_fp": 0,
+      "ground_as_hardware": 15287,
+      "rock_tp": 235479,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0028928987445068135,
+      "hardware_fp_fraction": 5.2047284887795786e-05,
+      "ground_as_hardware_fraction": 0.0008228744786721185,
+      "rock_pixel_recall": 0.992585504851668,
+      "iou": [
+        0.9953535589041306,
+        0.770173469986887,
+        0.997136314067305,
+        0.9956344500349064
+      ],
+      "confusion_matrix": [
+        [
+          18493910,
+          68831,
+          14815,
+          4
+        ],
+        [
+          1074,
+          236109,
+          55,
+          0
+        ],
+        [
+          1608,
+          497,
+          7087269,
+          333
+        ],
+        [
+          0,
+          0,
+          3046,
+          771548
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 41,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.8871126925760521,
+    "eligible": false,
+    "lost_baseline_manual_regions": [
+      "131:transfer-131-6",
+      "137:transfer-137-6"
+    ],
+    "selected": false,
+    "elapsed_s": 699.4892577999854
+  },
+  {
+    "epoch": 7,
+    "loss": 0.08563819320689696,
+    "demo": {
+      "ground_fp": 61225,
+      "hardware_fp": 293,
+      "sky_fp": 0,
+      "ground_as_hardware": 15102,
+      "rock_tp": 236573,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0032956427001177764,
+      "hardware_fp_fraction": 4.132751889464544e-05,
+      "ground_as_hardware_fraction": 0.0008129162279653518,
+      "rock_pixel_recall": 0.997196907746651,
+      "iou": [
+        0.9950119299242761,
+        0.7543780299024698,
+        0.9972644430358463,
+        0.9961163670155784
+      ],
+      "confusion_matrix": [
+        [
+          18486655,
+          76307,
+          14598,
+          0
+        ],
+        [
+          371,
+          236840,
+          27,
+          0
+        ],
+        [
+          1399,
+          409,
+          7087703,
+          196
+        ],
+        [
+          0,
+          0,
+          2813,
+          771781
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 43,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.8801273164352622,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": false,
+    "elapsed_s": 812.0853118999803
+  },
+  {
+    "epoch": 8,
+    "loss": 0.07636560902631138,
+    "demo": {
+      "ground_fp": 42097,
+      "hardware_fp": 207,
+      "sky_fp": 0,
+      "ground_as_hardware": 17211,
+      "rock_tp": 235598,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0022660134054203027,
+      "hardware_fp_fraction": 2.9197257376080563e-05,
+      "ground_as_hardware_fraction": 0.0009264402860224917,
+      "rock_pixel_recall": 0.9930871108338462,
+      "iou": [
+        0.9961991986126609,
+        0.8139391369401608,
+        0.9971902176635149,
+        0.9965765400730631
+      ],
+      "confusion_matrix": [
+        [
+          18509410,
+          52528,
+          15622,
+          0
+        ],
+        [
+          1107,
+          236092,
+          39,
+          0
+        ],
+        [
+          1362,
+          295,
+          7087697,
+          353
+        ],
+        [
+          0,
+          0,
+          2300,
+          772294
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 33,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.9082410955028284,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": true,
+    "elapsed_s": 926.7797167999961
+  },
+  {
+    "epoch": 9,
+    "loss": 0.06700413829842439,
+    "demo": {
+      "ground_fp": 44066,
+      "hardware_fp": 389,
+      "sky_fp": 0,
+      "ground_as_hardware": 12774,
+      "rock_tp": 236821,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0023720014899696194,
+      "hardware_fp_fraction": 5.4868275938624825e-05,
+      "ground_as_hardware_fraction": 0.000687603754206688,
+      "rock_pixel_recall": 0.9982422714742157,
+      "iou": [
+        0.9963289208547286,
+        0.8106678067550235,
+        0.9976644203322683,
+        0.9965798949446976
+      ],
+      "confusion_matrix": [
+        [
+          18511072,
+          54598,
+          11890,
+          0
+        ],
+        [
+          212,
+          237019,
+          7,
+          0
+        ],
+        [
+          1506,
+          539,
+          7087426,
+          236
+        ],
+        [
+          0,
+          0,
+          2414,
+          772180
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 39,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.9078898462432433,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": false,
+    "elapsed_s": 1040.3273880999768
+  },
+  {
+    "epoch": 10,
+    "loss": 0.07237381023421773,
+    "demo": {
+      "ground_fp": 45146,
+      "hardware_fp": 265,
+      "sky_fp": 0,
+      "ground_as_hardware": 20463,
+      "rock_tp": 236891,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0024301361427442572,
+      "hardware_fp_fraction": 3.737813142348478e-05,
+      "ground_as_hardware_fraction": 0.00110149018493279,
+      "rock_pixel_recall": 0.9985373338166735,
+      "iou": [
+        0.9959044144480675,
+        0.8062753848979842,
+        0.9968222163876994,
+        0.9965501175128322
+      ],
+      "confusion_matrix": [
+        [
+          18502450,
+          56371,
+          18739,
+          0
+        ],
+        [
+          187,
+          237024,
+          27,
+          0
+        ],
+        [
+          793,
+          365,
+          7088334,
+          215
+        ],
+        [
+          0,
+          0,
+          2458,
+          772136
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 33,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.9052449766789095,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": false,
+    "elapsed_s": 1150.1700994999846
+  },
+  {
+    "epoch": 11,
+    "loss": 0.07608974323960041,
+    "demo": {
+      "ground_fp": 43816,
+      "hardware_fp": 449,
+      "sky_fp": 0,
+      "ground_as_hardware": 14794,
+      "rock_tp": 236939,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.0023585443944199344,
+      "hardware_fp_fraction": 6.333124909111195e-05,
+      "ground_as_hardware_fraction": 0.0007963370862481402,
+      "rock_pixel_recall": 0.9987396622800732,
+      "iou": [
+        0.9962634026116136,
+        0.8103814862924729,
+        0.9975043995302664,
+        0.9967157264438866
+      ],
+      "confusion_matrix": [
+        [
+          18509513,
+          54691,
+          13356,
+          0
+        ],
+        [
+          162,
+          237069,
+          7,
+          0
+        ],
+        [
+          1213,
+          611,
+          7087572,
+          311
+        ],
+        [
+          0,
+          0,
+          2234,
+          772360
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 39,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.9077199032121525,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": false,
+    "elapsed_s": 1269.330472200003
+  },
+  {
+    "epoch": 12,
+    "loss": 0.06387646717452714,
+    "demo": {
+      "ground_fp": 37436,
+      "hardware_fp": 379,
+      "sky_fp": 0,
+      "ground_as_hardware": 17863,
+      "rock_tp": 236885,
+      "ground_pixels": 18577560,
+      "hardware_pixels": 7089707,
+      "sky_pixels": 774594,
+      "rock_pixels": 237238,
+      "ground_fp_fraction": 0.002015119315991982,
+      "hardware_fp_fraction": 5.3457780413210306e-05,
+      "ground_as_hardware_fraction": 0.0009615363912160692,
+      "rock_pixel_recall": 0.9985120427587486,
+      "iou": [
+        0.9965548261257503,
+        0.8326097341651211,
+        0.9972082236336257,
+        0.9968901781244032
+      ],
+      "confusion_matrix": [
+        [
+          18514736,
+          46921,
+          15903,
+          0
+        ],
+        [
+          193,
+          237034,
+          11,
+          0
+        ],
+        [
+          990,
+          529,
+          7087818,
+          370
+        ],
+        [
+          0,
+          0,
+          2040,
+          772554
+        ]
+      ],
+      "positive_annotation_regions": 316,
+      "frames_with_reviewed_false_alarm": 40,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "score": 0.9182029669876154,
+    "eligible": true,
+    "lost_baseline_manual_regions": [],
+    "selected": true,
+    "elapsed_s": 1384.8028812999837
+  }
+]

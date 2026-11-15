@@ -6,3 +6,7 @@ data/annotations/*v8* -text
 data/annotations/*v9* -text
 data/annotations/*v12* -text
 scripts/*v12*.py -text
+data/annotations/*v13* -text
+scripts/*v13*.py -text
+data/research/live-demo-v12/** -text
+data/research/live-demo-v13/** -text

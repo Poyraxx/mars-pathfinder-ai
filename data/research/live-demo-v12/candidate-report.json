@@ -1,0 +1,113 @@
+{
+  "best_epoch": 12,
+  "epochs_completed": 12,
+  "elapsed_s": 1411.8533265999868,
+  "candidate_sha256": "c51ab5331cbc48c7f276e2987efb8c5832ffea9c20d33c2480dbb6c587366075",
+  "original_navigation_unchanged": true,
+  "global_terrain_unchanged": true,
+  "original_checkpoint_unchanged": true,
+  "population": "Demo fit/conformance only; no heldout test",
+  "selected": {
+    "ground_fp": 37436,
+    "hardware_fp": 379,
+    "sky_fp": 0,
+    "ground_as_hardware": 17863,
+    "rock_tp": 236885,
+    "ground_pixels": 18577560,
+    "hardware_pixels": 7089707,
+    "sky_pixels": 774594,
+    "rock_pixels": 237238,
+    "ground_fp_fraction": 0.002015119315991982,
+    "hardware_fp_fraction": 5.3457780413210306e-05,
+    "ground_as_hardware_fraction": 0.0009615363912160692,
+    "rock_pixel_recall": 0.9985120427587486,
+    "iou": [
+      0.9965548261257503,
+      0.8326097341651211,
+      0.9972082236336257,
+      0.9968901781244032
+    ],
+    "confusion_matrix": [
+      [
+        18514736,
+        46921,
+        15903,
+        0
+      ],
+      [
+        193,
+        237034,
+        11,
+        0
+      ],
+      [
+        990,
+        529,
+        7087818,
+        370
+      ],
+      [
+        0,
+        0,
+        2040,
+        772554
+      ]
+    ],
+    "positive_annotation_regions": 316,
+    "frames_with_reviewed_false_alarm": 40,
+    "frames_evaluated": 181,
+    "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+  },
+  "baseline": {
+    "ground_fp": 225946,
+    "hardware_fp": 1841,
+    "sky_fp": 0,
+    "ground_as_hardware": 31464,
+    "rock_tp": 194684,
+    "ground_pixels": 18577560,
+    "hardware_pixels": 7089707,
+    "sky_pixels": 774594,
+    "rock_pixels": 237238,
+    "ground_fp_fraction": 0.012162307644276213,
+    "hardware_fp_fraction": 0.0002596722262288131,
+    "ground_as_hardware_fraction": 0.0016936562175011143,
+    "rock_pixel_recall": 0.8206273868435917,
+    "iou": [
+      0.979120453682903,
+      0.37120098174702326,
+      0.9869529987183117,
+      0.9548541414683828
+    ],
+    "confusion_matrix": [
+      [
+        18231966,
+        302619,
+        42975,
+        0
+      ],
+      [
+        33116,
+        201453,
+        2669,
+        0
+      ],
+      [
+        10083,
+        2849,
+        7076680,
+        95
+      ],
+      [
+        0,
+        0,
+        34879,
+        739715
+      ]
+    ],
+    "positive_annotation_regions": 316,
+    "frames_with_reviewed_false_alarm": 83,
+    "frames_evaluated": 181,
+    "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+  },
+  "candidate_only": true
+}

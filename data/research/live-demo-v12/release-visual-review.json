@@ -1,0 +1,11 @@
+{
+  "candidate_sha256": "c51ab5331cbc48c7f276e2987efb8c5832ffea9c20d33c2480dbb6c587366075",
+  "prediction_overlays_reviewed": true,
+  "prediction_contact_sheets_viewed": [0, 1, 2, 3, 4, 5],
+  "source_overlay_semantics_acceptable": false,
+  "route_changes_reviewed": false,
+  "no_unresolved_route_regression": false,
+  "rejected_before_exhaustive_route_review": true,
+  "reason": "Actual source overlay QA exposed false rover-hardware masks across Navcam terrain outside the partial semantic annotations, and expanded false rock masks on clear Hazcam soil. The paired aggregate metrics alone missed these failures. Stage1 must remain a rejected candidate.",
+  "next_action": "Keep original v11 installed; add independently source-reviewed class-exclusion supervision and train a separate continuation candidate."
+}

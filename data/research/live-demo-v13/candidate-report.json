@@ -1,0 +1,414 @@
+{
+  "best_epoch": 6,
+  "epochs_completed": 6,
+  "candidate_sha256": "5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd",
+  "selected": {
+    "ground_fp": 21101,
+    "hardware_fp": 209,
+    "sky_fp": 0,
+    "ground_as_hardware": 16499,
+    "rock_tp": 236630,
+    "ground_pixels": 18577560,
+    "hardware_pixels": 7089707,
+    "sky_pixels": 774594,
+    "rock_pixels": 237238,
+    "ground_fp_fraction": 0.0011358326927755852,
+    "hardware_fp_fraction": 2.9479356481163467e-05,
+    "ground_as_hardware_fraction": 0.0008881144778969897,
+    "rock_pixel_recall": 0.9974371727969381,
+    "iou": [
+      0.9975744291089176,
+      0.8914971682315088,
+      0.9972743348936768,
+      0.9967351552801443
+    ],
+    "confusion_matrix": [
+      [
+        18533655,
+        28202,
+        15703,
+        0
+      ],
+      [
+        325,
+        236902,
+        11,
+        0
+      ],
+      [
+        834,
+        295,
+        7088250,
+        328
+      ],
+      [
+        0,
+        0,
+        2202,
+        772392
+      ]
+    ],
+    "positive_annotation_regions": 316,
+    "frames_with_reviewed_false_alarm": 35,
+    "frames_evaluated": 181,
+    "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+  },
+  "baseline": {
+    "ground_fp": 37420,
+    "hardware_fp": 379,
+    "sky_fp": 0,
+    "ground_as_hardware": 17863,
+    "rock_tp": 236885,
+    "ground_pixels": 18577560,
+    "hardware_pixels": 7089707,
+    "sky_pixels": 774594,
+    "rock_pixels": 237238,
+    "ground_fp_fraction": 0.002014258061876802,
+    "hardware_fp_fraction": 5.3457780413210306e-05,
+    "ground_as_hardware_fraction": 0.0009615363912160692,
+    "rock_pixel_recall": 0.9985120427587486,
+    "iou": [
+      0.9965556873250252,
+      0.8326565310251799,
+      0.9972082236336257,
+      0.9968901781244032
+    ],
+    "confusion_matrix": [
+      [
+        18514752,
+        46905,
+        15903,
+        0
+      ],
+      [
+        193,
+        237034,
+        11,
+        0
+      ],
+      [
+        990,
+        529,
+        7087818,
+        370
+      ],
+      [
+        0,
+        0,
+        2040,
+        772554
+      ]
+    ],
+    "positive_annotation_regions": 316,
+    "frames_with_reviewed_false_alarm": 40,
+    "frames_evaluated": 181,
+    "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+  },
+  "exclusions": {
+    "clear_flat_rock_fraction": 1.7987876171460436e-05,
+    "navcam_hardware_fraction": 0.0,
+    "max_navcam_frame_hardware_fraction": 0.0,
+    "totals": {
+      "1": {
+        "false_pixels": 2,
+        "negative_pixels": 111186
+      },
+      "2": {
+        "false_pixels": 0,
+        "negative_pixels": 2555904
+      }
+    },
+    "frames": [
+      {
+        "index": 3,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 58472,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 0
+      },
+      {
+        "index": 5,
+        "class1_forbidden_pixels": 2,
+        "class1_reviewed_negative_pixels": 52714,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 0
+      },
+      {
+        "index": 142,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 143,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 144,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 145,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 146,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 147,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 148,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 149,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 150,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 151,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 152,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 153,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 154,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 155,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 156,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 157,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 158,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 159,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 160,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 161,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 162,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 163,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 164,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 165,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 166,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 167,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 168,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 169,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 170,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 171,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 172,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 173,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 174,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 175,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 176,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 177,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 178,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 179,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      },
+      {
+        "index": 180,
+        "class1_forbidden_pixels": 0,
+        "class1_reviewed_negative_pixels": 0,
+        "class2_forbidden_pixels": 0,
+        "class2_reviewed_negative_pixels": 65536
+      }
+    ],
+    "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+  },
+  "candidate_only": true,
+  "population": "Demo conformance only, no independent test"
+}
