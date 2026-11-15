@@ -255,7 +255,7 @@ export default function Globe(){
     const ok=!!f.registration?.verified;v.entities.add({id:`conf-frame-${f.id}`,position:C.Cartesian3.fromDegrees(lon,lat,0,MARS),point:{pixelSize:ok?8:6,color:C.Color.fromCssColorString(ok?'#5fd48a':'#f2a65a'),outlineColor:C.Color.fromCssColorString('#0b1015'),outlineWidth:1.5,heightReference:C.HeightReference.CLAMP_TO_GROUND,disableDepthTestDistance:Infinity}});
    }
   }else if(meta){
-   const provider=new C.UrlTemplateImageryProvider({url:`/api/overlays/${overlay}/{z}/{y}/{x}`,tilingScheme:scheme,maximumLevel:meta.max_level??4,credit:meta.source});
+   const provider=new C.UrlTemplateImageryProvider({url:`/api/overlays/${overlay}/{z}/{y}/{x}${overlay==='night_ir'?'?v=heat1':''}`,tilingScheme:scheme,maximumLevel:meta.max_level??4,credit:meta.source});
    overlayRef.current=v.imageryLayers.addImageryProvider(provider);overlayRef.current.alpha=.72;
   }
   v.scene.requestRender();
@@ -266,7 +266,7 @@ export default function Globe(){
   if(underRef.current){viewer.imageryLayers.remove(underRef.current);underRef.current=null;}
   const meta=useMission.getState().catalog?.layers.find(l=>l.id===layer);
   if(layer==='themis')underRef.current=viewer.imageryLayers.addImageryProvider(new C.UrlTemplateImageryProvider({url:'/api/tiles/viking/{z}/{y}/{x}',tilingScheme:scheme,maximumLevel:7,credit:'Viking · NASA / USGS (outside THEMIS coverage)'}),0);
-  const provider=new C.UrlTemplateImageryProvider({url:`/api/tiles/${layer}/{z}/{y}/{x}`,tilingScheme:scheme,maximumLevel:layer==='themis'?9:7,credit:meta?.mission||'NASA / USGS · Mars Trek',rectangle:layer==='themis'?C.Rectangle.fromDegrees(-180,-65,180,65):C.Rectangle.MAX_VALUE});
+  const provider=new C.UrlTemplateImageryProvider({url:`/api/tiles/${layer}/{z}/{y}/{x}${layer==='themis'?'?v=heat1':''}`,tilingScheme:scheme,maximumLevel:layer==='themis'?9:7,credit:meta?.mission||'NASA / USGS · Mars Trek',rectangle:layer==='themis'?C.Rectangle.fromDegrees(-180,-65,180,65):C.Rectangle.MAX_VALUE});
   layerRef.current=viewer.imageryLayers.addImageryProvider(provider,underRef.current?1:0);
   provider.errorEvent.addEventListener(()=>setStatus('IMAGERY SERVICE RETRYING'));
   viewer.scene.requestRender();
