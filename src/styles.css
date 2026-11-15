@@ -546,4 +546,3 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .decision-card h4{margin:0;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
 .decision-card ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:13px;line-height:1.45;color:var(--text)}
 .decision-card .compare tr.selected td{color:var(--accent)}
-.key-hint{font-size:11px;color:var(--muted);padding:0 10px;white-space:nowrap}

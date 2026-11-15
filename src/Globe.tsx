@@ -207,15 +207,31 @@ export default function Globe(){
   if(token){C.Ion.defaultAccessToken=token;C.Cesium3DTileset.fromIonAssetId(3644333,{ellipsoid:MARS}).then(tileset=>{
    if(viewer.isDestroyed())return;viewer.scene.primitives.add(tileset);tilesetRef.current=tileset;viewer.scene.globe.show=false;setRenderer('CESIUM MARS · GLOBAL 3D TILES');
   }).catch(()=>setRenderer('MOLA / HRSC · ION UNAVAILABLE'));}
-  const onKey=(e:KeyboardEvent)=>{
-   const target=e.target as HTMLElement|null;
-   if(e.altKey||e.ctrlKey||e.metaKey||(target&&(target.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))))return;
-   const move=({ArrowUp:['tilt',1],ArrowDown:['tilt',-1],ArrowLeft:['turn',1],ArrowRight:['turn',-1]} as Record<string,[string,number]>)[e.key];
-   if(!move||viewer.isDestroyed())return;
-   if(tiltView(viewer,move[0]==='tilt',move[1]*(e.shiftKey?10:4)))e.preventDefault();
+  const held=new Set<string>(),speed={tilt:0,turn:0};let fast=false,frame=0,last=0;
+  const axes:Record<string,['tilt'|'turn',number]>={ArrowUp:['tilt',1],ArrowDown:['tilt',-1],ArrowLeft:['turn',1],ArrowRight:['turn',-1]};
+  const step=(now:number)=>{
+   const dt=Math.min(.05,(now-(last||now))/1000);last=now;
+   if(viewer.isDestroyed()){frame=0;return;}
+   const rate=fast?75:35;
+   for(const axis of ['tilt','turn'] as const){
+    const want=[...held].reduce((a,k)=>a+(axes[k][0]===axis?axes[k][1]:0),0)*rate;
+    speed[axis]+=(want-speed[axis])*Math.min(1,dt*7);
+    if(Math.abs(speed[axis])<.3&&!want)speed[axis]=0;
+    if(speed[axis])tiltView(viewer,axis==='tilt',speed[axis]*dt);
+   }
+   frame=held.size||speed.tilt||speed.turn?requestAnimationFrame(step):0;
+   if(!frame)last=0;
   };
-  window.addEventListener('keydown',onKey);
-  return()=>{window.removeEventListener('keydown',onKey);load();error();handler.destroy();viewer.destroy();viewerRef.current=null;};
+  const typing=(e:KeyboardEvent)=>{const t=e.target as HTMLElement|null;return e.altKey||e.ctrlKey||e.metaKey||!!(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)));};
+  const onDown=(e:KeyboardEvent)=>{
+   if(!axes[e.key]||typing(e))return;
+   e.preventDefault();fast=e.shiftKey;held.add(e.key);
+   if(!frame)frame=requestAnimationFrame(step);
+  };
+  const onUp=(e:KeyboardEvent)=>{held.delete(e.key);fast=e.shiftKey;};
+  const onBlur=()=>held.clear();
+  window.addEventListener('keydown',onDown);window.addEventListener('keyup',onUp);window.addEventListener('blur',onBlur);
+  return()=>{window.removeEventListener('keydown',onDown);window.removeEventListener('keyup',onUp);window.removeEventListener('blur',onBlur);if(frame)cancelAnimationFrame(frame);load();error();handler.destroy();viewer.destroy();viewerRef.current=null;};
  },[]);
  useEffect(()=>{
   const v=viewerRef.current;if(!v)return;
