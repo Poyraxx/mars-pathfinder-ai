@@ -1,0 +1,46 @@
+{
+  "all_passed": true,
+  "tests": [
+    {
+      "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+      "passed": true,
+      "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+      "status": "no_path",
+      "path_xy": [],
+      "ribbons": 0,
+      "obstacles": 23
+    },
+    {
+      "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+      "passed": true,
+      "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+      "status": "partial",
+      "path_xy": [
+        [
+          0.05,
+          0.04999999999999982
+        ],
+        [
+          4.05,
+          0.9500000000000002
+        ],
+        [
+          4.15,
+          0.9500000000000002
+        ]
+      ],
+      "ribbons": 60,
+      "obstacles": 36
+    },
+    {
+      "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+      "passed": true,
+      "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+      "status": "no_path",
+      "path_xy": [],
+      "ribbons": 0,
+      "obstacles": 4
+    }
+  ],
+  "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+}

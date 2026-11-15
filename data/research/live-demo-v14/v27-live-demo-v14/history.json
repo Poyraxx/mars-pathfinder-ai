@@ -1,0 +1,972 @@
+[
+  {
+    "epoch": 1,
+    "loss": 0.13508465419747245,
+    "demo": {
+      "ground_fp": 3938,
+      "hardware_fp": 2202,
+      "sky_fp": 392,
+      "ground_as_hardware": 30311,
+      "rock_tp": 204278,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.00021508156523233261,
+      "hardware_fp_fraction": 0.00031055160424161025,
+      "ground_as_hardware_fraction": 0.0016554944956214408,
+      "rock_pixel_recall": 0.7813839980721491,
+      "iou": [
+        0.9944896526863706,
+        0.7915683746281997,
+        0.9873450671904448,
+        0.9546965640051644
+      ],
+      "confusion_matrix": [
+        [
+          18260639,
+          7275,
+          41419,
+          0
+        ],
+        [
+          42609,
+          216095,
+          2727,
+          0
+        ],
+        [
+          9506,
+          3283,
+          7077714,
+          106
+        ],
+        [
+          371,
+          1007,
+          33675,
+          740919
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 15,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              3.35,
+              0.75
+            ],
+            [
+              4.25,
+              0.75
+            ]
+          ],
+          "ribbons": 64,
+          "obstacles": 28
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 3
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "100:manual-100-0",
+      "103:v14-103:2:0",
+      "105:v14-105:11:0",
+      "105:v14-105:5:1",
+      "105:v14-105:6:0",
+      "106:v14-106:4:0",
+      "107:v14-107:7:0",
+      "107:v14-107:9:0",
+      "108:v14-108:4:0",
+      "109:v14-109:1:0",
+      "109:v14-109:4:0",
+      "115:v14-115:7:0",
+      "119:v14-119:2:0",
+      "124:v14-124:4:0",
+      "125:v14-125:3:0",
+      "126:v14-126:4:0",
+      "128:v14-128:8:0",
+      "131:transfer-131-10",
+      "132:transfer-132-10",
+      "132:v14-132:6:0",
+      "133:v14-133:3:0",
+      "134:transfer-134-10",
+      "134:v14-134:4:0",
+      "134:v14-134:5:0",
+      "135:transfer-135-10",
+      "136:transfer-136-9",
+      "137:transfer-137-2",
+      "138:transfer-138-10",
+      "138:transfer-138-2",
+      "139:transfer-139-0",
+      "139:transfer-139-2",
+      "139:transfer-139-6",
+      "140:transfer-140-0",
+      "140:transfer-140-9",
+      "141:transfer-141-0",
+      "14:v14-14:3:1",
+      "153:v14-153:6:0",
+      "158:v14-158:5:0",
+      "160:v14-160:4:0",
+      "163:v14-163:3:0",
+      "164:v14-164:4:1",
+      "165:v14-165:7:0",
+      "169:v14-169:1:0",
+      "16:v14-16:2:0",
+      "179:v14-179:4:0",
+      "17:v14-17:1:0",
+      "20:v14-20:6:0",
+      "22:v14-22:5:1",
+      "22:v14-22:6:0",
+      "23:v14-23:1:0",
+      "24:v14-24:1:0",
+      "25:v14-25:1:0",
+      "26:v14-26:1:0",
+      "27:v14-27:1:0",
+      "28:v14-28:2:0",
+      "28:v14-28:4:0",
+      "29:v14-29:2:0",
+      "30:v14-30:2:0",
+      "31:v14-31:2:0",
+      "32:v14-32:2:0",
+      "33:v14-33:3:0",
+      "67:v14-67:2:0",
+      "71:v14-71:2:0",
+      "7:v14-7:4:0",
+      "90:v14-90:2:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.856418268703595,
+    "elapsed_s": 90.71932830000878
+  },
+  {
+    "epoch": 2,
+    "loss": 0.09937169587044097,
+    "demo": {
+      "ground_fp": 3203,
+      "hardware_fp": 2360,
+      "sky_fp": 419,
+      "ground_as_hardware": 29981,
+      "rock_tp": 207781,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.0001749381039713462,
+      "hardware_fp_fraction": 0.00033283459855140793,
+      "ground_as_hardware_fraction": 0.0016374709007695692,
+      "rock_pixel_recall": 0.7947833271494199,
+      "iou": [
+        0.9945857739601208,
+        0.7978821312554792,
+        0.9874800896982118,
+        0.9558691458972479
+      ],
+      "confusion_matrix": [
+        [
+          18259274,
+          8904,
+          41155,
+          0
+        ],
+        [
+          39457,
+          219337,
+          2637,
+          0
+        ],
+        [
+          9489,
+          3579,
+          7077412,
+          129
+        ],
+        [
+          393,
+          985,
+          32743,
+          741851
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 14,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              3.35,
+              0.75
+            ],
+            [
+              4.25,
+              0.75
+            ]
+          ],
+          "ribbons": 64,
+          "obstacles": 29
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "103:v14-103:2:0",
+      "105:v14-105:11:0",
+      "105:v14-105:5:1",
+      "105:v14-105:6:0",
+      "107:v14-107:9:0",
+      "108:v14-108:4:0",
+      "109:v14-109:1:0",
+      "109:v14-109:4:0",
+      "115:v14-115:7:0",
+      "119:v14-119:2:0",
+      "124:v14-124:4:0",
+      "125:v14-125:3:0",
+      "126:v14-126:4:0",
+      "128:v14-128:8:0",
+      "131:transfer-131-10",
+      "132:transfer-132-10",
+      "133:v14-133:3:0",
+      "134:v14-134:4:0",
+      "135:transfer-135-10",
+      "136:transfer-136-9",
+      "138:transfer-138-10",
+      "138:transfer-138-2",
+      "139:transfer-139-6",
+      "140:transfer-140-0",
+      "140:transfer-140-9",
+      "153:v14-153:6:0",
+      "163:v14-163:3:0",
+      "164:v14-164:4:1",
+      "169:v14-169:1:0",
+      "16:v14-16:2:0",
+      "17:v14-17:1:0",
+      "22:v14-22:6:0",
+      "24:v14-24:1:0",
+      "25:v14-25:1:0",
+      "26:v14-26:1:0",
+      "27:v14-27:1:0",
+      "28:v14-28:4:0",
+      "29:v14-29:2:0",
+      "30:v14-30:2:0",
+      "31:v14-31:2:0",
+      "32:v14-32:2:0",
+      "33:v14-33:3:0",
+      "71:v14-71:2:0",
+      "7:v14-7:4:0",
+      "90:v14-90:2:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8620344922226949,
+    "elapsed_s": 155.23184510000283
+  },
+  {
+    "epoch": 3,
+    "loss": 0.08920227043917248,
+    "demo": {
+      "ground_fp": 3032,
+      "hardware_fp": 2384,
+      "sky_fp": 441,
+      "ground_as_hardware": 30835,
+      "rock_tp": 211034,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.000165598604820831,
+      "hardware_fp_fraction": 0.00033621935718074425,
+      "ground_as_hardware_fraction": 0.0016841137795680487,
+      "rock_pixel_recall": 0.8072263809571167,
+      "iou": [
+        0.99443227170854,
+        0.7938869760559495,
+        0.9873737838750268,
+        0.9558906337177913
+      ],
+      "confusion_matrix": [
+        [
+          18253938,
+          13104,
+          42291,
+          0
+        ],
+        [
+          37245,
+          221581,
+          2605,
+          0
+        ],
+        [
+          9167,
+          3591,
+          7077752,
+          99
+        ],
+        [
+          395,
+          983,
+          32755,
+          741839
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 15,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              3.35,
+              0.75
+            ],
+            [
+              4.25,
+              0.75
+            ]
+          ],
+          "ribbons": 64,
+          "obstacles": 29
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "105:v14-105:5:1",
+      "105:v14-105:6:0",
+      "107:v14-107:9:0",
+      "108:v14-108:4:0",
+      "109:v14-109:1:0",
+      "115:v14-115:7:0",
+      "124:v14-124:4:0",
+      "125:v14-125:3:0",
+      "126:v14-126:4:0",
+      "131:transfer-131-10",
+      "134:v14-134:4:0",
+      "135:transfer-135-10",
+      "136:transfer-136-9",
+      "138:transfer-138-10",
+      "140:transfer-140-9",
+      "153:v14-153:6:0",
+      "164:v14-164:4:1",
+      "22:v14-22:6:0",
+      "24:v14-24:1:0",
+      "25:v14-25:1:0",
+      "28:v14-28:4:0",
+      "32:v14-32:2:0",
+      "33:v14-33:3:0",
+      "71:v14-71:2:0",
+      "7:v14-7:4:0",
+      "90:v14-90:2:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8626462632443157,
+    "elapsed_s": 226.75537900000927
+  },
+  {
+    "epoch": 4,
+    "loss": 0.08678489832660358,
+    "demo": {
+      "ground_fp": 2492,
+      "hardware_fp": 2290,
+      "sky_fp": 441,
+      "ground_as_hardware": 30455,
+      "rock_tp": 208686,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.0001361054496086777,
+      "hardware_fp_fraction": 0.00032296238588251023,
+      "ground_as_hardware_fraction": 0.0016633593370113482,
+      "rock_pixel_recall": 0.7982450436252778,
+      "iou": [
+        0.9945587560056899,
+        0.7985621677640042,
+        0.9874719221829404,
+        0.9561151792927763
+      ],
+      "confusion_matrix": [
+        [
+          18257496,
+          10074,
+          41763,
+          0
+        ],
+        [
+          38418,
+          220380,
+          2633,
+          0
+        ],
+        [
+          9233,
+          3487,
+          7077784,
+          105
+        ],
+        [
+          399,
+          979,
+          32575,
+          742019
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 15,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              3.35,
+              0.75
+            ],
+            [
+              4.25,
+              0.75
+            ]
+          ],
+          "ribbons": 64,
+          "obstacles": 29
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "105:v14-105:11:0",
+      "105:v14-105:5:1",
+      "105:v14-105:6:0",
+      "107:v14-107:9:0",
+      "108:v14-108:4:0",
+      "109:v14-109:1:0",
+      "109:v14-109:4:0",
+      "115:v14-115:7:0",
+      "124:v14-124:4:0",
+      "125:v14-125:3:0",
+      "126:v14-126:4:0",
+      "128:v14-128:8:0",
+      "131:transfer-131-10",
+      "132:transfer-132-10",
+      "133:v14-133:3:0",
+      "134:v14-134:4:0",
+      "135:transfer-135-10",
+      "136:transfer-136-9",
+      "138:transfer-138-10",
+      "139:transfer-139-6",
+      "140:transfer-140-9",
+      "153:v14-153:6:0",
+      "164:v14-164:4:1",
+      "169:v14-169:1:0",
+      "17:v14-17:1:0",
+      "22:v14-22:6:0",
+      "24:v14-24:1:0",
+      "25:v14-25:1:0",
+      "28:v14-28:4:0",
+      "30:v14-30:2:0",
+      "31:v14-31:2:0",
+      "32:v14-32:2:0",
+      "33:v14-33:3:0",
+      "71:v14-71:2:0",
+      "7:v14-7:4:0",
+      "90:v14-90:2:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8630986870483054,
+    "elapsed_s": 302.8722858999972
+  },
+  {
+    "epoch": 5,
+    "loss": 0.08055946069965088,
+    "demo": {
+      "ground_fp": 2498,
+      "hardware_fp": 2348,
+      "sky_fp": 449,
+      "ground_as_hardware": 30491,
+      "rock_tp": 210276,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.0001364331513332572,
+      "hardware_fp_fraction": 0.00033114221923673975,
+      "ground_as_hardware_fraction": 0.0016653255473588252,
+      "rock_pixel_recall": 0.8043269543397684,
+      "iou": [
+        0.9945210871926321,
+        0.7972459450989997,
+        0.9874828951363032,
+        0.9562050379411162
+      ],
+      "confusion_matrix": [
+        [
+          18255806,
+          11688,
+          41839,
+          0
+        ],
+        [
+          37501,
+          221337,
+          2593,
+          0
+        ],
+        [
+          9150,
+          3525,
+          7077835,
+          99
+        ],
+        [
+          395,
+          983,
+          32511,
+          742083
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 15,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              3.35,
+              0.75
+            ],
+            [
+              4.25,
+              0.75
+            ]
+          ],
+          "ribbons": 64,
+          "obstacles": 29
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "105:v14-105:11:0",
+      "105:v14-105:5:1",
+      "105:v14-105:6:0",
+      "107:v14-107:9:0",
+      "108:v14-108:4:0",
+      "109:v14-109:1:0",
+      "109:v14-109:4:0",
+      "115:v14-115:7:0",
+      "124:v14-124:4:0",
+      "125:v14-125:3:0",
+      "126:v14-126:4:0",
+      "128:v14-128:8:0",
+      "131:transfer-131-10",
+      "134:v14-134:4:0",
+      "135:transfer-135-10",
+      "136:transfer-136-9",
+      "138:transfer-138-10",
+      "139:transfer-139-6",
+      "140:transfer-140-9",
+      "153:v14-153:6:0",
+      "164:v14-164:4:1",
+      "169:v14-169:1:0",
+      "22:v14-22:6:0",
+      "24:v14-24:1:0",
+      "25:v14-25:1:0",
+      "28:v14-28:4:0",
+      "32:v14-32:2:0",
+      "33:v14-33:3:0",
+      "71:v14-71:2:0",
+      "7:v14-7:4:0",
+      "90:v14-90:2:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8637003319801602,
+    "elapsed_s": 368.4538862000045
+  },
+  {
+    "epoch": 6,
+    "loss": 0.08317435155777024,
+    "demo": {
+      "ground_fp": 2482,
+      "hardware_fp": 2364,
+      "sky_fp": 457,
+      "ground_as_hardware": 30355,
+      "rock_tp": 210627,
+      "ground_pixels": 18309333,
+      "hardware_pixels": 7090609,
+      "sky_pixels": 775972,
+      "rock_pixels": 261431,
+      "ground_fp_fraction": 0.0001355592800677119,
+      "hardware_fp_fraction": 0.00033339872498963066,
+      "ground_as_hardware_fraction": 0.0016578976416016902,
+      "rock_pixel_recall": 0.8056695648182504,
+      "iou": [
+        0.9945011497749453,
+        0.7961743842576954,
+        0.9875039938163863,
+        0.9563398339099455
+      ],
+      "confusion_matrix": [
+        [
+          18255263,
+          12331,
+          41739,
+          0
+        ],
+        [
+          37281,
+          221561,
+          2589,
+          0
+        ],
+        [
+          9194,
+          3535,
+          7077767,
+          113
+        ],
+        [
+          393,
+          985,
+          32393,
+          742201
+        ]
+      ],
+      "positive_annotation_regions": 513,
+      "frames_with_reviewed_false_alarm": 16,
+      "frames_evaluated": 181,
+      "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
+    },
+    "exclusions": {
+      "clear_flat_rock_fraction": 0.0,
+      "navcam_hardware_fraction": 0.0,
+      "max_navcam_frame_hardware_fraction": 0.0,
+      "totals": {
+        "1": {
+          "false_pixels": 0,
+          "negative_pixels": 111186
+        },
+        "2": {
+          "false_pixels": 0,
+          "negative_pixels": 2555904
+        }
+      },
+      "label_type": "Manually reviewed class exclusion, not ground/safety truth"
+    },
+    "real_routes": {
+      "all_passed": true,
+      "tests": [
+        {
+          "test": "test_real_hazcam_boulder_view_requires_body_clearance_or_reports_no_route",
+          "passed": true,
+          "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 23
+        },
+        {
+          "test": "test_real_hazcam_open_sand_route_keeps_body_clearance_from_the_measured_rock_cluster",
+          "passed": true,
+          "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+          "status": "partial",
+          "path_xy": [
+            [
+              0.05,
+              0.04999999999999982
+            ],
+            [
+              3.35,
+              0.75
+            ],
+            [
+              4.25,
+              0.75
+            ]
+          ],
+          "ribbons": 64,
+          "obstacles": 29
+        },
+        {
+          "test": "test_real_hazcam_blocked_view_reports_no_route_instead_of_a_curve",
+          "passed": true,
+          "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+          "status": "no_path",
+          "path_xy": [],
+          "ribbons": 0,
+          "obstacles": 4
+        }
+      ],
+      "scope": "Unchanged three real-image route assertions, offline Torch inference through exact production mask/geometry policy. Final ONNX/full suite remains required."
+    },
+    "lost_original_manual_regions": [
+      "105:v14-105:11:0",
+      "105:v14-105:5:1",
+      "105:v14-105:6:0",
+      "107:v14-107:9:0",
+      "108:v14-108:4:0",
+      "109:v14-109:1:0",
+      "109:v14-109:4:0",
+      "115:v14-115:7:0",
+      "124:v14-124:4:0",
+      "125:v14-125:3:0",
+      "126:v14-126:4:0",
+      "128:v14-128:8:0",
+      "131:transfer-131-10",
+      "134:v14-134:4:0",
+      "135:transfer-135-10",
+      "136:transfer-136-9",
+      "138:transfer-138-10",
+      "139:transfer-139-6",
+      "140:transfer-140-9",
+      "153:v14-153:6:0",
+      "164:v14-164:4:1",
+      "22:v14-22:6:0",
+      "24:v14-24:1:0",
+      "25:v14-25:1:0",
+      "28:v14-28:4:0",
+      "32:v14-32:2:0",
+      "33:v14-33:3:0",
+      "7:v14-7:4:0",
+      "90:v14-90:2:0"
+    ],
+    "eligible": false,
+    "selected": false,
+    "score": 0.8634925434574158,
+    "elapsed_s": 425.18658940002206
+  }
+]

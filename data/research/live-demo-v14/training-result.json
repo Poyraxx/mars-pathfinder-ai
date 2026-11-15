@@ -1,0 +1,93 @@
+{
+  "version": 14,
+  "population": "All181 demo sources used for fitting and selection. Partial labels, not held-out accuracy; no whole-image zero-error claim.",
+  "runs": [
+    {
+      "run": "v25-live-demo-v14",
+      "selected_epoch": 0,
+      "epochs_completed": 6,
+      "selected_onnx_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+      "selected_is_original_model": true,
+      "selected_torch_route_tests_passed": true,
+      "epochs_failing_real_routes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "epochs_losing_original_manual_regions": [],
+      "selected_checkpoint_sha256": "9f8c563e477b86f7367ead80c847db3bc500c2c2acc9f6fcd1cf94d052bb9f9c",
+      "last_checkpoint_sha256": "7c117853b1cd45190ded3b9f8f682d34226bd4cc41d9cd8d45e33c03627f16e2",
+      "manifest_sha256": "bd63c15a76732210baba9dd4176f9d41766c732f3b37dd4154b5653b5226e5dd",
+      "selected_ground_false_pixels": 7578,
+      "selected_hardware_false_pixels": 2540,
+      "selected_ground_as_hardware_pixels": 31456,
+      "selected_rock_pixel_recall": 0.8342813208839044,
+      "paired_onnx_report_available": false
+    },
+    {
+      "run": "v26-live-demo-v14",
+      "selected_epoch": 2,
+      "epochs_completed": 6,
+      "selected_onnx_sha256": "c3aba48c3c8b7dd96363dcfd25311abf02ce7dc5cfa02b9ec2575b812e8f709f",
+      "selected_is_original_model": false,
+      "selected_torch_route_tests_passed": true,
+      "epochs_failing_real_routes": [],
+      "epochs_losing_original_manual_regions": [
+        4,
+        5,
+        6
+      ],
+      "selected_checkpoint_sha256": "d50be3b51ba3e5fcc002cc326620816dc89c638b0b9b7a3aaf7fc8d70f643483",
+      "last_checkpoint_sha256": "9c64b5bcbbdd40d8980af01e1322fc1ef347c83253400ad447dc574256c5814f",
+      "manifest_sha256": "bd63c15a76732210baba9dd4176f9d41766c732f3b37dd4154b5653b5226e5dd",
+      "selected_ground_false_pixels": 7574,
+      "selected_hardware_false_pixels": 2360,
+      "selected_ground_as_hardware_pixels": 32200,
+      "selected_rock_pixel_recall": 0.8338949856749964,
+      "paired_onnx_report_available": true,
+      "paired_onnx_gates": {
+        "baseline_manual_regions_retained": true,
+        "rock_recall_no_more_than_0.02_drop": true,
+        "ground_fp_reduction_at_least_20pct": false,
+        "hardware_fp_reduction_at_least_30pct": false,
+        "ground_as_hardware_no_increase": false,
+        "export_argmax_agreement_at_least_0.999": true
+      }
+    },
+    {
+      "run": "v27-live-demo-v14",
+      "selected_epoch": 0,
+      "epochs_completed": 6,
+      "selected_onnx_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+      "selected_is_original_model": true,
+      "selected_torch_route_tests_passed": true,
+      "epochs_failing_real_routes": [],
+      "epochs_losing_original_manual_regions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "selected_checkpoint_sha256": "9f8c563e477b86f7367ead80c847db3bc500c2c2acc9f6fcd1cf94d052bb9f9c",
+      "last_checkpoint_sha256": "50db9ae48cd810775504866dadffc09b2a321683592cbbb9dd65f7a84fc4fd68",
+      "manifest_sha256": "bd63c15a76732210baba9dd4176f9d41766c732f3b37dd4154b5653b5226e5dd",
+      "selected_ground_false_pixels": 7578,
+      "selected_hardware_false_pixels": 2540,
+      "selected_ground_as_hardware_pixels": 31456,
+      "selected_rock_pixel_recall": 0.8342813208839044,
+      "paired_onnx_report_available": false
+    }
+  ],
+  "production_navigation_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "global_surface_sha256": "b3b7813cdfe2868a69ef593069acd0781b04c67d0b17a3fa0ee7918aee353cb9",
+  "installed_new_model": false,
+  "original_tests_not_weakened": true,
+  "labels_archive_sha256": "e634068a16e4d92c0c7060a9596ca272a948973243294a14644e4e5cb1826f85",
+  "reason": "No newly trained candidate passed all existing segmentation release gates. Original weights remain installed. Source annotations, rejected checkpoints and detailed real-route failures are preserved for further work.",
+  "decision": "retain_original"
+}

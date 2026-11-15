@@ -66,3 +66,32 @@ before a candidate can replace the original model.
 All demo frames are fitting and selection data at the user's request. Results
 are demo conformance, not held-out accuracy or evidence of generalization.
 Training results and the final release decision are recorded separately.
+
+## Final result
+
+Three six-epoch runs completed (18 epochs total). No new model was installed.
+
+| Run | Result |
+| --- | --- |
+| v25, original weights plus unknown-pixel distillation | Higher rock recall, more false positives; all six epochs failed the unchanged open-sand route assertion. Rejected. |
+| v26, frozen encoder with conservative decoder updates | Selected epoch 2 retained all 343 original-found manual region proxies and passed the three real route assertions. Actual ONNX on all 181 sources reduced hardware false pixels by 7.09%, but barely changed ground false pixels and increased ground classified as hardware. Failed existing release gates. |
+| v27, classifier-only hard-negative calibration | Reduced ground false positives, but every epoch lost some original-found manual rock regions. Rejected. |
+
+The exported v26 ONNX agrees with its Torch checkpoint on 99.9999937% of argmax
+pixels over all 181 sources. Export fidelity does not establish better perception.
+Detailed epoch histories, conformance, hashes and the retention decision are in
+`data/research/live-demo-v14/training-result.json` and its run subdirectories.
+v25/v27 selected epoch 0, meaning the unchanged original, not a successful new
+fine-tune. Their rejected last checkpoints remain in the local training folders.
+
+With the original model, all **56 applicable navigation, camera destination,
+native inference, route overlay and marker occlusion tests passed** in the
+research worktree. The test assertions were not weakened. This check does not
+cover concurrent UI/backend edits in the main worktree.
+
+**Zero error was not achieved.** Both original and candidate metrics above use
+the same corrected v14 partial labels. They must not be compared directly with
+the older v12 scores, whose weak ground labels included some rock surfaces.
+The original navigation model, global terrain model and sealed rollback copies
+remain unchanged. The reviewed data package and all experiment diagnostics are
+preserved; no further training job is left running by this work.
