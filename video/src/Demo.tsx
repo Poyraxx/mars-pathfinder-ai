@@ -10,8 +10,11 @@ const FONT = '"Segoe UI Variable Display","Segoe UI",Inter,system-ui,sans-serif'
 const sec = (s: number) => Math.round(s * 30);
 
 // Scene boundaries (seconds). Voice lines start 0.35 s into their scene.
-const S = [0, 3.3, 8.0, 14.0, 19.6, 25.6, 29.8];
-const VO_OFFSET = 0.35;
+// Scene boundaries follow the voiceover: each scene = its line + an equal share of the remaining time.
+const TOTAL = 29.8;
+const PAD = (TOTAL - timing.lines.reduce((a, l) => a + l.seconds, 0)) / timing.lines.length;
+const S = timing.lines.reduce<number[]>((acc, l) => [...acc, acc[acc.length - 1] + l.seconds + PAD], [0]).map((v, i, a) => i === a.length - 1 ? TOTAL : Math.round(v * 30) / 30);
+const VO_OFFSET = Math.min(0.35, PAD * .5);
 
 const ease = (f: number, a: number, b: number, from = 0, to = 1) =>
   interpolate(f, [a, b], [from, to], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(.2, .7, .1, 1)});

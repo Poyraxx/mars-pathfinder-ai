@@ -55,7 +55,18 @@ def eleven(text, path):
     path.write_bytes(urllib.request.urlopen(req, timeout=120).read())
 
 
+def load_dotenv():
+    """Read ELEVENLABS_* from video/.env or the project .env (both git-ignored) if not already set."""
+    for path in (Path(__file__).parent / ".env", Path(__file__).parent.parent / ".env"):
+        if path.is_file():
+            for line in path.read_text("utf-8").splitlines():
+                key, sep, value = line.partition("=")
+                if sep and key.strip().startswith("ELEVENLABS_") and not os.environ.get(key.strip()):
+                    os.environ[key.strip()] = value.strip().strip('"').strip("'")
+
+
 def main():
+    load_dotenv()
     OUT.mkdir(parents=True, exist_ok=True)
     provider = "elevenlabs" if os.environ.get("ELEVENLABS_API_KEY") else "edge-tts tr-TR-AhmetNeural"
     timing = []
