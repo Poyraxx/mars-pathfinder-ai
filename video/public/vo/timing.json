@@ -1,0 +1,41 @@
+{
+ "provider": "edge-tts tr-TR-AhmetNeural",
+ "lines": [
+  {
+   "file": "vo/00.mp3",
+   "seconds": 2.33,
+   "tr": "Mars'ta bir astronot, nereye güvenle yürür?",
+   "en": "Where can an astronaut safely walk on Mars?"
+  },
+  {
+   "file": "vo/01.mp3",
+   "seconds": 4.07,
+   "tr": "Yörünge haritası iki yüz metreyi görür; tehlike, yirmi beş santimlik bir kaya.",
+   "en": "Orbital maps see 200 m. The hazard is a 25 cm rock."
+  },
+  {
+   "file": "vo/02.mp3",
+   "seconds": 5.26,
+   "tr": "Pathfinder; bilim duraklarını, dönüşü, tozu ve jeolojiyi, NASA verisiyle tek rotada planlar.",
+   "en": "Pathfinder plans science stops, the return, dust and geology in one route, from NASA open data."
+  },
+  {
+   "file": "vo/03.mp3",
+   "seconds": 4.62,
+   "tr": "Gerçek Curiosity karelerinde model kayayı işaretler, stereo doğrular, rota dolaşır.",
+   "en": "On real Curiosity frames, the model flags rocks, stereo confirms them, the route goes around."
+  },
+  {
+   "file": "vo/04.mp3",
+   "seconds": 4.39,
+   "tr": "Eski model kaya bulamıyordu; yenisi, görmediği elli dokuz kayanın otuz birini buluyor.",
+   "en": "The old model found none. The new one finds 31 of 59 rocks in scenes it never saw."
+  },
+  {
+   "file": "vo/05.mp3",
+   "seconds": 2.7,
+   "tr": "Açık NASA verisiyle, Mars'ta daha güvenli adımlar.",
+   "en": "Built on open NASA data. For safer steps on Mars."
+  }
+ ]
+}
