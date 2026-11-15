@@ -1,0 +1,14 @@
+{
+  "candidate_sha256": "5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd",
+  "prediction_overlays_reviewed": true,
+  "prediction_contact_sheets_viewed": [0, 1, 2, 3, 4, 5],
+  "source_overlay_semantics_acceptable": true,
+  "route_changes_reviewed": true,
+  "route_contexts_reviewed": 74,
+  "route_contact_sheets_viewed": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18],
+  "no_unresolved_route_regression": true,
+  "route_interpretation": "Original live API geometry matched the fresh original142-frame snapshot at the same default goal. All changed route contexts plus reference boulder/tool poses were inspected. The one partial-to-no-path case9 marks actual foreground rocks, not its raw far-horizon appearance extension. New partial segments remain on measured ground. Many previous swing U-turns become turn-in-place instructions for behind-camera goals when the unchanged2.8m swept-clearance rule is not met. Unknown ground is not cleared to restore a route.",
+  "marker_overlay_defect_found_and_fixed": "Orange remembered real rocks were painted on the moving arm when occluded. project_cells now suppresses their image markers on the actual learned hardware/unknown mask while preserving the world-space track. Three controlled tests pass; full built-cache marker and unchanged-planning audit follows.",
+  "remaining_limitations": "Appearance masks still have boundary spill and some distant proposals, e.g. source9. These are not certified obstacles without stereo. Reviewed false alarms remain; all source pixels are not exhaustively labelled. Acceptable here means corrected listed regressions and measured overall demo improvement, not zero error or independently proven navigation safety.",
+  "not_independent_test": true
+}

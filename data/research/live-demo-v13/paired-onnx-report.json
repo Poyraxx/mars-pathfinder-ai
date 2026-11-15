@@ -1,0 +1,29 @@
+{
+  "population": "All181 frames were used for training/selection. Partial annotation conformance, NOT held-out accuracy.",
+  "candidate_sha256": "5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd",
+  "baseline_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "manifest_sha256": "45eb3135d30aa6010042e0085b5d027200f87b14e2eeaa0a495e98c76adbdeb4",
+  "gates": {
+    "baseline_manual_regions_retained": true,
+    "rock_recall_no_more_than_0.02_drop": true,
+    "ground_fp_reduction_at_least_20pct": true,
+    "hardware_fp_reduction_at_least_30pct": true,
+    "ground_as_hardware_no_increase": true,
+    "export_argmax_agreement_at_least_0.999": true
+  },
+  "all_segmentation_gates_passed": true,
+  "lost_baseline_manual_regions": [],
+  "ground_fp_relative_reduction": 0.9066939902803474,
+  "hardware_fp_relative_reduction": 0.88647474198805,
+  "baseline_manual_regions_found": 147,
+  "candidate_manual_regions_found": 179,
+  "positive_annotation_region_proxies": 316,
+  "onnx_argmax_agreement": 0.9999898836757597,
+  "minimum_frame_argmax_agreement": 0.9999656677246094,
+  "onnx_max_abs_logit_difference": 0.009791374206542969,
+  "parity_frames": 181,
+  "reviewed_false_alarm_pixels_remaining": 21290,
+  "zero_reviewed_false_alarms_achieved": false,
+  "elapsed_s": 159.22328639999614,
+  "route_and_memory_gates": "Evaluated separately; this report alone does not authorize promotion."
+}

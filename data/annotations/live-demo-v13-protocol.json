@@ -1,0 +1,22 @@
+{
+  "scope": "Continue v23 demo refinement after actual source-overlay QA found false hardware outside the partial semantic labels",
+  "training_population": "All181 demo frames; no independent validation or test",
+  "labels": "Immutable v12 semantic masks plus source-reviewed class-exclusion masks. Class exclusion does not label unmeasured ground as free.",
+  "epochs": 6,
+  "samples_per_epoch": 724,
+  "whole_frame_input": 512,
+  "encoder_lr": 0.000003,
+  "head_lr": 0.00003,
+  "extra_loss": "2*(-log(1-p_rock)) on reviewed not-rock interiors;4*(-log(1-p_hardware)) on reviewed not-hardware source pixels",
+  "selection": "Retain all179 manual-region proxies found by stage1, at most0.005 absolute stage1 rock pixel recall loss; maximize original objective minus0.5 false-hardware fraction on Navcam exclusions minus0.25 false-rock fraction on clear-flat exclusions",
+  "additional_release_gates": {
+    "navcam_false_hardware_mean_fraction_max": 0.001,
+    "navcam_false_hardware_worst_frame_fraction_max": 0.01,
+    "clear_flat_false_rock_fraction_max": 0.01,
+    "clear_flat_false_rock_reduction_from_stage1_min": 0.8,
+    "all_original_v12_release_checks_still_required": true,
+    "manual_source_overlay_review_required": true
+  },
+  "zero_error_goal": "Try for zero reviewed class-exclusion violations; report any remaining pixels without claiming full-image perfection",
+  "release_policy": "v23 remains rejected despite aggregate metric gains. Keep original v11 installed until the corrected actual model passes every check."
+}

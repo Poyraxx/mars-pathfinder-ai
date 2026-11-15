@@ -1,6 +1,6 @@
 {
   "ready": true,
-  "name": "SegFormer-B0 local navigation head (v11)",
+  "name": "SegFormer-B0 local navigation (v24, source-reviewed demo refinement)",
   "task": "Hazcam local obstacles: ground/small stone, substantial obstacle, rover hardware, sky/distant unknown",
   "classes": [
     "ground_or_small_stone",
@@ -9,204 +9,104 @@
     "sky_or_distant_unknown"
   ],
   "input_size": 512,
-  "model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "model_sha256": "5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd",
   "inference_policy": "whole",
   "navigation_obstacle_threshold": 0.7,
   "hardware_threshold": 0.8,
   "hardware_margin_native_px": 3,
   "training": {
-    "init": "NVIDIA SegFormer-B0 ADE20K (revision 489d5cd8) -> expanded AI4Mars terrain encoder (frozen) -> reviewed operational head v10 -> v11 encoder/spatial refinement, 1 selected epoch",
-    "data": "35 native PDS Hazcam scenes visually reviewed and traced (25 train, 5 validation, 3 fresh test, 2 consumed audit); labels data/annotations/hazcam-operational-v5.json",
-    "selection": "0.5*obstacle IoU + 0.3*obstacle recall + 0.2*hardware IoU - 2*hardware_as_obstacle - 0.5*ground_as_obstacle (defined in train_operational_hazcam.py before training)",
-    "validation_scores": {
-      "v10-operational-reviewed": 0.5478,
-      "v10-normalized-navigation": 0.5338,
-      "v11-navigation-512": 0.5521
-    }
+    "init": "Original v11 navigation checkpoint; separate navigation encoder and head only",
+    "frames": 181,
+    "hazcam_frames": 142,
+    "navcam_frames": 39,
+    "epochs_completed": 6,
+    "selected_epoch": 6,
+    "selection": "data/annotations/live-demo-v12-protocol.json plus live-demo-v13-protocol.json",
+    "labels": "Reviewed partial interiors plus weighted stereo weak supervision; mean per-frame coverage19.70%; unknown255 ignored; source-reviewed class-exclusion labels also suppress false hardware without labelling unknown terrain free",
+    "population": "Every demo frame used for fitting and selection; no held-out test",
+    "stage1_epochs_completed": 12
   },
-  "validation": {
-    "images": 5,
-    "obstacle_iou": 0.472,
-    "obstacle_precision": 0.673,
-    "obstacle_recall": 0.613,
-    "rover_hardware_iou": 0.833,
-    "runtime_obstacle_pixel_recall": 0.567,
-    "hardware_as_obstacle": 0.00045,
-    "ground_as_obstacle": 0.034,
-    "objects_found_25pct_coverage": {
-      "found": 27,
-      "total": 36,
-      "recall": 0.75
-    },
-    "inference_ms_median": 349
-  },
-  "test_fresh_3_scenes": {
-    "images": 3,
-    "obstacle_iou": 0.257,
-    "obstacle_precision": 0.346,
-    "obstacle_recall": 0.498,
-    "rover_hardware_iou": 0.715,
-    "runtime_obstacle_pixel_recall": 0.441,
-    "hardware_as_obstacle": 2e-05,
-    "ground_as_obstacle": 0.0293,
-    "objects_found_25pct_coverage": {
-      "found": 7,
-      "total": 20,
-      "recall": 0.35
-    },
-    "inference_ms_median": 305
-  },
-  "test_note": "Evaluated once after freezing model and policy; never used for tuning. Small sample: 20 reviewed objects.",
-  "baseline_previous_runtime": {
-    "model": "production v3 surface.onnx big_rock>=0.7 (no hardware class)",
-    "results": {
-      "validation": {
-        "obstacle_pixel_recall": 0.002,
-        "ground_as_obstacle": 0.0018,
-        "hardware_as_obstacle": 0.0909,
-        "objects": "0/36"
-      },
-      "test": {
-        "obstacle_pixel_recall": 0.0,
-        "ground_as_obstacle": 0.0021,
-        "hardware_as_obstacle": 0.0384,
-        "objects": "0/20"
-      }
-    }
-  },
-  "peak_working_set_mib": 313.80078125,
-  "export_parity": "100% pixel agreement on 5 validation images, max |logit error| 4e-5",
-  "how_used": "Appearance proposes candidates only. A local route treats a candidate as occupied only when measured stereo supports its size/relief against nearby measured ground; hardware and sky become unknown, never free ground.",
-  "limitations": "Visually reviewed labels by the project (not independent expert truth). 35 scenes cannot establish robustness; small, distant or shadowed rocks are still missed (fresh test object recall 35%). Not flight qualified; zero misses not claimed.",
-  "license": "NVIDIA SegFormer-derived weights: non-commercial research/evaluation only (LICENSES/NVIDIA-SegFormer.txt). AI4Mars CC BY 4.0. PDS imagery NASA/JPL-Caltech.",
-  "test_v6_independent_3_scenes": {
-    "images": 3,
-    "obstacle_iou": 0.417,
-    "obstacle_precision": 0.684,
-    "obstacle_recall": 0.517,
-    "rover_hardware_iou": 0.708,
-    "hardware_as_obstacle": 0.01441,
-    "ground_as_obstacle": 0.0376,
-    "objects_found_25pct_coverage": {
-      "found": 20,
-      "total": 32,
-      "recall": 0.625
-    },
-    "per_scene": [
-      [
-        2400,
-        6,
-        8
-      ],
-      [
-        2700,
-        4,
-        5
-      ],
-      [
-        4450,
-        10,
-        19
-      ]
+  "demo_conformance": {
+    "ground_fp": 21081,
+    "hardware_fp": 209,
+    "sky_fp": 0,
+    "ground_as_hardware": 16499,
+    "rock_tp": 236630,
+    "ground_pixels": 18577560,
+    "hardware_pixels": 7089707,
+    "sky_pixels": 774594,
+    "rock_pixels": 237238,
+    "ground_fp_fraction": 0.0011347561251316104,
+    "hardware_fp_fraction": 2.9479356481163467e-05,
+    "ground_as_hardware_fraction": 0.0008881144778969897,
+    "rock_pixel_recall": 0.9974371727969381,
+    "iou": [
+      0.9975748591869782,
+      0.8915240077222112,
+      0.9972754604457778,
+      0.9967351552801443
     ],
-    "note": "Second independent test: Sols 2400/2700/4450 labelled (superpixel-assisted visual review) before any prediction; evaluated once."
-  },
-  "challenger_v13": {
-    "training": "v10 + expanded v6 data (32 train scenes), 6 epochs, validation objective 0.5591 vs 0.5521",
-    "test_v6": {
-      "images": 3,
-      "obstacle_iou": 0.322,
-      "obstacle_precision": 0.685,
-      "obstacle_recall": 0.378,
-      "rover_hardware_iou": 0.815,
-      "hardware_as_obstacle": 0.00633,
-      "ground_as_obstacle": 0.0239,
-      "objects_found_25pct_coverage": {
-        "found": 23,
-        "total": 32,
-        "recall": 0.71875
-      },
-      "per_scene": [
-        [
-          2400,
-          6,
-          8
-        ],
-        [
-          2700,
-          2,
-          5
-        ],
-        [
-          4450,
-          15,
-          19
-        ]
-      ]
-    },
-    "decision": "Not promoted: pre-declared gate required obstacle IoU >= v11 - 0.01 on test_v6 (0.322 vs 0.417). v13 found more discrete rocks (23/32 vs 20/32) and confused less hardware, but covered large raised blocks (Sol 2700) worse."
-  },
-  "test_v7_independent_3_scenes": {
-    "obstacle_iou": 0.42,
-    "obstacle_precision": 0.57,
-    "obstacle_recall": 0.614,
-    "hardware_as_obstacle": 0.0014,
-    "ground_as_obstacle": 0.0396,
-    "objects_found_25pct_coverage": {
-      "found": 4,
-      "total": 7,
-      "recall": 0.5714285714285714
-    },
-    "per_scene": [
+    "confusion_matrix": [
       [
-        4300,
-        3,
-        4
-      ],
-      [
-        2199,
-        0,
+        18533659,
+        28198,
+        15703,
         0
       ],
       [
-        2950,
-        1,
-        3
+        325,
+        236902,
+        11,
+        0
+      ],
+      [
+        830,
+        291,
+        7088258,
+        328
+      ],
+      [
+        0,
+        0,
+        2202,
+        772392
       ]
     ],
-    "note": "Third independent test (Sol 4300 boulders, 2199 plate field, 2950 flat slab), labelled before any prediction, evaluated once."
+    "positive_annotation_regions": 316,
+    "frames_with_reviewed_false_alarm": 35,
+    "frames_evaluated": 181,
+    "population": "demo fit/conformance, partial reviewed/weak labels, not an independent test"
   },
-  "challenger_v14": {
-    "training": "v10 + dataset v7 (40 train scenes incl. raised-block scenes), 8 epochs, best epoch 5; validation objective 0.614 vs 0.552; validation rocks 29/36 vs 27/36",
-    "test_v7": {
-      "obstacle_iou": 0.378,
-      "obstacle_precision": 0.661,
-      "obstacle_recall": 0.469,
-      "hardware_as_obstacle": 0.0001,
-      "ground_as_obstacle": 0.0234,
-      "objects_found_25pct_coverage": {
-        "found": 4,
-        "total": 7,
-        "recall": 0.5714285714285714
+  "generalization": "Not measured for this new candidate; demo fitting scores are not independent accuracy",
+  "peak_working_set_mib": 314.83203125,
+  "export_parity": {
+    "frames": 181,
+    "argmax_agreement": 0.9999898836757597,
+    "max_abs_logit_difference": 0.009791374206542969
+  },
+  "how_used": "Appearance proposes candidates only. A local route treats a candidate as occupied only when measured stereo supports its size/relief against nearby measured ground; hardware and sky become unknown, never free ground.",
+  "limitations": "Partial project-reviewed labels and weak geometric supervision. Remaining reviewed false alarms are reported. No zero full-image error, exhaustive rock detection, certified traversability or flight qualification claim. No frame-ID or annotation lookup at inference.",
+  "license": "NVIDIA SegFormer-derived weights: non-commercial research/evaluation only (LICENSES/NVIDIA-SegFormer.txt). AI4Mars CC BY 4.0. PDS imagery NASA/JPL-Caltech.",
+  "previous_model_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "results": "data/research/live-demo-v13/release-result.json",
+  "class_exclusion_conformance": {
+    "clear_flat_rock_fraction": 1.7987876171460436e-05,
+    "navcam_hardware_fraction": 0.0,
+    "max_navcam_frame_hardware_fraction": 0.0,
+    "totals": {
+      "1": {
+        "false_pixels": 2,
+        "negative_pixels": 111186
       },
-      "per_scene": [
-        [
-          4300,
-          3,
-          4
-        ],
-        [
-          2199,
-          0,
-          0
-        ],
-        [
-          2950,
-          1,
-          3
-        ]
-      ]
+      "2": {
+        "false_pixels": 0,
+        "negative_pixels": 2555904
+      }
     },
-    "decision": "Not promoted: pre-declared gate needed obstacle IoU >= v11 - 0.01 on test_v7 (0.378 vs 0.420). Same rocks found (4/7), fewer false alarms on ground (2.3 % vs 4.0 %). The test holds only 7 reviewed objects."
+    "label_type": "Manually reviewed class exclusion, not ground/safety truth",
+    "model_sha256": "5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd",
+    "manifest_sha256": "45eb3135d30aa6010042e0085b5d027200f87b14e2eeaa0a495e98c76adbdeb4",
+    "constraints_sha256": "8da45accae55302ec459f28939f7baaaa671060d3c933fe7db817255cb5639e7",
+    "not_independent_test": true
   }
 }

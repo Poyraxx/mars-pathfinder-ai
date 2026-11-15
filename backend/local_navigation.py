@@ -493,6 +493,14 @@ def project_cells(frame, terrain, cells, limit=600):
     uv = site_points_to_pixels(site, frame['camera_model'])
     h, w = frame['camera_model']['native_shape']
     ok = np.isfinite(uv).all(-1) & (uv[:, 0] >= 0) & (uv[:, 0] < w) & (uv[:, 1] >= 0) & (uv[:, 1] < h)
+    # A remembered ground rock can project behind the moving arm. Keep its
+    # world-space track, but never paint its marker on visible self hardware.
+    from .camera_visibility import visibility
+    excluded, _ = visibility(frame)
+    if excluded is not None:
+        inside = np.flatnonzero(ok)
+        pixels = np.floor(uv[inside] / [w, h] * [excluded.shape[1], excluded.shape[0]]).astype(int)
+        ok[inside] &= ~excluded[pixels[:, 1], pixels[:, 0]]
     return (uv[ok]/[w, h]).round(4).tolist()
 
 

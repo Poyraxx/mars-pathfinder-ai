@@ -76,3 +76,86 @@ Training and evaluation outputs are stored outside the repository under
 The original model and historical datasets are retained for rollback.
 Final results and deployment disposition are recorded in the result JSON
 and appended here after the checks finish.
+
+## Source QA correction and v13 continuation
+
+The first12-epoch candidate (v23) improved the partial-mask scores but was
+**rejected** after its actual output overlays were inspected. It hallucinated
+rover hardware on the top of Navcam terrain, where the initial partial masks
+were unknown, and extended some rock masks over clear Hazcam soil. This is why
+partial annotation scores alone cannot establish full-image correctness.
+Its failure and metrics are retained in `data/research/live-demo-v12`.
+
+All39 native Navcam contexts were checked again: their visible landscape
+contains no rover hardware (terrain shadows are not hardware). A separate
+class-exclusion annotation therefore says only **not class2**, without
+assigning ground, rock, sky or clearance. Five manually selected flat-soil
+interior rectangles in source3 and5 similarly exclude rock class1, staying
+outside the actual boulder and equipment. These are new source-reviewed labels,
+not model predictions copied into truth.
+
+`data/annotations/live-demo-v13-exclusions.json` and the matching ZIP preserve
+362 exact complement masks. Most masks are empty;39 full-frame not-hardware
+masks cover2,555,904 native pixels, and2 Hazcam not-rock masks cover111,186
+native pixels. They supplement the immutable v12 semantic labels and do not
+turn any unmeasured terrain into safe ground.
+
+```powershell
+python scripts/restore_demo_constraints_v13.py --output <new-constraint-directory>
+```
+
+`scripts/train_demo_constraints_v13.py` continues the separate navigation model
+for6 epochs from the selected v23 weights, adding complement-label losses.
+It retains all179 manual-region proxies found by stage1, with at most0.005
+absolute rock pixel recall loss. Every source remains demo fitting data.
+`live-demo-v13-protocol.json` adds explicit release limits for false hardware
+on Navcam and false rocks on the manually reviewed clear-soil interiors.
+
+## Corrected candidate results
+
+Actual ONNX paired conformance on the same181 demo sources:
+
+| Reviewed measurement | Original v11 | Corrected v24 |
+| --- | ---: | ---: |
+| Ground pixels incorrectly proposed as obstacle |225,934|21,081|
+| Hardware pixels incorrectly proposed as obstacle |1,841|209|
+| Reviewed rock pixel recall |82.06%|99.74%|
+| Originally found manual-region proxies retained |147|147|
+| All found manual-region proxies |147|179|
+| Navcam false hardware on39 source-reviewed absence masks |not used for this comparison|0 pixels|
+| Clear-soil false rock on the new exclusion labels |v23:6,630|2 pixels|
+
+The final candidate is selected from continuation epoch6, after12 stage1
+epochs. Actual ONNX/Torch argmax agreement is99.99899% across all181 sources.
+CPU regions/three-route/global-model profiling stays below450MiB and imports
+neither Torch nor Transformers. All four default scenarios were recomputed at
+their unchanged goals. All19 changed-route/reference contact sheets (74
+contexts) and6 paired appearance sheets were inspected; the exact transition
+counts and limitations are retained in the result records.
+
+The new masks change some swing U-turns into turn-in-place guidance when the
+unchanged2.8m swept-clearance constraint is unmet. This is not fixed by clearing
+unknown terrain. A separate image-overlay defect was found: remembered real
+rocks were painted on the moving arm when occluded. `project_cells` now hides
+markers on the current learned nonterrain mask while retaining world tracks;
+three focused tests cover occlusion, clear pixels, image bounds and missing
+masks. No screen layout or global map change is included.
+
+**Zero overall errors were not achieved:**21,290 false obstacle pixels remain
+on the reviewed partial semantic labels. Raw appearance masks can still spill
+at rock boundaries and distant ridges; unverified proposals do not certify a
+physical obstacle. The Navcam hardware-absence control reaches zero, which is
+a narrower result. All these sources were fitted, not held out.
+
+The corrected actual model SHA256 is
+`5e0a5eb0d222549f164a34f75c166d4ba5cead9c3a5d74caf9f2d8011019c6bd`.
+The original v11 SHA256 is
+`6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0`.
+Rollback originals, original full checkpoint and both datasets are sealed under
+`%LOCALAPPDATA%/mars-pathfinder/training/backups/live-demo-v12-original-sealed`;
+the original model also remains available from the prior Git revision.
+
+`data/research/live-demo-v13/release-result.json` records the release checks;
+the model card describes demo fitting honestly and does not inherit the old
+model's independent test scores. Deployment-cache/marker checks are recorded
+separately after integration with the concurrent main branch changes.
