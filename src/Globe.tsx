@@ -56,17 +56,62 @@ export function martianOrtho(url:string):Promise<string>{
  return tinted.get(url)!;
 }
 
+function demTile(key:string){
+ if(!terrainTiles.has(key)){
+  const promise=fetch(`/api/terrain/${key}`).then(r=>{if(!r.ok)throw new Error('DEM tile unavailable');return r.arrayBuffer();}).then(b=>Lerc.decode(b));
+  terrainTiles.set(key,promise); promise.catch(()=>terrainTiles.delete(key));
+  if(terrainTiles.size>160)terrainTiles.delete(terrainTiles.keys().next().value!);
+ }
+ return terrainTiles.get(key)!;
+}
+
+/** Relief shading computed from the same MOLA/HRSC DEM tiles that build the 3D terrain.
+ * Heightmap terrain has no vertex normals, so lighting cannot shade slopes; this layer does:
+ * a classic hillshade (light from the north-west, 35 deg above the horizon, slopes exaggerated)
+ * drawn as translucent light/shadow over the elevation colours. Display only. */
+class ReliefShadeProvider{
+ tilingScheme=scheme;rectangle=scheme.rectangle;tileWidth=256;tileHeight=256;minimumLevel=0;maximumLevel=9;
+ ready=true;readyPromise=Promise.resolve(true);hasAlphaChannel=true;errorEvent=new C.Event();
+ credit=new C.Credit('Relief shading computed from the MOLA/HRSC DEM');tileDiscardPolicy=undefined;proxy=undefined;
+ getTileCredits(){return [];}
+ pickFeatures(){return undefined;}
+ async requestImage(x:number,y:number,level:number){
+  const z=Math.min(level,7),factor=2**(level-z),tx=Math.floor(x/factor),ty=Math.floor(y/factor);
+  const tile=await demTile(`${z}/${ty}/${tx}`),px=tile.pixels[0] as ArrayLike<number>,tw=tile.width,th=tile.height;
+  const rect=scheme.tileXYToRectangle(x,y,level),N=256;
+  const dLat=(rect.north-rect.south)/N,dLon=(rect.east-rect.west)/N;
+  const sample=(u:number,v:number)=>{ // u,v in 0..1 of this imagery tile
+   const fx=((x%factor)+u)/factor*(tw-1),fy=((y%factor)+v)/factor*(th-1);
+   const ix=Math.max(0,Math.min(tw-2,Math.floor(fx))),iy=Math.max(0,Math.min(th-2,Math.floor(fy))),a=fx-ix,b=fy-iy;
+   const h=(i:number,j:number)=>{const q=px[j*tw+i];return Number.isFinite(q)&&q>-20000&&q<30000?q:0;};
+   return (h(ix,iy)*(1-a)+h(ix+1,iy)*a)*(1-b)+(h(ix,iy+1)*(1-a)+h(ix+1,iy+1)*a)*b;};
+  const canvas=document.createElement('canvas');canvas.width=N;canvas.height=N;
+  const ctx=canvas.getContext('2d')!,img=ctx.createImageData(N,N),d=img.data;
+  const R=3396190,zen=C.Math.toRadians(55),az=C.Math.toRadians(315),exaggerate=4;
+  const flat=Math.cos(zen);
+  for(let j=0;j<N;j++){
+   const lat=rect.north-(j+.5)*dLat,dy=R*dLat,dx=Math.max(1,R*Math.cos(lat)*dLon);
+   for(let i=0;i<N;i++){
+    const u=(i+.5)/N,v=(j+.5)/N,e=1/N;
+    const gx=(sample(u+e,v)-sample(u-e,v))/(2*dx)*exaggerate,gy=(sample(u,v+e)-sample(u,v-e))/(2*dy)*exaggerate;
+    const slope=Math.atan(Math.hypot(gx,gy)),aspect=Math.atan2(gy,-gx);
+    const shade=Math.cos(zen)*Math.cos(slope)+Math.sin(zen)*Math.sin(slope)*Math.cos(az-aspect);
+    const k=(j*N+i)*4,delta=shade-flat;
+    if(delta>=0){d[k]=255;d[k+1]=246;d[k+2]=232;d[k+3]=Math.min(115,delta*420);}
+    else{d[k]=8;d[k+1]=6;d[k+2]=14;d[k+3]=Math.min(205,-delta*560);}
+   }
+  }
+  ctx.putImageData(img,0,0);
+  return canvas;
+ }
+}
+
 export function terrain(){
  return new C.CustomHeightmapTerrainProvider({width:65,height:65,tilingScheme:scheme,
   credit:'NASA / USGS / ESA / DLR / FU Berlin · MOLA/HRSC DEM · Esri hosting',
   callback:async(x,y,level)=>{
    const z=Math.min(level,7),factor=2**(level-z),tx=Math.floor(x/factor),ty=Math.floor(y/factor),key=`${z}/${ty}/${tx}`;
-   if(!terrainTiles.has(key)){
-    const promise=fetch(`/api/terrain/${key}`).then(r=>{if(!r.ok)throw new Error('DEM tile unavailable');return r.arrayBuffer();}).then(b=>Lerc.decode(b));
-    terrainTiles.set(key,promise); promise.catch(()=>terrainTiles.delete(key));
-    if(terrainTiles.size>80)terrainTiles.delete(terrainTiles.keys().next().value!);
-   }
-   const tile=await terrainTiles.get(key)!,out=new Float32Array(65*65),pixels=tile.pixels[0];
+   const tile=await demTile(key),out=new Float32Array(65*65),pixels=tile.pixels[0];
    for(let row=0;row<65;row++)for(let col=0;col<65;col++){
     const px=((x%factor)+col/64)/factor*(tile.width-1),py=((y%factor)+row/64)/factor*(tile.height-1);
     const ix=Math.floor(px),iy=Math.floor(py),jx=Math.min(ix+1,tile.width-1),jy=Math.min(iy+1,tile.height-1),a=px-ix,b=py-iy;
@@ -113,7 +158,7 @@ export default function Globe(){
  const [status,setStatus]=useState('CONNECTING TO MARS'),[renderer,setRenderer]=useState('MOLA / HRSC · OPEN TERRAIN');
  const [groundReady,setGroundReady]=useState(false);
  const {catalog,region,view,layer,showRisk,start,goal,stops,mission,activeRoute,pick,exploreTarget,orbital,mode,replay,replayStep,relief,overlay}=useMission();
- const overlayRef=useRef<C.ImageryLayer|null>(null);
+ const overlayRef=useRef<C.ImageryLayer|null>(null),shadeRef=useRef<C.ImageryLayer|null>(null);
  useEffect(()=>{
   if(!mount.current)return;
   C.Ellipsoid.default=MARS;
@@ -311,6 +356,8 @@ export default function Globe(){
   const v=viewerRef.current;if(!v)return;
   // Relief view: exaggerate real MOLA/HRSC heights so mountains rise and basins sink.
   (v.scene as unknown as {verticalExaggeration:number}).verticalExaggeration=relief&&mode!=='replay'?RELIEF_X:1;
+  if(shadeRef.current){v.imageryLayers.remove(shadeRef.current);shadeRef.current=null;}
+  if(relief&&mode!=='replay'){shadeRef.current=v.imageryLayers.addImageryProvider(new ReliefShadeProvider() as unknown as C.ImageryProvider,1);}
   if(relief&&mode!=='replay'){
    // Tilt the view so the exaggerated relief reads as height, not just colour.
    const canvas=v.scene.canvas,centre=v.camera.pickEllipsoid(new C.Cartesian2(canvas.clientWidth/2,canvas.clientHeight/2),MARS);
