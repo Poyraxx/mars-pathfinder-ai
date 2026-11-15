@@ -211,6 +211,3 @@ and the JSON report. These are single-run Render Free measurements, not benchmar
 - [AI4Mars v0.6](https://zenodo.org/records/15995036), Swan, Ono & Atha,2022 — CC BY4.0.
 - [Global DEM service](https://astro.arcgis.com/arcgis/rest/services/OnMars/MDEM200M/ImageServer) — NASA/USGS/ESA/DLR/FU Berlin; Esri hosting.
 - CesiumJS (Apache2.0), Torchvision (BSD3-Clause), ONNX Runtime (MIT), React (MIT), FastAPI (MIT).
-
-No NASA endorsement is implied. Data retain their individual provenance and rights;
-the source code is Apache2.0. No NASA logos or mission insignia are used.
