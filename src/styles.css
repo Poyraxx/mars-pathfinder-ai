@@ -564,3 +564,4 @@ button.chip{border-color:#6b4a37;color:#f0c49b}
 .fp-seg button.active{background:var(--surface-3);color:var(--text)}
 .fp-key{width:10px;height:10px;border-radius:50%;display:inline-block}
 .fp-key.rock{background:#ff4a3d}.fp-key.slope{background:linear-gradient(90deg,#3cb4a0,#ff4646);border-radius:3px}.fp-key.fov{background:#3ce1ff66;border:1px solid #3ce1ff}
+a.text-button{text-decoration:none}a.text-button:hover{color:var(--text)}

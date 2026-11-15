@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState} from 'react';
-import {Activity,ArrowDownToLine,ArrowUpRight,Crosshair,Eye,Flag,Globe2,Info,Layers3,LoaderCircle,MapPin,Mountain,Orbit,Plus,Radar,Route as RouteIcon,ScanLine,Video,X,ZoomIn} from 'lucide-react';
+import {Activity,ArrowDownToLine,ArrowUpRight,Crosshair,Eye,Flag,Github,Globe2,Info,Layers3,LoaderCircle,MapPin,Mountain,Orbit,Plus,Radar,Route as RouteIcon,ScanLine,Video,X,ZoomIn} from 'lucide-react';
 import {Area,AreaChart,ResponsiveContainer,Tooltip,XAxis,YAxis} from 'recharts';
 import CameraView from './CameraView';
 import Globe from './Globe';
@@ -85,6 +85,7 @@ function App(){
    <nav className="modes" aria-label="Mode">{([['plan','Plan a route',RouteIcon],['replay','Live GPS Test',Radar],['explore','Explore',Globe2]] as const).map(([id,label,Icon])=><button key={id} className={s.mode===id?'active':''} aria-current={s.mode===id?'page':undefined} onClick={()=>setMode(id)}><Icon size={15}/>{label}</button>)}</nav>
    <div className="topbar-right">
     <span className={`connection ${connected?'online':''}`}><i/>{connected?'Server live':booting?'Waking server…':'Offline'}</span>
+    <a className="text-button" href="https://github.com/Poyraxx/mars-pathfinder-ai" target="_blank" rel="noreferrer" title="Source code on GitHub"><Github size={15}/>GitHub</a>
     <button className="text-button" onClick={()=>s.set({showSources:true})}><Info size={15}/>Sources & limits</button>
    </div>
   </header>
