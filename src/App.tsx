@@ -42,7 +42,12 @@ function App(){
  async function orbitalAnalysis(){const m=s.mission;if(!m)return;s.set({busy:true,error:null});try{const r=await api<OrbitalResult>(`/api/missions/${m.id}/orbital-analysis?mode=${s.activeRoute}`,{});s.set({orbital:{...r,mission_id:m.id},busy:false});}catch(error){s.set({busy:false,error:error instanceof Error?error.message:String(error)});}}
  async function download(){if(!s.mission)return;try{const report=await api(`/api/missions/${s.mission.id}/report`);const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`mars-mission-${s.mission.id.slice(0,8)}.json`;a.click();URL.revokeObjectURL(url);}catch(error){s.set({error:String(error)});}}
  const flyTo=(name:string)=>{const f=s.features.find(x=>x.name===name);if(f)s.set({feature:f,exploreTarget:{lat:f.lat,lon:f.lon,alt:Math.min(9000000,Math.max(60000,f.diameter_km*2600))},region:null,view:'orbital'});};
- const setMode=(mode:'explore'|'plan'|'replay')=>s.set({mode,pick:null,replayGoalPick:false,view:mode==='replay'?'orbital':s.view,...(mode==='replay'?{region:null}:{})});
+ const setMode=(mode:'explore'|'plan'|'replay')=>{
+  const overview=mode==='explore'||(mode==='plan'&&s.mode==='replay'&&!s.region);
+  s.set({mode,pick:null,replayGoalPick:false,view:mode==='replay'||overview?'orbital':s.view,
+   ...(mode==='replay'||mode==='explore'?{region:null}:{}),
+   ...(overview?{feature:null,exploreTarget:{lat:17,lon:42,alt:10000000}}:{})});
+ };
  const openGale=()=>{const r=s.catalog?.regions[0];if(r){s.selectRegion(r);s.set({mode:'plan'});}};
  const active=s.mission?.routes.find(r=>r.mode===s.activeRoute&&r.status==='ready');
  const frame=s.catalog?.frames.find(f=>f.id===s.frameId);
@@ -102,7 +107,7 @@ function App(){
    <div className="map-area">
     <Globe/>
     {s.mode==='plan'&&s.region&&<div className="view-switcher" role="group" aria-label="View">{([['orbital','Orbit',Globe2],['terrain','Terrain',Mountain],['astronaut','Camera',Video],['dual','Camera + map',ScanLine]] as const).map(([id,label,Icon])=><button key={id} className={s.view===id?'active':''} onClick={()=>s.set({view:id})}><Icon size={14}/>{label}</button>)}</div>}
-    {s.mode==='explore'&&!s.feature&&<div className="intro"><h1>Explore Mars, plan a walk, replay a real drive.</h1><p>Real NASA and USGS data: 200 m global terrain, 2055 named places, and Curiosity's own camera frames.</p></div>}
+    {s.mode==='explore'&&!s.feature&&<div className="intro"><h1>Explore Mars, plan a route, test rover guidance.</h1><p>Real NASA and USGS data: 200 m global terrain, 2055 named places, and Curiosity's own camera frames.</p></div>}
     {s.mode==='replay'&&<span className="map-label">Map · real rover track</span>}
     {s.mode!=='replay'&&<div className="relief-switch" role="group" aria-label="Map style"><button className={!s.relief?'active':''} aria-pressed={!s.relief} onClick={()=>s.set({relief:false,layer:'viking'})}>Imagery</button><button className={s.relief?'active':''} aria-pressed={s.relief} onClick={()=>s.set({relief:true,layer:'mola'})}><Mountain size={14}/>Relief</button></div>}
     {s.relief&&s.mode!=='replay'&&<div className="relief-legend"><strong>Elevation · MOLA/HRSC</strong><div className="relief-bar"/><div className="relief-ticks"><span>−8 km</span><span>0</span><span>+10 km</span><span>+21 km</span></div><small>Heights exaggerated ×12 so mountains rise and craters sink. Colour = MOLA elevation, shaded relief.</small>{s.mission?.routes.some(r=>r.status==='ready')&&<p className="relief-route"><i/>Route: lowest slope + roughness cost on the same 200 m MOLA/HRSC terrain. Steep slopes cost more, so it picks gentler ways down and up.</p>}</div>}

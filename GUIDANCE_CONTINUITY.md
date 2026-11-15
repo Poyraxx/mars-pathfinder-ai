@@ -8,6 +8,9 @@ right/left/right-looking guidance, and a clearer product entry point.
 Navigation order is Plan a route, Live GPS Test, Explore. A fresh page starts in
 Plan a route. The old NASA drive-film chooser, player, state branches and its
 exclusive styles are removed. Calculated test-drive videos remain downloadable.
+Returning from the close rover view to Explore (or global route planning)
+explicitly restores the planetary camera overview, instead of leaving the map
+at the preceding replay zoom.
 
 Live GPS Test explains the actual pipeline: AI identifies terrain/rocks, calibrated
 stereo checks local clearance, and archived NASA rover poses place the camera on
