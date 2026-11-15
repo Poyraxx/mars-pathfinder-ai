@@ -164,6 +164,44 @@ def test_destination_behind_plans_a_swing_on_measured_free_ground():
     assert points[-1, 1] > 1. and all(local.segment_clear(a, b, terrain) for a, b in zip(points, points[1:]))
 
 
+def test_ongoing_uturn_does_not_flip_at_the_180_degree_boundary():
+    terrain=terrain_fixture()
+    first=local.plan_observed(terrain,[-10.,.1])
+    second=local.plan_observed(terrain,[-10.,-.1],preferred_turn=first['turn_direction'])
+    assert first['turn_direction']==second['turn_direction']=='right'
+    assert second['status']=='u_turn' and second['required_turn_deg']>180
+    points=np.asarray(second['path_xy'])
+    assert points[-1,1]>1 and all(local.segment_clear(a,b,terrain) for a,b in zip(points,points[1:]))
+    # Once the target is materially to the other side, release the rear-sector preference.
+    assert local.plan_observed(terrain,[-3.,-4.],preferred_turn='right')['turn_direction']=='left'
+
+
+def test_turn_preference_yields_when_its_measured_exit_is_closed():
+    terrain=terrain_fixture()
+    rc=np.column_stack(np.nonzero(terrain['free']));xy=local._centres(rc,terrain)
+    closed=rc[(xy[:,0]>1.6)&(xy[:,1]>.2)]
+    terrain['free'][tuple(closed.T)]=False;terrain['cost'][tuple(closed.T)]=np.inf
+    result=local.plan_observed(terrain,[-10.,-.1],preferred_turn='right')
+    assert result['status']=='u_turn' and result['turn_direction']=='left'
+    points=np.array(result['path_xy'])
+    assert all(local.segment_clear(a,b,terrain) for a,b in zip(points,points[1:]))
+
+
+def test_stationary_obstacle_bypass_keeps_a_valid_previous_side():
+    terrain=terrain_fixture('low_block')
+    fresh=local.plan_observed(terrain,[13.,0.]);ends=np.array(fresh['path_xy'])[[0,-1]]
+    reference=[ends[0].tolist(),[5.,2.8],[10.8,2.8],ends[1].tolist()]
+    assert all(local.segment_clear(a,b,terrain) for a,b in zip(reference,reference[1:]))
+    result=local.plan_observed(terrain,[13.,0.],previous_path=reference)
+    assert result['continuity_reused'] and result['path_xy']==reference
+    assert all(local.segment_clear(a,b,terrain) for a,b in zip(result['path_xy'],result['path_xy'][1:]))
+    # Current observations always veto history. Closing an old segment forces a fresh route.
+    cell=tuple(local._cell([[6.,2.8]],terrain)[0]);terrain['free'][cell]=False;terrain['cost'][cell]=np.inf
+    changed=local.plan_observed(terrain,[13.,0.],previous_path=reference)
+    assert not changed['continuity_reused']
+    assert all(local.segment_clear(a,b,terrain) for a,b in zip(changed['path_xy'],changed['path_xy'][1:]))
+
+
 def test_combined_diagonal_slope_is_checked_not_only_each_axis():
     cfg=replace(local.DEFAULT,forward_max_m=16.,half_width_m=7.)
     f,r=np.meshgrid(np.arange(.425,15.98,.04),np.arange(-6.975,7.,.04),indexing='ij')

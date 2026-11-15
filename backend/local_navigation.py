@@ -310,21 +310,30 @@ def segment_clear(a, b, terrain):
 
 
 
-def plan_observed(terrain, target_xy, *, waypoint=False):
+def plan_observed(terrain, target_xy, *, waypoint=False, preferred_turn=None, previous_path=None):
     target = np.asarray(target_xy, float)
     angle = math.degrees(math.atan2(target[1], target[0]))
     if target[0] <= 0 or abs(angle) >= 100:
         # U-turn manoeuvre: swing out to the turning side over measured free ground, then the
         # rover continues back toward the destination (behind this camera's view).
-        side = 1. if angle > 0 else -1.
-        word = 'right' if side > 0 else 'left'
-        for tx, ty in ((2.8, 2.8), (3.4, 3.6), (2.4, 2.0), (3.8, 1.6)):
-            swing = plan_observed(terrain, [tx, side*ty])
-            if swing['status'] in ('ready', 'partial') and swing.get('path_xy'):
-                return {**swing, 'status': 'u_turn', 'turn_direction': word, 'required_turn_deg': round(angle, 1),
-                        'reason': f'Destination is {abs(angle):.0f}° to the {word}, behind the camera. Swing {word} through measured free ground, then keep turning toward it.'}
-        return {'status': 'turn_required', 'turn_direction': word, 'required_turn_deg': round(angle, 1), 'path_xy': [],
-                'reason': f'Destination is {abs(angle):.0f}° to the {word}. No measured room to swing out in front, so turn in place {word}; the ground behind is outside this camera view.'}
+        natural = 'right' if angle > 0 else 'left'
+        # Crossing +/-180 degrees must not reverse an ongoing turn. Keep its
+        # side in the rear 90-degree sector, provided this frame still measures
+        # a usable swing on that side. A newly blocked side yields to the other.
+        word=preferred_turn if preferred_turn in ('left','right') and abs(angle)>=135 else natural
+        choices=[word,'left' if word=='right' else 'right']
+        for choice in choices:
+            side=1. if choice=='right' else -1.
+            directed=angle if choice==natural else angle+side*360
+            for tx, ty in ((2.8, 2.8), (3.4, 3.6), (2.4, 2.0), (3.8, 1.6)):
+                swing = plan_observed(terrain, [tx, side*ty])
+                if swing['status'] in ('ready', 'partial') and swing.get('path_xy'):
+                    return {**swing, 'status': 'u_turn', 'turn_direction': choice, 'required_turn_deg': round(directed, 1),
+                            'reason': f'Destination is {abs(directed):.0f}° to the {choice}, behind the camera. Swing {choice} through measured free ground, then keep turning toward it.'}
+        side=1. if word=='right' else -1.
+        directed=angle if word==natural else angle+side*360
+        return {'status': 'turn_required', 'turn_direction': word, 'required_turn_deg': round(directed, 1), 'path_xy': [],
+                'reason': f'Destination is {abs(directed):.0f}° to the {word}. No measured room to swing out in front, so turn in place {word}; the ground behind is outside this camera view.'}
     free = terrain['free']
     rc = np.column_stack(np.nonzero(free))
     if not len(rc):
@@ -404,13 +413,21 @@ def plan_observed(terrain, target_xy, *, waypoint=False):
     if smoothed:
         simplified = smooth
     length = sum(float(np.linalg.norm(b-a)) for a, b in zip(simplified, simplified[1:]))
+    retained=False
+    if previous_path is not None:
+        reference=np.asarray(previous_path,float)
+        if reference.ndim==2 and reference.shape[1]==2 and len(reference)>=2 and np.isfinite(reference).all():
+            same_ends=np.allclose(reference[0],simplified[0],atol=1e-6) and np.allclose(reference[-1],simplified[-1],atol=1e-6)
+            reference_length=float(np.linalg.norm(np.diff(reference,axis=0),axis=1).sum())
+            if same_ends and reference_length<=length*1.1+.1 and all(segment_clear(a,b,terrain) for a,b in zip(reference,reference[1:])):
+                simplified=reference;length=reference_length;retained=True;smoothed=False
     if length < .2:
         return {'status': 'insufficient_geometry', 'reason': 'Measured clearance leaves no useful forward segment.', 'path_xy': []}
     dense = np.concatenate([np.linspace(a, b, max(2, int(np.linalg.norm(b-a)/terrain['cell_m'])+1)) for a, b in zip(simplified, simplified[1:])])
     dc = _cell(dense, terrain)
     corridor = float(np.mean(terrain['corridor_observed'][tuple(dc.T)]))
     min_clear = float(np.min(terrain['clearance'][tuple(dc.T)]))
-    return {'status': 'partial' if partial else 'ready', 'path_xy': np.asarray(simplified).tolist(), 'smoothed': bool(smoothed),
+    return {'status': 'partial' if partial else 'ready', 'path_xy': np.asarray(simplified).tolist(), 'smoothed': bool(smoothed), 'continuity_reused':retained,
             'corridor_observed_fraction': round(corridor, 3), 'min_obstacle_distance_m': round(min_clear, 2) if np.isfinite(min_clear) else None,
             'length_m': round(length, 3), 'reason': 'Only the stereo-observed local segment is validated; unseen space is blocked.' if partial else 'Observed local route and clearance validated.',
             'start_connection_observed': False}
@@ -670,6 +687,7 @@ def with_memory(frame, terrain, remembered, cfg=DEFAULT):
 def compute_sequence(steps, goal):
     """Local routes for a replay in order, carrying stereo-confirmed obstacles between frames."""
     frames, memory = {}, []
+    preferred_turn=None;last_step=None;last_result=None
     for index,st in enumerate(steps):
         fid = st['frame_id']
         if fid in frames:
@@ -677,11 +695,21 @@ def compute_sequence(steps, goal):
         memory=[(at,points) for at,points in memory if index-at<=MEMORY_FRAMES]
         remembered = np.vstack([points for _,points in memory]) if memory else None
         try:
-            frames[fid] = compute(fid, goal, st.get('route'), remembered=remembered)
+            hints={}
+            if preferred_turn is not None:hints['preferred_turn']=preferred_turn
+            pose=st.get('rover');previous=last_step.get('rover') if last_step else None
+            if pose and previous and last_result and last_result.get('status') in ('ready','partial'):
+                movement=np.linalg.norm(np.radians([pose['lat']-previous['lat'],pose['lon']-previous['lon']])*3396190.)
+                turn=abs((pose['yaw_deg']-previous['yaw_deg']+180)%360-180)
+                if movement<.05 and turn<2:hints['previous_path']=last_result.get('path_xy')
+            frames[fid] = compute(fid, goal, st.get('route'), remembered=remembered, **hints)
         except (OSError, ValueError, KeyError) as exc:
             frames[fid] = {'frame_id': fid, 'status': 'unavailable', 'reason': f'Local stereo/model inputs unavailable ({type(exc).__name__}).',
                            'segments': [], 'ribbons': [], 'is_ground_projection': True}
+            preferred_turn=None;last_step=None;last_result=None
             continue
+        last_step=st;last_result=frames[fid]
+        preferred_turn=last_result.get('turn_direction') if last_result.get('status') in ('u_turn','turn_required','out_of_view') else None
         confirmed = frames[fid].pop('_confirmed_global', None)
         if confirmed is not None and len(confirmed):
             memory.append((index,confirmed))
@@ -698,7 +726,7 @@ def _route_waypoint(frame, route, origin, forward, right, ahead_m=6.):
             return {'lat': p['lat'], 'lon': p['lon']}
     return None
 
-def compute(frame_id, goal=None, route=None, remembered=None):
+def compute(frame_id, goal=None, route=None, remembered=None, preferred_turn=None, previous_path=None):
     frame = next((f for f in data.frame_catalog() if f['id'] == frame_id), None)
     empty = {'frame_id': frame_id, 'segments': [], 'ribbons': [], 'is_ground_projection': True}
     if frame is None:
@@ -733,7 +761,7 @@ def compute(frame_id, goal=None, route=None, remembered=None):
         rot = np.asarray(places['archive_site_to_global_ned_rotation'])
         site_delta = (np.r_[delta, 0.]@rot)[:2]
         target = np.array([site_delta@forward, site_delta@right])
-    result = plan_observed(terrain, target, waypoint=bool(route))
+    result = plan_observed(terrain, target, waypoint=bool(route), preferred_turn=preferred_turn, previous_path=previous_path)
     projection = project_path(frame, terrain, result['path_xy']) if result['path_xy'] else {'segments': [], 'ribbons': []}
     projection['obstacles'] = project_obstacles(frame, terrain, exclude=tracked_cells)
     projection['tracked_obstacles'] = project_cells(frame, terrain, tracked_cells)

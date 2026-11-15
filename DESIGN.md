@@ -26,13 +26,14 @@ loading/disabled/error states. Reduced motion suppresses decorative animation.
 QA: CUA browser at desktop and mobile widths, real WebGL; Python algorithm/API tests;
 TypeScript build. Third-party headless browser launchers are not used in this Codex session.
 
-Long footage extension: the replay sidebar distinguishes NASA drive films from
-route replays. A selected original film fills the stage with native video controls,
-NASA attribution, date and source link; an unrelated planner map is not shown next
-to it. The default route replay contains142 real acquisitions. Timeline speed is
-adjustable from0.5× to4× and waits for the correct source image before advancing.
-Native video fits its bounded stage on desktop and mobile; captions and controls
-remain visible. Full-film sources can be opened while the planner server wakes.
+Navigation order: Plan a route, Live GPS Test, Explore. Fresh pages open Plan a
+route. Live GPS Test replaces the old Drive replay name and NASA film chooser.
+Its sidebar explains AI terrain/rock detection, stereo clearance checks and
+GPS-style guidance using NASA's archived rover positions. It presents calculated
+test drives and downloadable test videos. The default drive contains142 real
+acquisitions. Timeline speed is adjustable from0.5× to4× and waits for the correct
+source image before advancing. Source dates, archive pose uncertainty and
+calculation timing remain visible. The original NASA film player is removed.
 
 Rover-centred guidance: camera defaults to Centre guide, a solid cyan directional
 curve with a visible rover marker at normalized[0.5,0.94]. U-turn cues are amber.

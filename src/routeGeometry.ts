@@ -63,14 +63,16 @@ export function groundArrow(ribbons:number[][][],groundM?:number[][],head=true):
  let tr=centreline(ribbons,groundM?.length===ribbons.length?groundM:undefined);
  if(tr.c.length<2)return null;
  const metric=tr.g.every(Number.isFinite);
- // Link from the rover (bottom centre) to the first measured ground point: a cubic tangent to the route.
+ // The unmeasured image-space connection is a direct bearing to measured ground.
+ // A tangent-matching cubic used to add an opposite-side sweep before the
+ // real bypass, making one manoeuvre look like left/right/left instructions.
  // Its ground metres run up to the first projected point (the ground just ahead of the body).
- const {c:c0,w:w0,g:g0}=tr,k=Math.min(4,c0.length-1),dir=unit([c0[k][0]-c0[0][0],c0[k][1]-c0[0][1]]),d=dist(ANCHOR,c0[0]);
+ const {c:c0,w:w0,g:g0}=tr,d=dist(ANCHOR,c0[0]);
  const startW=Math.max(w0[0],.03/PAINT);
  if(d>.01){
-  const p1:P=[ANCHOR[0],ANCHOR[1]-d*.45],p2:P=[c0[0][0]-dir[0]*d*.45,c0[0][1]-dir[1]*d*.45],lc:P[]=[],lw:number[]=[],lg:number[]=[];
-  for(let i=0;i<24;i++){const t=i/24,u=1-t;
-   lc.push([u*u*u*ANCHOR[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*c0[0][0],u*u*u*ANCHOR[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*c0[0][1]]);
+  const lc:P[]=[],lw:number[]=[],lg:number[]=[];
+  for(let i=0;i<24;i++){const t=i/24;
+   lc.push([lerp(ANCHOR[0],c0[0][0],t),lerp(ANCHOR[1],c0[0][1],t)]);
    lw.push(lerp(startW,w0[0],t));lg.push(metric?Math.max(0,g0[0]-.8*(1-t)):NaN);}
   tr={c:[...lc,...c0],w:[...lw,...w0],g:[...lg,...g0]};
  }
@@ -184,12 +186,10 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
  if(!near&&planningLink&&visible.length){
   // Centre-guide mode may connect the projected map to the rover as a thin HUD
   // direction cue. Every point is planned/unchecked; hasLocal stays false.
-  const first=visible[0][0],after=visible[0][Math.min(3,visible[0].length-1)];
-  const end:P=[first[0],first[1]],d=dist(ANCHOR,end),dir=unit([after[0]-end[0],after[1]-end[1]]);
-  const p1:P=[ANCHOR[0],ANCHOR[1]-d*.35],p2:P=[end[0]-dir[0]*d*.25,end[1]-dir[1]*d*.25];
-  for(let j=0;j<32;j++){
-   const t=j/32,u=1-t;
-   const point:P=[u*u*u*ANCHOR[0]+3*u*u*t*p1[0]+3*u*t*t*p2[0]+t*t*t*end[0],u*u*u*ANCHOR[1]+3*u*u*t*p1[1]+3*u*t*t*p2[1]+t*t*t*end[1]];
+  const first=visible[0][0],end:P=[first[0],first[1]];
+  for(let j=0;j<=32;j++){
+   const t=j/32;
+   const point:P=[lerp(ANCHOR[0],end[0],t),lerp(ANCHOR[1],end[1],t)];
    c.push(point);w.push(lerp(.006,.0012+.004*end[1]**2,t*t*(3-2*t)));planned.push(point);
   }
   attachNear=true;
@@ -220,6 +220,11 @@ export function navigationRibbon(ribbons:number[][][],groundM:number[][]|undefin
    const before=c[Math.max(0,c.length-4)],after=seg[Math.min(3,seg.length-1)],d=dist(last,first);
    const a=unit([last[0]-before[0],last[1]-before[1]]),b=unit([after[0]-first[0],after[1]-first[1]]);
    const p1:P=[last[0]+a[0]*d*.3,last[1]+a[1]*d*.3],p2:P=[first[0]-b[0]*d*.3,first[1]-b[1]*d*.3];
+   // A display handoff must not overshoot either endpoint and double back.
+   for(const axis of [0,1] as const){
+    p1[axis]=Math.max(Math.min(last[axis],first[axis]),Math.min(Math.max(last[axis],first[axis]),p1[axis]));
+    p2[axis]=Math.max(Math.min(p1[axis],first[axis]),Math.min(Math.max(p1[axis],first[axis]),p2[axis]));
+   }
    if(!planned.length||dist(planned.at(-1)!,last)>1e-7)planned.push(last);
    for(let j=1;j<24&&d>.0001;j++){
     const t=j/24,u=1-t;

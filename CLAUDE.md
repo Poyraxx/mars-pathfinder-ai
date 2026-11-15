@@ -1,5 +1,10 @@
 # Current continuation — 15 November 2026
 
+Latest: [GUIDANCE_CONTINUITY.md](GUIDANCE_CONTINUITY.md). Fresh pages open Plan a
+route; Live GPS Test is second, Explore third. The NASA film feature is removed.
+Direct display links, bounded joins and measured-space turn continuity address
+confusing side reversals. The sidebar explains AI/stereo/archive-position roles.
+
 Newest follow-up: [HAZCAM_OCCLUSION_FIXES.md](HAZCAM_OCCLUSION_FIXES.md). Equipment
 is excluded before destination height selection and image drawing; short map
 context survives, U-turn swing paint tapers, and clearance failure keeps an

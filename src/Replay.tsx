@@ -4,7 +4,6 @@ import {ArrowUp,ArrowDown,ArrowUpRight,Flag,LoaderCircle,MapPin,Pause,Play,Rotat
 import {MARS,ROVER_MODEL,demHeightAt,ensureLocalDEM,martianOrtho,scheme,terrain,replayGroundLine,localDEMMinimum} from './Globe';
 import {api,useMission} from './store';
 import type {ReplayResult,Scenario,LocalNavigation} from './types';
-import {ARCHIVE_FILMS} from './ArchiveFilm';
 import RouteOverlay,{TurnCue} from './RouteOverlay';
 import {mapRoute} from './routeGeometry';
 import {updateReplayLine,updateReplayPose,updateReplayColour,keepReplayDatum} from './replayScene';
@@ -29,7 +28,7 @@ function localInstruction(local:LocalNavigation|null,hasPlan:boolean,arrived=fal
 export async function loadReplay(id:string,goal?:{lat:number;lon:number}|null){
  const s=useMission.getState();
  const request=++replayRequest;
- s.set({busy:true,error:null,archiveVideo:null});
+ s.set({busy:true,error:null});
  try{
   const q=goal?`?goal_lat=${goal.lat}&goal_lon=${goal.lon}`:'';
   // A busy free-tier server answers 429/502/503; retry instead of leaving the user on a spinner.
@@ -60,22 +59,22 @@ export function ReplayPanel(){
  useEffect(()=>{const onGoal=(e:Event)=>{const id=useMission.getState().replay?.scenario.id;if(id)void loadReplay(id,(e as CustomEvent).detail);};window.addEventListener('replay-goal',onGoal);return()=>window.removeEventListener('replay-goal',onGoal);},[]);
  const current=s.replay?.scenario.id??selected;
  return <div className="panel-section">
-  <h2 className="panel-title">Rover navigation</h2>
-  <p className="panel-lede">Watch full NASA drive films, or follow real camera acquisitions with a calculated route and map.</p>
-  <h3 className="replay-section-title">NASA drive films</h3>
-  <div className="film-list">{ARCHIVE_FILMS.map(f=><button key={f.id} className={`film-choice ${s.archiveVideo===f.id?'active':''}`} onClick={()=>s.set({archiveVideo:f.id,replayGoalPick:false,pick:null})}><Video size={17}/><span><strong>{f.title}</strong><small>{f.summary}</small></span></button>)}</div>
-  <h3 className="replay-section-title">Route replays</h3>
-  <div className="scenario-list">{s.scenarios.map(sc=><button key={sc.id} className={`scenario ${!s.archiveVideo&&current===sc.id?'active':''}`} onClick={()=>{setSelected(sc.id);void loadReplay(sc.id);}} disabled={s.busy}>
+  <h2 className="panel-title">Live GPS Test</h2>
+  <p className="panel-lede">AI-guided routes on real NASA rover images.</p>
+  <p className="fine-print">Our AI identifies terrain and rocks. Calibrated stereo measurements check local clearance, while NASA's archived rover positions place each image on the map.</p>
+  <p className="fine-print">Choose a test drive, set a destination and inspect the guidance. GPS-style location follows recorded Mars acquisitions; the route and its clearance checks are calculated by Pathfinder.</p>
+  <h3 className="replay-section-title">Choose a test drive</h3>
+  <div className="scenario-list">{s.scenarios.map(sc=><button key={sc.id} className={`scenario ${current===sc.id?'active':''}`} onClick={()=>{setSelected(sc.id);void loadReplay(sc.id);}} disabled={s.busy}>
    {sc.first_frame&&<img src={`/api/frames/${sc.first_frame}/image`} alt=""/>}
    <span><strong>{sc.title}</strong><small>{sc.subtitle}</small><small>{sc.frame_count} real archive frames</small></span>
   </button>)}</div>
-  {s.replay&&!s.archiveVideo&&<div className="scenario-detail">
+  {s.replay&&<div className="scenario-detail">
    <p>{s.replay.scenario.story}</p>
    <div className="button-row">
     <button className="ghost-button" onClick={()=>s.set({replayGoalPick:true,pick:'goal'})} disabled={s.busy}><Flag size={14}/>{s.replayGoalPick?'Click the map…':'Set a new destination'}</button>
     {s.replay.goal.custom&&<button className="ghost-button" onClick={()=>void loadReplay(s.replay!.scenario.id)} disabled={s.busy}><RotateCcw size={14}/>Real destination</button>}
    </div>
-   {s.replay.scenario.demo_available&&<a className="ghost-button demo-download" href={`/api/scenarios/${s.replay.scenario.id}/demo.mp4`} download><Video size={14}/>Download route film</a>}
+   {s.replay.scenario.demo_available&&<a className="ghost-button demo-download" href={`/api/scenarios/${s.replay.scenario.id}/demo.mp4`} download><Video size={14}/>Download test video</a>}
    <h3>Sources</h3>
    <ul className="reference-list">{s.replay.scenario.references.map(r=><li key={r.url}><a href={r.url} target="_blank" rel="noreferrer">{r.label}<ArrowUpRight size={12}/></a></li>)}</ul>
    <p className="fine-print">{s.replay.scenario.note} {s.replay.computed_at_build?`Computed during this deployment's build (${s.replay.computed_at_build.slice(0,16).replace('T',' ')} UTC) in ${Math.round(s.replay.compute_ms)} ms by the same code; a custom destination is computed live`:`Computed live in ${Math.round(s.replay.compute_ms)} ms`} · re-plan when off route by more than {s.replay.parameters.deviation_m} m.</p>
@@ -88,7 +87,7 @@ export function ReplayView(){
  const s=useMission();
  const r=s.replay,st=r?.steps[Math.min(s.replayStep,(r?.steps.length??1)-1)];
  useEffect(()=>{
-  if(!st||s.replayView!=='navcam'||s.archiveVideo)return;
+  if(!st||s.replayView!=='navcam')return;
   const batchKey=r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'';
   const cached=localSeen.get(`${batchKey}|${st.frame_id}`)??(s.localBatch?.key===batchKey?s.localBatch.frames[st.frame_id]:undefined);
   if(cached){useMission.getState().set({localNavigation:{...cached,goal_key:batchKey}});return;}
@@ -110,7 +109,7 @@ export function ReplayView(){
    }catch(error){if(!controller.signal.aborted)useMission.getState().set({localNavigation:{goal_key:r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'',frame_id:frameId,status:'unavailable',reason:error instanceof Error?error.message:'Local processing unavailable.',segments:[],ribbons:[],is_ground_projection:true}});}
   })();
   return()=>controller.abort();
- },[st?.frame_id,r,s.replayView,s.archiveVideo,s.localBatch]);
+ },[st?.frame_id,r,s.replayView,s.localBatch]);
  const local=s.localNavigation?.frame_id===st?.frame_id&&s.localNavigation?.goal_key===(r?`?goal_lat=${r.goal.lat}&goal_lon=${r.goal.lon}`:'')?s.localNavigation:null;
  const instruction=s.replayView==='3d'?st?.guidance?.instruction:localInstruction(local,!!st&&mapRoute(st.camera_route?.segments??[]).visible.length>0,(st?.remaining_m??Infinity)<=1);
  return <section className="replay-view" aria-label="Rover view">
@@ -118,7 +117,7 @@ export function ReplayView(){
    <button role="tab" aria-selected={s.replayView==='navcam'} className={s.replayView==='navcam'?'active':''} onClick={()=>s.set({replayView:'navcam'})}><Video size={14}/>Real camera</button>
    <button role="tab" aria-selected={s.replayView==='3d'} className={s.replayView==='3d'?'active':''} onClick={()=>s.set({replayView:'3d'})}><Box size={14}/>3D simulation</button>
   </div>
-  {!r?<div className="replay-empty"><MapPin size={22}/><p>Choose a drive replay to start.</p></div>:s.replayView==='3d'?<FirstPerson/>:<NavcamFrame/>}
+  {!r?<div className="replay-empty"><MapPin size={22}/><p>Choose a test drive to start.</p></div>:s.replayView==='3d'?<FirstPerson/>:<NavcamFrame/>}
   {s.busy&&<div className="replay-loading" role="status"><LoaderCircle className="spin" size={22}/>{s.busyNote??'Calculating the shared route…'}</div>}
   {st?.event&&<div className={`replay-toast ${st.event}`} role="status">{EVENT_TEXT[st.event]}<small>{(st.deviation_before_replan_m??st.deviation_m).toFixed(1)} m before update · route v{st.route_version}</small></div>}
   {r&&st&&<div className="replay-readout">{instruction&&<><small>Route guidance</small><strong className="route-instruction">{instruction}</strong></>}<span><b>{st.remaining_m.toFixed(1)} m</b> to destination</span><span>Sol {st.sol} · {st.time.slice(11,19)} UTC</span><span>{st.deviation_m.toFixed(1)} m off route</span></div>}
@@ -216,10 +215,9 @@ export function ReplayTimeline(){
  const [playing,setPlaying]=useState(false);
  const [speed,setSpeed]=useState(1);
  const r=s.replay,n=r?.steps.length??0;
- useEffect(()=>{setPlaying(false);},[r,s.archiveVideo]);
- useEffect(()=>{if(!playing||!r||s.archiveVideo)return;const t=window.setInterval(()=>{const st=useMission.getState();if(st.replayView==='navcam'&&(st.replayImageReady!==r.steps[st.replayStep].frame_id||st.localNavigation?.frame_id!==r.steps[st.replayStep].frame_id))return;if(st.replayStep>=n-1){setPlaying(false);return;}st.set({replayStep:st.replayStep+1,frameId:r.steps[st.replayStep+1].frame_id});},1000/speed);return()=>window.clearInterval(t);},[playing,r,n,speed,s.archiveVideo]);
- if(s.archiveVideo)return <section className="replay-timeline film-timeline"><Video size={18}/><span>NASA original film · use the video controls to play, seek or enter fullscreen.</span></section>;
- if(!r)return <section className="replay-timeline empty"><span>Select a drive replay from the left.</span></section>;
+ useEffect(()=>{setPlaying(false);},[r]);
+ useEffect(()=>{if(!playing||!r)return;const t=window.setInterval(()=>{const st=useMission.getState();if(st.replayView==='navcam'&&(st.replayImageReady!==r.steps[st.replayStep].frame_id||st.localNavigation?.frame_id!==r.steps[st.replayStep].frame_id))return;if(st.replayStep>=n-1){setPlaying(false);return;}st.set({replayStep:st.replayStep+1,frameId:r.steps[st.replayStep+1].frame_id});},1000/speed);return()=>window.clearInterval(t);},[playing,r,n,speed]);
+ if(!r)return <section className="replay-timeline empty"><span>Select a test drive from the left.</span></section>;
  const go=(i:number)=>s.set({replayStep:Math.max(0,Math.min(n-1,i)),frameId:r.steps[Math.max(0,Math.min(n-1,i))].frame_id});
  return <section className="replay-timeline">
   <div className="transport">

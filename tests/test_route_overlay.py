@@ -77,3 +77,22 @@ def test_short_near_destination_keeps_unverified_map_context():
     assert not result['hasLocal'] and result['strokes']
     assert result['end']==[.5,.5] and result['strokes'][0]['centre'][0]==[.5,.985]
     assert result['strokes'][0]['planned']==result['strokes'][0]['centre']
+
+
+def test_unmeasured_centre_link_has_one_bearing_instead_of_an_opposite_side_sweep():
+    # The first map point is left of centre but its tangent already heads right.
+    # The former tangent-fitting cubic overshot left and then doubled back.
+    frame={'segments':[[[.46,.6,2.],[.52,.5,3.],[.6,.4,4.]]],'planningLink':True}
+    stroke=overlay_geometries([frame])[0]['strokes'][0]
+    c=np.asarray(stroke['centre'])[:33]
+    assert np.all(np.diff(c[:,0])<=1e-9) and np.all(np.diff(c[:,1])<0)
+    assert np.max(abs((c[:,0]-.5)/(.46-.5)-(c[:,1]-.985)/(.6-.985)))<1e-7
+
+
+def test_measured_approach_link_does_not_overshoot_its_first_ground_point():
+    frame={'ribbons':[[[.36,.65],[.44,.65],[.54,.55],[.46,.55]]],
+           'groundM':[[2.,3.]],'segments':[]}
+    stroke=overlay_geometries([frame])[0]['strokes'][0]
+    c=np.asarray(stroke['centre'])
+    assert c[:,0].min()>=.4-1e-7
+    assert c[0].tolist()==[.5,.985]

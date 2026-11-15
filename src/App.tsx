@@ -3,7 +3,6 @@ import {Activity,ArrowDownToLine,ArrowUpRight,Crosshair,Eye,Flag,Globe2,Info,Lay
 import {Area,AreaChart,ResponsiveContainer,Tooltip,XAxis,YAxis} from 'recharts';
 import CameraView from './CameraView';
 import Globe from './Globe';
-import ArchiveFilm from './ArchiveFilm';
 import {ReplayPanel,ReplayTimeline,ReplayView} from './Replay';
 import {api,useMission} from './store';
 import type {Catalog,Event,Mission,OrbitalResult,Point} from './types';
@@ -55,7 +54,7 @@ function App(){
  return <div className={`app mode-${s.mode} ${showDetails?'has-details':''} ${s.mode!=='explore'?'has-bottom':''}`}>
   <header className="topbar">
    <a className="brand" href="/" aria-label="Mars Pathfinder home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 21 20H3Z" fill="none" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="14" r="2.2" fill="currentColor"/></svg><span>Pathfinder</span></a>
-   <nav className="modes" aria-label="Mode">{([['explore','Explore',Globe2],['plan','Plan a route',RouteIcon],['replay','Drive replay',Video]] as const).map(([id,label,Icon])=><button key={id} className={s.mode===id?'active':''} aria-current={s.mode===id?'page':undefined} onClick={()=>setMode(id)}><Icon size={15}/>{label}</button>)}</nav>
+   <nav className="modes" aria-label="Mode">{([['plan','Plan a route',RouteIcon],['replay','Live GPS Test',Radar],['explore','Explore',Globe2]] as const).map(([id,label,Icon])=><button key={id} className={s.mode===id?'active':''} aria-current={s.mode===id?'page':undefined} onClick={()=>setMode(id)}><Icon size={15}/>{label}</button>)}</nav>
    <div className="topbar-right">
     <span className={`connection ${connected?'online':''}`}><i/>{connected?'Server live':booting?'Waking server…':'Offline'}</span>
     <button className="text-button" onClick={()=>s.set({showSources:true})}><Info size={15}/>Sources & limits</button>
@@ -72,7 +71,7 @@ function App(){
      <a href={s.feature.link} target="_blank" rel="noreferrer">Gazetteer entry<ArrowUpRight size={12}/></a></div>}
     <ul className="place-list">{famous.map(name=>{const f=s.features.find(x=>x.name===name);return <li key={name}><button disabled={!f} onClick={()=>flyTo(name)}><span>{name}</span><small>{f?`${f.type} · ${f.diameter_km.toFixed(0)} km`:''}</small></button></li>;})}</ul>
     <button className="feature-cta" onClick={openGale} disabled={!s.catalog?.regions.length}><span className="thumb"/><span><strong>Gale Crater · Rocknest</strong><small>1 m terrain, rover cameras, live hazard fusion</small></span><ArrowUpRight size={16}/></button>
-    <button className="feature-cta" onClick={()=>setMode('replay')}><span className="thumb replay"/><span><strong>Drive replay</strong><small>Curiosity's real drive with live re-routing</small></span><ArrowUpRight size={16}/></button>
+    <button className="feature-cta" onClick={()=>setMode('replay')}><span className="thumb replay"/><span><strong>Live GPS Test</strong><small>AI route guidance on real NASA rover images</small></span><ArrowUpRight size={16}/></button>
    </div>}
 
    {s.mode==='plan'&&<div className="panel-section">
@@ -97,8 +96,8 @@ function App(){
    {s.mode==='replay'&&<ReplayPanel/>}
   </aside>
 
-  <main className={`stage ${s.mode==='replay'&&!s.archiveVideo?'split':''}`}>
-   {s.mode==='replay'&&s.archiveVideo?<ArchiveFilm key={s.archiveVideo}/>:<>
+  <main className={`stage ${s.mode==='replay'?'split':''}`}>
+   <>
    {s.mode==='replay'&&<ReplayView/>}
    <div className="map-area">
     <Globe/>
@@ -115,9 +114,9 @@ function App(){
      {s.mode==='plan'&&<button className={s.showAI?'active':''} onClick={()=>s.set({showAI:!s.showAI})} aria-label="Route analysis panel" aria-expanded={s.showAI}><Radar size={17}/></button>}
     </div>
     {cameraView&&<CameraView dual={s.view==='dual'}/>}
-   </div></>}
+   </div></>
    {s.error&&<div className="error-banner" role="alert"><Info size={16}/><span>{s.error}</span><button onClick={()=>s.set({error:null})} aria-label="Dismiss error"><X size={15}/></button></div>}
-   {!connected&&!(s.mode==='replay'&&s.archiveVideo)&&<div className="service-overlay"><Radar size={26}/><h2>{booting?'Waking the server':'Server unavailable'}</h2><p>The free server sleeps when idle and needs about a minute to wake.</p><button className="primary-button" onClick={load} disabled={booting}>{booting?<LoaderCircle className="spin" size={15}/>:<Activity size={15}/>}Try again</button></div>}
+   {!connected&&<div className="service-overlay"><Radar size={26}/><h2>{booting?'Waking the server':'Server unavailable'}</h2><p>The free server sleeps when idle and needs about a minute to wake.</p><button className="primary-button" onClick={load} disabled={booting}>{booting?<LoaderCircle className="spin" size={15}/>:<Activity size={15}/>}Try again</button></div>}
   </main>
 
   {showDetails&&<aside className="details">
