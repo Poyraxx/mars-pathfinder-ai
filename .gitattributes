@@ -7,3 +7,5 @@ data/annotations/*v9* -text
 data/annotations/*v10* -text
 # Keep the byte hash of the sealed research trainer portable too.
 scripts/*v10*.py -text
+data/annotations/*v11* -text
+scripts/*v11*.py -text

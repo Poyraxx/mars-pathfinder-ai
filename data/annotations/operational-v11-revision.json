@@ -1,0 +1,14 @@
+{
+  "manifest_sha256": "d7a9efb905e02f7c4716fc9330a25c6ac99795f1fe50abb2624d2cfccf9163e3",
+  "roles": {
+    "train": 84,
+    "validation": 8,
+    "consumed_control": 8,
+    "test_v11": 8
+  },
+  "new_positive_objects": 55,
+  "new_substantial_candidate_objects": 32,
+  "new_reviewed_negative_pixels": 2290112,
+  "fresh_appearance_objects": 38,
+  "fresh_substantial_objects": 23
+}

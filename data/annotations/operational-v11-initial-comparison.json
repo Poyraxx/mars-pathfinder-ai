@@ -1,0 +1,38 @@
+{
+  "test_is_consumed": true,
+  "posttest_diagnostic_only": true,
+  "checkpoint_or_policy_selected_here": false,
+  "same_binary_taxonomy_preprocessing_argmax_labels": true,
+  "initial_binary_head": {
+    "rock_iou": 0.2694292544296135,
+    "precision": 0.34425305437575376,
+    "recall": 0.5534923913501665,
+    "confusion_matrix": [
+      [
+        697718,
+        50023
+      ],
+      [
+        21185,
+        26261
+      ]
+    ]
+  },
+  "fine_tuned_binary_head": {
+    "rock_iou": 0.4722401590255884,
+    "precision": 0.541862188194616,
+    "recall": 0.7861147409686802,
+    "confusion_matrix": [
+      [
+        716206,
+        31535
+      ],
+      [
+        10148,
+        37298
+      ]
+    ]
+  },
+  "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+  "interpretation": "Binary visible-rock appearance supervision, not obstacle clearance. This initialized two-logit head is not the deployed four-class navigation taxonomy. Sparse-interior metrics only."
+}

@@ -1,0 +1,73 @@
+{
+  "version": 11,
+  "created_before_new_source_predictions": true,
+  "created_at": "2026-11-15T06:55:08.736935+00:00",
+  "train_new_sols": [
+    400,
+    700,
+    1000,
+    1100,
+    1200,
+    1300,
+    1500,
+    1650,
+    1850,
+    1950,
+    2050
+  ],
+  "test_new_sols": [
+    200,
+    502,
+    1750,
+    3374,
+    3873,
+    4169,
+    4560,
+    4809
+  ],
+  "exclude_sols": [
+    1550,
+    2209,
+    2870,
+    4740
+  ],
+  "task": "Binary visible loose/raised-rock appearance, including small rocks; do not infer metric hazard size from RGB. Existing four-class navigation output is frozen.",
+  "annotation": "Full visible object polygons where clear, explicit ground/hardware/sky negatives, unreviewed and boundary-uncertain regions255. Small visible rocks separate from substantial visual candidates; no invented depth.",
+  "architecture": "Frozen v11 navigation encoder and head; train a separate binary appearance decoder. This avoids drift of the production navigation weights while learning new rock examples.",
+  "training_plan": {
+    "epochs": 6,
+    "samples": 1008,
+    "head_lr": 2e-05,
+    "encoder_frozen": true,
+    "old_navigation_head_frozen": true,
+    "class_weighting": "balanced positive/negative within each batch, capped; no fixed16x rare class pressure",
+    "selection": "Binary masked validation IoU on five old validation episodes plus three new predeclared validation episodes (dunes800, gravel1400, flat bedrock1700), all source roles fixed before predictions."
+  },
+  "filter_policy_fixed_before_test": {
+    "old_obstacle_probability_min": 0.7,
+    "suppress_only_if_old_probability_below": 0.95,
+    "auxiliary_rock_probability_below": 0.1,
+    "new_probability": "Move suppressed obstacle mass to ground. No other navigation probability is increased; hardware/sky probabilities unchanged.",
+    "runtime_obstacle_threshold": 0.7,
+    "hardware_threshold": 0.8,
+    "margin_native_px": 3
+  },
+  "fresh_test_gates": {
+    "minimum_appearance_objects": 30,
+    "minimum_substantial_candidate_objects": 20,
+    "preserve_all_baseline_found_substantial_objects": true,
+    "ground_false_positive_fraction": "No increase; require relative decrease\u22655% if baseline has\u22651000 ground-FP pixels, otherwise explicitly report insufficient discrimination.",
+    "hardware_false_positive_fraction": "No increase",
+    "obstacle_pixel_recall": "No more than0.02 absolute decrease",
+    "navigation_mask_subset_of_baseline": true,
+    "cpu_peak_mib_max": 450
+  },
+  "inference_policy": "whole512, no threshold tuning on fresh test",
+  "production_baseline_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "promotion": "Require all gates and manual review. Otherwise keep v11 and retain research artifacts. New test becomes consumed after its first opening.",
+  "validation_extra_sols": [
+    800,
+    1400,
+    1700
+  ]
+}

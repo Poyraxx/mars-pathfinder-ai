@@ -1,0 +1,254 @@
+{
+  "settings": {
+    "manifest_sha256": "d7a9efb905e02f7c4716fc9330a25c6ac99795f1fe50abb2624d2cfccf9163e3",
+    "init_sha256": "fbd85ca0c9b448e47c002713c970d8d42ba73973e7fcfc0a949425f732b6eaef",
+    "old_complete_state_sha256": "94dfe2992980bb29b3bd11d0bda3790029fa8966c7903aa8d94a8c44725007c7",
+    "encoder_sha256": "9bd3e471262380a94036412e4cafc0241f959a104516e513d01c0aa910f9226f",
+    "epochs": 6,
+    "samples": 1008,
+    "size": 512,
+    "head_lr": 2e-05,
+    "selection": "binary masked validation rock IoU, initial checkpoint eligible",
+    "test_evaluated": false,
+    "seed": 2026,
+    "train": 84,
+    "validation": 8,
+    "loss": "CE with sqrt batch inverse frequencies capped[.5,3]; .25 positive Dice; ignored255",
+    "crops": "384/640/1024, no128-to512 apparent-size amplification"
+  },
+  "initial-validation": {
+    "rock_iou": 0.4163745074734736,
+    "precision": 0.5631799144417639,
+    "recall": 0.6149862892958574,
+    "confusion_matrix": [
+      [
+        1137932,
+        194827
+      ],
+      [
+        157255,
+        251185
+      ]
+    ]
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "loss": 0.3742280677873327,
+      "validation": {
+        "rock_iou": 0.5086717530220355,
+        "precision": 0.7405461138742919,
+        "recall": 0.6189844285574381,
+        "confusion_matrix": [
+          [
+            1244183,
+            88576
+          ],
+          [
+            155622,
+            252818
+          ]
+        ]
+      },
+      "improved": true,
+      "elapsed_s": 89.02285850000044
+    },
+    {
+      "epoch": 2,
+      "loss": 0.2679462258215247,
+      "validation": {
+        "rock_iou": 0.5679118827001749,
+        "precision": 0.7473187696536787,
+        "recall": 0.7028792478699442,
+        "confusion_matrix": [
+          [
+            1235691,
+            97068
+          ],
+          [
+            121356,
+            287084
+          ]
+        ]
+      },
+      "improved": true,
+      "elapsed_s": 180.66931729999487
+    },
+    {
+      "epoch": 3,
+      "loss": 0.2170234051498858,
+      "validation": {
+        "rock_iou": 0.6289103867292277,
+        "precision": 0.7490545930779872,
+        "recall": 0.7967902262266183,
+        "confusion_matrix": [
+          [
+            1223731,
+            109028
+          ],
+          [
+            82999,
+            325441
+          ]
+        ]
+      },
+      "improved": true,
+      "elapsed_s": 272.7764019000024
+    },
+    {
+      "epoch": 4,
+      "loss": 0.19345320949863645,
+      "validation": {
+        "rock_iou": 0.6888320690606586,
+        "precision": 0.7512092477829598,
+        "recall": 0.8924223876211929,
+        "confusion_matrix": [
+          [
+            1212041,
+            120718
+          ],
+          [
+            43939,
+            364501
+          ]
+        ]
+      },
+      "improved": true,
+      "elapsed_s": 370.26921369999764
+    },
+    {
+      "epoch": 5,
+      "loss": 0.18046228696033403,
+      "validation": {
+        "rock_iou": 0.6870906610654245,
+        "precision": 0.7671360608532172,
+        "recall": 0.8681593379688571,
+        "confusion_matrix": [
+          [
+            1225123,
+            107636
+          ],
+          [
+            53849,
+            354591
+          ]
+        ]
+      },
+      "improved": false,
+      "elapsed_s": 455.62925050000194
+    },
+    {
+      "epoch": 6,
+      "loss": 0.1956928991241425,
+      "validation": {
+        "rock_iou": 0.6806793673264674,
+        "precision": 0.7717141666371085,
+        "recall": 0.8522940946038586,
+        "confusion_matrix": [
+          [
+            1229782,
+            102977
+          ],
+          [
+            60329,
+            348111
+          ]
+        ]
+      },
+      "improved": false,
+      "elapsed_s": 536.9294869000005
+    }
+  ],
+  "candidate-report": {
+    "best_epoch": 4,
+    "best_validation_iou": 0.6888320690606586,
+    "initial_validation_iou": 0.4163745074734736,
+    "old_navigation_state_unchanged": true,
+    "encoder_unchanged": true,
+    "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+    "test_evaluated": false,
+    "elapsed_s": 538.7110823999974
+  },
+  "export-parity": {
+    "passed": true,
+    "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+    "checks": [
+      {
+        "source_id": "FLB_699324665RAD_F0932566FHAZ00302M1",
+        "argmax_agreement": 1.0,
+        "max_logit_error": 3.337860107421875e-05
+      },
+      {
+        "source_id": "FLB_712554377RAD_F0961844FHAZ00302M1",
+        "argmax_agreement": 1.0,
+        "max_logit_error": 1.430511474609375e-05
+      },
+      {
+        "source_id": "FLB_717170119RAD_F0971434FHAZ00200M1",
+        "argmax_agreement": 1.0,
+        "max_logit_error": 2.0503997802734375e-05
+      },
+      {
+        "source_id": "FLB_765994169RAD_F1062116FHAZ00302M1",
+        "argmax_agreement": 1.0,
+        "max_logit_error": 1.8596649169921875e-05
+      },
+      {
+        "source_id": "FLB_805859469RAD_F1172166FHAZ00200M1",
+        "argmax_agreement": 1.0,
+        "max_logit_error": 1.621246337890625e-05
+      },
+      {
+        "source_id": "FLB_468506401RAD_F0441140FHAZ00323M1",
+        "argmax_agreement": 1.0,
+        "max_logit_error": 3.2901763916015625e-05
+      },
+      {
+        "source_id": "FLB_521777022RAD_F0552222FHAZ00302M1",
+        "argmax_agreement": 1.0,
+        "max_logit_error": 2.1696090698242188e-05
+      },
+      {
+        "source_id": "FLB_548403200RAD_F0631150FHAZ00206M1",
+        "argmax_agreement": 0.9999961853027344,
+        "max_logit_error": 2.467632293701172e-05
+      }
+    ],
+    "test_evaluated": false
+  },
+  "runtime-profile": {
+    "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+    "peak_working_set_mib": 370.453125,
+    "within450mib": true,
+    "provider": "CPUExecutionProvider",
+    "platform": "win32",
+    "aux_cpu_arena": false,
+    "training_stack_imported": false,
+    "routes": [
+      {
+        "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+        "local_route_status": "no_path",
+        "aux_elapsed_total_s": 1.6472815000015544,
+        "mask_subset": true
+      },
+      {
+        "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+        "local_route_status": "partial",
+        "aux_elapsed_total_s": 1.426013400006923,
+        "mask_subset": true
+      },
+      {
+        "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+        "local_route_status": "no_path",
+        "aux_elapsed_total_s": 1.5105497000040486,
+        "mask_subset": true
+      }
+    ],
+    "limitation": "One Windows process and three real routes plus global classifier; host allocator and warmed server caches may differ. No Render memory guarantee."
+  },
+  "pilot": {
+    "run": "v21-v11-appearance",
+    "status": "interrupted_before_epoch1_and_before_fresh_predictions_for_final_label_QA",
+    "resumed": false
+  }
+}

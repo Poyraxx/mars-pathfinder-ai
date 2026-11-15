@@ -1,0 +1,534 @@
+{
+  "sources": [
+    {
+      "id": "FLA_415237436RAD_F0060000FHAZ00316M1",
+      "sol": 200,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00200/FLA_415237436RAD_F0060000FHAZ00316M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00200/FLA_415237436RAD_F0060000FHAZ00316M1.LBL",
+      "raw_sha256": "703ee0d4059e0698c65c0ef97bad855377c6c8b78b788dc893a3b57b4a02cead",
+      "image_sha256": "d0275a30fc9de936239d8d812f9c627333bd3d73b4fc0e6ed8de9b2eeccd5656",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1559",
+      "rmc": [
+        "006",
+        "0000"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_432995716RAD_F0160148FHAZ00323M1",
+      "sol": 400,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00400/FLB_432995716RAD_F0160148FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00400/FLB_432995716RAD_F0160148FHAZ00323M1.LBL",
+      "raw_sha256": "f96edeaed7efac2c797a8a5ce09c44f489d8ca045547307d0065ef77f7babfbf",
+      "image_sha256": "134e1eb73bf9eacf70127b089b7c5d45f545ddb15ee984622a5a84cfc7e9c017",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1625",
+      "rmc": [
+        "016",
+        "0148"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_442054265RAD_F0250000FHAZ00323M1",
+      "sol": 502,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00502/FLB_442054265RAD_F0250000FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00502/FLB_442054265RAD_F0250000FHAZ00323M1.LBL",
+      "raw_sha256": "2162fa4714237c83dc92e7fdf6062711aa3d988d27c39ad5867cc6c3a3b58af7",
+      "image_sha256": "d249d5adbf9df63f2d743dd003b00dbf9c7642ab4b2abb85faf33899fd241b9a",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1659",
+      "rmc": [
+        "025",
+        "0000"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_459633027RAD_F0391552FHAZ00323M1",
+      "sol": 700,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00700/FLB_459633027RAD_F0391552FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00700/FLB_459633027RAD_F0391552FHAZ00323M1.LBL",
+      "raw_sha256": "c20d577c0d81e59a6053fb5926112ef78bff46f97f84130b03e5f4341b236f82",
+      "image_sha256": "588a564a89d6385e1d5435ac6d7585265fe01f365ed68863560abc626f77b7ae",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1725",
+      "rmc": [
+        "039",
+        "1552"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_468506401RAD_F0441140FHAZ00323M1",
+      "sol": 800,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00800/FLB_468506401RAD_F0441140FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL00800/FLB_468506401RAD_F0441140FHAZ00323M1.LBL",
+      "raw_sha256": "2bfdea14a83aa60486b294d43a91f09ebd081f6cc07ea8bda3737cc8f6a5ef5a",
+      "image_sha256": "fd721e9ccd5a2affea437783965315323c843c5953fcb4a0f8bc0ca3252d50a7",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1759",
+      "rmc": [
+        "044",
+        "1140"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_486265257RAD_F0481570FHAZ00323M1",
+      "sol": 1000,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01000/FLB_486265257RAD_F0481570FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01000/FLB_486265257RAD_F0481570FHAZ00323M1.LBL",
+      "raw_sha256": "00e4ae5dfceb485b01f919ef63db9b98f0d483bab92e96edb75cf3ab466d8210",
+      "image_sha256": "cd7bce739be7db987864451cf5885fe03cd8f7637ec7bc44dbd72518ab859302",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1825",
+      "rmc": [
+        "048",
+        "1570"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_495137799RAD_F0492626FHAZ00323M1",
+      "sol": 1100,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01100/FLB_495137799RAD_F0492626FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01100/FLB_495137799RAD_F0492626FHAZ00323M1.LBL",
+      "raw_sha256": "3871d666d5fa4ea828eb26ad5c12a8970ae84b50a796b7e1fae996f6ef4c8198",
+      "image_sha256": "99dea4338f089c82b05e30047b9326c4d3f57e2a78a1ff9334192378bd0b58d0",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1859",
+      "rmc": [
+        "049",
+        "2626"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_504020913RAD_F0520000FHAZ00323M1",
+      "sol": 1200,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01200/FLB_504020913RAD_F0520000FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01200/FLB_504020913RAD_F0520000FHAZ00323M1.LBL",
+      "raw_sha256": "1d18942e4428d7ba97d90171ba11e381f6faacb6863c1f86daf6becad305dc93",
+      "image_sha256": "46cf6888730da100e5135f16a7b3321e37815762ea095c4193d3e0e8d99c2fb9",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1892",
+      "rmc": [
+        "052",
+        "0000"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_512900166RAD_F0532980FHAZ00323M1",
+      "sol": 1300,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01300/FLB_512900166RAD_F0532980FHAZ00323M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01300/FLB_512900166RAD_F0532980FHAZ00323M1.LBL",
+      "raw_sha256": "789072b811c9699be16e28a818a6d489b944b1660d917cc2b5e816aee5e13de0",
+      "image_sha256": "32fb9a95e7db871931077ad5c1b180a92fb3e673cda777718b33cc0bd90bfa49",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1925",
+      "rmc": [
+        "053",
+        "2980"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_521777022RAD_F0552222FHAZ00302M1",
+      "sol": 1400,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01400/FLB_521777022RAD_F0552222FHAZ00302M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01400/FLB_521777022RAD_F0552222FHAZ00302M1.LBL",
+      "raw_sha256": "a968077c2c61b32da16dec5b3bf094e811fb8b8b7e3b5991c00d10d0a2f5e792",
+      "image_sha256": "16d8748c52bf8d780a49d3ea431f32dfff1f3892d39db4903f2953e23f1bc917",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1959",
+      "rmc": [
+        "055",
+        "2222"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_530660118RAD_F0582394FHAZ00318M1",
+      "sol": 1500,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01500/FLB_530660118RAD_F0582394FHAZ00318M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01500/FLB_530660118RAD_F0582394FHAZ00318M1.LBL",
+      "raw_sha256": "cc5e2388ab0855d47d7a8574f319ea7950d22c3ceb5d82259f4d9175d4c73e46",
+      "image_sha256": "090b2b0d559ce7f0576c77ec2db62f4945ecaa19b995f344f39db53cadfc31c9",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "1992",
+      "rmc": [
+        "058",
+        "2394"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "sol": 1550,
+      "error": "No native forward RAD"
+    },
+    {
+      "id": "FLB_543971180RAD_F0620108FHAZ00400M1",
+      "sol": 1650,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01650/FLB_543971180RAD_F0620108FHAZ00400M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01650/FLB_543971180RAD_F0620108FHAZ00400M1.LBL",
+      "raw_sha256": "92c84c10b1b4a52f05ab6cef8908492446dc07d6a3d11b633866a6742ed1be28",
+      "image_sha256": "ae9808566f7588f86d96ad248ce00cae2acd9e89abdeef89d93a6a159d1a6ba9",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2042",
+      "rmc": [
+        "062",
+        "0108"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_548403200RAD_F0631150FHAZ00206M1",
+      "sol": 1700,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01700/FLB_548403200RAD_F0631150FHAZ00206M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01700/FLB_548403200RAD_F0631150FHAZ00206M1.LBL",
+      "raw_sha256": "38e93e743a6ffcb0da9c25a2cc2959c1fad851d43dc4879b77d205f74bbb359c",
+      "image_sha256": "b7f105959d53860dca78af63808048a334bbb913ed8cdb55250f5135c7f26116",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2059",
+      "rmc": [
+        "063",
+        "1150"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_552859274RAD_F0642088FHAZ00206M1",
+      "sol": 1750,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01750/FLB_552859274RAD_F0642088FHAZ00206M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01750/FLB_552859274RAD_F0642088FHAZ00206M1.LBL",
+      "raw_sha256": "ee60552caee02991ba045836db5cf9780a04f38bb9ed726a5f9761cd111ce5ec",
+      "image_sha256": "d5a02d47e5b902c35a8bfe2c197c80247d2bee68d269cf82323922d4f7673947",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2075",
+      "rmc": [
+        "064",
+        "2088"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_561727586RAD_F0661654FHAZ00206M1",
+      "sol": 1850,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01850/FLB_561727586RAD_F0661654FHAZ00206M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01850/FLB_561727586RAD_F0661654FHAZ00206M1.LBL",
+      "raw_sha256": "15d0f1c85c8cf437861a8b7ce4aa0730309edcd295baba5c7842aae1df6ec496",
+      "image_sha256": "71965e85368eba6f11a553ff320406a725c953fd3b15dfc0859e2690a6ac8871",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2109",
+      "rmc": [
+        "066",
+        "1654"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_570596256RAD_F0680000FHAZ00206M1",
+      "sol": 1950,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01950/FLB_570596256RAD_F0680000FHAZ00206M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL01950/FLB_570596256RAD_F0680000FHAZ00206M1.LBL",
+      "raw_sha256": "f34bcded1f5041abd63937cbb763149879638b9309125cc00119def5dc1d4241",
+      "image_sha256": "1b9ce34878ec612a44cd34d0f23faf1fd47bd9aeba3836d31326f83cb52ab966",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2142",
+      "rmc": [
+        "068",
+        "0000"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_579475577RAD_F0701538FHAZ00206M1",
+      "sol": 2050,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02050/FLB_579475577RAD_F0701538FHAZ00206M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02050/FLB_579475577RAD_F0701538FHAZ00206M1.LBL",
+      "raw_sha256": "20431a9290fad65a3b4d045e76e046d1f0512bea84f8e2a84dcddec90700519a",
+      "image_sha256": "6174ebd73b077018b534a3444cb9eaf8b07714234a75b60269b7605f04015e02",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2175",
+      "rmc": [
+        "070",
+        "1538"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLA_593589579RAD_F0722464FHAZ00372M1",
+      "sol": 2209,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02209/FLA_593589579RAD_F0722464FHAZ00372M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02209/FLA_593589579RAD_F0722464FHAZ00372M1.LBL",
+      "raw_sha256": "e713bd1f6657d6b026364c002111ab8a420b30668912c1442f934daf9d9625c0",
+      "image_sha256": "d1723f95fbbe82d10bff7757c62cb3dc4c204e109a4727cddc159302ca14a53c",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2228",
+      "rmc": [
+        "072",
+        "2464"
+      ],
+      "terrain_training_buffer_overlap": true,
+      "old_custom_rmc_collision": true,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_652285734RAD_F0822176FHAZ00337M1",
+      "sol": 2870,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02870/FLB_652285734RAD_F0822176FHAZ00337M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL02870/FLB_652285734RAD_F0822176FHAZ00337M1.LBL",
+      "raw_sha256": "a3f3afd29df2bf5013505495b5eb4c7cb7f7f9c10a6dd642d5cfff78c6e1a141",
+      "image_sha256": "715e2d82c722416d1790ccf61ff3ec4fff69d4b45428e358a27159b4cb42c9ac",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2449",
+      "rmc": [
+        "082",
+        "2176"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": true,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_697032894RAD_F0930000FHAZ00200M1",
+      "sol": 3374,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03374/FLB_697032894RAD_F0930000FHAZ00200M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03374/FLB_697032894RAD_F0930000FHAZ00200M1.LBL",
+      "raw_sha256": "e18e817738c44a7697405c96d2c347240280ee3e8369d51f9155a544f29256a6",
+      "image_sha256": "7804831cf4897efde3795f50404d2acc562d0b609a4d4d8a670fd0de08dd076b",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2617",
+      "rmc": [
+        "093",
+        "0000"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_741309342RAD_F1020390FHAZ00200M1",
+      "sol": 3873,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03873/FLB_741309342RAD_F1020390FHAZ00200M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL03873/FLB_741309342RAD_F1020390FHAZ00200M1.LBL",
+      "raw_sha256": "93f7282294f212047e0d0775fa871648f9721ad47736dc02d315caa16b7752d1",
+      "image_sha256": "20e01b31b1ae6d4b0aa2fb77509e524fb4ee6aea43f5124177a956ead1b28e3d",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2783",
+      "rmc": [
+        "102",
+        "0390"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_767602257RAD_F1070000FHAZ00302M1",
+      "sol": 4169,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04169/FLB_767602257RAD_F1070000FHAZ00302M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04169/FLB_767602257RAD_F1070000FHAZ00302M1.LBL",
+      "raw_sha256": "b632245beeca5899fbe3acf1f05ca8f993cc1c3628f180884bdcd6adef9787d1",
+      "image_sha256": "aa7edbee9a705d791027feec1d587dcff2afc3ca2f460e177be49351a392e1b6",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "2882",
+      "rmc": [
+        "107",
+        "0000"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_802307414RAD_F1161944FHAZ00302M1",
+      "sol": 4560,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04560/FLB_802307414RAD_F1161944FHAZ00302M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04560/FLB_802307414RAD_F1161944FHAZ00302M1.LBL",
+      "raw_sha256": "270a29aaf43189d2c7f4ea547bdb06fece4477bd1b9525b00318c48daaca7072",
+      "image_sha256": "80e3a324e70debe7698834596d71feae543ff9c86a3ca6d5fb7db3626c8408a4",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "3012",
+      "rmc": [
+        "116",
+        "1944"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_818296891RAD_F1200082FHAZ00200M1",
+      "sol": 4740,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04740/FLB_818296891RAD_F1200082FHAZ00200M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04740/FLB_818296891RAD_F1200082FHAZ00200M1.LBL",
+      "raw_sha256": "433bd6ac3ee5ce611bee0eaefda23fd7e8f6f1648bbc7ac430d04df629415dda",
+      "image_sha256": "536c4465b762f5556f1db68c57d80244bcfc19435fe7a23fcd4b2ea4524cd6bf",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "3072",
+      "rmc": [
+        "120",
+        "0082"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": true,
+      "source_selected_without_model_predictions": true
+    },
+    {
+      "id": "FLB_824418345RAD_F1200808FHAZ00200M1",
+      "sol": 4809,
+      "shape": [
+        1024,
+        1024
+      ],
+      "source_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04809/FLB_824418345RAD_F1200808FHAZ00200M1.IMG",
+      "label_url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/DATA/SOL04809/FLB_824418345RAD_F1200808FHAZ00200M1.LBL",
+      "raw_sha256": "94b64681ac4d3cdc1dc208d177498d6ce035b15fa6013aa01ca38ee908b04308",
+      "image_sha256": "834c1ff1e00d00915c8e2b52231abc43779421787b15f9c56818efc4fafc41a2",
+      "preparation": "Actual PDS RAD percentile1-99 stretch; no synthetic content",
+      "clock_group": "3095",
+      "rmc": [
+        "120",
+        "0808"
+      ],
+      "terrain_training_buffer_overlap": false,
+      "old_custom_rmc_collision": false,
+      "source_selected_without_model_predictions": true
+    }
+  ],
+  "predictions_used_for_selection": false
+}

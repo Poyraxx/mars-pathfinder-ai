@@ -1,0 +1,22 @@
+{
+  "reviewed_new_miss_contact_pages": [
+    0
+  ],
+  "reviewed_new_false_alarm_sources": [
+    3873,
+    4809
+  ],
+  "observations": [
+    "Sol3873: continuous fractured plate surfaces remain labelled obstacle. Some raised lip edges are genuinely ambiguous from one view.",
+    "Sol4809: the original model visibly marks portions of the rover tool as obstacle. The narrow wheel-interior hardware benchmark does not cover this tool pose, so its zero FP count is not evidence of globally perfect hardware rejection.",
+    "Of12 substantial visual candidates missed by the baseline mask, the auxiliary appearance head overlaps9 at the prespecified binary argmax rule. Appearance proposals are not confirmed physical obstacles."
+  ],
+  "manual_promotion_pass": false,
+  "need": [
+    "More completely checked flat continuous bedrock and shadow negative regions; preserve unknown where height/attachment is unclear.",
+    "Accurate equipment interior/silhouette labels across arm/tool poses and illumination, evaluated separately from wheel-only ROIs.",
+    "Stereo/depth or pose-aware geometry to distinguish raised blocks from flat bedrock; appearance alone cannot establish clearance.",
+    "Additional diverse training examples and a new independent source-group holdout before another release decision; v11 test is now consumed."
+  ],
+  "no_posttest_policy_or_checkpoint_change": true
+}

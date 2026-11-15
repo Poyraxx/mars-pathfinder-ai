@@ -1,0 +1,1208 @@
+{
+  "status": "KEEP_ORIGINAL_NAVIGATION_REJECT_FILTER_FOR_RELEASE",
+  "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+  "production_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "production_not_replaced": true,
+  "appearance_checkpoint_retained_for_research": true,
+  "fresh_test_opening": {
+    "manifest_sha256": "d7a9efb905e02f7c4716fc9330a25c6ac99795f1fe50abb2624d2cfccf9163e3",
+    "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+    "baseline_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+    "protocol_sha256": "3723d2c5b51cc9b5ff6b83ad1e46b4420d370ced6dc505edfb8b0a0dbb9f1fe4",
+    "split": "test_v11",
+    "opened_at_unix": 1794727710.623846,
+    "policy": {
+      "old_obstacle_probability_min": 0.7,
+      "suppress_only_if_old_probability_below": 0.95,
+      "auxiliary_rock_probability_below": 0.1,
+      "new_probability": "Move suppressed obstacle mass to ground. No other navigation probability is increased; hardware/sky probabilities unchanged.",
+      "runtime_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "margin_native_px": 3
+    },
+    "trainer_sha256": "0714448dd01424206cc1e5e8b5b533c4c69a8c0fcd3b95ed69982fc21e9325be"
+  },
+  "fresh_test": {
+    "manifest_sha256": "d7a9efb905e02f7c4716fc9330a25c6ac99795f1fe50abb2624d2cfccf9163e3",
+    "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+    "baseline_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+    "protocol_sha256": "3723d2c5b51cc9b5ff6b83ad1e46b4420d370ced6dc505edfb8b0a0dbb9f1fe4",
+    "split": "test_v11",
+    "opened_at_unix": 1794727710.623846,
+    "policy": {
+      "old_obstacle_probability_min": 0.7,
+      "suppress_only_if_old_probability_below": 0.95,
+      "auxiliary_rock_probability_below": 0.1,
+      "new_probability": "Move suppressed obstacle mass to ground. No other navigation probability is increased; hardware/sky probabilities unchanged.",
+      "runtime_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "margin_native_px": 3
+    },
+    "trainer_sha256": "0714448dd01424206cc1e5e8b5b533c4c69a8c0fcd3b95ed69982fc21e9325be",
+    "baseline": {
+      "ground_fp": 4665,
+      "hardware_fp": 0,
+      "obstacle_tp": 22309,
+      "ground_pixels": 575498,
+      "hardware_pixels": 28000,
+      "obstacle_pixels": 40642,
+      "ground_fp_fraction": 0.008106022957508107,
+      "hardware_fp_fraction": 0.0,
+      "obstacle_pixel_recall": 0.548914915604547
+    },
+    "guarded": {
+      "ground_fp": 4665,
+      "hardware_fp": 0,
+      "obstacle_tp": 22309,
+      "ground_pixels": 575498,
+      "hardware_pixels": 28000,
+      "obstacle_pixels": 40642,
+      "ground_fp_fraction": 0.008106022957508107,
+      "hardware_fp_fraction": 0.0,
+      "obstacle_pixel_recall": 0.548914915604547
+    },
+    "relative_ground_fp_reduction": 0.0,
+    "appearance_objects": 38,
+    "substantial_objects": 23,
+    "baseline_found_substantial": 11,
+    "guarded_found_substantial": 11,
+    "lost_substantial": [],
+    "auxiliary_confusion_matrix": [
+      [
+        716206,
+        31535
+      ],
+      [
+        10148,
+        37298
+      ]
+    ],
+    "auxiliary_rock_iou": 0.4722401590255884,
+    "metric_gates": {
+      "minimum_appearance_objects": true,
+      "minimum_substantial_objects": true,
+      "all_baseline_found_substantial_preserved": true,
+      "ground_fp_no_increase": true,
+      "ground_fp_relative_decrease_5pct": false,
+      "hardware_fp_no_increase": true,
+      "obstacle_recall_within_002": true,
+      "navigation_subset": true
+    },
+    "metric_gates_pass": false,
+    "scenes": [
+      {
+        "source_id": "FLA_415237436RAD_F0060000FHAZ00316M1",
+        "sol": 200,
+        "baseline": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 5158,
+          "ground_pixels": 11237,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 8159
+        },
+        "guarded": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 5158,
+          "ground_pixels": 11237,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 8159
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": [
+          {
+            "region": 8,
+            "class_id": 1,
+            "pixels": 1802,
+            "bbox": [
+              494,
+              216,
+              565,
+              254
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 1802,
+            "guarded_overlap": 1802,
+            "minimum_overlap_pixels": 180
+          },
+          {
+            "region": 9,
+            "class_id": 1,
+            "pixels": 1071,
+            "bbox": [
+              495,
+              277,
+              548,
+              305
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 1071,
+            "guarded_overlap": 1071,
+            "minimum_overlap_pixels": 107
+          },
+          {
+            "region": 10,
+            "class_id": 1,
+            "pixels": 589,
+            "bbox": [
+              338,
+              335,
+              376,
+              367
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 58
+          },
+          {
+            "region": 11,
+            "class_id": 1,
+            "pixels": 1879,
+            "bbox": [
+              520,
+              620,
+              574,
+              667
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 1879,
+            "guarded_overlap": 1879,
+            "minimum_overlap_pixels": 187
+          },
+          {
+            "region": 12,
+            "class_id": 1,
+            "pixels": 1078,
+            "bbox": [
+              451,
+              830,
+              494,
+              868
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 107
+          },
+          {
+            "region": 13,
+            "class_id": 1,
+            "pixels": 635,
+            "bbox": [
+              462,
+              730,
+              491,
+              760
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 406,
+            "guarded_overlap": 406,
+            "minimum_overlap_pixels": 63
+          },
+          {
+            "region": 14,
+            "class_id": 1,
+            "pixels": 515,
+            "bbox": [
+              211,
+              734,
+              237,
+              764
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 51
+          },
+          {
+            "region": 15,
+            "class_id": 1,
+            "pixels": 590,
+            "bbox": [
+              179,
+              622,
+              205,
+              656
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 59
+          },
+          {
+            "region": 16,
+            "class_id": 4,
+            "pixels": 268,
+            "bbox": [
+              609,
+              285,
+              633,
+              302
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 169,
+            "guarded_overlap": 169,
+            "minimum_overlap_pixels": 26
+          },
+          {
+            "region": 17,
+            "class_id": 4,
+            "pixels": 171,
+            "bbox": [
+              613,
+              306,
+              630,
+              320
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 17
+          },
+          {
+            "region": 18,
+            "class_id": 4,
+            "pixels": 355,
+            "bbox": [
+              657,
+              739,
+              680,
+              761
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 35
+          },
+          {
+            "region": 19,
+            "class_id": 4,
+            "pixels": 386,
+            "bbox": [
+              701,
+              770,
+              725,
+              795
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 38
+          },
+          {
+            "region": 20,
+            "class_id": 4,
+            "pixels": 293,
+            "bbox": [
+              465,
+              625,
+              482,
+              649
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 10,
+            "guarded_overlap": 10,
+            "minimum_overlap_pixels": 29
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_442054265RAD_F0250000FHAZ00323M1",
+        "sol": 502,
+        "baseline": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 3043,
+          "ground_pixels": 3207,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 3919
+        },
+        "guarded": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 3043,
+          "ground_pixels": 3207,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 3919
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": [
+          {
+            "region": 8,
+            "class_id": 1,
+            "pixels": 1506,
+            "bbox": [
+              424,
+              393,
+              488,
+              430
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 1506,
+            "guarded_overlap": 1506,
+            "minimum_overlap_pixels": 150
+          },
+          {
+            "region": 9,
+            "class_id": 1,
+            "pixels": 770,
+            "bbox": [
+              333,
+              309,
+              403,
+              332
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 686,
+            "guarded_overlap": 686,
+            "minimum_overlap_pixels": 77
+          },
+          {
+            "region": 10,
+            "class_id": 1,
+            "pixels": 1643,
+            "bbox": [
+              651,
+              497,
+              701,
+              541
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 851,
+            "guarded_overlap": 851,
+            "minimum_overlap_pixels": 164
+          },
+          {
+            "region": 11,
+            "class_id": 4,
+            "pixels": 636,
+            "bbox": [
+              542,
+              409,
+              576,
+              437
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 63
+          },
+          {
+            "region": 13,
+            "class_id": 4,
+            "pixels": 302,
+            "bbox": [
+              459,
+              275,
+              479,
+              297
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 30
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_552859274RAD_F0642088FHAZ00206M1",
+        "sol": 1750,
+        "baseline": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 532198,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 0
+        },
+        "guarded": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 532198,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 0
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_697032894RAD_F0930000FHAZ00200M1",
+        "sol": 3374,
+        "baseline": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 12512,
+          "ground_pixels": 10869,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 12512
+        },
+        "guarded": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 12512,
+          "ground_pixels": 10869,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 12512
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": [
+          {
+            "region": 8,
+            "class_id": 1,
+            "pixels": 5668,
+            "bbox": [
+              576,
+              776,
+              683,
+              864
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 5668,
+            "guarded_overlap": 5668,
+            "minimum_overlap_pixels": 566
+          },
+          {
+            "region": 9,
+            "class_id": 1,
+            "pixels": 5453,
+            "bbox": [
+              555,
+              487,
+              668,
+              572
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 5453,
+            "guarded_overlap": 5453,
+            "minimum_overlap_pixels": 545
+          },
+          {
+            "region": 10,
+            "class_id": 1,
+            "pixels": 1391,
+            "bbox": [
+              362,
+              330,
+              401,
+              377
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 1391,
+            "guarded_overlap": 1391,
+            "minimum_overlap_pixels": 139
+          },
+          {
+            "region": 11,
+            "class_id": 4,
+            "pixels": 1533,
+            "bbox": [
+              718,
+              765,
+              755,
+              823
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 1533,
+            "guarded_overlap": 1533,
+            "minimum_overlap_pixels": 153
+          },
+          {
+            "region": 13,
+            "class_id": 4,
+            "pixels": 484,
+            "bbox": [
+              437,
+              601,
+              466,
+              627
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 48
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_741309342RAD_F1020390FHAZ00200M1",
+        "sol": 3873,
+        "baseline": {
+          "ground_fp": 4490,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 13447,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 704
+        },
+        "guarded": {
+          "ground_fp": 4490,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 13447,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 704
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": [
+          {
+            "region": 11,
+            "class_id": 1,
+            "pixels": 704,
+            "bbox": [
+              129,
+              245,
+              166,
+              272
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 70
+          },
+          {
+            "region": 12,
+            "class_id": 4,
+            "pixels": 193,
+            "bbox": [
+              521,
+              246,
+              540,
+              262
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 19
+          },
+          {
+            "region": 13,
+            "class_id": 4,
+            "pixels": 292,
+            "bbox": [
+              567,
+              288,
+              596,
+              302
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 29
+          },
+          {
+            "region": 14,
+            "class_id": 4,
+            "pixels": 35,
+            "bbox": [
+              423,
+              285,
+              428,
+              295
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 3
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_767602257RAD_F1070000FHAZ00302M1",
+        "sol": 4169,
+        "baseline": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 624,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 13750
+        },
+        "guarded": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 624,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 13750
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": [
+          {
+            "region": 8,
+            "class_id": 1,
+            "pixels": 7108,
+            "bbox": [
+              480,
+              443,
+              616,
+              523
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 710
+          },
+          {
+            "region": 9,
+            "class_id": 1,
+            "pixels": 1039,
+            "bbox": [
+              389,
+              394,
+              433,
+              430
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 103
+          },
+          {
+            "region": 11,
+            "class_id": 1,
+            "pixels": 896,
+            "bbox": [
+              600,
+              580,
+              640,
+              614
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 89
+          },
+          {
+            "region": 12,
+            "class_id": 1,
+            "pixels": 1008,
+            "bbox": [
+              433,
+              698,
+              477,
+              736
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 100
+          },
+          {
+            "region": 13,
+            "class_id": 1,
+            "pixels": 1476,
+            "bbox": [
+              523,
+              818,
+              571,
+              859
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 147
+          },
+          {
+            "region": 14,
+            "class_id": 1,
+            "pixels": 1612,
+            "bbox": [
+              600,
+              854,
+              639,
+              908
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 161
+          },
+          {
+            "region": 15,
+            "class_id": 1,
+            "pixels": 611,
+            "bbox": [
+              736,
+              778,
+              772,
+              804
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 61
+          },
+          {
+            "region": 18,
+            "class_id": 4,
+            "pixels": 247,
+            "bbox": [
+              663,
+              762,
+              687,
+              778
+            ],
+            "baseline_hit": false,
+            "guarded_hit": false,
+            "baseline_overlap": 0,
+            "guarded_overlap": 0,
+            "minimum_overlap_pixels": 24
+          }
+        ]
+      },
+      {
+        "source_id": "FLB_802307414RAD_F1161944FHAZ00302M1",
+        "sol": 4560,
+        "baseline": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 0,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 0
+        },
+        "guarded": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 0,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 0
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_824418345RAD_F1200808FHAZ00200M1",
+        "sol": 4809,
+        "baseline": {
+          "ground_fp": 175,
+          "hardware_fp": 0,
+          "obstacle_tp": 1596,
+          "ground_pixels": 3916,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 1598
+        },
+        "guarded": {
+          "ground_fp": 175,
+          "hardware_fp": 0,
+          "obstacle_tp": 1596,
+          "ground_pixels": 3916,
+          "hardware_pixels": 3500,
+          "obstacle_pixels": 1598
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": [
+          {
+            "region": 8,
+            "class_id": 1,
+            "pixels": 1598,
+            "bbox": [
+              585,
+              727,
+              638,
+              773
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 1596,
+            "guarded_overlap": 1596,
+            "minimum_overlap_pixels": 159
+          },
+          {
+            "region": 10,
+            "class_id": 4,
+            "pixels": 880,
+            "bbox": [
+              308,
+              460,
+              348,
+              494
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 866,
+            "guarded_overlap": 866,
+            "minimum_overlap_pixels": 88
+          },
+          {
+            "region": 11,
+            "class_id": 4,
+            "pixels": 729,
+            "bbox": [
+              523,
+              706,
+              549,
+              745
+            ],
+            "baseline_hit": true,
+            "guarded_hit": true,
+            "baseline_overlap": 729,
+            "guarded_overlap": 729,
+            "minimum_overlap_pixels": 72
+          }
+        ]
+      }
+    ],
+    "warning": "Sparse visual-interior metrics, not exhaustive image accuracy, metric clearance or driving safety. Fresh set is consumed after this run. Memory and manual review remain separate promotion gates."
+  },
+  "original_consumed_control_diagnostic": {
+    "manifest_sha256": "d7a9efb905e02f7c4716fc9330a25c6ac99795f1fe50abb2624d2cfccf9163e3",
+    "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+    "baseline_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+    "protocol_sha256": "3723d2c5b51cc9b5ff6b83ad1e46b4420d370ced6dc505edfb8b0a0dbb9f1fe4",
+    "split": "consumed_control",
+    "opened_at_unix": 1794727828.380382,
+    "policy": {
+      "old_obstacle_probability_min": 0.7,
+      "suppress_only_if_old_probability_below": 0.95,
+      "auxiliary_rock_probability_below": 0.1,
+      "new_probability": "Move suppressed obstacle mass to ground. No other navigation probability is increased; hardware/sky probabilities unchanged.",
+      "runtime_obstacle_threshold": 0.7,
+      "hardware_threshold": 0.8,
+      "margin_native_px": 3
+    },
+    "trainer_sha256": "0714448dd01424206cc1e5e8b5b533c4c69a8c0fcd3b95ed69982fc21e9325be",
+    "baseline": {
+      "ground_fp": 571939,
+      "hardware_fp": 5266,
+      "obstacle_tp": 278568,
+      "ground_pixels": 3558552,
+      "hardware_pixels": 782767,
+      "obstacle_pixels": 391680,
+      "ground_fp_fraction": 0.1607223949516545,
+      "hardware_fp_fraction": 0.0067274169708227355,
+      "obstacle_pixel_recall": 0.7112132352941176
+    },
+    "guarded": {
+      "ground_fp": 571939,
+      "hardware_fp": 5266,
+      "obstacle_tp": 278568,
+      "ground_pixels": 3558552,
+      "hardware_pixels": 782767,
+      "obstacle_pixels": 391680,
+      "ground_fp_fraction": 0.1607223949516545,
+      "hardware_fp_fraction": 0.0067274169708227355,
+      "obstacle_pixel_recall": 0.7112132352941176
+    },
+    "relative_ground_fp_reduction": 0.0,
+    "appearance_objects": 0,
+    "substantial_objects": 0,
+    "baseline_found_substantial": 0,
+    "guarded_found_substantial": 0,
+    "lost_substantial": [],
+    "auxiliary_confusion_matrix": [
+      [
+        1561672,
+        7795
+      ],
+      [
+        25875,
+        366314
+      ]
+    ],
+    "auxiliary_rock_iou": 0.9158216328653146,
+    "metric_gates": {
+      "minimum_appearance_objects": false,
+      "minimum_substantial_objects": false,
+      "all_baseline_found_substantial_preserved": true,
+      "ground_fp_no_increase": true,
+      "ground_fp_relative_decrease_5pct": false,
+      "hardware_fp_no_increase": true,
+      "obstacle_recall_within_002": true,
+      "navigation_subset": true
+    },
+    "metric_gates_pass": false,
+    "scenes": [
+      {
+        "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+        "sol": 4019,
+        "baseline": {
+          "ground_fp": 38265,
+          "hardware_fp": 0,
+          "obstacle_tp": 37148,
+          "ground_pixels": 303368,
+          "hardware_pixels": 109275,
+          "obstacle_pixels": 49649
+        },
+        "guarded": {
+          "ground_fp": 38265,
+          "hardware_fp": 0,
+          "obstacle_tp": 37148,
+          "ground_pixels": 303368,
+          "hardware_pixels": 109275,
+          "obstacle_pixels": 49649
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+        "sol": 4080,
+        "baseline": {
+          "ground_fp": 23054,
+          "hardware_fp": 0,
+          "obstacle_tp": 24505,
+          "ground_pixels": 434993,
+          "hardware_pixels": 83174,
+          "obstacle_pixels": 87204
+        },
+        "guarded": {
+          "ground_fp": 23054,
+          "hardware_fp": 0,
+          "obstacle_tp": 24505,
+          "ground_pixels": 434993,
+          "hardware_pixels": 83174,
+          "obstacle_pixels": 87204
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+        "sol": 4339,
+        "baseline": {
+          "ground_fp": 184217,
+          "hardware_fp": 1501,
+          "obstacle_tp": 39677,
+          "ground_pixels": 498974,
+          "hardware_pixels": 84800,
+          "obstacle_pixels": 42015
+        },
+        "guarded": {
+          "ground_fp": 184217,
+          "hardware_fp": 1501,
+          "obstacle_tp": 39677,
+          "ground_pixels": 498974,
+          "hardware_pixels": 84800,
+          "obstacle_pixels": 42015
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_789536250RAD_F1120798FHAZ00200M1",
+        "sol": 4416,
+        "baseline": {
+          "ground_fp": 183359,
+          "hardware_fp": 1645,
+          "obstacle_tp": 43194,
+          "ground_pixels": 424359,
+          "hardware_pixels": 113662,
+          "obstacle_pixels": 43259
+        },
+        "guarded": {
+          "ground_fp": 183359,
+          "hardware_fp": 1645,
+          "obstacle_tp": 43194,
+          "ground_pixels": 424359,
+          "hardware_pixels": 113662,
+          "obstacle_pixels": 43259
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+        "sol": 4480,
+        "baseline": {
+          "ground_fp": 18469,
+          "hardware_fp": 0,
+          "obstacle_tp": 25745,
+          "ground_pixels": 477225,
+          "hardware_pixels": 83958,
+          "obstacle_pixels": 28229
+        },
+        "guarded": {
+          "ground_fp": 18469,
+          "hardware_fp": 0,
+          "obstacle_tp": 25745,
+          "ground_pixels": 477225,
+          "hardware_pixels": 83958,
+          "obstacle_pixels": 28229
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+        "sol": 4584,
+        "baseline": {
+          "ground_fp": 123098,
+          "hardware_fp": 2120,
+          "obstacle_tp": 102452,
+          "ground_pixels": 366545,
+          "hardware_pixels": 117255,
+          "obstacle_pixels": 130468
+        },
+        "guarded": {
+          "ground_fp": 123098,
+          "hardware_fp": 2120,
+          "obstacle_tp": 102452,
+          "ground_pixels": 366545,
+          "hardware_pixels": 117255,
+          "obstacle_pixels": 130468
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_813313241RAD_F1191554FHAZ00302M1",
+        "sol": 4684,
+        "baseline": {
+          "ground_fp": 1477,
+          "hardware_fp": 0,
+          "obstacle_tp": 5847,
+          "ground_pixels": 518632,
+          "hardware_pixels": 82905,
+          "obstacle_pixels": 6484
+        },
+        "guarded": {
+          "ground_fp": 1477,
+          "hardware_fp": 0,
+          "obstacle_tp": 5847,
+          "ground_pixels": 518632,
+          "hardware_pixels": 82905,
+          "obstacle_pixels": 6484
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      },
+      {
+        "source_id": "FLB_822183562RAD_F1200538FHAZ00401M1",
+        "sol": 4784,
+        "baseline": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 534456,
+          "hardware_pixels": 107738,
+          "obstacle_pixels": 4372
+        },
+        "guarded": {
+          "ground_fp": 0,
+          "hardware_fp": 0,
+          "obstacle_tp": 0,
+          "ground_pixels": 534456,
+          "hardware_pixels": 107738,
+          "obstacle_pixels": 4372
+        },
+        "suppressed_pixels": 0,
+        "subset": true,
+        "objects": []
+      }
+    ],
+    "warning": "Sparse visual-interior metrics, not exhaustive image accuracy, metric clearance or driving safety. Fresh set is consumed after this run. Memory and manual review remain separate promotion gates."
+  },
+  "cpu_profile": {
+    "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+    "peak_working_set_mib": 370.453125,
+    "within450mib": true,
+    "provider": "CPUExecutionProvider",
+    "platform": "win32",
+    "aux_cpu_arena": false,
+    "training_stack_imported": false,
+    "routes": [
+      {
+        "frame_id": "FLA_401492677XYZ_F0042100FHAZ00103M1",
+        "local_route_status": "no_path",
+        "aux_elapsed_total_s": 1.6472815000015544,
+        "mask_subset": true
+      },
+      {
+        "frame_id": "FLA_404772660XYZ_F0050104FHAZ00206M1",
+        "local_route_status": "partial",
+        "aux_elapsed_total_s": 1.426013400006923,
+        "mask_subset": true
+      },
+      {
+        "frame_id": "FLA_402284021XYZ_F0043232FHAZ00202M1",
+        "local_route_status": "no_path",
+        "aux_elapsed_total_s": 1.5105497000040486,
+        "mask_subset": true
+      }
+    ],
+    "limitation": "One Windows process and three real routes plus global classifier; host allocator and warmed server caches may differ. No Render memory guarantee."
+  },
+  "manual_review": {
+    "reviewed_new_miss_contact_pages": [
+      0
+    ],
+    "reviewed_new_false_alarm_sources": [
+      3873,
+      4809
+    ],
+    "observations": [
+      "Sol3873: continuous fractured plate surfaces remain labelled obstacle. Some raised lip edges are genuinely ambiguous from one view.",
+      "Sol4809: the original model visibly marks portions of the rover tool as obstacle. The narrow wheel-interior hardware benchmark does not cover this tool pose, so its zero FP count is not evidence of globally perfect hardware rejection.",
+      "Of12 substantial visual candidates missed by the baseline mask, the auxiliary appearance head overlaps9 at the prespecified binary argmax rule. Appearance proposals are not confirmed physical obstacles."
+    ],
+    "manual_promotion_pass": false,
+    "need": [
+      "More completely checked flat continuous bedrock and shadow negative regions; preserve unknown where height/attachment is unclear.",
+      "Accurate equipment interior/silhouette labels across arm/tool poses and illumination, evaluated separately from wheel-only ROIs.",
+      "Stereo/depth or pose-aware geometry to distinguish raised blocks from flat bedrock; appearance alone cannot establish clearance.",
+      "Additional diverse training examples and a new independent source-group holdout before another release decision; v11 test is now consumed."
+    ],
+    "no_posttest_policy_or_checkpoint_change": true
+  },
+  "metric_gates_pass": false,
+  "memory_gate_pass": true,
+  "all_release_gates_pass": false,
+  "reason": "No ground false-positive reduction on either paired set. New manual review also exposes an unmeasured tool-hardware false alarm. Binary appearance improves, but cannot be advertised as improved physical navigation or perfect segmentation.",
+  "new_test_status": "consumed; never reuse as a fresh set after these runs",
+  "candidate_local_onnx": "C:\\Users\\osura\\AppData\\Local\\mars-pathfinder\\training\\v22-v11-appearance\\appearance.onnx",
+  "candidate_local_checkpoint": "C:\\Users\\osura\\AppData\\Local\\mars-pathfinder\\training\\v22-v11-appearance\\best-appearance.pt"
+}

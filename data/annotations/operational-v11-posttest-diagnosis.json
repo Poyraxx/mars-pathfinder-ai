@@ -1,0 +1,734 @@
+{
+  "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+  "test_is_consumed": true,
+  "diagnostic_only": true,
+  "model_or_policy_changed": false,
+  "appearance_threshold": "binary argmax, equivalent to0.5, no search",
+  "substantial_total": 23,
+  "navigation_found": 11,
+  "appearance_found": 20,
+  "navigation_misses_appearance_found": 9,
+  "appearance_all_objects_found": 30,
+  "appearance_all_objects": 38,
+  "appearance_precision": 0.541862188194616,
+  "appearance_pixel_recall": 0.7861147409686802,
+  "scenes": [
+    {
+      "sol": 200,
+      "navigation_ground_fp": 0,
+      "protected_high_confidence_fp": 0,
+      "eligible_lower_confidence_fp": 0,
+      "eligible_fp_but_aux_still_rock": 0,
+      "objects": [
+        {
+          "region": 8,
+          "class_id": 1,
+          "pixels": 1802,
+          "bbox": [
+            494,
+            216,
+            565,
+            254
+          ],
+          "sol": 200,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9775275588035583,
+          "navigation_overlap": 1802,
+          "appearance_overlap": 1802
+        },
+        {
+          "region": 9,
+          "class_id": 1,
+          "pixels": 1071,
+          "bbox": [
+            495,
+            277,
+            548,
+            305
+          ],
+          "sol": 200,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9993982911109924,
+          "navigation_overlap": 1071,
+          "appearance_overlap": 1071
+        },
+        {
+          "region": 10,
+          "class_id": 1,
+          "pixels": 589,
+          "bbox": [
+            338,
+            335,
+            376,
+            367
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.4656428098678589,
+          "navigation_overlap": 0,
+          "appearance_overlap": 257
+        },
+        {
+          "region": 11,
+          "class_id": 1,
+          "pixels": 1879,
+          "bbox": [
+            520,
+            620,
+            574,
+            667
+          ],
+          "sol": 200,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9998235702514648,
+          "navigation_overlap": 1879,
+          "appearance_overlap": 1879
+        },
+        {
+          "region": 12,
+          "class_id": 1,
+          "pixels": 1078,
+          "bbox": [
+            451,
+            830,
+            494,
+            868
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9303953647613525,
+          "navigation_overlap": 0,
+          "appearance_overlap": 1078
+        },
+        {
+          "region": 13,
+          "class_id": 1,
+          "pixels": 635,
+          "bbox": [
+            462,
+            730,
+            491,
+            760
+          ],
+          "sol": 200,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9784076809883118,
+          "navigation_overlap": 406,
+          "appearance_overlap": 635
+        },
+        {
+          "region": 14,
+          "class_id": 1,
+          "pixels": 515,
+          "bbox": [
+            211,
+            734,
+            237,
+            764
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.24224066734313965,
+          "navigation_overlap": 0,
+          "appearance_overlap": 0
+        },
+        {
+          "region": 15,
+          "class_id": 1,
+          "pixels": 590,
+          "bbox": [
+            179,
+            622,
+            205,
+            656
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9917965531349182,
+          "navigation_overlap": 0,
+          "appearance_overlap": 590
+        },
+        {
+          "region": 16,
+          "class_id": 4,
+          "pixels": 268,
+          "bbox": [
+            609,
+            285,
+            633,
+            302
+          ],
+          "sol": 200,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.8355637788772583,
+          "navigation_overlap": 169,
+          "appearance_overlap": 268
+        },
+        {
+          "region": 17,
+          "class_id": 4,
+          "pixels": 171,
+          "bbox": [
+            613,
+            306,
+            630,
+            320
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.8429824113845825,
+          "navigation_overlap": 0,
+          "appearance_overlap": 171
+        },
+        {
+          "region": 18,
+          "class_id": 4,
+          "pixels": 355,
+          "bbox": [
+            657,
+            739,
+            680,
+            761
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.4319453239440918,
+          "navigation_overlap": 0,
+          "appearance_overlap": 125
+        },
+        {
+          "region": 19,
+          "class_id": 4,
+          "pixels": 386,
+          "bbox": [
+            701,
+            770,
+            725,
+            795
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.22164466977119446,
+          "navigation_overlap": 0,
+          "appearance_overlap": 0
+        },
+        {
+          "region": 20,
+          "class_id": 4,
+          "pixels": 293,
+          "bbox": [
+            465,
+            625,
+            482,
+            649
+          ],
+          "sol": 200,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.7567088007926941,
+          "navigation_overlap": 10,
+          "appearance_overlap": 270
+        }
+      ]
+    },
+    {
+      "sol": 502,
+      "navigation_ground_fp": 0,
+      "protected_high_confidence_fp": 0,
+      "eligible_lower_confidence_fp": 0,
+      "eligible_fp_but_aux_still_rock": 0,
+      "objects": [
+        {
+          "region": 8,
+          "class_id": 1,
+          "pixels": 1506,
+          "bbox": [
+            424,
+            393,
+            488,
+            430
+          ],
+          "sol": 502,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9994327425956726,
+          "navigation_overlap": 1506,
+          "appearance_overlap": 1506
+        },
+        {
+          "region": 9,
+          "class_id": 1,
+          "pixels": 770,
+          "bbox": [
+            333,
+            309,
+            403,
+            332
+          ],
+          "sol": 502,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9638585448265076,
+          "navigation_overlap": 686,
+          "appearance_overlap": 770
+        },
+        {
+          "region": 10,
+          "class_id": 1,
+          "pixels": 1643,
+          "bbox": [
+            651,
+            497,
+            701,
+            541
+          ],
+          "sol": 502,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.8702283501625061,
+          "navigation_overlap": 851,
+          "appearance_overlap": 1475
+        },
+        {
+          "region": 11,
+          "class_id": 4,
+          "pixels": 636,
+          "bbox": [
+            542,
+            409,
+            576,
+            437
+          ],
+          "sol": 502,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.3890528976917267,
+          "navigation_overlap": 0,
+          "appearance_overlap": 211
+        },
+        {
+          "region": 13,
+          "class_id": 4,
+          "pixels": 302,
+          "bbox": [
+            459,
+            275,
+            479,
+            297
+          ],
+          "sol": 502,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.13794991374015808,
+          "navigation_overlap": 0,
+          "appearance_overlap": 0
+        }
+      ]
+    },
+    {
+      "sol": 1750,
+      "navigation_ground_fp": 0,
+      "protected_high_confidence_fp": 0,
+      "eligible_lower_confidence_fp": 0,
+      "eligible_fp_but_aux_still_rock": 0,
+      "objects": []
+    },
+    {
+      "sol": 3374,
+      "navigation_ground_fp": 0,
+      "protected_high_confidence_fp": 0,
+      "eligible_lower_confidence_fp": 0,
+      "eligible_fp_but_aux_still_rock": 0,
+      "objects": [
+        {
+          "region": 8,
+          "class_id": 1,
+          "pixels": 5668,
+          "bbox": [
+            576,
+            776,
+            683,
+            864
+          ],
+          "sol": 3374,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9999952912330627,
+          "navigation_overlap": 5668,
+          "appearance_overlap": 5668
+        },
+        {
+          "region": 9,
+          "class_id": 1,
+          "pixels": 5453,
+          "bbox": [
+            555,
+            487,
+            668,
+            572
+          ],
+          "sol": 3374,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9997527599334717,
+          "navigation_overlap": 5453,
+          "appearance_overlap": 5453
+        },
+        {
+          "region": 10,
+          "class_id": 1,
+          "pixels": 1391,
+          "bbox": [
+            362,
+            330,
+            401,
+            377
+          ],
+          "sol": 3374,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9984038472175598,
+          "navigation_overlap": 1391,
+          "appearance_overlap": 1391
+        },
+        {
+          "region": 11,
+          "class_id": 4,
+          "pixels": 1533,
+          "bbox": [
+            718,
+            765,
+            755,
+            823
+          ],
+          "sol": 3374,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.976642906665802,
+          "navigation_overlap": 1533,
+          "appearance_overlap": 1533
+        },
+        {
+          "region": 13,
+          "class_id": 4,
+          "pixels": 484,
+          "bbox": [
+            437,
+            601,
+            466,
+            627
+          ],
+          "sol": 3374,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.5678614974021912,
+          "navigation_overlap": 0,
+          "appearance_overlap": 311
+        }
+      ]
+    },
+    {
+      "sol": 3873,
+      "navigation_ground_fp": 4490,
+      "protected_high_confidence_fp": 2799,
+      "eligible_lower_confidence_fp": 1691,
+      "eligible_fp_but_aux_still_rock": 1691,
+      "objects": [
+        {
+          "region": 11,
+          "class_id": 1,
+          "pixels": 704,
+          "bbox": [
+            129,
+            245,
+            166,
+            272
+          ],
+          "sol": 3873,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.18309789896011353,
+          "navigation_overlap": 0,
+          "appearance_overlap": 0
+        },
+        {
+          "region": 12,
+          "class_id": 4,
+          "pixels": 193,
+          "bbox": [
+            521,
+            246,
+            540,
+            262
+          ],
+          "sol": 3873,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.3460349440574646,
+          "navigation_overlap": 0,
+          "appearance_overlap": 0
+        },
+        {
+          "region": 13,
+          "class_id": 4,
+          "pixels": 292,
+          "bbox": [
+            567,
+            288,
+            596,
+            302
+          ],
+          "sol": 3873,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.22033396363258362,
+          "navigation_overlap": 0,
+          "appearance_overlap": 12
+        },
+        {
+          "region": 14,
+          "class_id": 4,
+          "pixels": 35,
+          "bbox": [
+            423,
+            285,
+            428,
+            295
+          ],
+          "sol": 3873,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.6632182598114014,
+          "navigation_overlap": 0,
+          "appearance_overlap": 35
+        }
+      ]
+    },
+    {
+      "sol": 4169,
+      "navigation_ground_fp": 0,
+      "protected_high_confidence_fp": 0,
+      "eligible_lower_confidence_fp": 0,
+      "eligible_fp_but_aux_still_rock": 0,
+      "objects": [
+        {
+          "region": 8,
+          "class_id": 1,
+          "pixels": 7108,
+          "bbox": [
+            480,
+            443,
+            616,
+            523
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.5364751815795898,
+          "navigation_overlap": 0,
+          "appearance_overlap": 4638
+        },
+        {
+          "region": 9,
+          "class_id": 1,
+          "pixels": 1039,
+          "bbox": [
+            389,
+            394,
+            433,
+            430
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.7441977858543396,
+          "navigation_overlap": 0,
+          "appearance_overlap": 891
+        },
+        {
+          "region": 11,
+          "class_id": 1,
+          "pixels": 896,
+          "bbox": [
+            600,
+            580,
+            640,
+            614
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.34286636114120483,
+          "navigation_overlap": 0,
+          "appearance_overlap": 200
+        },
+        {
+          "region": 12,
+          "class_id": 1,
+          "pixels": 1008,
+          "bbox": [
+            433,
+            698,
+            477,
+            736
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.6732528805732727,
+          "navigation_overlap": 0,
+          "appearance_overlap": 752
+        },
+        {
+          "region": 13,
+          "class_id": 1,
+          "pixels": 1476,
+          "bbox": [
+            523,
+            818,
+            571,
+            859
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.4295501708984375,
+          "navigation_overlap": 0,
+          "appearance_overlap": 596
+        },
+        {
+          "region": 14,
+          "class_id": 1,
+          "pixels": 1612,
+          "bbox": [
+            600,
+            854,
+            639,
+            908
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.377395898103714,
+          "navigation_overlap": 0,
+          "appearance_overlap": 503
+        },
+        {
+          "region": 15,
+          "class_id": 1,
+          "pixels": 611,
+          "bbox": [
+            736,
+            778,
+            772,
+            804
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.04183803126215935,
+          "navigation_overlap": 0,
+          "appearance_overlap": 0
+        },
+        {
+          "region": 18,
+          "class_id": 4,
+          "pixels": 247,
+          "bbox": [
+            663,
+            762,
+            687,
+            778
+          ],
+          "sol": 4169,
+          "navigation_hit": false,
+          "appearance_hit": false,
+          "appearance_mean_probability": 0.02945614606142044,
+          "navigation_overlap": 0,
+          "appearance_overlap": 0
+        }
+      ]
+    },
+    {
+      "sol": 4560,
+      "navigation_ground_fp": 0,
+      "protected_high_confidence_fp": 0,
+      "eligible_lower_confidence_fp": 0,
+      "eligible_fp_but_aux_still_rock": 0,
+      "objects": []
+    },
+    {
+      "sol": 4809,
+      "navigation_ground_fp": 175,
+      "protected_high_confidence_fp": 0,
+      "eligible_lower_confidence_fp": 175,
+      "eligible_fp_but_aux_still_rock": 175,
+      "objects": [
+        {
+          "region": 8,
+          "class_id": 1,
+          "pixels": 1598,
+          "bbox": [
+            585,
+            727,
+            638,
+            773
+          ],
+          "sol": 4809,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9924489259719849,
+          "navigation_overlap": 1596,
+          "appearance_overlap": 1598
+        },
+        {
+          "region": 10,
+          "class_id": 4,
+          "pixels": 880,
+          "bbox": [
+            308,
+            460,
+            348,
+            494
+          ],
+          "sol": 4809,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9953991770744324,
+          "navigation_overlap": 866,
+          "appearance_overlap": 880
+        },
+        {
+          "region": 11,
+          "class_id": 4,
+          "pixels": 729,
+          "bbox": [
+            523,
+            706,
+            549,
+            745
+          ],
+          "sol": 4809,
+          "navigation_hit": true,
+          "appearance_hit": true,
+          "appearance_mean_probability": 0.9951171875,
+          "navigation_overlap": 729,
+          "appearance_overlap": 729
+        }
+      ]
+    }
+  ],
+  "warning": "Appearance positives include nonblocking and raised-looking terrain; this is not extra obstacle recall. Post-test diagnosis cannot justify tuning or a release claim."
+}

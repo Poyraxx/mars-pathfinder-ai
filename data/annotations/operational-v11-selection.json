@@ -1,0 +1,16 @@
+{
+  "candidate_sha256": "3020c2a8a0882cd176d8b7fe1eacf82439d9a0b77e10abfaacef6754f1d6b269",
+  "checkpoint_sha256": "bf2a8ef6f5c6d03d1b034efdba682c3f28bce756d0c8466f59925dba5806620a",
+  "baseline_sha256": "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+  "manifest_sha256": "d7a9efb905e02f7c4716fc9330a25c6ac99795f1fe50abb2624d2cfccf9163e3",
+  "protocol_sha256": "3723d2c5b51cc9b5ff6b83ad1e46b4420d370ced6dc505edfb8b0a0dbb9f1fe4",
+  "trainer_sha256": "0714448dd01424206cc1e5e8b5b533c4c69a8c0fcd3b95ed69982fc21e9325be",
+  "evaluator_sha256": "2215f6db334ef8234deb496afa34d133d9de3983a1e4e1eb3cc77b4ab7d9e7d0",
+  "guard_sha256": "b66641335d279ea90487e8e19a5e98ae30bf138218ac490bc47563e832967e5f",
+  "best_epoch": 4,
+  "test_evaluated": false,
+  "object_hit_definition": "At least max(3pixels,10% of the reviewed inset core) has runtime obstacle coverage. This is a sparse interior detection proxy, not whole-object mask IoU.",
+  "selected_on": "validation only; fixed before fresh predictions",
+  "fresh_test_object_count": 38,
+  "fresh_test_substantial_visual_candidates": 23
+}

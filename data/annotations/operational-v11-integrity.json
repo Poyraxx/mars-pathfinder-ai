@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "manifest_sha256": "d7a9efb905e02f7c4716fc9330a25c6ac99795f1fe50abb2624d2cfccf9163e3",
+  "sources": 108,
+  "prior86_sources_and_labels_unchanged": true,
+  "composite_ground_not_binary_negative": true,
+  "roles": {
+    "train": 84,
+    "validation": 8,
+    "consumed_control": 8,
+    "test_v11": 8
+  },
+  "fresh_known_pretraining_and_custom_group_guards_pass": true,
+  "warning": "No image predictions were run in this integrity audit."
+}

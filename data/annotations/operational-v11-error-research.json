@@ -1,0 +1,531 @@
+{
+  "models": [
+    "6dcf488232cc3d46cfe7250c1bbfe1311437c9f3f65555cd6858708602ec82b0",
+    "bc5288181846c067258c98f77c8d0957b8dc4aae4db2c0f16e35ad398adbc0cb"
+  ],
+  "policy": {
+    "obstacle": 0.7,
+    "hardware": 0.8,
+    "margin": 3
+  },
+  "scenes": [
+    {
+      "sol": 4019,
+      "source_id": "FLB_754280767RAD_F1050418FHAZ00400M1",
+      "ground_pixels": 303368,
+      "old_ground_obstacle_pixels": 38265,
+      "new_ground_obstacle_pixels": 70096,
+      "new_only_ground_pixels": 34959,
+      "old_only_ground_pixels": 3128,
+      "largest_new_disagreements": [
+        {
+          "id": "4019-0",
+          "extra_labeled_ground_pixels": 17494,
+          "bbox": [
+            75,
+            324,
+            320,
+            560
+          ],
+          "crop_bbox": [
+            43,
+            292,
+            352,
+            592
+          ],
+          "mean_source_intensity": 129.9996570252658,
+          "manual_category": "mixed",
+          "manual_note": "Layered bedrock, raised edges and shadow; cannot declare the entire connected component false."
+        },
+        {
+          "id": "4019-1",
+          "extra_labeled_ground_pixels": 5543,
+          "bbox": [
+            570,
+            498,
+            844,
+            708
+          ],
+          "crop_bbox": [
+            538,
+            466,
+            876,
+            740
+          ],
+          "mean_source_intensity": 66.29334295507847,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Obvious large boulder side face omitted by sparse historical mask."
+        },
+        {
+          "id": "4019-2",
+          "extra_labeled_ground_pixels": 4633,
+          "bbox": [
+            108,
+            450,
+            198,
+            552
+          ],
+          "crop_bbox": [
+            76,
+            418,
+            230,
+            584
+          ],
+          "mean_source_intensity": 123.4901791495791,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Additional visible face/rim of the same large rock, not a ground negative."
+        }
+      ]
+    },
+    {
+      "sol": 4080,
+      "source_id": "FLB_759700865RAD_F1052780FHAZ00302M1",
+      "ground_pixels": 434993,
+      "old_ground_obstacle_pixels": 23054,
+      "new_ground_obstacle_pixels": 27830,
+      "new_only_ground_pixels": 5712,
+      "old_only_ground_pixels": 936,
+      "largest_new_disagreements": [
+        {
+          "id": "4080-0",
+          "extra_labeled_ground_pixels": 992,
+          "bbox": [
+            298,
+            516,
+            350,
+            558
+          ],
+          "crop_bbox": [
+            266,
+            484,
+            382,
+            590
+          ],
+          "mean_source_intensity": 30.442540322580644,
+          "manual_category": "visible_clasts",
+          "manual_note": "Small visible clasts; appearance exists but metric driving hazard is unestablished."
+        },
+        {
+          "id": "4080-1",
+          "extra_labeled_ground_pixels": 928,
+          "bbox": [
+            286,
+            736,
+            338,
+            778
+          ],
+          "crop_bbox": [
+            254,
+            704,
+            370,
+            810
+          ],
+          "mean_source_intensity": 35.029094827586206,
+          "manual_category": "visible_clasts",
+          "manual_note": "Actual clasts; old0 means ground OR small stone."
+        },
+        {
+          "id": "4080-2",
+          "extra_labeled_ground_pixels": 836,
+          "bbox": [
+            150,
+            520,
+            218,
+            594
+          ],
+          "crop_bbox": [
+            118,
+            488,
+            250,
+            626
+          ],
+          "mean_source_intensity": 45.02511961722488,
+          "manual_category": "ambiguous_plate_edge",
+          "manual_note": "Flat plate edge; monocular height and attachment unclear."
+        }
+      ]
+    },
+    {
+      "sol": 4339,
+      "source_id": "FLB_782691471RAD_F1100168FHAZ00302M1",
+      "ground_pixels": 498974,
+      "old_ground_obstacle_pixels": 184217,
+      "new_ground_obstacle_pixels": 215759,
+      "new_only_ground_pixels": 32422,
+      "old_only_ground_pixels": 880,
+      "largest_new_disagreements": [
+        {
+          "id": "4339-0",
+          "extra_labeled_ground_pixels": 11782,
+          "bbox": [
+            86,
+            251,
+            541,
+            408
+          ],
+          "crop_bbox": [
+            54,
+            219,
+            573,
+            440
+          ],
+          "mean_source_intensity": 176.49728399253098,
+          "manual_category": "mixed",
+          "manual_note": "Flat fractured bedrock plus protruding rocks; sparseGT0 cannot resolve whole component."
+        },
+        {
+          "id": "4339-1",
+          "extra_labeled_ground_pixels": 6226,
+          "bbox": [
+            256,
+            584,
+            636,
+            732
+          ],
+          "crop_bbox": [
+            224,
+            552,
+            668,
+            764
+          ],
+          "mean_source_intensity": 77.38821072920013,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Clear large block side face."
+        },
+        {
+          "id": "4339-2",
+          "extra_labeled_ground_pixels": 5644,
+          "bbox": [
+            722,
+            296,
+            954,
+            392
+          ],
+          "crop_bbox": [
+            690,
+            264,
+            986,
+            424
+          ],
+          "mean_source_intensity": 176.03561304039687,
+          "manual_category": "mixed",
+          "manual_note": "Continuous bedrock plates and separate raised pieces."
+        }
+      ]
+    },
+    {
+      "sol": 4416,
+      "source_id": "FLB_789536250RAD_F1120798FHAZ00200M1",
+      "ground_pixels": 424359,
+      "old_ground_obstacle_pixels": 183359,
+      "new_ground_obstacle_pixels": 238335,
+      "new_only_ground_pixels": 58804,
+      "old_only_ground_pixels": 3828,
+      "largest_new_disagreements": [
+        {
+          "id": "4416-0",
+          "extra_labeled_ground_pixels": 33376,
+          "bbox": [
+            92,
+            278,
+            516,
+            820
+          ],
+          "crop_bbox": [
+            60,
+            246,
+            548,
+            852
+          ],
+          "mean_source_intensity": 13.593090843720038,
+          "manual_category": "mixed",
+          "manual_note": "Layered platforms, lips and intervening soil."
+        },
+        {
+          "id": "4416-1",
+          "extra_labeled_ground_pixels": 18946,
+          "bbox": [
+            662,
+            373,
+            940,
+            670
+          ],
+          "crop_bbox": [
+            630,
+            341,
+            972,
+            702
+          ],
+          "mean_source_intensity": 8.329884936134276,
+          "manual_category": "mixed",
+          "manual_note": "Sand strip with adjacent block edges; not a pure negative crop."
+        },
+        {
+          "id": "4416-2",
+          "extra_labeled_ground_pixels": 2832,
+          "bbox": [
+            80,
+            334,
+            176,
+            418
+          ],
+          "crop_bbox": [
+            48,
+            302,
+            208,
+            450
+          ],
+          "mean_source_intensity": 9.691737288135593,
+          "manual_category": "ambiguous_plate_edge",
+          "manual_note": "Attached raised lip; image appearance cannot establish safe height."
+        }
+      ]
+    },
+    {
+      "sol": 4480,
+      "source_id": "FLB_795210519RAD_F1140534FHAZ00302M1",
+      "ground_pixels": 477225,
+      "old_ground_obstacle_pixels": 18469,
+      "new_ground_obstacle_pixels": 23287,
+      "new_only_ground_pixels": 6216,
+      "old_only_ground_pixels": 1398,
+      "largest_new_disagreements": [
+        {
+          "id": "4480-0",
+          "extra_labeled_ground_pixels": 2580,
+          "bbox": [
+            344,
+            422,
+            422,
+            530
+          ],
+          "crop_bbox": [
+            312,
+            390,
+            454,
+            562
+          ],
+          "mean_source_intensity": 21.901162790697676,
+          "manual_category": "mixed",
+          "manual_note": "Dark rubble, shadow and ground."
+        },
+        {
+          "id": "4480-1",
+          "extra_labeled_ground_pixels": 1154,
+          "bbox": [
+            216,
+            313,
+            258,
+            404
+          ],
+          "crop_bbox": [
+            184,
+            281,
+            290,
+            436
+          ],
+          "mean_source_intensity": 24.234835355285963,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Boulder boundary/side-face pixels."
+        },
+        {
+          "id": "4480-2",
+          "extra_labeled_ground_pixels": 653,
+          "bbox": [
+            216,
+            592,
+            288,
+            640
+          ],
+          "crop_bbox": [
+            184,
+            560,
+            320,
+            672
+          ],
+          "mean_source_intensity": 18.290964777947934,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Small rock face and rim."
+        }
+      ]
+    },
+    {
+      "sol": 4584,
+      "source_id": "FLB_804446515RAD_F1170492FHAZ00200M1",
+      "ground_pixels": 366545,
+      "old_ground_obstacle_pixels": 123098,
+      "new_ground_obstacle_pixels": 132278,
+      "new_only_ground_pixels": 16152,
+      "old_only_ground_pixels": 6972,
+      "largest_new_disagreements": [
+        {
+          "id": "4584-0",
+          "extra_labeled_ground_pixels": 7067,
+          "bbox": [
+            382,
+            263,
+            616,
+            448
+          ],
+          "crop_bbox": [
+            350,
+            231,
+            648,
+            480
+          ],
+          "mean_source_intensity": 28.380925428045845,
+          "manual_category": "mixed",
+          "manual_note": "Real boulder faces plus intervening ground."
+        },
+        {
+          "id": "4584-1",
+          "extra_labeled_ground_pixels": 3858,
+          "bbox": [
+            778,
+            598,
+            934,
+            692
+          ],
+          "crop_bbox": [
+            746,
+            566,
+            966,
+            724
+          ],
+          "mean_source_intensity": 33.48937273198548,
+          "manual_category": "unresolved",
+          "manual_note": "Rough ground; individual physical objects unresolved."
+        },
+        {
+          "id": "4584-2",
+          "extra_labeled_ground_pixels": 2348,
+          "bbox": [
+            136,
+            808,
+            303,
+            1000
+          ],
+          "crop_bbox": [
+            104,
+            776,
+            335,
+            1024
+          ],
+          "mean_source_intensity": 20.879897785349232,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Large block side face."
+        }
+      ]
+    },
+    {
+      "sol": 4684,
+      "source_id": "FLB_813313241RAD_F1191554FHAZ00302M1",
+      "ground_pixels": 518632,
+      "old_ground_obstacle_pixels": 1477,
+      "new_ground_obstacle_pixels": 8481,
+      "new_only_ground_pixels": 7004,
+      "old_only_ground_pixels": 0,
+      "largest_new_disagreements": [
+        {
+          "id": "4684-0",
+          "extra_labeled_ground_pixels": 2464,
+          "bbox": [
+            200,
+            528,
+            266,
+            590
+          ],
+          "crop_bbox": [
+            168,
+            496,
+            298,
+            622
+          ],
+          "mean_source_intensity": 103.6075487012987,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Detached rock body."
+        },
+        {
+          "id": "4684-1",
+          "extra_labeled_ground_pixels": 1724,
+          "bbox": [
+            258,
+            828,
+            322,
+            884
+          ],
+          "crop_bbox": [
+            226,
+            796,
+            354,
+            916
+          ],
+          "mean_source_intensity": 21.114849187935036,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Detached rock body."
+        },
+        {
+          "id": "4684-2",
+          "extra_labeled_ground_pixels": 970,
+          "bbox": [
+            353,
+            530,
+            420,
+            646
+          ],
+          "crop_bbox": [
+            321,
+            498,
+            452,
+            678
+          ],
+          "mean_source_intensity": 102.17938144329896,
+          "manual_category": "actual_rock_face",
+          "manual_note": "Visible rock face/rim, historically labelled0."
+        }
+      ]
+    },
+    {
+      "sol": 4784,
+      "source_id": "FLB_822183562RAD_F1200538FHAZ00401M1",
+      "ground_pixels": 534456,
+      "old_ground_obstacle_pixels": 0,
+      "new_ground_obstacle_pixels": 0,
+      "new_only_ground_pixels": 0,
+      "old_only_ground_pixels": 0,
+      "largest_new_disagreements": []
+    }
+  ],
+  "warning": "GT0 includes small stones and sparse visual ambiguity. These are disagreements requiring native visual review, not automatic negative labels.",
+  "native_crop_pages_viewed": [
+    0,
+    1
+  ],
+  "number_of_manually_adjudicated_crops": 21,
+  "net_additional_gt0_obstacle_pixels": 144127,
+  "three_scene_net_increase_fraction": 0.8211438522969325,
+  "conclusion": "GT0 disagreement is not identical to visual false-positive rate. Several inspected crops contain real rock faces omitted by sparse/composite historical labels. Categories describe the crop, not pixel purity; no claim that a fixed percentage of all false positives are label errors. Original benchmark remains immutable.",
+  "hypotheses_not_proven_causal": [
+    "Class competition in5way size-sensitive head despite monocular size ambiguity.",
+    "Fixed16x weight and128native-to512 training crops can bias rare class and apparent scale.",
+    "Too few explicit ground interiors, limited illumination, unresolved old0 composite labels."
+  ],
+  "references": [
+    {
+      "url": "https://arxiv.org/abs/2106.14917",
+      "finding": "Research warns constant rare-class upweighting can cause excessive false positives; supports testing this hypothesis, not a causal diagnosis of our run."
+    },
+    {
+      "url": "https://openaccess.thecvf.com/content/CVPR2021W/AI4Space/html/Swan_AI4MARS_A_Dataset_for_Terrain-Aware_Autonomous_Driving_on_Mars_CVPRW_2021_paper.html",
+      "finding": "Terrain taxonomy and image-label ambiguity differ from metric driving clearance."
+    },
+    {
+      "url": "https://data.nasa.gov/dataset/ai4mars-a-dataset-for-terrain-aware-autonomous-driving-on-mars",
+      "finding": "NASA terrain dataset metadata and expert evaluation label provenance."
+    },
+    {
+      "url": "https://planetarydata.jpl.nasa.gov/img/data/msl/MSLHAZ_1XXX/",
+      "finding": "Official native Hazcam archive, source for new real imagery."
+    }
+  ]
+}
