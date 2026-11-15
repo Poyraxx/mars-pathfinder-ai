@@ -212,5 +212,5 @@ and the JSON report. These are single-run Render Free measurements, not benchmar
 - [Global DEM service](https://astro.arcgis.com/arcgis/rest/services/OnMars/MDEM200M/ImageServer) — NASA/USGS/ESA/DLR/FU Berlin; Esri hosting.
 - CesiumJS (Apache2.0), Torchvision (BSD3-Clause), ONNX Runtime (MIT), React (MIT), FastAPI (MIT).
 
-identity. No NASA endorsement is implied. Data retain their individual provenance and rights;
+No NASA endorsement is implied. Data retain their individual provenance and rights;
 the source code is Apache2.0. No NASA logos or mission insignia are used.
